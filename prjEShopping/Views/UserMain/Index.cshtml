@@ -1,0 +1,356 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="bg-light">
+    <div class="container bg-success rounded pt-2">
+        <!-- 輪播圖 -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/img/APPLE輪播圖.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/dyson輪播圖.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/LG輪播圖.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/三星輪播圖.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/小米輪播圖.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 暢銷排行 -->
+    <div class="container mt-3 bg-success rounded pb-3">
+        <h2 class="pt-3 ps-2 fw-bold fs-3 text">暢銷排行</h2>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">PlayStation 5 主機</h5>
+                        <p class="card-text text-danger fw-bold">$17,880</p>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">PlayStation 5 主機</h5>
+                        <p class="card-text text-danger fw-bold">$17,880</p>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">PlayStation 5 主機</h5>
+                        <p class="card-text text-danger fw-bold">$17,880</p>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">PlayStation 5 主機</h5>
+                        <p class="card-text text-danger fw-bold">$17,880</p>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">PlayStation 5 主機</h5>
+                        <p class="card-text text-danger fw-bold">$17,880</p>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 商品分類 -->
+    <div class="container mt-3 bg-success rounded pb-3">
+        <div class="d-flex justify-content-between">
+            <h2 class="pt-3 ps-2 fw-bold fs-3 text">商品分類</h2>
+            <button class="btn btn-warning my-2" type="button">查看全部...</button>
+        </div>
+        <div class="bg-white border-1">
+            <div class="container p-0 px-md-3">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <a href="#" class="col mb-3">
+                        <div class="card">
+                            <img src="~/img/laptop128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">筆電</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="col mb-3">
+                        <div class="card">
+                            <img src="~/img/camera128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">相機</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="col mb-3">
+                        <div class="card">
+                            <img src="~/img/stereo128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">音響</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="col mb-3">
+                        <div class="card">
+                            <img src="~/img/smartphone128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">手機</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="col mb-3">
+                        <div class="card">
+                            <img src="~/img/refrigerator128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">冰箱</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="col mb-3">
+                        <div class="card">
+                            <img src="~/img/washing-machine128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">洗衣機</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="col mb-3">
+                        <div class="card">
+                            <img src="~/img/oven128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">烤箱</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- 賣家品牌館 -->
+    <div class="container mt-3 bg-success rounded pb-3">
+        <div class="d-flex justify-content-between">
+            <h2 class="pt-3 ps-2 fw-bold fs-3 text">賣家品牌館</h2>
+            <button class="btn btn-warning my-2" type="button">查看全部...</button>
+        </div>
+        <div class="bg-white border-1">
+            <div class="container p-0 px-md-3">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <a href="#" class="mb-3 col">
+                        <div class="card">
+                            <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="mb-3 col">
+                        <div class="card">
+                            <img src="~/img/asus128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">ASUS</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="mb-3 col">
+                        <div class="card">
+                            <img src="~/img/sony128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">SONY</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="mb-3 col">
+                        <div class="card">
+                            <img src="~/img/Panasonic128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">Panasonic</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="mb-3 col">
+                        <div class="card">
+                            <img src="~/img/apple-logo128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">Apple</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="mb-3 col">
+                        <div class="card">
+                            <img src="~/img/samsung128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">Samsung</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="mb-3 col">
+                        <div class="card">
+                            <img src="~/img/sampo128px.png" class="card-img-top p-2" alt="...">
+                            <h5 class="card-title text-blue text-center fw-bold">SAMPO</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- 折價券專區 -->
+    <div class="container mt-3 bg-success rounded pb-3">
+        <div class="d-flex justify-content-between">
+            <h2 class="pt-3 ps-2 fw-bold fs-3 text">折價券專區</h2>
+            <button class="btn btn-warning my-2" type="button">查看全部...</button>
+        </div>
+        <div class="bg-white border-1 d-flex flex-wrap">
+            <div class="d-flex me-2 coupon-item mb-2">
+                <img src="~/img/coupon.png" alt="">
+                <div class="d-flex flex-column p-2 bg-info">
+                    <span>Apple折價券</span>
+                    <span>Apple全館打85折</span>
+                    <span>20230701-20230731</span>
+                    <div class="d-flex">
+                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex me-2 coupon-item mb-2">
+                <img src="~/img/coupon.png" alt="">
+                <div class="d-flex flex-column p-2 bg-info">
+                    <span>Apple折價券</span>
+                    <span>Apple全館打85折</span>
+                    <span>20230701-20230731</span>
+                    <div class="d-flex">
+                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex me-2 coupon-item mb-2">
+                <img src="~/img/coupon.png" alt="">
+                <div class="d-flex flex-column p-2 bg-info">
+                    <span>Apple折價券</span>
+                    <span>Apple全館打85折</span>
+                    <span>20230701-20230731</span>
+                    <div class="d-flex">
+                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex me-2 coupon-item mb-2">
+                <img src="~/img/coupon.png" alt="">
+                <div class="d-flex flex-column p-2 bg-info">
+                    <span>Apple折價券</span>
+                    <span>Apple全館打85折</span>
+                    <span>20230701-20230731</span>
+                    <div class="d-flex">
+                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 限時特賣 -->
+    <div class="container mt-3 bg-success rounded pb-3">
+        <div class="d-flex justify-content-between">
+            <h2 class="pt-3 ps-2 fw-bold fs-3 text">限時特賣</h2>
+            <button class="btn btn-warning my-2" type="button">查看全部...</button>
+        </div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
+                        <div class="d-flex align-items-center">
+                            <p class="card-text text-danger fw-bold fs-4">$999</p>
+                            <p class="text-dark ms-2"><del>$1,680</del></p>
+                        </div>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
+                        <div class="d-flex align-items-center">
+                            <p class="card-text text-danger fw-bold fs-4">$999</p>
+                            <p class="text-dark ms-2"><del>$1,680</del></p>
+                        </div>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
+                        <div class="d-flex align-items-center">
+                            <p class="card-text text-danger fw-bold fs-4">$999</p>
+                            <p class="text-dark ms-2"><del>$1,680</del></p>
+                        </div>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
+                        <div class="d-flex align-items-center">
+                            <p class="card-text text-danger fw-bold fs-4">$999</p>
+                            <p class="text-dark ms-2"><del>$1,680</del></p>
+                        </div>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card w-100">
+                    <img src="~/img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
+                        <div class="d-flex align-items-center">
+                            <p class="card-text text-danger fw-bold fs-4">$999</p>
+                            <p class="text-dark ms-2"><del>$1,680</del></p>
+                        </div>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
