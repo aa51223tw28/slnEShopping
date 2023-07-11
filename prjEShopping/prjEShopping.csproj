@@ -155,6 +155,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
+    <Compile Include="Controllers\SellerProductController.cs" />
+    <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
     <Compile Include="Global.asax.cs">
@@ -319,6 +321,8 @@
     <Content Include="Views\Update\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutSellerMain.cshtml" />
     <Content Include="Views\SellerMain\Index.cshtml" />
+    <Content Include="Views\SellerShipment\ShipmentList.cshtml" />
+    <Content Include="Views\SellerProduct\ProductList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
