@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<prjEShopping.Models.Admin>
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -27,7 +27,7 @@
                     <table class="table table-bordered border-primary fs-6 d-none d-md-table ">
                         <thead>
                             <tr>
-                                <td>系統編號</td>
+                                <td>@Html.DisplayNameFor(model => model.AdminId)</td>
                                 <td>職稱</td>
                                 <td>姓名</td>
                                 <td>管理權限</td>
@@ -37,17 +37,19 @@
 
                             </tr>
                         </thead>
+                        @foreach (var item in Model)
+                        {
                         <tr>
-                            <td>001</td>
-                            <td>IT經理</td>
-                            <td>謝小航</td>
-                            <td>總管理員</td>
-                            <td>正常</td>
-                            <td>Jason@123.com</td>
-                            <td>12345678</td>
+                            <td>@Html.DisplayFor(modelItem => item.AdminId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AdminName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.PermissionsId)</td>
+                            <td>@Html.DisplayFor(modelItem => item.JobStatus)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AdminAccount)</td>
+                            <td>@Html.DisplayFor(modelItem => item.AdminPassword)</td>
                         </tr>
+                        }
                     </table>
-
                     <table class="table table-bordered border-primary d-md-none" style="font-size: 6px;">
                         <thead>
                             <tr>

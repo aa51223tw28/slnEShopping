@@ -1,0 +1,1306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessRights">
+          <Key>
+            <PropertyRef Name="AccessRightId" />
+          </Key>
+          <Property Name="AccessRightId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccessRightName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermissionsId" Type="int" />
+          <Property Name="AdminAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdminPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdminName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateOfHire" Type="nvarchar" MaxLength="50" />
+          <Property Name="JobStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ADPoints">
+          <Key>
+            <PropertyRef Name="ADPointId" />
+          </Key>
+          <Property Name="ADPointId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="GUINumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PurchaseTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADPoints" Type="int" />
+          <Property Name="PaymentStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ADProducts">
+          <Key>
+            <PropertyRef Name="ADProductId" />
+          </Key>
+          <Property Name="ADProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ADName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADPoint" Type="int" />
+          <Property Name="ADStartDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADEndDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADQuantity" Type="int" />
+          <Property Name="ADImagePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductId" Type="int" />
+        </EntityType>
+        <EntityType Name="Brands">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Coupons">
+          <Key>
+            <PropertyRef Name="CouponId" />
+          </Key>
+          <Property Name="CouponId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CouponNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CouponName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CouponDetails" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CouponTerms" Type="nvarchar" MaxLength="50" />
+          <Property Name="CouponType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Discount" Type="nvarchar" MaxLength="50" />
+          <Property Name="Storewide" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClaimDeadline" Type="nvarchar" MaxLength="50" />
+          <Property Name="EndTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="EventStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FlashSaleADs">
+          <Key>
+            <PropertyRef Name="FlashSaleADId" />
+          </Key>
+          <Property Name="FlashSaleADId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ADProductId" Type="int" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ADStartDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADEndDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ListingStatus" Type="varbinary" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FullPageADs">
+          <Key>
+            <PropertyRef Name="FullPageADId" />
+          </Key>
+          <Property Name="FullPageADId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ADProductId" Type="int" Nullable="false" />
+          <Property Name="SellerId" Type="int" Nullable="false" />
+          <Property Name="ADImagePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADStartDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADEndDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ListingStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="OrderDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PaymentMethods">
+          <Key>
+            <PropertyRef Name="PaymentMethodId" />
+          </Key>
+          <Property Name="PaymentMethodId" Type="int" Nullable="false" />
+          <Property Name="PaymentMethodName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="PermissionLevel" Type="int" Nullable="false" />
+          <Property Name="PermissionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PlatformPermission" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserPermission" Type="nvarchar" MaxLength="50" />
+          <Property Name="SellerPermission" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductPermission" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupportPermission" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductDetails">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="SubcategoryId" Type="int" />
+          <Property Name="OptionIdOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="OptionIdTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="OptionIdThree" Type="nvarchar" MaxLength="50" />
+          <Property Name="OptionIdFour" Type="nvarchar" MaxLength="50" />
+          <Property Name="OptionIdFive" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductInventories">
+          <Key>
+            <PropertyRef Name="InventoryId" />
+          </Key>
+          <Property Name="InventoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductMainCategories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductOptions">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="int" Nullable="false" />
+          <Property Name="OptionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpecificationId" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductDescription" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Price" Type="money" />
+          <Property Name="ProductStatusId" Type="int" />
+          <Property Name="BrandId" Type="int" />
+          <Property Name="ProductImagePathOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductImagePathTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductImagePathThree" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductSpecifications">
+          <Key>
+            <PropertyRef Name="SpecificationId" />
+          </Key>
+          <Property Name="SpecificationId" Type="int" Nullable="false" />
+          <Property Name="SpecificationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubcategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductStatusDetails">
+          <Key>
+            <PropertyRef Name="ProductStatusId" />
+          </Key>
+          <Property Name="ProductStatusId" Type="int" Nullable="false" />
+          <Property Name="ProductStatusName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductStocks">
+          <Key>
+            <PropertyRef Name="ProductStockId" />
+          </Key>
+          <Property Name="ProductStockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="PurchaseQuantity" Type="int" />
+          <Property Name="OrderQuantity" Type="int" />
+          <Property Name="QuantitySold" Type="int" />
+          <Property Name="StockQuantity" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductSubCategories">
+          <Key>
+            <PropertyRef Name="SubcategoryId" />
+          </Key>
+          <Property Name="SubcategoryId" Type="int" Nullable="false" />
+          <Property Name="SubcategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryId" Type="int" />
+        </EntityType>
+        <EntityType Name="RatingReplaies">
+          <Key>
+            <PropertyRef Name="RatingReplyId" />
+          </Key>
+          <Property Name="RatingReplyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RatingId" Type="int" />
+          <Property Name="ReplayText" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ReplayTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReplayStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="RatingId" />
+          </Key>
+          <Property Name="RatingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="StarRating" Type="nvarchar" MaxLength="50" />
+          <Property Name="RatingText" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PostTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="RatingStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sellers">
+          <Key>
+            <PropertyRef Name="SellerId" />
+          </Key>
+          <Property Name="SellerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SellerAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="SellerPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="GUINumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreIntro" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AccessRightId" Type="int" />
+          <Property Name="BankAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentMethodId" Type="int" />
+          <Property Name="ShippingMethodId" Type="int" />
+          <Property Name="ADPoints" Type="int" />
+          <Property Name="SellerImagePath" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ShipmentDetails">
+          <Key>
+            <PropertyRef Name="ShipmentDetailId" />
+          </Key>
+          <Property Name="ShipmentDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShipmentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentMethodId" Type="int" />
+          <Property Name="ShippingMethodId" Type="int" />
+          <Property Name="Receiver" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceiverAddress" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Shipments">
+          <Key>
+            <PropertyRef Name="ShipmentId" />
+          </Key>
+          <Property Name="ShipmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShipmentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="ShipmentDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArrivalTimeDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompletionDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="PickDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipmentStatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="ShipmentStatusDetails">
+          <Key>
+            <PropertyRef Name="ShipmentStatusId" />
+          </Key>
+          <Property Name="ShipmentStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShipmentStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ShippingMethods">
+          <Key>
+            <PropertyRef Name="ShippingMethodId" />
+          </Key>
+          <Property Name="ShippingMethodId" Type="int" Nullable="false" />
+          <Property Name="ShippingMethodName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Freight" Type="money" />
+        </EntityType>
+        <EntityType Name="ShoppingCartDetails">
+          <Key>
+            <PropertyRef Name="CartDetailId" />
+          </Key>
+          <Property Name="CartDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CartId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="ShoppingCarts">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="SliderADs">
+          <Key>
+            <PropertyRef Name="SliderADId" />
+          </Key>
+          <Property Name="SliderADId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ADProductId" Type="int" />
+          <Property Name="SellerId" Type="int" />
+          <Property Name="ADImagePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADStartDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADEndDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ListingStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SupportReplaies">
+          <Key>
+            <PropertyRef Name="SupportReplayId" />
+          </Key>
+          <Property Name="SupportReplayId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupportId" Type="int" />
+          <Property Name="AdminId" Type="int" />
+          <Property Name="ReplayTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReplayText" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ReplayTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupportReplayStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Supports">
+          <Key>
+            <PropertyRef Name="SupportId" />
+          </Key>
+          <Property Name="SupportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="SupportType" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupportTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupportText" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ReceivedTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="SupportStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserAccount" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="CellPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShippingMethodId" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymenyMethodId" Type="nvarchar" MaxLength="50" />
+          <Property Name="Birthday" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccessRightId" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserImagePath" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UsersCoupons">
+          <Key>
+            <PropertyRef Name="UsersCouponId" />
+          </Key>
+          <Property Name="UsersCouponId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="CouponId" Type="int" />
+          <Property Name="GetDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="UseDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CouponStatus" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="EShoppingModelStoreContainer">
+          <EntitySet Name="AccessRights" EntityType="Self.AccessRights" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ADPoints" EntityType="Self.ADPoints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ADProducts" EntityType="Self.ADProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coupons" EntityType="Self.Coupons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlashSaleADs" EntityType="Self.FlashSaleADs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FullPageADs" EntityType="Self.FullPageADs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDetails" EntityType="Self.ProductDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductInventories" EntityType="Self.ProductInventories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductMainCategories" EntityType="Self.ProductMainCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductOptions" EntityType="Self.ProductOptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSpecifications" EntityType="Self.ProductSpecifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStatusDetails" EntityType="Self.ProductStatusDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductStocks" EntityType="Self.ProductStocks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSubCategories" EntityType="Self.ProductSubCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RatingReplaies" EntityType="Self.RatingReplaies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShipmentDetails" EntityType="Self.ShipmentDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipments" EntityType="Self.Shipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShipmentStatusDetails" EntityType="Self.ShipmentStatusDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShippingMethods" EntityType="Self.ShippingMethods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCartDetails" EntityType="Self.ShoppingCartDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCarts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SliderADs" EntityType="Self.SliderADs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportReplaies" EntityType="Self.SupportReplaies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supports" EntityType="Self.Supports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersCoupons" EntityType="Self.UsersCoupons" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessRight">
+          <Key>
+            <PropertyRef Name="AccessRightId" />
+          </Key>
+          <Property Name="AccessRightId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccessRightName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermissionsId" Type="Int32" />
+          <Property Name="AdminAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdminPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfHire" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JobStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ADPoint">
+          <Key>
+            <PropertyRef Name="ADPointId" />
+          </Key>
+          <Property Name="ADPointId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="GUINumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADPoints" Type="Int32" />
+          <Property Name="PaymentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ADProduct">
+          <Key>
+            <PropertyRef Name="ADProductId" />
+          </Key>
+          <Property Name="ADProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ADName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADPoint" Type="Int32" />
+          <Property Name="ADStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADEndDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADQuantity" Type="Int32" />
+          <Property Name="ADImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="BrandId" />
+          </Key>
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="CouponId" />
+          </Key>
+          <Property Name="CouponId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CouponNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CouponName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CouponDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="CouponTerms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CouponType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Storewide" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimDeadline" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EndTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EventStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FlashSaleAD">
+          <Key>
+            <PropertyRef Name="FlashSaleADId" />
+          </Key>
+          <Property Name="FlashSaleADId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ADProductId" Type="Int32" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ADStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADEndDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ListingStatus" Type="Binary" MaxLength="50" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="FullPageAD">
+          <Key>
+            <PropertyRef Name="FullPageADId" />
+          </Key>
+          <Property Name="FullPageADId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ADProductId" Type="Int32" Nullable="false" />
+          <Property Name="SellerId" Type="Int32" Nullable="false" />
+          <Property Name="ADImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADEndDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ListingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="OrderDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="PaymentMethodId" />
+          </Key>
+          <Property Name="PaymentMethodId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentMethodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="PermissionLevel" Type="Int32" Nullable="false" />
+          <Property Name="PermissionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PlatformPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SellerPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupportPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductDetail">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="SubcategoryId" Type="Int32" />
+          <Property Name="OptionIdOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OptionIdTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OptionIdThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OptionIdFour" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OptionIdFive" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductInventory">
+          <Key>
+            <PropertyRef Name="InventoryId" />
+          </Key>
+          <Property Name="InventoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductMainCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductOption">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="Int32" Nullable="false" />
+          <Property Name="OptionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpecificationId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductDescription" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProductStatusId" Type="Int32" />
+          <Property Name="BrandId" Type="Int32" />
+          <Property Name="ProductImagePathOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductImagePathTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductImagePathThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductSpecification">
+          <Key>
+            <PropertyRef Name="SpecificationId" />
+          </Key>
+          <Property Name="SpecificationId" Type="Int32" Nullable="false" />
+          <Property Name="SpecificationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubcategoryId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductStatusDetail">
+          <Key>
+            <PropertyRef Name="ProductStatusId" />
+          </Key>
+          <Property Name="ProductStatusId" Type="Int32" Nullable="false" />
+          <Property Name="ProductStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductStock">
+          <Key>
+            <PropertyRef Name="ProductStockId" />
+          </Key>
+          <Property Name="ProductStockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="PurchaseQuantity" Type="Int32" />
+          <Property Name="OrderQuantity" Type="Int32" />
+          <Property Name="QuantitySold" Type="Int32" />
+          <Property Name="StockQuantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProductSubCategory">
+          <Key>
+            <PropertyRef Name="SubcategoryId" />
+          </Key>
+          <Property Name="SubcategoryId" Type="Int32" Nullable="false" />
+          <Property Name="SubcategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="RatingReplay">
+          <Key>
+            <PropertyRef Name="RatingReplyId" />
+          </Key>
+          <Property Name="RatingReplyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RatingId" Type="Int32" />
+          <Property Name="ReplayText" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ReplayTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReplayStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="RatingId" />
+          </Key>
+          <Property Name="RatingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="StarRating" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RatingText" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PostTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RatingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Seller">
+          <Key>
+            <PropertyRef Name="SellerId" />
+          </Key>
+          <Property Name="SellerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StoreName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SellerAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SellerPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GUINumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StoreIntro" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AccessRightId" Type="Int32" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentMethodId" Type="Int32" />
+          <Property Name="ShippingMethodId" Type="Int32" />
+          <Property Name="ADPoints" Type="Int32" />
+          <Property Name="SellerImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ShipmentDetail">
+          <Key>
+            <PropertyRef Name="ShipmentDetailId" />
+          </Key>
+          <Property Name="ShipmentDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShipmentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentMethodId" Type="Int32" />
+          <Property Name="ShippingMethodId" Type="Int32" />
+          <Property Name="Receiver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Shipment">
+          <Key>
+            <PropertyRef Name="ShipmentId" />
+          </Key>
+          <Property Name="ShipmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShipmentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="ShipmentDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArrivalTimeDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompletionDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PickDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipmentStatusId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ShipmentStatusDetail">
+          <Key>
+            <PropertyRef Name="ShipmentStatusId" />
+          </Key>
+          <Property Name="ShipmentStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShipmentStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ShippingMethod">
+          <Key>
+            <PropertyRef Name="ShippingMethodId" />
+          </Key>
+          <Property Name="ShippingMethodId" Type="Int32" Nullable="false" />
+          <Property Name="ShippingMethodName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Freight" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="ShoppingCartDetail">
+          <Key>
+            <PropertyRef Name="CartDetailId" />
+          </Key>
+          <Property Name="CartDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CartId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="SliderAD">
+          <Key>
+            <PropertyRef Name="SliderADId" />
+          </Key>
+          <Property Name="SliderADId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ADProductId" Type="Int32" />
+          <Property Name="SellerId" Type="Int32" />
+          <Property Name="ADImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADEndDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ListingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SupportReplay">
+          <Key>
+            <PropertyRef Name="SupportReplayId" />
+          </Key>
+          <Property Name="SupportReplayId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupportId" Type="Int32" />
+          <Property Name="AdminId" Type="Int32" />
+          <Property Name="ReplayTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReplayText" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ReplayTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupportReplayStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Support">
+          <Key>
+            <PropertyRef Name="SupportId" />
+          </Key>
+          <Property Name="SupportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="SupportType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupportTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupportText" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SupportStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShippingMethodId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymenyMethodId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccessRightId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserImagePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UsersCoupon">
+          <Key>
+            <PropertyRef Name="UsersCouponId" />
+          </Key>
+          <Property Name="UsersCouponId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="CouponId" Type="Int32" />
+          <Property Name="GetDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UseDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CouponStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="EShoppingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessRights" EntityType="Self.AccessRight" />
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="ADPoints" EntityType="Self.ADPoint" />
+          <EntitySet Name="ADProducts" EntityType="Self.ADProduct" />
+          <EntitySet Name="Brands" EntityType="Self.Brand" />
+          <EntitySet Name="Coupons" EntityType="Self.Coupon" />
+          <EntitySet Name="FlashSaleADs" EntityType="Self.FlashSaleAD" />
+          <EntitySet Name="FullPageADs" EntityType="Self.FullPageAD" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="ProductDetails" EntityType="Self.ProductDetail" />
+          <EntitySet Name="ProductInventories" EntityType="Self.ProductInventory" />
+          <EntitySet Name="ProductMainCategories" EntityType="Self.ProductMainCategory" />
+          <EntitySet Name="ProductOptions" EntityType="Self.ProductOption" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductSpecifications" EntityType="Self.ProductSpecification" />
+          <EntitySet Name="ProductStatusDetails" EntityType="Self.ProductStatusDetail" />
+          <EntitySet Name="ProductStocks" EntityType="Self.ProductStock" />
+          <EntitySet Name="ProductSubCategories" EntityType="Self.ProductSubCategory" />
+          <EntitySet Name="RatingReplaies" EntityType="Self.RatingReplay" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <EntitySet Name="Sellers" EntityType="Self.Seller" />
+          <EntitySet Name="ShipmentDetails" EntityType="Self.ShipmentDetail" />
+          <EntitySet Name="Shipments" EntityType="Self.Shipment" />
+          <EntitySet Name="ShipmentStatusDetails" EntityType="Self.ShipmentStatusDetail" />
+          <EntitySet Name="ShippingMethods" EntityType="Self.ShippingMethod" />
+          <EntitySet Name="ShoppingCartDetails" EntityType="Self.ShoppingCartDetail" />
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
+          <EntitySet Name="SliderADs" EntityType="Self.SliderAD" />
+          <EntitySet Name="SupportReplaies" EntityType="Self.SupportReplay" />
+          <EntitySet Name="Supports" EntityType="Self.Support" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UsersCoupons" EntityType="Self.UsersCoupon" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EShoppingModelStoreContainer" CdmEntityContainer="EShoppingEntities">
+          <EntitySetMapping Name="AccessRights">
+            <EntityTypeMapping TypeName="EShoppingModel.AccessRight">
+              <MappingFragment StoreEntitySet="AccessRights">
+                <ScalarProperty Name="AccessRightId" ColumnName="AccessRightId" />
+                <ScalarProperty Name="AccessRightName" ColumnName="AccessRightName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="EShoppingModel.Admin">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="AdminNumber" ColumnName="AdminNumber" />
+                <ScalarProperty Name="PermissionsId" ColumnName="PermissionsId" />
+                <ScalarProperty Name="AdminAccount" ColumnName="AdminAccount" />
+                <ScalarProperty Name="AdminPassword" ColumnName="AdminPassword" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="DateOfHire" ColumnName="DateOfHire" />
+                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ADPoints">
+            <EntityTypeMapping TypeName="EShoppingModel.ADPoint">
+              <MappingFragment StoreEntitySet="ADPoints">
+                <ScalarProperty Name="ADPointId" ColumnName="ADPointId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="GUINumber" ColumnName="GUINumber" />
+                <ScalarProperty Name="PurchaseTime" ColumnName="PurchaseTime" />
+                <ScalarProperty Name="ADPoints" ColumnName="ADPoints" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ADProducts">
+            <EntityTypeMapping TypeName="EShoppingModel.ADProduct">
+              <MappingFragment StoreEntitySet="ADProducts">
+                <ScalarProperty Name="ADProductId" ColumnName="ADProductId" />
+                <ScalarProperty Name="ADName" ColumnName="ADName" />
+                <ScalarProperty Name="ADPoint" ColumnName="ADPoint" />
+                <ScalarProperty Name="ADStartDate" ColumnName="ADStartDate" />
+                <ScalarProperty Name="ADEndDate" ColumnName="ADEndDate" />
+                <ScalarProperty Name="ADQuantity" ColumnName="ADQuantity" />
+                <ScalarProperty Name="ADImagePath" ColumnName="ADImagePath" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="EShoppingModel.Brand">
+              <MappingFragment StoreEntitySet="Brands">
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coupons">
+            <EntityTypeMapping TypeName="EShoppingModel.Coupon">
+              <MappingFragment StoreEntitySet="Coupons">
+                <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+                <ScalarProperty Name="CouponNumber" ColumnName="CouponNumber" />
+                <ScalarProperty Name="CouponName" ColumnName="CouponName" />
+                <ScalarProperty Name="CouponDetails" ColumnName="CouponDetails" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="CouponTerms" ColumnName="CouponTerms" />
+                <ScalarProperty Name="CouponType" ColumnName="CouponType" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Storewide" ColumnName="Storewide" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="ClaimDeadline" ColumnName="ClaimDeadline" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="EventStatus" ColumnName="EventStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlashSaleADs">
+            <EntityTypeMapping TypeName="EShoppingModel.FlashSaleAD">
+              <MappingFragment StoreEntitySet="FlashSaleADs">
+                <ScalarProperty Name="FlashSaleADId" ColumnName="FlashSaleADId" />
+                <ScalarProperty Name="ADProductId" ColumnName="ADProductId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ADStartDate" ColumnName="ADStartDate" />
+                <ScalarProperty Name="ADEndDate" ColumnName="ADEndDate" />
+                <ScalarProperty Name="ListingStatus" ColumnName="ListingStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FullPageADs">
+            <EntityTypeMapping TypeName="EShoppingModel.FullPageAD">
+              <MappingFragment StoreEntitySet="FullPageADs">
+                <ScalarProperty Name="FullPageADId" ColumnName="FullPageADId" />
+                <ScalarProperty Name="ADProductId" ColumnName="ADProductId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ADImagePath" ColumnName="ADImagePath" />
+                <ScalarProperty Name="ADStartDate" ColumnName="ADStartDate" />
+                <ScalarProperty Name="ADEndDate" ColumnName="ADEndDate" />
+                <ScalarProperty Name="ListingStatus" ColumnName="ListingStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="EShoppingModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="EShoppingModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethods">
+            <EntityTypeMapping TypeName="EShoppingModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethods">
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="PaymentMethodName" ColumnName="PaymentMethodName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="EShoppingModel.Permission">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="PermissionLevel" ColumnName="PermissionLevel" />
+                <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
+                <ScalarProperty Name="PlatformPermission" ColumnName="PlatformPermission" />
+                <ScalarProperty Name="UserPermission" ColumnName="UserPermission" />
+                <ScalarProperty Name="SellerPermission" ColumnName="SellerPermission" />
+                <ScalarProperty Name="ProductPermission" ColumnName="ProductPermission" />
+                <ScalarProperty Name="SupportPermission" ColumnName="SupportPermission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDetails">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductDetail">
+              <MappingFragment StoreEntitySet="ProductDetails">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SubcategoryId" ColumnName="SubcategoryId" />
+                <ScalarProperty Name="OptionIdOne" ColumnName="OptionIdOne" />
+                <ScalarProperty Name="OptionIdTwo" ColumnName="OptionIdTwo" />
+                <ScalarProperty Name="OptionIdThree" ColumnName="OptionIdThree" />
+                <ScalarProperty Name="OptionIdFour" ColumnName="OptionIdFour" />
+                <ScalarProperty Name="OptionIdFive" ColumnName="OptionIdFive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductInventories">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductInventory">
+              <MappingFragment StoreEntitySet="ProductInventories">
+                <ScalarProperty Name="InventoryId" ColumnName="InventoryId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductMainCategories">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductMainCategory">
+              <MappingFragment StoreEntitySet="ProductMainCategories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductOptions">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductOption">
+              <MappingFragment StoreEntitySet="ProductOptions">
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="OptionName" ColumnName="OptionName" />
+                <ScalarProperty Name="SpecificationId" ColumnName="SpecificationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="EShoppingModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProductStatusId" ColumnName="ProductStatusId" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="ProductImagePathOne" ColumnName="ProductImagePathOne" />
+                <ScalarProperty Name="ProductImagePathTwo" ColumnName="ProductImagePathTwo" />
+                <ScalarProperty Name="ProductImagePathThree" ColumnName="ProductImagePathThree" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSpecifications">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductSpecification">
+              <MappingFragment StoreEntitySet="ProductSpecifications">
+                <ScalarProperty Name="SpecificationId" ColumnName="SpecificationId" />
+                <ScalarProperty Name="SpecificationName" ColumnName="SpecificationName" />
+                <ScalarProperty Name="SubcategoryId" ColumnName="SubcategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStatusDetails">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductStatusDetail">
+              <MappingFragment StoreEntitySet="ProductStatusDetails">
+                <ScalarProperty Name="ProductStatusId" ColumnName="ProductStatusId" />
+                <ScalarProperty Name="ProductStatusName" ColumnName="ProductStatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductStocks">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductStock">
+              <MappingFragment StoreEntitySet="ProductStocks">
+                <ScalarProperty Name="ProductStockId" ColumnName="ProductStockId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="PurchaseQuantity" ColumnName="PurchaseQuantity" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+                <ScalarProperty Name="QuantitySold" ColumnName="QuantitySold" />
+                <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSubCategories">
+            <EntityTypeMapping TypeName="EShoppingModel.ProductSubCategory">
+              <MappingFragment StoreEntitySet="ProductSubCategories">
+                <ScalarProperty Name="SubcategoryId" ColumnName="SubcategoryId" />
+                <ScalarProperty Name="SubcategoryName" ColumnName="SubcategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RatingReplaies">
+            <EntityTypeMapping TypeName="EShoppingModel.RatingReplay">
+              <MappingFragment StoreEntitySet="RatingReplaies">
+                <ScalarProperty Name="RatingReplyId" ColumnName="RatingReplyId" />
+                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+                <ScalarProperty Name="ReplayText" ColumnName="ReplayText" />
+                <ScalarProperty Name="ReplayTime" ColumnName="ReplayTime" />
+                <ScalarProperty Name="ReplayStatus" ColumnName="ReplayStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="EShoppingModel.Rating">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="RatingId" ColumnName="RatingId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StarRating" ColumnName="StarRating" />
+                <ScalarProperty Name="RatingText" ColumnName="RatingText" />
+                <ScalarProperty Name="PostTime" ColumnName="PostTime" />
+                <ScalarProperty Name="RatingStatus" ColumnName="RatingStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="EShoppingModel.Seller">
+              <MappingFragment StoreEntitySet="Sellers">
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="SellerAccount" ColumnName="SellerAccount" />
+                <ScalarProperty Name="SellerPassword" ColumnName="SellerPassword" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="GUINumber" ColumnName="GUINumber" />
+                <ScalarProperty Name="StoreIntro" ColumnName="StoreIntro" />
+                <ScalarProperty Name="AccessRightId" ColumnName="AccessRightId" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="ShippingMethodId" ColumnName="ShippingMethodId" />
+                <ScalarProperty Name="ADPoints" ColumnName="ADPoints" />
+                <ScalarProperty Name="SellerImagePath" ColumnName="SellerImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShipmentDetails">
+            <EntityTypeMapping TypeName="EShoppingModel.ShipmentDetail">
+              <MappingFragment StoreEntitySet="ShipmentDetails">
+                <ScalarProperty Name="ShipmentDetailId" ColumnName="ShipmentDetailId" />
+                <ScalarProperty Name="ShipmentNumber" ColumnName="ShipmentNumber" />
+                <ScalarProperty Name="PaymentMethodId" ColumnName="PaymentMethodId" />
+                <ScalarProperty Name="ShippingMethodId" ColumnName="ShippingMethodId" />
+                <ScalarProperty Name="Receiver" ColumnName="Receiver" />
+                <ScalarProperty Name="ReceiverAddress" ColumnName="ReceiverAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shipments">
+            <EntityTypeMapping TypeName="EShoppingModel.Shipment">
+              <MappingFragment StoreEntitySet="Shipments">
+                <ScalarProperty Name="ShipmentId" ColumnName="ShipmentId" />
+                <ScalarProperty Name="ShipmentNumber" ColumnName="ShipmentNumber" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ShipmentDate" ColumnName="ShipmentDate" />
+                <ScalarProperty Name="ShipDate" ColumnName="ShipDate" />
+                <ScalarProperty Name="ArrivalTimeDate" ColumnName="ArrivalTimeDate" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="PickDate" ColumnName="PickDate" />
+                <ScalarProperty Name="ShipmentStatusId" ColumnName="ShipmentStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShipmentStatusDetails">
+            <EntityTypeMapping TypeName="EShoppingModel.ShipmentStatusDetail">
+              <MappingFragment StoreEntitySet="ShipmentStatusDetails">
+                <ScalarProperty Name="ShipmentStatusId" ColumnName="ShipmentStatusId" />
+                <ScalarProperty Name="ShipmentStatus" ColumnName="ShipmentStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShippingMethods">
+            <EntityTypeMapping TypeName="EShoppingModel.ShippingMethod">
+              <MappingFragment StoreEntitySet="ShippingMethods">
+                <ScalarProperty Name="ShippingMethodId" ColumnName="ShippingMethodId" />
+                <ScalarProperty Name="ShippingMethodName" ColumnName="ShippingMethodName" />
+                <ScalarProperty Name="Freight" ColumnName="Freight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCartDetails">
+            <EntityTypeMapping TypeName="EShoppingModel.ShoppingCartDetail">
+              <MappingFragment StoreEntitySet="ShoppingCartDetails">
+                <ScalarProperty Name="CartDetailId" ColumnName="CartDetailId" />
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="EShoppingModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCarts">
+                <ScalarProperty Name="CartId" ColumnName="CartId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SliderADs">
+            <EntityTypeMapping TypeName="EShoppingModel.SliderAD">
+              <MappingFragment StoreEntitySet="SliderADs">
+                <ScalarProperty Name="SliderADId" ColumnName="SliderADId" />
+                <ScalarProperty Name="ADProductId" ColumnName="ADProductId" />
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="ADImagePath" ColumnName="ADImagePath" />
+                <ScalarProperty Name="ADStartDate" ColumnName="ADStartDate" />
+                <ScalarProperty Name="ADEndDate" ColumnName="ADEndDate" />
+                <ScalarProperty Name="ListingStatus" ColumnName="ListingStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportReplaies">
+            <EntityTypeMapping TypeName="EShoppingModel.SupportReplay">
+              <MappingFragment StoreEntitySet="SupportReplaies">
+                <ScalarProperty Name="SupportReplayId" ColumnName="SupportReplayId" />
+                <ScalarProperty Name="SupportId" ColumnName="SupportId" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="ReplayTitle" ColumnName="ReplayTitle" />
+                <ScalarProperty Name="ReplayText" ColumnName="ReplayText" />
+                <ScalarProperty Name="ReplayTime" ColumnName="ReplayTime" />
+                <ScalarProperty Name="SupportReplayStatus" ColumnName="SupportReplayStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supports">
+            <EntityTypeMapping TypeName="EShoppingModel.Support">
+              <MappingFragment StoreEntitySet="Supports">
+                <ScalarProperty Name="SupportId" ColumnName="SupportId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SupportType" ColumnName="SupportType" />
+                <ScalarProperty Name="SupportTitle" ColumnName="SupportTitle" />
+                <ScalarProperty Name="SupportText" ColumnName="SupportText" />
+                <ScalarProperty Name="ReceivedTime" ColumnName="ReceivedTime" />
+                <ScalarProperty Name="SupportStatus" ColumnName="SupportStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EShoppingModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserAccount" ColumnName="UserAccount" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ShippingMethodId" ColumnName="ShippingMethodId" />
+                <ScalarProperty Name="PaymenyMethodId" ColumnName="PaymenyMethodId" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="AccessRightId" ColumnName="AccessRightId" />
+                <ScalarProperty Name="UserImagePath" ColumnName="UserImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersCoupons">
+            <EntityTypeMapping TypeName="EShoppingModel.UsersCoupon">
+              <MappingFragment StoreEntitySet="UsersCoupons">
+                <ScalarProperty Name="UsersCouponId" ColumnName="UsersCouponId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+                <ScalarProperty Name="GetDate" ColumnName="GetDate" />
+                <ScalarProperty Name="UseDate" ColumnName="UseDate" />
+                <ScalarProperty Name="CouponStatus" ColumnName="CouponStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
