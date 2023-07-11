@@ -161,6 +161,7 @@
     <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
+    <Compile Include="Controllers\UserSingleProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -329,6 +330,7 @@
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserMain\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutUserMain.cshtml" />
+    <Content Include="Views\UserSingleProduct\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
