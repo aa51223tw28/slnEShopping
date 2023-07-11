@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
+}
+
+<div class="bg-light">
+    <div class="container pt-2">
+        <div class="row">
+            <div class="col-6 bg-success rounded ">
+                <p class="mt-3 fs-3 fw-bold text-center">買家登入</p>
+                <input class="form-control mt-3" type="text" placeholder="請輸入Email">
+                <input class="form-control mt-3" type="text" placeholder="請輸入密碼">
+                <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-secondary mt-3" type="submit">登入</button>
+                </div>
+                <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-light border border-3" type="submit">demo正確帳密</button>
+                    <button class="btn btn-light border border-3" type="submit">demo錯誤帳密</button>
+                </div>
+
+                <hr>
+                <div class="row g-2 mb-3">
+                    <div class="col-5 btn btn-info mt-3" type="submit">GOOGLE</div>
+                    <div class="col-2"></div>
+                    <div class="col-5 btn btn-info mt-3" type="submit">LINE</div>
+                </div>
+                <div class="mb-3">
+                    <span>還沒註冊嗎？</span>
+                    <a href="#" class="link-blue text-decoration-none fw-bold">註冊</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

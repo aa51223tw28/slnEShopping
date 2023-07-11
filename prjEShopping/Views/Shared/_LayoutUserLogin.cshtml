@@ -3,48 +3,18 @@
 <head>
     <title>@Page.Title</title>
     @RenderSection("head", required: false)
-    <link href="~/Content/all.css" rel="stylesheet" type="text/css" />    
+    <link href="~/Content/all.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
     <header class="bg-primary sticky-top">
         <div class="container">
-            <nav class="navbar navbar-expand py-0">
-                <div class="container">
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">賣家註冊</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">賣家登入</a>
-                            </li>
-                        </ul>
-                        <div class="justify-content-end d-flex">
-                            <ul class="navbar-nav me-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">買家註冊</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="1.index.html">買家登入</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </nav>
             <div class="container">
                 <div class="row g-2">
                     <div class="col-5 col-md-4 col-lg-3 col-xl-2">
                         <a class="navbar-brand py-0 mb-4 mx-0" href="#">
                             <img src="~/img/logonew.png" alt="E起購 LOGO" class="d-inline-block" />
                         </a>
-                    </div>
-                    <div class="col-5 col-md-6 col-lg-7 col-xl-9">
-                        <input class="form-control mt-3 mb-4 mx-0" type="search" placeholder="Search" aria-label="Search" style="height: 40px;">
-                    </div>
-                    <div class="col-2 col-md-2 col-lg-2 col-xl-1">
-                        <button class="btn btn-secondary mt-3 mb-4 mx-0" type="submit" style="height: 40px;">Search</button>
                     </div>
                 </div>
             </div>

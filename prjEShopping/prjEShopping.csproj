@@ -158,6 +158,7 @@
     <Compile Include="Controllers\SellerProductController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
+    <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -323,6 +324,8 @@
     <Content Include="Views\SellerMain\Index.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentList.cshtml" />
     <Content Include="Views\SellerProduct\ProductList.cshtml" />
+    <Content Include="Views\UserLogin\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
