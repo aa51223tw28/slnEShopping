@@ -113,6 +113,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Sall.css" />
     <Content Include="Global.asax" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -153,6 +154,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\SellerMainController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
     <Compile Include="Global.asax.cs">
@@ -316,6 +318,7 @@
     <Content Include="Views\Shared\_LayoutUpdate.cshtml" />
     <Content Include="Views\Update\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutSellerMain.cshtml" />
+    <Content Include="Views\SellerMain\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
