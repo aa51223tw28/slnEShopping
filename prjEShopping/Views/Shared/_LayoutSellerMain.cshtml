@@ -1,10 +1,13 @@
 ﻿<!DOCTYPE html>
+
 <html>
 <head>
-    <title>@Page.Title</title>
-    @RenderSection("head", required: false)
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
 </head>
 <body>
-    @RenderBody()
+    <div>
+        @RenderBody()
+    </div>
 </body>
 </html>

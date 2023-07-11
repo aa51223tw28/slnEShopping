@@ -315,6 +315,7 @@
     <Content Include="Views\Admin\List.cshtml" />
     <Content Include="Views\Shared\_LayoutUpdate.cshtml" />
     <Content Include="Views\Update\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutSellerMain.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
