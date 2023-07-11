@@ -128,6 +128,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -167,6 +168,8 @@
     <Content Include="Views\Shared\_LayoutUserMain.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\List.cshtml" />
+    <Content Include="Views\Shared\_LayoutUpdate.cshtml" />
+    <Content Include="Views\Update\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
