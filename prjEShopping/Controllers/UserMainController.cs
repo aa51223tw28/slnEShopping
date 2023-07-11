@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace prjEShopping.Controllers
 {
-    public class DefaultController : Controller
+    public class UserMainController : Controller
     {
-        // GET: Default
+        // GET: UserMain
         public ActionResult Index()
         {
             return View();
