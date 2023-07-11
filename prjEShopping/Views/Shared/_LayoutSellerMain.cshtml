@@ -1,393 +1,422 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> -->
     <link href="~/Content/all.css" rel="stylesheet" type="text/css" />
-    <title>0主頁</title>
+    <title>賣家主頁</title>
 </head>
+
 <body>
-    <header class="bg-primary sticky-top">
+    <header class="bg-primary ">
         <div class="container">
             <nav class="navbar navbar-expand py-0">
                 <div class="container">
                     <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">賣家註冊</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">賣家登入</a>
-                            </li>
-                        </ul>
-                        <div class="justify-content-end d-flex">
+                        <div class="navbar-nav me-auto col-5 col-md-4 col-lg-3 col-xl-2">
+                            <a class="nav-link" href="0.index.html">
+                                <img src="img/logonew.png" alt="E起購 LOGO" class="d-inline-block" />
+                            </a>
+                        </div>
+                        <div class="navbar-nav me-auto col-3 col-md-4 col-lg-6 col-xl-8">
+                            <span class="d-inline-block text-secondary fw-bold h5 text-center">賣家中心</span>
+                        </div>
+                        <div class="justify-content-end d-flex col-4 col-md-4 col-lg-3 col-xl-2">
                             <ul class="navbar-nav me-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">買家註冊</a>
+                                    <a class="nav-link" href="#">商家，XXX您好</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="1.index.html">買家登入</a>
+                                    <a class="nav-link" href="#">登出</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </nav>
-            <div class="container">
-                <div class="row g-2">
-                    <div class="col-5 col-md-4 col-lg-3 col-xl-2">
-                        <a class="navbar-brand py-0 mb-4 mx-0" href="#">
-                            <img src="img/logonew.png" alt="E起購 LOGO" class="d-inline-block" />
-                        </a>
-                    </div>
-                    <div class="col-5 col-md-6 col-lg-7 col-xl-9">
-                        <input class="form-control mt-3 mb-4 mx-0" type="search" placeholder="Search" aria-label="Search" style="height: 40px;">
-                    </div>
-                    <div class="col-2 col-md-2 col-lg-2 col-xl-1">
-                        <button class="btn btn-secondary mt-3 mb-4 mx-0" type="submit" style="height: 40px;">Search</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </header>
-
-    <div class="bg-light">
-        <div class="container bg-success rounded pt-2">
-            <!-- 輪播圖 -->
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="img/APPLE輪播圖.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="img/dyson輪播圖.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="img/LG輪播圖.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="img/三星輪播圖.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="img/小米輪播圖.jpg" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- 暢銷排行 -->
-        <div class="container mt-3 bg-success rounded pb-3">
-            <h2 class="pt-3 ps-2 fw-bold fs-3 text">暢銷排行</h2>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
+    <div class="container my-2">
+        <div class="row">
+            <div class="col-4 col-md-3 col-lg-3 col-xl-2 ">
+                <div class="pre">
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseOne">
+                                    商家帳戶
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
+                                 aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body bg-primary">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">基本資料修改</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseTwo">
+                                    賣場管理
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                 aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body bg-primary">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">賣場布置</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">評價回覆</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseThree">
+                                    商品管理
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                                 aria-labelledby="panelsStayOpen-headingThree">
+                                <div class="accordion-body bg-primary">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">上架紀錄</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="1.index.html" class="text-decoration-none">新增商品(上架)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">查詢商品(修改/刪除/再上架)</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseFour">
+                                    訂單管理
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
+                                 aria-labelledby="panelsStayOpen-headingFour">
+                                <div class="accordion-body bg-primary">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="2.index.html" class="text-decoration-none">訂單查詢(出貨)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">訂單修改(刪除)</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">退貨</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseFive">
+                                    行銷活動
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
+                                 aria-labelledby="panelsStayOpen-headingFive">
+                                <div class="accordion-body bg-primary">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">平台廣告方案</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">我的活動</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">優惠券</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseSix">
+                                    數據中心
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse"
+                                 aria-labelledby="panelsStayOpen-headingSix">
+                                <div class="accordion-body bg-primary">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">營運表現</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="text-decoration-none">賣家數據</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
+                <div class="pre my-2 bg-secondary rounded fw-bold ">
+                    <h4 class="text-center pre ">即將進行的活動</h4>
+                    <div class="pre">
+                        <P class="text-center">
+                            7/5一日特賣
+                        </P>
+                        <img src="img/APPLE輪播圖.jpg" class="d-block w-100 container" alt="...">
+                        <P class="text-center">
+                            <span>
+                                開始於:
+                            </span>
+                            <span>
+                                12小時17分03秒
+                            </span>
+                        </P>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
+                    <div class="pre bg-warning">
+                        <P class="text-center">
+                            7/9-7/21夏季特賣
+                        </P>
+                        <img src="img/dyson輪播圖.jpg" class="d-block w-100 container" alt="...">
+                        <P class="text-center">
+                            <span>
+                                開始於:
+                            </span>
+                            <span>
+                                55小時17分03秒
+                            </span>
+                        </P>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- 商品分類 -->
-        <div class="container mt-3 bg-success rounded pb-3">
-            <div class="d-flex justify-content-between">
-                <h2 class="pt-3 ps-2 fw-bold fs-3 text">商品分類</h2>
-                <button class="btn btn-warning my-2" type="button">查看全部...</button>
-            </div>
-            <div class="bg-white border-1">
-                <div class="container p-0 px-md-3">
-                    <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                        <a href="#" class="col mb-3">
-                            <div class="card">
-                                <img src="img/laptop128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">筆電</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="col mb-3">
-                            <div class="card">
-                                <img src="img/camera128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">相機</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="col mb-3">
-                            <div class="card">
-                                <img src="img/stereo128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">音響</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="col mb-3">
-                            <div class="card">
-                                <img src="img/smartphone128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">手機</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="col mb-3">
-                            <div class="card">
-                                <img src="img/refrigerator128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">冰箱</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="col mb-3">
-                            <div class="card">
-                                <img src="img/washing-machine128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">洗衣機</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="col mb-3">
-                            <div class="card">
-                                <img src="img/oven128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">烤箱</h5>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <!-- 賣家品牌館 -->
-        <div class="container mt-3 bg-success rounded pb-3">
-            <div class="d-flex justify-content-between">
-                <h2 class="pt-3 ps-2 fw-bold fs-3 text">賣家品牌館</h2>
-                <button class="btn btn-warning my-2" type="button">查看全部...</button>
-            </div>
-            <div class="bg-white border-1">
-                <div class="container p-0 px-md-3">
-                    <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                        <a href="#" class="mb-3 col">
-                            <div class="card">
-                                <img src="img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="mb-3 col">
-                            <div class="card">
-                                <img src="img/asus128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">ASUS</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="mb-3 col">
-                            <div class="card">
-                                <img src="img/sony128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">SONY</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="mb-3 col">
-                            <div class="card">
-                                <img src="img/Panasonic128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">Panasonic</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="mb-3 col">
-                            <div class="card">
-                                <img src="img/apple-logo128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">Apple</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="mb-3 col">
-                            <div class="card">
-                                <img src="img/samsung128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">Samsung</h5>
-                            </div>
-                        </a>
-                        <a href="#" class="mb-3 col">
-                            <div class="card">
-                                <img src="img/sampo128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">SAMPO</h5>
-                            </div>
-                        </a>
+                    <div class="pre">
+                        <P class="text-center">
+                            8/5-8/12父親節活動
+                        </P>
+                        <img src="img/LG輪播圖.jpg" class="d-block w-100 container" alt="...">
+                        <P class="text-center">
+                            <span>
+                                開始於:
+                            </span>
+                            <span>
+                                256小時17分03秒
+                            </span>
+                        </P>
                     </div>
                 </div>
             </div>
-        </div>
-
-
-
-
-        <!-- 折價券專區 -->
-        <div class="container mt-3 bg-success rounded pb-3">
-            <div class="d-flex justify-content-between">
-                <h2 class="pt-3 ps-2 fw-bold fs-3 text">折價券專區</h2>
-                <button class="btn btn-warning my-2" type="button">查看全部...</button>
-            </div>
-            <div class="bg-white border-1 d-flex flex-wrap">
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                    </div>
-                </div>
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                    </div>
-                </div>
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                    </div>
-                </div>
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 限時特賣 -->
-        <div class="container mt-3 bg-success rounded pb-3">
-            <div class="d-flex justify-content-between">
-                <h2 class="pt-3 ps-2 fw-bold fs-3 text">限時特賣</h2>
-                <button class="btn btn-warning my-2" type="button">查看全部...</button>
-            </div>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
-                            <div class="d-flex align-items-center">
-                                <p class="card-text text-danger fw-bold fs-4">$999</p>
-                                <p class="text-dark ms-2"><del>$1,680</del></p>
+            <div class="col-8 col-md-9 col-lg-9 col-xl-10 ">
+                <div class="accordion" id="accordionPanelsStayOpenExample2">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseSeven">
+                                熱賣商品
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse show bg-info"
+                             aria-labelledby="panelsStayOpen-headingSeven">
+                            <div class="accordion-body">
+                                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+                                    <div class="col">
+                                        <div class="card w-100">
+                                            <a href="#">
+                                                <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">PlayStation 5 主機</h5>
+                                                <p class="card-text text-danger fw-bold">$17,880</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card w-100">
+                                            <a href="#">
+                                                <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">PlayStation 5 主機</h5>
+                                                <p class="card-text text-danger fw-bold">$17,880</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card w-100">
+                                            <a href="#">
+                                                <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">PlayStation 5 主機</h5>
+                                                <p class="card-text text-danger fw-bold">$17,880</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card w-100">
+                                            <a href="#">
+                                                <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">PlayStation 5 主機</h5>
+                                                <p class="card-text text-danger fw-bold">$17,880</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card w-100">
+                                            <a href="#">
+                                                <img src="img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">PlayStation 5 主機</h5>
+                                                <p class="card-text text-danger fw-bold">$17,880</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingEight">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseEight">
+                                    最新訂單
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse show bg-info"
+                                 aria-labelledby="panelsStayOpen-headingEight">
+                                <div class="accordion-body">
+                                    <table class="table table-striped fw-bold">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">序號</th>
+                                                <th scope="col">訂單日期</th>
+                                                <th scope="col">出貨單號</th>
+                                                <th scope="col">出貨狀態</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>2023/07/15</td>
+                                                <td><a href="#" class="text-decoration-none">20230707S01007</a></td>
+                                                <td>準備中</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>2023/07/10</td>
+                                                <td><a href="#" class="text-decoration-none">20230707S01003</a></td>
+                                                <td>準備中</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td>2023/07/01</td>
+                                                <td><a href="#" class="text-decoration-none">20230707S01001</a></td>
+                                                <td>待收貨</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingNight">
+                                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseNight" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseNight">
+                                    進行中的活動
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseNight" class="accordion-collapse collapse show bg-info"
+                                 aria-labelledby="panelsStayOpen-headingNight">
+                                <div class="accordion-body">
+                                    <div class="d-flex p-2">
+                                        <div class="card me-3" style="width: 18rem;">
+                                            <a href="#">
+                                                <img src="img/LG輪播圖.jpg" class="card-img-top" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">活動1</h5>
+                                                <P>
+                                                    <sapn>
+                                                        剩餘:
+                                                    </sapn>
+                                                    <sapn class="text-danger fw-bold ">
+                                                        3小時22分16秒
+                                                    </sapn>
+                                                </P>
+                                            </div>
+                                        </div>
+                                        <div class="card me-3" style="width: 18rem;">
+                                            <a href="#">
+                                                <img src="img/三星輪播圖.jpg" class="card-img-top" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">活動2</h5>
+                                                <P>
+                                                    <sapn>
+                                                        剩餘:
+                                                    </sapn>
+                                                    <sapn class="text-danger fw-bold ">
+                                                        3小時22分16秒
+                                                    </sapn>
+                                                </P>
+                                            </div>
+                                        </div>
+                                        <div class="card me-3" style="width: 18rem;">
+                                            <a href="#">
+                                                <img src="img/小米輪播圖.jpg" class="card-img-top" alt="...">
+                                            </a>
+                                            <div class="card-body">
+                                                <h5 class="card-title">活動3</h5>
+                                                <P>
+                                                    <sapn>
+                                                        剩餘:
+                                                    </sapn>
+                                                    <sapn class="text-danger fw-bold ">
+                                                        3小時22分16秒
+                                                    </sapn>
+                                                </P>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
-                            <div class="d-flex align-items-center">
-                                <p class="card-text text-danger fw-bold fs-4">$999</p>
-                                <p class="text-dark ms-2"><del>$1,680</del></p>
-                            </div>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
-                            <div class="d-flex align-items-center">
-                                <p class="card-text text-danger fw-bold fs-4">$999</p>
-                                <p class="text-dark ms-2"><del>$1,680</del></p>
-                            </div>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
-                            <div class="d-flex align-items-center">
-                                <p class="card-text text-danger fw-bold fs-4">$999</p>
-                                <p class="text-dark ms-2"><del>$1,680</del></p>
-                            </div>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="img/sale.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">MIZUNO MAXIMIZER 25 一般型寬楦慢跑鞋</h5>
-                            <div class="d-flex align-items-center">
-                                <p class="card-text text-danger fw-bold fs-4">$999</p>
-                                <p class="text-dark ms-2"><del>$1,680</del></p>
-                            </div>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
-    <div class="bg-primary" style="height: 20px;">
     </div>
+    <div class="bg-primary" style="height: 20px;"></div>
     <div class="bg-warning">
         <div class="container py-5">
             <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
@@ -458,8 +487,11 @@
         </div>
     </div>
 
-
     <script src="https://kit.fontawesome.com/df26c5ac19.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
+
 </html>
