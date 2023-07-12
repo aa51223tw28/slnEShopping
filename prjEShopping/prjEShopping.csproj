@@ -162,6 +162,7 @@
     <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
+    <Compile Include="Controllers\UserOrderDetailController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UserShoppingCartListController.cs" />
     <Compile Include="Controllers\UserSingleProductController.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Views\UserShoppingCartList\Index.cshtml" />
     <Content Include="Views\UserCheckoutList\Index.cshtml" />
     <Content Include="Views\UserProduct\Index.cshtml" />
+    <Content Include="Views\UserOrderDetail\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
