@@ -1,4 +1,5 @@
 ﻿using prjEShopping.Models;
+using prjEShopping.Models.EFModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -13,7 +14,7 @@ namespace prjEShopping.Controllers
         // GET: Admin
         public ActionResult List()
         {
-           EShoppingEntities db= new EShoppingEntities();
+           var db= new AppDbContext();
             List<Admin> admins = db.Admins.ToList();
             return View(admins);
         }
