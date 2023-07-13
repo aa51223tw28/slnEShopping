@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace prjEShopping.Controllers
         // GET: UserProduct
         public ActionResult Index()
         {
-            return View();
+            var db = new AppDbContext();
+            List<Product> product = db.Products.ToList();
+            return View(product);
         }
     }
 }
