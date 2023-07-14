@@ -23,7 +23,7 @@
                 { count++;
                     <tr>
                         <th scope="row">@count</th>
-                        <td>@Html.DisplayFor(modelItem => item.ShipmentDate)</td>
+                        <td>@(item.ShipmentDate.ToString("yyyy-MM-dd"))</td>
                         <td>@Html.DisplayFor(modelItem => item.ShipmentNumber)</td>
                         <td>@Html.DisplayFor(modelItem => item.ShipmentStatus)</td>
                     </tr>

@@ -21,7 +21,7 @@ namespace prjEShopping.Controllers
             List<SellerShipmentVM> datashow;
             AppDbContext db = new AppDbContext();
 
-            var data = db.Shipments.Where(X => X.SellerId == 1)
+            var data = db.Shipments.Where(x => x.SellerId == 1)
                                     .Join(db.ShipmentStatusDetails,x =>x.ShipmentStatusId, y => y.ShipmentStatusId,(x,y) => new 
                                     {
                                         ShipmentStatus = y.ShipmentStatus,
@@ -30,7 +30,7 @@ namespace prjEShopping.Controllers
                                     }).ToList();
             datashow = data.Select(x => new SellerShipmentVM {
                 ShipmentStatus = x.ShipmentStatus,
-                ShipmentDate = ((DateTime)x.ShipmentDate).Date,
+                ShipmentDate = (DateTime)x.ShipmentDate,
                 ShipmentNumber = x.ShipmentNumber,
             }).ToList();
 
