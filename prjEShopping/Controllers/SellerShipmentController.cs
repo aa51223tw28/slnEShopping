@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,8 @@ namespace prjEShopping.Controllers
 
 		public ActionResult ShipmentList()
 		{
-            
+            AppDbContext db = new AppDbContext();
+
 			return View();
 		}
 	}
