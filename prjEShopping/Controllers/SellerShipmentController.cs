@@ -16,6 +16,7 @@ namespace prjEShopping.Controllers
 
 		public ActionResult ShipmentList()
 		{
+            
 			return View();
 		}
 	}
