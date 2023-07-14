@@ -1,8 +1,9 @@
-﻿
+﻿@model prjEShopping.Models.EFModels.Seller
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
+
 <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
     <hr>
@@ -23,7 +24,7 @@
                     <span>負責人姓名：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text">
+                    <input type="text"  value="@Model.SellerName">
                 </div>
                 <div class="col-4">
                 </div>
@@ -134,8 +135,8 @@
                 </div>
                 <div class="col-3">
                     <select>
-                        <option value="option1">貨到付款</option>
-                        <option value="option2">超商取貨</option>
+                        <option value="option1">現金</option>
+                        <option value="option2">信用卡</option>
                     </select>
                 </div>
             </div>
@@ -145,8 +146,9 @@
                 </div>
                 <div class="col-3">
                     <select>
-                        <option value="option1">貨到付款</option>
-                        <option value="option2">宅配</option>
+                        <option value="option1">超商取貨</option>
+                        <option value="option2">宅配到府</option>
+                        <option value="option3">黑貓宅急便</option>
                     </select>
                 </div>
             </div>
@@ -159,11 +161,10 @@
             <div class="btn btn-secondary mt-2">選擇圖片</div>
         </div>
 
-        
+
     </div>
 
 
 
 </div>
-
 

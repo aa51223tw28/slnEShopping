@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model prjEShopping.Models.EFModels.Seller
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -128,7 +129,7 @@
 
                 <!-- 右邊分頁區 -->
                 <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
-                    <p class="fs-4 mt-3 fw-bold">個人檔案</p>
+                    <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
                     <hr>
                     <div class="row">
                         <div class="col-sm-9">
@@ -147,7 +148,7 @@
                                     <span>負責人姓名：</span>
                                 </div>
                                 <div class="col-4">
-                                    <input type="text">
+                                    <input type="text" value="@Model.SellerName">
                                 </div>
                                 <div class="col-4">
                                 </div>
@@ -182,7 +183,38 @@
                                 <div class="col-4">
                                 </div>
                             </div>
-
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>住址：</span>
+                                </div>
+                                <div class="col-3">
+                                    <select>
+                                        <option value="option1">臺北市</option>
+                                        <option value="option3">新北市</option>
+                                        <option value="option2">桃園市</option>
+                                        <option value="option3">臺中市</option>
+                                        <option value="option3">臺南市</option>
+                                        <option value="option3">高雄市</option>
+                                        <option value="option3">基隆市</option>
+                                        <option value="option3">新竹縣</option>
+                                        <option value="option3">新竹市</option>
+                                        <option value="option3">彰化縣</option>
+                                        <option value="option3">南投縣</option>
+                                        <option value="option3">雲林縣</option>
+                                        <option value="option3">嘉義縣</option>
+                                        <option value="option3">嘉義市</option>
+                                        <option value="option3">屏東縣</option>
+                                        <option value="option3">宜蘭縣</option>
+                                        <option value="option3">花蓮縣</option>
+                                        <option value="option3">澎湖縣</option>
+                                        <option value="option3">金門縣</option>
+                                        <option value="option3">連江縣</option>
+                                    </select>
+                                    <div class="col-4">
+                                        <input type="text">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row mb-2">
                                 <div class="col-4 d-flex align-items-center">
                                     <span>Email：</span>
@@ -220,79 +252,31 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row mb-2">
-                                <div class="col-4 d-flex align-items-center">
-                                    <span>住址：</span>
+                                <div class="col-3 d-flex align-items-center">
+                                    <span>支付方式：</span>
                                 </div>
                                 <div class="col-3">
                                     <select>
-                                        <option value="option1">臺北市</option>
-                                        <option value="option3">新北市</option>
-                                        <option value="option2">桃園市</option>
-                                        <option value="option3">臺中市</option>
-                                        <option value="option3">臺南市</option>
-                                        <option value="option3">高雄市</option>
-                                        <option value="option3">基隆市</option>
-                                        <option value="option3">新竹縣</option>
-                                        <option value="option3">新竹市</option>
-                                        <option value="option3">彰化縣</option>
-                                        <option value="option3">南投縣</option>
-                                        <option value="option3">雲林縣</option>
-                                        <option value="option3">嘉義縣</option>
-                                        <option value="option3">嘉義市</option>
-                                        <option value="option3">屏東縣</option>
-                                        <option value="option3">宜蘭縣</option>
-                                        <option value="option3">花蓮縣</option>
-                                        <option value="option3">澎湖縣</option>
-                                        <option value="option3">金門縣</option>
-                                        <option value="option3">連江縣</option>
+                                        <option value="option1">現金</option>
+                                        <option value="option2">信用卡</option>
                                     </select>
-                                    <div class="col-4">
-                                        <input type="text">
-                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-3 d-flex align-items-center">
-                                    <span>生日：</span>
+                                    <span>取貨方式：</span>
                                 </div>
                                 <div class="col-3">
                                     <select>
-                                        <option value="option1">2000前</option>
-                                        <option value="option2">2000~2010</option>
-                                        <option value="option3">2011後</option>
-                                    </select>年
-                                </div>
-                                <div class="col-3">
-                                    <select>
-                                        <option value="option1">1</option>
-                                        <option value="option2">2</option>
-                                        <option value="option3">3</option>
-                                        <option value="option4">4</option>
-                                        <option value="option5">5</option>
-                                        <option value="option6">6</option>
-                                        <option value="option7">7</option>
-                                        <option value="option8">8</option>
-                                        <option value="option9">9</option>
-                                        <option value="option10">10</option>
-                                        <option value="option11">11</option>
-                                        <option value="option12">12</option>
-                                    </select>月
-                                </div>
-                                <div class="col-3">
-                                    <select>
-                                        <option value="option1">1</option>
-                                        <option value="option2">2</option>
-                                        <option value="option3">3</option>
-                                        <option value="option4">4</option>
-                                        <option value="option5">5</option>
-                                        <option value="option6">6</option>
-                                        <option value="option7">7</option>
-                                        <option value="option8">8</option>
-                                        <option value="option9">9</option>
-                                    </select>日
+                                        <option value="option1">超商取貨</option>
+                                        <option value="option2">宅配到府</option>
+                                        <option value="option3">黑貓宅急便</option>
+                                    </select>
                                 </div>
                             </div>
+
                             <div class="btn btn-secondary mb-sm-3 mb-md-0">儲存</div>
 
                         </div>
@@ -307,6 +291,8 @@
 
 
                 </div>
+
+
 
 
 
