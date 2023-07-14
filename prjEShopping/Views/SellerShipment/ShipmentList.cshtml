@@ -21,7 +21,7 @@
 
                 foreach (var item in Model) 
                 { count++;
-                        <tr onclick="location.href='@Url.Action("ActionName", "ControllerName", new { id = item.ShipmentNumber })'">
+                        <tr onclick="location.href='@Url.Action("ShipmentDetail", "SellerShipment", new { ShipNum = item.ShipmentNumber })'">
                             <th scope="row">@count</th>
                             <td>@(item.ShipmentDate.ToString("yyyy-MM-dd"))</td>
                             <td>@Html.DisplayFor(modelItem => item.ShipmentNumber)</td>

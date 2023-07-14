@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "ShipmentDetail";
+    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
+}
+
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+    <p class="fs-4 mt-3 fw-bold text-center text-primary">貨單明細</p><p class="fs-4 mt-3 fw-bold text-center text-primary"><span>出貨單號 : </span><span>20230707S01001</span></p>
+    <hr>
+    <table class="table table-striped fw-bold">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">商品圖片</th>
+                <th scope="col">單價</th>
+                <th scope="col">數量</th>
+                <th scope="col">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="text" class="input-group-text" size="4" /></td>
+                <td><input type="checkbox" class="form-check-input" /></td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="text" class="input-group-text" size="4" /></td>
+                <td><input type="checkbox" class="form-check-input" /></td>
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="text" class="input-group-text" size="4" /></td>
+                <td><input type="checkbox" class="form-check-input" /></td>
+            </tr>
+        </tbody>
+
+    </table>
+    <hr>
+    <div class="text-primary fw-bold">
+        <span>購買人: </span>
+        <span></span>
+        <span>付款方式: </span>
+        <span></span>
+        <span>物流方式: </span>
+        <span></span>
+        <span>收件人: </span>
+        <span></span>
+        <span>寄送地址: </span>
+        <span></span>
+    </div>
+    <div class="mt-2 text-primary fw-bold">
+        @*@Html.ActionLink("刪除", "Delete", "Product", new { ShipNum = item.ShipmentNumber },
+        new { onclick = "return confirm('確定要刪除嗎?')" }) |
+        @Html.ActionLink("出貨", "Edit", new { ShipNum = item.ShipmentNumber })*@
+        @Html.ActionLink("刪除", "Delete", "Product", null, new { onclick = "return confirm('確定要刪除嗎?')", Class = "text-decoration-none btn btn-secondary" }) |
+        @Html.ActionLink("出貨", "Edit", "Product", null, new { @class = "text-decoration-none btn btn-secondary" })
+        <span>總金額:</span>
+        <span></span>
+    </div>
+</div>
+
