@@ -21,12 +21,12 @@
 
                 foreach (var item in Model) 
                 { count++;
-                    <tr>
-                        <th scope="row">@count</th>
-                        <td>@(item.ShipmentDate.ToString("yyyy-MM-dd"))</td>
-                        <td>@Html.DisplayFor(modelItem => item.ShipmentNumber)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ShipmentStatus)</td>
-                    </tr>
+                        <tr onclick="location.href='@Url.Action("ActionName", "ControllerName", new { id = item.ShipmentNumber })'">
+                            <th scope="row">@count</th>
+                            <td>@(item.ShipmentDate.ToString("yyyy-MM-dd"))</td>
+                            <td>@Html.DisplayFor(modelItem => item.ShipmentNumber)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ShipmentStatus)</td>
+                        </tr>
                 }}
         </tbody>
     </table>
