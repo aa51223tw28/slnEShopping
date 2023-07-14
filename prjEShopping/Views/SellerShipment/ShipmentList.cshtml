@@ -1,4 +1,4 @@
-﻿@model List<prjEShopping.Models.ViewModels.SellerShipmentVM>
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.SellerShipmentVM>
 @{  
     ViewBag.Title = "ShipmentList";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
@@ -10,30 +10,24 @@
         <thead>
             <tr>
                 <th scope="col">序號</th>
-                @*<th scope="col">@Html.DisplayNameFor(model => model.)</th>*@
-                <th scope="col">出貨單號</th>
-                <th scope="col">出貨狀態</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.ShipmentDate)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.ShipmentNumber)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.ShipmentStatus)</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>2023/07/15</td>
-                <td><a href="#" class="text-decoration-none">20230707S01007</a></td>
-                <td>準備中</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>2023/07/10</td>
-                <td><a href="#" class="text-decoration-none">20230707S01003</a></td>
-                <td>準備中</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>2023/07/01</td>
-                <td><a href="#" class="text-decoration-none">20230707S01001</a></td>
-                <td>待收貨</td>
-            </tr>
+            @{ 
+                int count = 0;
+
+                foreach (var item in Model) 
+                { count++;
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@Html.DisplayFor(modelItem => item.ShipmentDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ShipmentNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ShipmentStatus)</td>
+                    </tr>
+                }}
         </tbody>
     </table>
    </div>
