@@ -1,4 +1,5 @@
 ﻿using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,23 @@ namespace prjEShopping.Controllers
 
 		public ActionResult ShipmentList()
 		{
+            List<SellerShipmentVM> datashow;
             AppDbContext db = new AppDbContext();
 
-			return View();
+            var data = db.Shipments.Where(X => X.SellerId == 1)
+                                    .Join(db.ShipmentStatusDetails,x =>x.ShipmentStatusId, y => y.ShipmentStatusId,(x,y) => new 
+                                    {
+                                        ShipmentStatus = y.ShipmentStatus,
+                                        ShipmentDate = x.ShipmentDate,
+                                        ShipmentNumber = x.ShipmentNumber,
+                                    }).ToList();
+            datashow = data.Select(x => new SellerShipmentVM {
+                ShipmentStatus = x.ShipmentStatus,
+                ShipmentDate = ((DateTime)x.ShipmentDate).Date,
+                ShipmentNumber = x.ShipmentNumber,
+            }).ToList();
+
+            return View(datashow);
 		}
 	}
 }

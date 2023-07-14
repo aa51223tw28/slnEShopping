@@ -1,5 +1,5 @@
-﻿
-@{
+﻿@model List<prjEShopping.Models.ViewModels.SellerShipmentVM>
+@{  
     ViewBag.Title = "ShipmentList";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th scope="col">序號</th>
-                <th scope="col">訂單日期</th>
+                @*<th scope="col">@Html.DisplayNameFor(model => model.)</th>*@
                 <th scope="col">出貨單號</th>
                 <th scope="col">出貨狀態</th>
             </tr>
