@@ -328,7 +328,7 @@
                                 <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
                                     <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
-                                    <p class="card-text text-danger fw-bold">$@Html.DisplayFor(modelItem => item.Price)</p>
+                                    <p class="card-text text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.Price))</p>
                                     <a href="#" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>
