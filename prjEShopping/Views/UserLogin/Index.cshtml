@@ -10,15 +10,15 @@
         <div class="row">
             <div class="col-6 bg-success rounded ">
                 <p class="mt-3 fs-3 fw-bold text-center">買家登入</p>
-                <input class="form-control mt-3" type="text" placeholder="請輸入Email">
-                <input class="form-control mt-3" type="text" placeholder="請輸入密碼">
+                <input class="form-control mt-3" type="text" placeholder="請輸入Email" id="UserAccount" >
+                <input class="form-control mt-3" type="password" placeholder="請輸入密碼" id="UserPassword">
                 <div class="d-grid gap-2 mb-3">
                     <button class="btn btn-secondary mt-3" type="submit">登入</button>
                 </div>
                 <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
                 <div class="d-flex justify-content-end gap-2">
-                    <button class="btn btn-light border border-3" type="submit">demo正確帳密</button>
-                    <button class="btn btn-light border border-3" type="submit">demo錯誤帳密</button>
+                    <button class="btn btn-light border border-3" type="submit" id="btncorrect">demo正確帳密</button>
+                    <button class="btn btn-light border border-3" type="submit" id="btnerror">demo錯誤帳密</button>
                 </div>
 
                 <hr>
@@ -37,13 +37,25 @@
 </div>
 @section Styles{
     <style>
-        .box{
-            background:red;
-        }
+        
     </style>
 }
 @section Scripts{
     <script>
-        111
+        const btncorrect = document.querySelector('#btncorrect')
+        const UserAccount = document.querySelector('#UserAccount')
+        const UserPassword = document.querySelector('#UserPassword')
+        const btnerror = document.querySelector('#btnerror')
+
+        btncorrect.addEventListener('click', () => {
+            UserAccount.value ="Amy@gmail.com"
+            UserPassword.value="1234"
+        })
+
+        btnerror.addEventListener('click', () => {
+            UserAccount.value = "Amyerror@gmail.com"
+            UserPassword.value = "1234error"
+        })
+
     </script>
 }
