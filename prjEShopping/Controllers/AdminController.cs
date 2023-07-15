@@ -14,6 +14,8 @@ namespace prjEShopping.Controllers
         // GET: Admin
         public ActionResult List()
         {
+            string t01 = "分支01";
+            string t02 = "分支02";
            var db= new AppDbContext();
             List<Admin> admins = db.Admins.ToList();
             return View(admins);
