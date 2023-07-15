@@ -40,7 +40,14 @@ namespace prjEShopping.Controllers
 
         public ActionResult ShipmentDetail(string ShipNum)
         {
-            return View();
+            var db = new AppDbContext();
+            var data = db.ShipmentDetails.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+            ViewBag.Smethod = db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).Select(x => x.ShippingMethodName);
+            ViewBag.Pmethod = db.PaymentMethods.Where(x => x.PaymentMethodId == data.PaymentMethodId).Select(x => x.PaymentMethodName);
+            ViewBag.Recriver = data.Receiver;
+            ViewBag.RAddress = data.ReceiverAddress;
+
+			return View();
         }
     }
 }

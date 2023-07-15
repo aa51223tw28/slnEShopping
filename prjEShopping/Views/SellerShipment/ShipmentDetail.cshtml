@@ -51,13 +51,13 @@
         <span>購買人: </span>
         <span></span>
         <span>付款方式: </span>
-        <span></span>
+        <span>@ViewBag.Pmethod</span>
         <span>物流方式: </span>
-        <span></span>
+        <span>@ViewBag.Smethod</span>
         <span>收件人: </span>
-        <span></span>
+        <span>@ViewBag.Recriver</span>
         <span>寄送地址: </span>
-        <span></span>
+        <span>@ViewBag.RAddress</span>
     </div>
     <div class="mt-2 text-primary fw-bold">
         @*@Html.ActionLink("刪除", "Delete", "Product", new { ShipNum = item.ShipmentNumber },
