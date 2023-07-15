@@ -47,17 +47,17 @@
 
     </table>
     <hr>
-    <div class="text-primary fw-bold">
-        <span>購買人: </span>
-        <span></span>
-        <span>付款方式: </span>
-        <span>@ViewBag.Pmethod</span>
-        <span>物流方式: </span>
-        <span>@ViewBag.Smethod</span>
-        <span>收件人: </span>
-        <span>@ViewBag.Recriver</span>
-        <span>寄送地址: </span>
-        <span>@ViewBag.RAddress</span>
+    <div>
+        <span class="text-primary fw-bold">購買人: </span>
+        <span class="text-danger fw-bold">@ViewBag.username</span>
+        <span class="text-primary fw-bold">付款方式: </span>
+        <span class="text-danger fw-bold">@ViewBag.Pmethod</span>
+        <span class="text-primary fw-bold">物流方式: </span>
+        <span class="text-danger fw-bold">@ViewBag.Smethod</span>
+        <span class="text-primary fw-bold">收件人: </span>
+        <span class="text-danger fw-bold">@ViewBag.Recriver</span>
+        <span class="text-primary fw-bold">寄送地址: </span>
+        <span class="text-danger fw-bold">@ViewBag.RAddress</span>
     </div>
     <div class="mt-2 text-primary fw-bold">
         @*@Html.ActionLink("刪除", "Delete", "Product", new { ShipNum = item.ShipmentNumber },
