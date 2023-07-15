@@ -18,9 +18,9 @@ namespace prjEShopping.Models.ViewModels
 
 		public string ProductImagePathOne { get; set; }
 
-		public decimal ItemPrice
+		public int ItemPrice
 		{
-			get { return this.Price * this.Quantity  ; }
+			get { return (int)(this.Price * this.Quantity)  ; }
 		}
 
 		

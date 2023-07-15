@@ -2,6 +2,7 @@
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -48,6 +49,7 @@ namespace prjEShopping.Controllers
             ViewBag.Recriver = data.Receiver;
             ViewBag.RAddress = data.ReceiverAddress;
             ViewBag.Fright = (int)db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault().Freight;
+            ViewBag.ShipmentNumber = ShipNum;
 
 			//購買人
 			var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
@@ -60,8 +62,26 @@ namespace prjEShopping.Controllers
             ViewBag.username = username;
 
             //購買內容
-            
-			return View();
+            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y =>y.SellerId==1), x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+				ProductId = y.ProductId,
+                ProductName = y.ProductName,
+                ProductImage = y.ProductImagePathOne,
+                ProductPrice = y.Price,
+                Qty = x.Quantity,
+			})
+            .ToList();
+
+            List<SellerShipmentDetailsVM> details = products.Select(x => new SellerShipmentDetailsVM 
+            {
+				ProductId = x.ProductId,
+				ProductName = x.ProductName,
+				Price =  (decimal)x.ProductPrice,
+				Quantity = (int)x.Qty,
+				ProductImagePathOne = x.ProductImage,
+			}).ToList();
+
+			return View(details);
         }
     }
 }

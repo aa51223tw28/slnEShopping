@@ -1,11 +1,11 @@
-﻿
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.SellerShipmentDetailsVM>
 @{
     ViewBag.Title = "ShipmentDetail";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
-    <p class="fs-4 mt-3 fw-bold text-center text-primary">貨單明細</p><p class="fs-4 mt-3 fw-bold text-center text-primary"><span>出貨單號 : </span><span>20230707S01001</span></p>
+    <p class="fs-4 mt-3 fw-bold text-center text-primary">貨單明細</p><p class="fs-4 mt-3 fw-bold text-center text-primary"><span>出貨單號 : </span><span class="text-danger fw-bold">@ViewBag.ShipmentNumber</span></p>
     <hr>
     <table class="table table-striped fw-bold">
         <thead>
@@ -20,30 +20,40 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="text" class="input-group-text" size="4" /></td>
-                <td></td>
-                <td><input type="checkbox" class="form-check-input" /></td>
-            </tr>
+            @{ 
+                int count = 0;
+                int pay = 0;
+                foreach (var item in Model)
+                {
+                    count++;
+                    pay += (int)item.ItemPrice;
+                    <tr>
+                     <th scope="row">@count</th>
+                     <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                     <td><img src="~/img/@item.ProductImagePathOne" width="80" /></td>
+                     <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                        <td><input type="text" class="input-group-text" size="4" value="@item.Quantity"/></td>
+                        <td>@Html.DisplayFor(modelItem => item.ItemPrice)</td>
+                        <td><input type="checkbox" class="form-check-input" /></td>
+                    </tr>
+                }
+                int total = pay + @ViewBag.Fright;
+              }
         </tbody>
 
     </table>
     <hr>
     <div>
         <span class="text-primary fw-bold">購買人: </span>
-        <span class="text-danger fw-bold">@ViewBag.username</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.username</span>
         <span class="text-primary fw-bold">付款方式: </span>
-        <span class="text-danger fw-bold">@ViewBag.Pmethod</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.Pmethod</span>
         <span class="text-primary fw-bold">物流方式: </span>
-        <span class="text-danger fw-bold">@ViewBag.Smethod</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.Smethod</span>
         <span class="text-primary fw-bold">收件人: </span>
-        <span class="text-danger fw-bold">@ViewBag.Recriver</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.Recriver</span>
         <span class="text-primary fw-bold">寄送地址: </span>
-        <span class="text-danger fw-bold">@ViewBag.RAddress</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.RAddress</span>
     </div>
     <div class="mt-2 text-primary fw-bold">
         @*@Html.ActionLink("刪除", "Delete", "Product", new { ShipNum = item.ShipmentNumber },
@@ -52,11 +62,11 @@
         @Html.ActionLink("刪除", "Delete", "Product", null, new { onclick = "return confirm('確定要刪除嗎?')", Class = "text-decoration-none btn btn-secondary" }) |
         @Html.ActionLink("出貨", "Edit", "Product", null, new { @class = "text-decoration-none btn btn-secondary" })
         <span>商品金額:</span>
-        <span class="text-danger fw-bold"></span>
+        <span class="text-danger fw-bold mx-2">@pay.ToString("###,###,##0")  元</span>
         <span>運費:</span>
-        <span class="text-danger fw-bold">@ViewBag.Fright</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.Fright   元</span>
         <span>總金額:</span>
-        <span class="text-danger fw-bold"></span>
+        <span class="text-danger fw-bold mx-2">@total.ToString("###,###,##0")   元</span>
     </div>
 </div>
 
