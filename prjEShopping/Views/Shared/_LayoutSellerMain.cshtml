@@ -101,7 +101,7 @@
                                         </li>
                                         <li class="nav-item">
                                         <li class="nav-item">
-                                        @Html.ActionLink("新增商品(上架)", "ProductList", "SellerProduct", new { area = "" }, new { @class = "text-decoration-none" })
+                                            @Html.ActionLink("新增商品(上架)", "ProductList", "SellerProduct", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="text-decoration-none">查詢商品(修改/刪除/再上架)</a>
@@ -123,7 +123,7 @@
                                 <div class="accordion-body bg-primary">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                        @Html.ActionLink("訂單查詢(出貨)", "ShipmentList", "SellerShipment", new { area = "" }, new { @class = "text-decoration-none" })
+                                            @Html.ActionLink("訂單查詢(出貨)", "ShipmentList", "SellerShipment", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="text-decoration-none">訂單修改(刪除)</a>
@@ -230,9 +230,9 @@
                     </div>
                 </div>
             </div>
-            
-                @RenderBody()
-            
+
+            @RenderBody()
+
         </div>
     </div>
     <div class="bg-primary" style="height: 20px;"></div>
@@ -311,6 +311,7 @@
             integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
