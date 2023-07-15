@@ -18,33 +18,33 @@ namespace prjEShopping.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Login(LoginVM vm)
-        {
-            if(ModelState.IsValid==false) return View(vm);//以便用戶能夠看到錯誤訊息和原始輸入值，並進行必要的修正
+        //[HttpPost]
+        //public ActionResult Login(LoginVM vm)
+        //{
+        //    if(ModelState.IsValid==false) return View(vm);//以便用戶能夠看到錯誤訊息和原始輸入值，並進行必要的修正
 
-            //驗證帳密的正確性
-            Result result
+        //    //驗證帳密的正確性
+        //    Result result
 
 
-        }
+        //}
 
-        private Result VailLogin(LoginVM vm)
-        {
-            var db = new AppDbContext();
-            var member=db.Users.FirstOrDefault(x=>x.UserAccount==vm.UserAccount);
+        //private Result VailLogin(LoginVM vm)
+        //{
+        //    var db = new AppDbContext();
+        //    var member=db.Users.FirstOrDefault(x=>x.UserAccount==vm.UserAccount);
 
-            if (member == null) return Result.Fail("帳密有誤");
+        //    if (member == null) return Result.Fail("帳密有誤");
 
-            //會員資格要是AccessRightId==1(使用中)
-            var right = member.AccessRightId.ToString();
+        //    //會員資格要是AccessRightId==1(使用中)
+        //    var right = member.AccessRightId.ToString();
 
-            if (right != "1")
-            {
-                return Result.Fail("會員資格尚未確認");
-            }
+        //    if (right != "1")
+        //    {
+        //        return Result.Fail("會員資格尚未確認");
+        //    }
 
-            var 
-        }
+        //    var 
+        //}
     }
 }
