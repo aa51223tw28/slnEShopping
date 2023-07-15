@@ -27,22 +27,6 @@
                 <td><input type="text" class="input-group-text" size="4" /></td>
                 <td><input type="checkbox" class="form-check-input" /></td>
             </tr>
-            <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="text" class="input-group-text" size="4" /></td>
-                <td><input type="checkbox" class="form-check-input" /></td>
-            </tr>
-            <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><input type="text" class="input-group-text" size="4" /></td>
-                <td><input type="checkbox" class="form-check-input" /></td>
-            </tr>
         </tbody>
 
     </table>
@@ -65,8 +49,12 @@
         @Html.ActionLink("出貨", "Edit", new { ShipNum = item.ShipmentNumber })*@
         @Html.ActionLink("刪除", "Delete", "Product", null, new { onclick = "return confirm('確定要刪除嗎?')", Class = "text-decoration-none btn btn-secondary" }) |
         @Html.ActionLink("出貨", "Edit", "Product", null, new { @class = "text-decoration-none btn btn-secondary" })
+        <span>商品金額:</span>
+        <span class="text-danger fw-bold"></span>
+        <span>運費:</span>
+        <span class="text-danger fw-bold">@ViewBag.Fright</span>
         <span>總金額:</span>
-        <span></span>
+        <span class="text-danger fw-bold"></span>
     </div>
 </div>
 

@@ -47,9 +47,10 @@ namespace prjEShopping.Controllers
             ViewBag.Pmethod = (db.PaymentMethods.Where(x => x.PaymentMethodId == data.PaymentMethodId).FirstOrDefault()).PaymentMethodName;
             ViewBag.Recriver = data.Receiver;
             ViewBag.RAddress = data.ReceiverAddress;
+            ViewBag.Fright = (db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault()).Freight;
 
-            //購買人
-            var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+			//購買人
+			var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 
             //拆開版
             //var userid = db.Orders.Where(y => y.OrderId == userorderid.OrderId).FirstOrDefault().UserId;
