@@ -137,12 +137,12 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
     <Compile Include="Controllers\SellerProductController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
     <Compile Include="Controllers\UserCheckoutListController.cs" />
-    <Compile Include="Controllers\UserLoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
     <Compile Include="Controllers\UserOrderDetailController.cs" />
@@ -231,7 +231,6 @@
     <Content Include="Views\SellerMain\Index.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentList.cshtml" />
     <Content Include="Views\SellerProduct\ProductList.cshtml" />
-    <Content Include="Views\UserLogin\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserMain\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutUserMain.cshtml" />
@@ -243,6 +242,7 @@
     <Content Include="Views\UserPurchaseList\Index.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
+    <Content Include="Views\Members\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

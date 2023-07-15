@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace prjEShopping.Controllers
 {
-    public class UserLoginController : Controller
+    public class MembersController : Controller
     {
-        // GET: UserLogin
-        public ActionResult Index()
+        // GET: Members
+        public ActionResult Login()
         {
             return View();
         }
