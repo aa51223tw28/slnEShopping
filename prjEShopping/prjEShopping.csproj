@@ -192,7 +192,6 @@
     <Compile Include="Models\Infra\HashUtilitiy.cs" />
     <Compile Include="Models\Infra\Result.cs" />
     <Compile Include="Models\ViewModels\LoginVM.cs" />
-    <Compile Include="Models\ViewModels\ProductIndexVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
