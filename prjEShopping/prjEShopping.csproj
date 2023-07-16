@@ -137,6 +137,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
     <Compile Include="Controllers\SellerProductController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
