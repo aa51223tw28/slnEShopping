@@ -40,7 +40,7 @@ namespace prjEShopping.Controllers
             return View(datashow);
         }
 
-        public ActionResult ShipmentDetail(string ShipNum,string Shiptatus)
+        public ActionResult ShipmentDetail(string ShipNum, string Shiptatus)
         {
             //寄件明細
             var db = new AppDbContext();
@@ -53,37 +53,37 @@ namespace prjEShopping.Controllers
             ViewBag.ShipmentNumber = ShipNum;
             ViewBag.ShipmentStatus = Shiptatus;
 
-			//購買人
-			var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+            //購買人
+            var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 
             //拆開版
             //var userid = db.Orders.Where(y => y.OrderId == userorderid.OrderId).FirstOrDefault().UserId;
 
             //濃縮版
-			var username = db.Users.Where(x => x.UserId == (db.Orders.Where(y => y.OrderId == userorderid.OrderId).FirstOrDefault().UserId)).SingleOrDefault().UserName;
+            var username = db.Users.Where(x => x.UserId == (db.Orders.Where(y => y.OrderId == userorderid.OrderId).FirstOrDefault().UserId)).SingleOrDefault().UserName;
             ViewBag.username = username;
 
             //購買內容
-            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y =>y.SellerId==1), x => x.ProductId, y => y.ProductId, (x, y) => new
+            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == 1), x => x.ProductId, y => y.ProductId, (x, y) => new
             {
-				ProductId = y.ProductId,
+                ProductId = y.ProductId,
                 ProductName = y.ProductName,
                 ProductImage = y.ProductImagePathOne,
                 ProductPrice = y.Price,
                 Qty = x.Quantity,
-			})
+            })
             .ToList();
 
-            List<SellerShipmentDetailsVM> details = products.Select(x => new SellerShipmentDetailsVM 
+            List<SellerShipmentDetailsVM> details = products.Select(x => new SellerShipmentDetailsVM
             {
-				ProductId = x.ProductId,
-				ProductName = x.ProductName,
-				Price =  (decimal)x.ProductPrice,
-				Quantity = (int)x.Qty,
-				ProductImagePathOne = x.ProductImage,
-			}).ToList();
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Price = (decimal)x.ProductPrice,
+                Quantity = (int)x.Qty,
+                ProductImagePathOne = x.ProductImage,
+            }).ToList();
 
-			return View(details);
+            return View(details);
         }
 
         //      [HttpPost]
@@ -95,11 +95,11 @@ namespace prjEShopping.Controllers
         //	return RedirectToAction("ShipmentDetail");
         //}
 
-        public ActionResult Cancle(string ShipNum) 
+        public ActionResult Cancle(string ShipNum)
         {
             var db = new AppDbContext();
 
-			var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+            var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 
             var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == 1), x => x.ProductId, y => y.ProductId, (x, y) => new
             {
@@ -109,13 +109,13 @@ namespace prjEShopping.Controllers
             .ToList().Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductStockId = y.ProductStockId,
-				ProductId = x.ProductId,
-				ChageQty = x.ChageQty,
-				OrderQuantity = y.OrderQuantity,
-				StockQuantity = y.StockQuantity
-			}).ToList();
+                ProductId = x.ProductId,
+                ChageQty = x.ChageQty,
+                OrderQuantity = y.OrderQuantity,
+                StockQuantity = y.StockQuantity
+            }).ToList();
 
-			foreach (var items in products) 
+            foreach (var items in products)
             {
                 var change = db.ProductStocks.Find(items.ProductStockId);
                 change.OrderQuantity = change.OrderQuantity - items.ChageQty;
@@ -126,18 +126,62 @@ namespace prjEShopping.Controllers
 
             Shiptatusid.ShipmentStatusId = 6;
 
-			db.SaveChanges();
+            db.SaveChanges();
 
             var Shiptatus = db.ShipmentStatusDetails.Where(x => x.ShipmentStatusId == 6).FirstOrDefault().ShipmentStatus;
 
-			var parameters = new RouteValueDictionary
+            var parameters = new RouteValueDictionary
             {
-	            { "ShipNum", ShipNum },
-	            { "Shiptatus", Shiptatus },
-    
+                { "ShipNum", ShipNum },
+                { "Shiptatus", Shiptatus },
+
             };
-			return RedirectToAction("ShipmentDetail", parameters);
+            return RedirectToAction("ShipmentDetail", parameters);
         }
 
-	}
+        public ActionResult ToShip(string ShipNum)
+        {
+            var db = new AppDbContext();
+
+            var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+
+            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == 1), x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+                ProductId = y.ProductId,
+                ChageQty = x.Quantity,
+            })
+            .ToList().Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+                ProductStockId = y.ProductStockId,
+                ProductId = x.ProductId,
+                ChageQty = x.ChageQty,
+                OrderQuantity = y.OrderQuantity,
+                StockQuantity = y.StockQuantity
+            }).ToList();
+
+            foreach (var items in products)
+            {
+                var change = db.ProductStocks.Find(items.ProductStockId);
+                change.OrderQuantity = change.OrderQuantity - items.ChageQty;
+                change.QuantitySold = change.QuantitySold + items.ChageQty;
+            }
+
+            var Shiptatusid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+
+            Shiptatusid.ShipmentStatusId = 2;
+
+            db.SaveChanges();
+
+            var Shiptatus = db.ShipmentStatusDetails.Where(x => x.ShipmentStatusId == 2).FirstOrDefault().ShipmentStatus;
+
+            var parameters = new RouteValueDictionary
+            {
+                { "ShipNum", ShipNum },
+                { "Shiptatus", Shiptatus },
+
+            };
+            return RedirectToAction("ShipmentDetail", parameters);
+
+        }
+    }
 }

@@ -12,8 +12,8 @@
         <span class="text-danger fw-bold fs-4">@ViewBag.ShipmentStatus</span>
     </p>
     <hr>
-    @using (Html.BeginForm())
-    {<table class="table table-striped fw-bold">
+    
+    <table class="table table-striped fw-bold">
         <thead>
             <tr>
                 <th scope="col">序號</th>
@@ -28,33 +28,34 @@
         <tbody>
             @{
                 int count = 0;
-            int pay = 0;
-            foreach (var item in Model)
-            {
-                count++;
-                pay += (int)item.ItemPrice;
-                @*<input type="hidden" value="@item.ProductId" name="ProductId" />
-                <input type="hidden" value="@item.Quantity" name="ChangedQty" />*@
-                <tr>
-                    <th scope="row">@count</th>
-                    <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
-                    <td><img src="~/img/@item.ProductImagePathOne" width="80" /></td>
-                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                    <td><input type="text" class="input-group-text" size="4" value="@item.Quantity" name="Quantity" /></td>
-                    <td>@Html.DisplayFor(modelItem => item.ItemPrice)</td>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                </tr>
+                int pay = 0;
+                foreach (var item in Model)
+                {
+                    count++;
+                    pay += (int)item.ItemPrice;
+                    @*<input type="hidden" value="@item.ProductId" name="ProductId" />
+                    <input type="hidden" value="@item.Quantity" name="ChangedQty" />*@
+                    <tr>
+                        <th scope="row">@count</th>
+                        <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                        <td><img src="~/img/@item.ProductImagePathOne" width="80" /></td>
+                        <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                        <td><input type="text" class="input-group-text" size="4" value="@item.Quantity" name="Quantity" /></td>
+                        <td>@Html.DisplayFor(modelItem => item.ItemPrice)</td>
+                        <td><input type="checkbox" class="form-check-input" /></td>
+                    </tr>
+                }
+                int total = pay + @ViewBag.Fright;
             }
-            int total = pay + @ViewBag.Fright;
-            }
+
         </tbody>
-        
-        @*@Html.ActionLink("刪除", "Delete", "Product", new { ShipNum = item.ShipmentNumber },
-            new { onclick = "return confirm('確定要刪除嗎?')" }) |
-            @Html.ActionLink("出貨", "Edit", new { ShipNum = item.ShipmentNumber })*@
-        @Html.ActionLink("取消訂單", "Cancle", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定要取消嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" }) |
-        @*<input type="submit" value="修改" class="btn btn-secondary mb-2" /> |*@
-        @Html.ActionLink("出貨", "ToShip", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定出貨嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" })
+        @{
+            if (@ViewBag.ShipmentStatus == "準備中")
+            {
+                @Html.ActionLink("取消訂單", "Cancle", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定要取消嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" }) @:|
+                @Html.ActionLink("出貨", "ToShip", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定出貨嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" });
+            }
+        }
     </table>
     <hr>
     <div>
@@ -76,6 +77,6 @@
         <span class="text-danger fw-bold mx-2">@ViewBag.Fright   元</span>
         <span>總金額:</span>
         <span class="text-danger fw-bold mx-2">@total.ToString("###,###,##0")   元</span>
-    </div>}
+    </div>
 </div>
 
