@@ -153,6 +153,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOs\AdminDto.cs" />
     <Compile Include="Models\DTOs\UserProductIndexDto.cs" />
     <Compile Include="Models\EFModels\AccessRight.cs" />
     <Compile Include="Models\EFModels\Admin.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
     <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
     <Compile Include="Models\Infra\UserResult.cs" />
+    <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
