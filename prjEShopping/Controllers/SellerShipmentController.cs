@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace prjEShopping.Controllers
 {
@@ -84,5 +85,59 @@ namespace prjEShopping.Controllers
 
 			return View(details);
         }
-    }
+
+        //      [HttpPost]
+        //public ActionResult ShipmentDetail (SellerShipmentDetailsVM vm)
+        //      {
+        //	var db = new AppDbContext();
+
+
+        //	return RedirectToAction("ShipmentDetail");
+        //}
+
+        public ActionResult Cancle(string ShipNum) 
+        {
+            var db = new AppDbContext();
+
+			var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+
+            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == 1), x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+                ProductId = y.ProductId,
+                ChageQty = x.Quantity,
+            })
+            .ToList().Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+                ProductStockId = y.ProductStockId,
+				ProductId = x.ProductId,
+				ChageQty = x.ChageQty,
+				OrderQuantity = y.OrderQuantity,
+				StockQuantity = y.StockQuantity
+			}).ToList();
+
+			foreach (var items in products) 
+            {
+                var change = db.ProductStocks.Find(items.ProductStockId);
+                change.OrderQuantity = change.OrderQuantity - items.ChageQty;
+                change.StockQuantity = change.StockQuantity + items.ChageQty;
+            }
+
+            var Shiptatusid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
+
+            Shiptatusid.ShipmentStatusId = 6;
+
+			db.SaveChanges();
+
+            var Shiptatus = db.ShipmentStatusDetails.Where(x => x.ShipmentStatusId == 6).FirstOrDefault().ShipmentStatus;
+
+			var parameters = new RouteValueDictionary
+            {
+	            { "ShipNum", ShipNum },
+	            { "Shiptatus", Shiptatus },
+    
+            };
+			return RedirectToAction("ShipmentDetail", parameters);
+        }
+
+	}
 }

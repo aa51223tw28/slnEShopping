@@ -23,6 +23,8 @@ namespace prjEShopping.Models.ViewModels
 			get { return (int)(this.Price * this.Quantity)  ; }
 		}
 
+		public int ChangedQty { get; set; }
+
 		
 	}
 }
