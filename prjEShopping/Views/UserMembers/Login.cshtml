@@ -28,8 +28,9 @@
                     </div>
                     <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
                     <div class="d-flex justify-content-end gap-2">
-                        <button class="btn btn-light border border-3" id="btncorrect">demo正確帳密</button>
-                        <button class="btn btn-light border border-3" id="btnerror">demo錯誤帳密</button>
+                        <div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>
+                        <div class="btn btn-light border border-3" id="btnerror">demo錯誤帳密</div>
+                        <div class="btn btn-light border border-3" id="btnerrorright">demo權限問題</div>
                     </div>
 
                     <hr>
@@ -62,6 +63,7 @@
         const UserAccount = document.querySelector('#UserAccount')
         const UserPassword = document.querySelector('#UserPassword')
         const btnerror = document.querySelector('#btnerror')
+        const btnerrorright = document.querySelector('#btnerrorright')
 
         btncorrect.addEventListener('click', () => {
             UserAccount.value = "Amy@gmail.com"
@@ -70,6 +72,11 @@
 
         btnerror.addEventListener('click', () => {
             UserAccount.value = "Amyerror@gmail.com"
+            UserPassword.value = "1234error"
+        })
+
+        btnerrorright.addEventListener('click', () => {
+            UserAccount.value = "Alex@gmail.com"
             UserPassword.value = "1234error"
         })
 
