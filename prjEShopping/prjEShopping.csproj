@@ -246,7 +246,7 @@
     <Content Include="Views\UserPurchaseList\Index.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
-    <Content Include="Views\UserMembers\Login.cshtml" />
+    <Content Include="Views\UserMembers\UserLogin.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />
     <None Include="Web.Debug.config">
