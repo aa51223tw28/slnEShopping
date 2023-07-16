@@ -56,35 +56,39 @@
                                 <td>項目</td>
                                 <td>內容</td>
                             </tr>
+
                         </thead>
-                        <tr>
-                            <td>系統編號</td>
-                            <td>001</td>
-                        </tr>
-                        <tr>
-                            <td>職稱</td>
-                            <td>IT經理</td>
-                        </tr>
-                        <tr>
-                            <td>姓名</td>
-                            <td>謝小航</td>
-                        </tr>
-                        <tr>
-                            <td>管理權限</td>
-                            <td>總管理員</td>
-                        </tr>
-                        <tr>
-                            <td>狀態</td>
-                            <td>正常</td>
-                        </tr>
-                        <tr>
-                            <td>帳號</td>
-                            <td class="text-break">Jason12345@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>密碼</td>
-                            <td>12345678</td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.AdminNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminNumber)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Title)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.AdminName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminName)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.PermissionsId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PermissionsId)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.JobStatus)</td>
+                                <td>@Html.DisplayFor(modelItem => item.JobStatus)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.AdminAccount)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminAccount)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.AdminPassword)</td>
+                                <td class="text-break">@Html.DisplayFor(modelItem => item.AdminPassword)</td>
+                            </tr>
+                        }
                     </table>
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="profile" role="tabpanel" aria-labelledby="tab102">

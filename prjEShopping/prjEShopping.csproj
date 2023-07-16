@@ -193,6 +193,7 @@
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
     <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
     <Compile Include="Models\Infra\UserResult.cs" />
+    <Compile Include="Models\ViewModels\AdminRegisterVM.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
@@ -251,6 +252,8 @@
     <Content Include="Views\UserMembers\Login.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />
+    <Content Include="Views\Admin\AdminRegister.cshtml" />
+    <Content Include="Views\Admin\AdminEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -261,6 +264,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
+    <Folder Include="Models\Interface\" />
+    <Folder Include="Models\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

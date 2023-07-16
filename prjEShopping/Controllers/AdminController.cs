@@ -1,4 +1,5 @@
-﻿using prjEShopping.Models;
+﻿using Microsoft.Win32;
+using prjEShopping.Models;
 using prjEShopping.Models.DTOs;
 using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
@@ -19,9 +20,9 @@ namespace prjEShopping.Controllers
             string t01 = "分支01";
             string t02 = "分支02修改";
             string t03 = "03修改"; //"03我也修改!";
-            var db= new AppDbContext();
+            var db = new AppDbContext();
             List<Admin> admins = db.Admins.ToList();
-            var adminDTOs = admins.Select(a => new AdminDto
+            var adminDto = admins.Select(a => new AdminDto
             {
                 AdminId = a.AdminId,
                 AdminNumber = a.AdminNumber,
@@ -35,7 +36,7 @@ namespace prjEShopping.Controllers
                 JobStatus = a.JobStatus
             }).ToList();
 
-            var adminViewModels = adminDTOs.Select(a => new AdminVM
+            var adminViewModels = adminDto.Select(a => new AdminVM
             {
                 AdminNumber = a.AdminNumber,
                 PermissionsId = a.PermissionsId,
@@ -50,6 +51,16 @@ namespace prjEShopping.Controllers
 
             return View(adminViewModels);
 
+        }
+
+        public ActionResult AdminRegister()
+        {
+            return View();
+        }
+
+        public ActionResult AdminEdit()
+        {
+            return View();
         }
 
     }
