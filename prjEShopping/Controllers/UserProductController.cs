@@ -16,5 +16,10 @@ namespace prjEShopping.Controllers
             List<Product> product = db.Products.ToList();
             return View(product);
         }
+
+        public ActionResult SingleProduct()
+        {            
+            return View();
+        }
     }
 }

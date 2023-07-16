@@ -149,7 +149,6 @@
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UserPurchaseListController.cs" />
     <Compile Include="Controllers\UserShoppingCartListController.cs" />
-    <Compile Include="Controllers\UserSingleProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,7 +237,6 @@
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserMain\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutUserMain.cshtml" />
-    <Content Include="Views\UserSingleProduct\Index.cshtml" />
     <Content Include="Views\UserShoppingCartList\Index.cshtml" />
     <Content Include="Views\UserCheckoutList\Index.cshtml" />
     <Content Include="Views\UserProduct\Index.cshtml" />
@@ -247,6 +245,7 @@
     <Content Include="Views\SellerUpdate\List.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
     <Content Include="Views\UserMembers\Login.cshtml" />
+    <Content Include="Views\UserProduct\SingleProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
