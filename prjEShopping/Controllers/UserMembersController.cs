@@ -3,16 +3,14 @@ using prjEShopping.Models.Infra;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using System.Web.UI.WebControls;
 
 namespace prjEShopping.Controllers
 {
-    public class MembersController : Controller
+    public class UserMembersController : Controller
     {
         // GET: Members
         public ActionResult Login()
@@ -66,7 +64,7 @@ namespace prjEShopping.Controllers
             return member.UserPassword == vm.UserPassword ? Result.Success() : Result.Fail("帳密有誤");
         }
 
-        private(string returnUrl,HttpCookie cookie) ProcessLogin(string account,bool remeberMe)//存入cookie
+        private (string returnUrl, HttpCookie cookie) ProcessLogin(string account, bool remeberMe)//存入cookie
         {
             var roles = string.Empty;//在本範例,沒有用到角色權限,所以存入空白
 
@@ -83,15 +81,16 @@ namespace prjEShopping.Controllers
                     );
 
             //將它加密
-            var value=FormsAuthentication.Encrypt(ticket);
+            var value = FormsAuthentication.Encrypt(ticket);
 
             //存入cookies
-            var cookies=new HttpCookie(FormsAuthentication.FormsCookieName,value);
+            var cookies = new HttpCookie(FormsAuthentication.FormsCookieName, value);
 
             //取得return url
             var url = FormsAuthentication.GetRedirectUrl(account, true);//第二個引數沒有用處
 
-            return (url,cookies);        
+            return (url, cookies);
         }
     }
+
 }

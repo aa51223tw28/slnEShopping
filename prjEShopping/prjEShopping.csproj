@@ -137,7 +137,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
     <Compile Include="Controllers\SellerProductController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
@@ -145,6 +144,7 @@
     <Compile Include="Controllers\UserCheckoutListController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserMainController.cs" />
+    <Compile Include="Controllers\UserMembersController.cs" />
     <Compile Include="Controllers\UserOrderDetailController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UserPurchaseListController.cs" />
@@ -246,7 +246,7 @@
     <Content Include="Views\UserPurchaseList\Index.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
-    <Content Include="Views\Members\Login.cshtml" />
+    <Content Include="Views\UserMembers\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
