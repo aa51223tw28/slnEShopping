@@ -25,6 +25,17 @@ namespace prjEShopping.Controllers
 
             //驗證帳密的正確性
             Result result
+        //    //驗證帳密的正確性
+        //    Result result=VailLogin(vm);
+            
+        //    if (result.IsSuccess != true)//若驗證失敗
+        //    {
+        //        ModelState.AddModelError("",result.ErrorMessage);
+        //        return View();
+        //    }
+
+        //    const bool remeberMe
+        //    test
 
 
         //}
