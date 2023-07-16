@@ -23,16 +23,16 @@ namespace prjEShopping.Controllers
         //{
         //    if(ModelState.IsValid==false) return View(vm);//以便用戶能夠看到錯誤訊息和原始輸入值，並進行必要的修正
 
-        //    //驗證帳密的正確性
-        //    Result result
+            //驗證帳密的正確性
+            Result result
 
 
         //}
 
-        //private Result VailLogin(LoginVM vm)
-        //{
-        //    var db = new AppDbContext();
-        //    var member=db.Users.FirstOrDefault(x=>x.UserAccount==vm.UserAccount);
+        private Result VailLogin(LoginVM vm)
+        {
+            var db = new AppDbContext();
+            var member=db.Users.FirstOrDefault(x=>x.UserAccount==vm.UserAccount);
 
         //    if (member == null) return Result.Fail("帳密有誤");
 
@@ -44,7 +44,7 @@ namespace prjEShopping.Controllers
         //        return Result.Fail("會員資格尚未確認");
         //    }
 
-        //    var 
-        //}
+            var 
+        }
     }
 }
