@@ -39,7 +39,7 @@ namespace prjEShopping.Controllers
             return View(datashow);
         }
 
-        public ActionResult ShipmentDetail(string ShipNum)
+        public ActionResult ShipmentDetail(string ShipNum,string Shiptatus)
         {
             //寄件明細
             var db = new AppDbContext();
@@ -50,6 +50,7 @@ namespace prjEShopping.Controllers
             ViewBag.RAddress = data.ReceiverAddress;
             ViewBag.Fright = (int)db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault().Freight;
             ViewBag.ShipmentNumber = ShipNum;
+            ViewBag.ShipmentStatus = Shiptatus;
 
 			//購買人
 			var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
