@@ -153,7 +153,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DTOs\ProductIndexDto.cs" />
+    <Compile Include="Models\DTOs\UserProductIndexDto.cs" />
     <Compile Include="Models\EFModels\AccessRight.cs" />
     <Compile Include="Models\EFModels\Admin.cs" />
     <Compile Include="Models\EFModels\ADPoint.cs" />
@@ -190,9 +190,9 @@
     <Compile Include="Models\EFModels\SupportReplay.cs" />
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
-    <Compile Include="Models\Infra\HashUtilitiy.cs" />
-    <Compile Include="Models\Infra\Result.cs" />
-    <Compile Include="Models\ViewModels\LoginVM.cs" />
+    <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
+    <Compile Include="Models\Infra\UserResult.cs" />
+    <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

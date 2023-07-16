@@ -7,7 +7,7 @@ using System.Web;
 
 namespace prjEShopping.Models.Infra
 {
-    public class HashUtilitiy
+    public class UserHashUtilitiy
     {
         //把密碼加密
         public static string ToSHA256(string plainText,string salt)

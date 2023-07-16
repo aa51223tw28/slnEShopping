@@ -18,12 +18,12 @@ namespace prjEShopping.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginVM vm)
+        public ActionResult Login(UserLoginVM vm)
         {
             if (ModelState.IsValid == false) return View(vm);//以便用戶能夠看到錯誤訊息和原始輸入值，並進行必要的修正
 
             //驗證帳密的正確性
-            Result result = VailLogin(vm);
+            UserResult result = VailLogin(vm);
 
             if (result.IsSuccess != true)//若驗證失敗
             {
@@ -41,19 +41,19 @@ namespace prjEShopping.Controllers
 
         }
 
-        private Result VailLogin(LoginVM vm)//判斷帳密是否能進入的方法
+        private UserResult VailLogin(UserLoginVM vm)//判斷帳密是否能進入的方法
         {
             var db = new AppDbContext();
             var member = db.Users.FirstOrDefault(x => x.UserAccount == vm.UserAccount);//判斷帳號
 
-            if (member == null) return Result.Fail("帳密有誤");
+            if (member == null) return UserResult.Fail("帳密有誤");
 
             //會員資格要是AccessRightId==1(使用中)
             var right = member.AccessRightId.ToString();
 
             if (right != "1")
             {
-                return Result.Fail("會員資格尚未確認");
+                return UserResult.Fail("會員資格尚未確認");
             }
 
 
@@ -61,7 +61,7 @@ namespace prjEShopping.Controllers
             //var salt = HashUtilitiy.GetSalt();
             //var hashPassword=HashUtilitiy.ToSHA256(vm.UserPassword,salt);
 
-            return member.UserPassword == vm.UserPassword ? Result.Success() : Result.Fail("帳密有誤");//判斷密碼
+            return member.UserPassword == vm.UserPassword ? UserResult.Success() : UserResult.Fail("帳密有誤");//判斷密碼
         }
 
         //private (string returnUrl, HttpCookie cookie) ProcessLogin(string account, bool rememberMe)

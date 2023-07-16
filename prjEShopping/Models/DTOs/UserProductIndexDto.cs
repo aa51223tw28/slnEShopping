@@ -5,7 +5,7 @@ using System.Web;
 
 namespace prjEShopping.Models.DTOs
 {
-    public class ProductIndexDto
+    public class UserProductIndexDto
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -16,5 +16,6 @@ namespace prjEShopping.Models.DTOs
         public string ProductImagePathTwo { get; set; }
         public string ProductImagePathThree { get; set; }
         public int Stock { get; set; }
+
     }
 }

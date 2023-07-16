@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace prjEShopping.Models.ViewModels
 {
-    public class LoginVM
+    public class UserLoginVM
     {
         [Display(Name = "帳號")]
         [Required]

@@ -1,4 +1,5 @@
-﻿using prjEShopping.Models.EFModels;
+﻿using prjEShopping.Models.DTOs;
+using prjEShopping.Models.EFModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,8 @@ namespace prjEShopping.Controllers
         public ActionResult SingleProduct(int productId)
         {            
             var db=new AppDbContext();
-
-            return View();
+            var product = db.Products.Where(x => x.ProductId == productId).FirstOrDefault();
+            return View(product);
         }
     }
 }
