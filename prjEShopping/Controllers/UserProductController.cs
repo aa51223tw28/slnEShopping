@@ -10,15 +10,17 @@ namespace prjEShopping.Controllers
     public class UserProductController : Controller
     {
         // GET: UserProduct
-        public ActionResult Index()
+        public ActionResult ProdutList()
         {
             var db = new AppDbContext();
             List<Product> product = db.Products.ToList();
             return View(product);
         }
 
-        public ActionResult SingleProduct()
+        public ActionResult SingleProduct(int productId)
         {            
+            var db=new AppDbContext();
+
             return View();
         }
     }

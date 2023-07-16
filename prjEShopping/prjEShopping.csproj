@@ -152,6 +152,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOs\ProductIndexDto.cs" />
     <Compile Include="Models\EFModels\AccessRight.cs" />
     <Compile Include="Models\EFModels\Admin.cs" />
     <Compile Include="Models\EFModels\ADPoint.cs" />
@@ -239,7 +240,7 @@
     <Content Include="Views\Shared\_LayoutUserMain.cshtml" />
     <Content Include="Views\UserShoppingCartList\Index.cshtml" />
     <Content Include="Views\UserCheckoutList\Index.cshtml" />
-    <Content Include="Views\UserProduct\Index.cshtml" />
+    <Content Include="Views\UserProduct\ProdutList.cshtml" />
     <Content Include="Views\UserOrderDetail\Index.cshtml" />
     <Content Include="Views\UserPurchaseList\Index.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
