@@ -56,7 +56,7 @@
                         <span>品名：</span>
                     </div>
                     <div class="col-9">
-                        <span class="fs-4 fw-bold">PS5 PlayStation 5</span>
+                        <span class="fs-4 fw-bold">@Model.ProductName</span>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -81,7 +81,7 @@
                         <span>價格：</span>
                     </div>
                     <div class="col-9">
-                        <span class="fs-1 fw-bold text-danger">$17,180</span>
+                        <span class="fs-1 fw-bold text-danger">$@string.Format("{0:n0}", Math.Round(Model.Price))</span>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -226,7 +226,7 @@
             <span class="fs-4 fw-bold">商品詳情</span>
         </div>
         <div class="mt-2 ms-2">
-            <span>鑑賞期非試用期，商品經拆封使用後，除功能瑕疵外，恕不接受退貨。辦理退換貨商品必須是全新狀態且包裝完整。</span>
+            <span>@Model.ProductDescription</span>
         </div>
     </div>
 
