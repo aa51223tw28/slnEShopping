@@ -91,6 +91,14 @@ namespace prjEShopping.Controllers
 
         //    return (url, cookie);
         //}
+
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return Redirect("/Main/Index");
+        }
     }
 
 }
