@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<prjEShopping.Models.DTOs.UserProductIndexDto>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutUserMain.cshtml";
@@ -35,7 +35,7 @@
                 <img src="~/img/product1-1.jpg" alt="" class="img-fluid" />
                 <div class="row">
                     <div class="col">
-                        <img src="~/img/product1-1.jpg" alt="" class="img-fluid" />
+                        <img src="~/img/@(Model.FirstOrDefault().ProductImagePathOne)" alt="" class="img-fluid" />
                     </div>
                     <div class="col">
                         <img src="~/img/product1-2.jpg" alt="" class="img-fluid" />

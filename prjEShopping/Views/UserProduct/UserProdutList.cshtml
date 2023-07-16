@@ -1,4 +1,4 @@
-﻿@model IEnumerable<prjEShopping.Models.EFModels.Product>
+﻿@model IEnumerable<prjEShopping.Models.DTOs.UserProductIndexDto>
 
 @{
     ViewBag.Title = "Index";
@@ -329,7 +329,7 @@
                                 <div class="card-body">
                                     <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
                                     <p class="card-text text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.Price))</p>
-                                    <a href="#" class="btn btn-secondary">了解更多...</a>
+                                    <a href="@Url.Action("SingleProduct", "UserProduct", new {productid=item.ProductId})" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>
                         </div>
