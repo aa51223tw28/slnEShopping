@@ -1,8 +1,13 @@
-﻿@model IEnumerable<prjEShopping.Models.DTOs.UserProductIndexDto>
+﻿@*這是一個*@
+@model prjEShopping.Models.DTOs.UserProductIndexDto
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutUserMain.cshtml";
     //各項商品頁面
+
+
 }
 
 <div class="bg-light">
@@ -32,16 +37,16 @@
     <div class="container bg-success rounded py-2">
         <div class="row">
             <div class="col-5">
-                <img src="~/img/product1-1.jpg" alt="" class="img-fluid" />
+                <img src="~/img/@(Model.ProductImagePathOne)" alt="" class="img-fluid" />
                 <div class="row">
                     <div class="col">
-                        <img src="~/img/@(Model.FirstOrDefault().ProductImagePathOne)" alt="" class="img-fluid" />
+                        <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid" />
                     </div>
                     <div class="col">
-                        <img src="~/img/product1-2.jpg" alt="" class="img-fluid" />
+                        <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid" />
                     </div>
                     <div class="col">
-                        <img src="~/img/product1-1.jpg" alt="" class="img-fluid" />
+                        <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid" />
                     </div>
                 </div>
             </div>
@@ -51,7 +56,7 @@
                         <span>品名：</span>
                     </div>
                     <div class="col-9">
-                        <span class="fs-4 fw-bold">PS5 PlayStation 5</span>
+                        <span class="fs-4 fw-bold">@Model.ProductName</span>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -76,7 +81,7 @@
                         <span>價格：</span>
                     </div>
                     <div class="col-9">
-                        <span class="fs-1 fw-bold text-danger">$17,180</span>
+                        <span class="fs-1 fw-bold text-danger">$@string.Format("{0:n0}", Math.Round(Model.Price))</span>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -221,7 +226,7 @@
             <span class="fs-4 fw-bold">商品詳情</span>
         </div>
         <div class="mt-2 ms-2">
-            <span>鑑賞期非試用期，商品經拆封使用後，除功能瑕疵外，恕不接受退貨。辦理退換貨商品必須是全新狀態且包裝完整。</span>
+            <span>@Model.ProductDescription</span>
         </div>
     </div>
 

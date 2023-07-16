@@ -16,6 +16,7 @@ namespace prjEShopping.Models.DTOs
         public string ProductImagePathTwo { get; set; }
         public string ProductImagePathThree { get; set; }
         public int Stock { get; set; }
+        
 
     }
 }

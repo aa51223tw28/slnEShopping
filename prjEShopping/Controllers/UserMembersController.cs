@@ -13,12 +13,12 @@ namespace prjEShopping.Controllers
     public class UserMembersController : Controller
     {
         // GET: Members
-        public ActionResult Login()
+        public ActionResult UserLogin()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Login(UserLoginVM vm)
+        public ActionResult UserLogin(UserLoginVM vm)
         {
             if (ModelState.IsValid == false) return View(vm);//以便用戶能夠看到錯誤訊息和原始輸入值，並進行必要的修正
 
@@ -93,7 +93,7 @@ namespace prjEShopping.Controllers
         //}
 
 
-        public ActionResult Logout()
+        public ActionResult UserLogout()
         {
             Session.Abandon();
             FormsAuthentication.SignOut();
