@@ -9,7 +9,7 @@ namespace prjEShopping.Models.DTOs
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public string CategoryName { get; set; }//待確認
+        public string CategoryName { get; set; }//待確認還有其他
         public string ProductDescription { get; set; }
         public decimal Price { get; set; }
         public string ProductImagePathOne { get; set; }
