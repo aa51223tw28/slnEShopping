@@ -12,7 +12,13 @@
         <span class="text-danger fw-bold fs-4">@ViewBag.ShipmentStatus</span>
     </p>
     <hr>
-    
+    @{
+        if (@ViewBag.ShipmentStatus == "準備中")
+        {
+            @Html.ActionLink("取消訂單", "Cancle", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定要取消嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" }) @:|
+            @Html.ActionLink("出貨", "ToShip", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定出貨嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" });
+        }
+    }
     <table class="table table-striped fw-bold">
         <thead>
             <tr>
@@ -34,7 +40,7 @@
                     count++;
                     pay += (int)item.ItemPrice;
                     @*<input type="hidden" value="@item.ProductId" name="ProductId" />
-                    <input type="hidden" value="@item.Quantity" name="ChangedQty" />*@
+                        <input type="hidden" value="@item.Quantity" name="ChangedQty" />*@
                     <tr>
                         <th scope="row">@count</th>
                         <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
@@ -49,13 +55,7 @@
             }
 
         </tbody>
-        @{
-            if (@ViewBag.ShipmentStatus == "準備中")
-            {
-                @Html.ActionLink("取消訂單", "Cancle", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定要取消嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" }) @:|
-                @Html.ActionLink("出貨", "ToShip", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定出貨嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" });
-            }
-        }
+
     </table>
     <hr>
     <div>

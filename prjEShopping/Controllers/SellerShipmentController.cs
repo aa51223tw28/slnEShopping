@@ -169,7 +169,7 @@ namespace prjEShopping.Controllers
             var Shiptatusid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 
             Shiptatusid.ShipmentStatusId = 2;
-
+            Shiptatusid.ShipDate = DateTime.Now;
             db.SaveChanges();
 
             var Shiptatus = db.ShipmentStatusDetails.Where(x => x.ShipmentStatusId == 2).FirstOrDefault().ShipmentStatus;

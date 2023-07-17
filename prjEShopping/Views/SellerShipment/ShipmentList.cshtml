@@ -6,6 +6,12 @@
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <p class="fs-4 mt-3 fw-bold text-center text-primary">訂單一覽</p>
     <hr>
+    
+        @using (Html.BeginForm())
+        {
+            @:搜尋: <input type="text" name="SearchKeyword" class="mb-2 mx-2" /> <input type="submit" value="查詢" class="btn btn-secondary mb-2" />
+        }
+    
     <table class="table table-striped fw-bold">
         <thead>
             <tr>
@@ -16,18 +22,19 @@
             </tr>
         </thead>
         <tbody>
-            @{ 
+            @{
                 int count = 0;
 
-                foreach (var item in Model) 
-                { count++;
-                        <tr onclick="location.href='@Url.Action("ShipmentDetail", "SellerShipment", new { ShipNum = item.ShipmentNumber , Shiptatus = item.ShipmentStatus})'">
-                            <th scope="row">@count</th>
-                            <td>@(item.ShipmentDate.ToString("yyyy-MM-dd"))</td>
-                            <td>@Html.DisplayFor(modelItem => item.ShipmentNumber)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ShipmentStatus)</td>
-                        </tr>
+                foreach (var item in Model)
+                {
+                    count++;
+                    <tr onclick="location.href='@Url.Action("ShipmentDetail", "SellerShipment", new { ShipNum = item.ShipmentNumber , Shiptatus = item.ShipmentStatus})'">
+                        <th scope="row">@count</th>
+                        <td>@(item.ShipmentDate.ToString("yyyy-MM-dd"))</td>
+                        <td>@Html.DisplayFor(modelItem => item.ShipmentNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ShipmentStatus)</td>
+                    </tr>
                 }}
         </tbody>
     </table>
-   </div>
+</div>
