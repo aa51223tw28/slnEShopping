@@ -4,8 +4,9 @@
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
+<h2>賣家註冊介面</h2>
 <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
-    <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
+    <p class="fs-4 mt-3 fw-bold">基本資料</p>
     <hr>
     <div class="row">
         <div class="col-sm-9">
@@ -14,7 +15,7 @@
                     <span>統編：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" value="@Model.SellerId">
+                    <input type="text">
                 </div>
                 <div class="col-4">
                 </div>
@@ -24,7 +25,7 @@
                     <span>負責人姓名：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" value="@Model.SellerName">
+                    <input type="text">
                 </div>
                 <div class="col-4">
                 </div>
@@ -34,17 +35,17 @@
                     <span>商家姓名：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" value="@Model.StoreName">
+                    <input type="text">
                 </div>
                 <div class="col-4">
                 </div>
             </div>
             <div class="row mb-2">
                 <div class="col-4 d-flex align-items-center">
-                    <span>使用者帳號：</span>
+                    <span>使用者帳號(電子郵件)：</span>
                 </div>
                 <div class="col-4">
-                    <span>John Doe</span>
+                    <input type="text">
                 </div>
                 <div class="col-4">
                 </div>
@@ -54,7 +55,7 @@
                     <span>使用者密碼：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" value="@Model.SellerPassword">
+                    <input type="text">
                 </div>
                 <div class="col-4">
                 </div>
@@ -104,7 +105,7 @@
                     <span>手機號碼：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" value="@Model.Phone">
+                    <input type="text">
                 </div>
             </div>
             <div class="row mb-2">
@@ -170,7 +171,7 @@
                 </div>
                 <div class="col-3"></div>
             </div>
-            <div class="btn btn-secondary mb-sm-3 mb-md-0">儲存</div>
+            <div class="btn btn-secondary mb-sm-3 mb-md-0">新增</div>
 
         </div>
 
@@ -179,7 +180,7 @@
 
 
 </div>
-@section Styles{
+@*@section Styles{
     <style>
         #div-preivew {
             width: 300px;
@@ -235,9 +236,4 @@
             })
         })
     </script>
-}
-
-
-
-
-
+}*@
