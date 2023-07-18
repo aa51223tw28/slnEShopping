@@ -12,28 +12,66 @@
     <header class="bg-primary sticky-top">
         <div class="container">
             <nav class="navbar navbar-expand py-0">
-                <div class="container">
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">賣家註冊</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">賣家登入</a>
-                            </li>
-                        </ul>
-                        <div class="justify-content-end d-flex">
-                            <ul class="navbar-nav me-auto">
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="container d-flex justify-content-end">
+                            <ul class="nav">
+                                <li class="nav-item px-3 d-flex align-items-center">
+                                    <a href="" class="text-decoration-none hover-opacity">
+                                        <div class="d-flex align-items-center">
+                                            <img src="~/img/man32px.png" alt="User Avatar" class="me-2">
+                                            @*<span class="fw-bold text-light">John Doe</span>*@
+                                            <span><a href="/UsersMembers/Index/" class="fw-bold text-light">@(User.Identity.Name)</a></span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <a href="#" class="position-relative text-decoration-none">
+                                        購物車
+                                        <i class="bi bi-cart-fill fs-4"></i>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            5 <!-- 這裡是購物車的數字，可以使用動態生成的方式填入數值 -->
+                                        </span>
+                                    </a>
+                                </li>
+
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">買家註冊</a>
+                                    <a class="nav-link" href="#">購買清單</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="~/UserMembers/UserLogin">買家登入</a>
+                                    @*<a class="nav-link" href="0.index.html">登出</a>*@
+                                    <a>@Html.ActionLink("登出", "UserLogout", "UserMembers", new { area = "" }, new { @class = "nav-link" })</a>
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                </div>
+                    }
+                    else
+                    {
+                        <div class="container">
+                            <div class="collapse navbar-collapse">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">賣家註冊</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">賣家登入</a>
+                                    </li>
+                                </ul>
+                                <div class="justify-content-end d-flex">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">買家註冊</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a>@Html.ActionLink("買家登入", "UserLogin", "UserMembers", new { area = "" }, new { @class = "nav-link" })</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
             </nav>
             <div class="container">
                 <div class="row g-2">
