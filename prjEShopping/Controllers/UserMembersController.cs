@@ -37,7 +37,7 @@ namespace prjEShopping.Controllers
 
             // 若登入帳密正確,就開始處理後續登入作業,將登入帳號編碼之後,加到 cookie裡
             (string returnUrl, HttpCookie cookie) processResult = ProcessLogin(vm.UserAccount, rememberMe);
-
+            
             Response.Cookies.Add(processResult.cookie);
 
             return Redirect(processResult.returnUrl);
