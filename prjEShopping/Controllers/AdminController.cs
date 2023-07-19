@@ -72,5 +72,11 @@ namespace prjEShopping.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AdminEdit(AdminVM vm)
+        {
+            return View();
+        }
+
     }
 }
