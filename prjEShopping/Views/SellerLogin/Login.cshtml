@@ -3,38 +3,41 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
 }
+<div class="bg-light">
+    <div class="container pt-2">
+        <!-- Header -->
+        <div class="modal-header">
+            <h3>會員登入</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <!-- Body -->
+        <div class="modal-body">
+            <!-- 登入表單 -->
+            <form>
+                <!-- email -->
+                <div class="form-group">
+                    <input type="email" class="account form-control" placeholder="請輸入帳號">
+                </div>
+                <!-- password -->
+                <div class="form-group">
+                    <input type="password" class="password form-control" placeholder="請輸入密碼">
+                </div>
+                <!-- checkbox -->
+                <div class="form-group">
+                    <input type="checkbox" class="remember">記住我的密碼
+                </div>
+                <!-- 送出按鈕 -->
+                <button type="button" class="btn btn-info"> 登入 </button>
+                <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
+            </form>
 
-<!-- Header -->
-<div class="modal-header">
-    <h3>會員登入</h3>
-    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-</div>
-<!-- Body -->
-<div class="modal-body">
-    <!-- 登入表單 -->
-    <form>
-        <!-- email -->
-        <div class="form-group">
-            <input type="email" class="account form-control" placeholder="請輸入帳號">
         </div>
-        <!-- password -->
-        <div class="form-group">
-            <input type="password" class="password form-control" placeholder="請輸入密碼">
+        <!-- Footer -->
+        <div class="modal-footer">
+            <div class="signup">
+                <span>尚未成為會員</span>
+                <a href="#" type="button" class="link-blue text-decoration-none fw-bold"> 立即加入 </a>
+            </div>
         </div>
-        <!-- checkbox -->
-        <div class="form-group">
-            <input type="checkbox" class="remember">記住我的密碼
-        </div>
-        <!-- 送出按鈕 -->
-        <button type="button" class="btn btn-info"> 登入 </button>
-        <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
-    </form>
-
-</div>
-<!-- Footer -->
-<div class="modal-footer">
-    <div class="signup">
-        <span>尚未成為會員</span>
-        <a href="#" type="button" class="link-blue text-decoration-none fw-bold"> 立即加入 </a>
     </div>
 </div>
