@@ -23,9 +23,9 @@
                     @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control mt-3", placeholder = "請輸入密碼", id = "UserPassword" } })
                     @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
 
-                    <div class="d-grid gap-2 mb-3">
-                        <button class="btn btn-secondary mt-3" type="submit">登入</button>
-                    </div>
+                <div class="d-grid gap-2 mb-3">                    
+                    <input type="submit" value="登入" class="btn btn-secondary mt-3" />
+                </div>
                     <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
                     <div class="d-flex justify-content-end gap-2">
                         <div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>
