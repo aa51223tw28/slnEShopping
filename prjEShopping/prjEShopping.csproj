@@ -253,6 +253,7 @@
     <Content Include="Views\Admin\AdminEdit.cshtml" />
     <Content Include="Views\UserMembers\Index.cshtml" />
     <Content Include="Views\SellerRegister\Index.cshtml" />
+    <Content Include="Views\UserMembers\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
