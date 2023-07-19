@@ -96,6 +96,7 @@ namespace prjEShopping.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            var currentUserAccount = User.Identity.Name;
             return View();
         }
 
