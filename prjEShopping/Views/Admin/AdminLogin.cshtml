@@ -1,0 +1,57 @@
+﻿@model prjEShopping.Models.ViewModels.AdminLoginVM
+
+@{
+    ViewBag.Title = "AdminLogin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="col-9 bg-secondary ">
+    <div class="bg-primary">
+    <h2 class="text-secondary my-2">員工登入</h2>
+    </div>
+    <div class="card bg-info">
+        <div class="card-body">
+            <form action="/Admin/AdminLogin" method="post" class="form-horizontal">
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <div class="mb-3 row">
+                        <label for="staticAccount" class="col-lg-2 col-form-label fs-5">Account</label>
+                        <div class="col-lg-6">
+                            <input type="email" class="form-control" id="AdminAccount" name="AdminAccount">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-lg-2 col-form-label fs-5">Password</label>
+                        <div class="col-lg-6">
+                            <input type="password" class="form-control" id="AdminPassword" name="AdminPassword">
+                        </div>
+                    </div>
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label fs-5" for="flexCheckDefault">
+                           保持登入
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary">忘記密碼</button>
+                            <input type="submit" value="登入" class="btn btn-primary " />
+                            <button class="btn btn-primary">Demo1</button>
+                            <button class="btn btn-primary">Demo2</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+        @section Scripts{
+            <script src="~/Scripts/jquery.validate.min.js"></script>
+            <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        }
+        @section Styles{
+            <style></style>
+        }

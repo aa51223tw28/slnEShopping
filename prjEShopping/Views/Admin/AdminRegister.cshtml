@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "AdminRegister";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary ">
+    <div class="container mt-2 ps-0 pe-0 ">
+        <div class="bg-info">
+            <p class="bg-primary text-light ps-3 fs-5">新增管理員</p>
+        </div>
+        <div class="container bg-info">
+            <div class="row">
+                <div class="col-7">
+                    <form action="/Admin/AdminRegister" method="post" class="form-horizontal">
+                        <div class="mb-3">
+                            <label class="form-label">管理員編號：</label>
+                            <input type="text" readonly class="form-control">
+                        </div>
+                        <select class="form-select mb-3" aria-label="Default select example">
+                            <option selected>管理權限</option>
+                            <option value="1">權限1</option>
+                            <option value="2">權限2</option>
+                            <option value="3">權限3</option>
+                        </select>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">帳號(E-mail)</label>
+                            <input type="email" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword1" class="form-label">密碼</label>
+                            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                            <label for="inputPassword2" class="form-label">密碼確認</label>
+                            <input type="password" id="inputPassword5" class="form-control">
+                            <div id="passwordHelpBlock" class="form-text">
+                                密碼為8~16碼數字加上英文大小寫。
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">職稱：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">姓名：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">電話：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">入職時間：</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>工作狀態</option>
+                            <option value="1">狀態1</option>
+                            <option value="2">狀態2</option>
+                            <option value="3">狀態3</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary  my-3">新增管理員</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-4 ">
+            </div>
+        </div>
+    </div>
+</div>

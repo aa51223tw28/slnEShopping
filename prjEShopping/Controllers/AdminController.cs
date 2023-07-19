@@ -17,9 +17,6 @@ namespace prjEShopping.Controllers
         // GET: Admin
         public ActionResult List()
         {
-            string t01 = "分支01";
-            string t02 = "分支02修改";
-            string t03 = "03修改"; //"03我也修改!";
             var db = new AppDbContext();
             List<Admin> admins = db.Admins.ToList();
             var adminDto = admins.Select(a => new AdminDto
@@ -53,7 +50,19 @@ namespace prjEShopping.Controllers
 
         }
 
+        public ActionResult AdminLogin()
+        {
+            return View();
+        }
+
+
         public ActionResult AdminRegister()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdminRegister(AdminRegisterVM vm)
         {
             return View();
         }

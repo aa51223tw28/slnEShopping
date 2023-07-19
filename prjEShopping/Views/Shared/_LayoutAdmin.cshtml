@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     <link href="~/Content/all.css" rel="stylesheet" type="text/css" />
+    @RenderSection("Styles", required: false)
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
@@ -54,7 +55,7 @@
                             </ul>
                         </div>
                         <div>
-                            <span>登入帳號：</span><span>Admin</span>
+                            <span class="btn btn-primary">登入</span><span class="d-none" id="loginName">歡迎!</span>
                         </div>
                     </div>
                 </nav>
@@ -241,5 +242,6 @@
             }
         });
     </script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html >

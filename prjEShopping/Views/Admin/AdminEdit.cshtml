@@ -15,19 +15,19 @@
                     <form>
                         <div class="mb-3">
                             <label class="form-label">管理員編號：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" readonly>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">管理權限：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" readonly value="Admin">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">帳號(E-mail)</label>
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword5" class="form-label">密碼</label>
-                            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                            <input type="password" id="inputPassword5" readonly class="form-control" aria-describedby="passwordHelpBlock">
                             <div id="passwordHelpBlock" class="form-text">
                                 密碼為8~16碼數字加上英文大小寫。
                             </div>
@@ -72,12 +72,14 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">入職時間：</label>
-                                <input type="text" class="form-control">
+                                <input type="date" class="form-control" readonly>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">工作狀態：</label>
-                                <input type="text" class="form-control">
-                            </div>
+                            <select class="form-select" aria-label="Select2">
+                                <option selected>工作狀態</option>
+                                <option value="1">狀態1</option>
+                                <option value="2">狀態2</option>
+                                <option value="3">狀態3</option>
+                            </select>
                             <button type="submit" class="btn btn-primary  my-3">更新資料</button>
                     </form>
                 </div>
