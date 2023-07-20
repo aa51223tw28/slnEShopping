@@ -13,10 +13,8 @@
                     <span>主分類：</span>
                 </div>
                 <div class="col-4">
-                    <select>
-                        <option value="option1">3C資訊</option>
-                        <option value="option2">數位通訊</option>
-                        <option value="option3">生活家電</option>
+                    <select id="maincategories">
+                        
                     </select>
                 </div>
                 <div class="col-4">
@@ -27,12 +25,8 @@
                     <span>小分類：</span>
                 </div>
                 <div class="col-4">
-                    <select>
-                        <option value="option1">筆電</option>
-                        <option value="option2">桌機</option>
-                        <option value="option3">螢幕</option>
-                        <option value="option3">鍵盤</option>
-                        <option value="option3">滑鼠</option>
+                    <select id="subcategories">
+                        
                     </select>
                 </div>
                 <div class="col-4">
@@ -176,15 +170,15 @@
     </div>
     <div class="d-flex col-sm-6 col-xl-6 ">
         <div class="d-flex flex-column align-items-start  ms-2">
-            <img src="img/comment.jpeg" alt="" class="img-fluid align-items-start">
+            <img src="" alt="" class="img-fluid align-items-start">
             <div class="btn btn-secondary mt-2">選擇圖片</div>
         </div>
         <div class="d-flex flex-column align-items-start  ms-2 ">
-            <img src="img/comment.jpeg" alt="" class="img-fluid align-items-start">
+            <img src="" alt="" class="img-fluid align-items-start">
             <div class="btn btn-secondary mt-2">選擇圖片</div>
         </div>
         <div class="d-flex flex-column align-items-start  ms-2 ">
-            <img src="img/comment.jpeg" alt="" class="img-fluid align-items-start">
+            <img src="" alt="" class="img-fluid align-items-start">
             <div class="btn btn-secondary mt-2">選擇圖片</div>
         </div>
     </div>
@@ -192,3 +186,28 @@
         <div class="btn btn-secondary mt-2 align-items-center">儲存</div>
     </div>
 </div>
+@section Scripts
+    {
+        <script>
+            const selmaincategories = document.querySelector('#maincategories');
+            const selsubcategories = document.querySelector('#subcategories');
+            
+            function LoadMainCategories()
+            {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', '@Url.Content("~/SellerProductCreate/getCategoryName")');
+                xhr.send();
+
+                xhr.addEventListener('load', () => {
+                    const datas = JSON.parse(xhr.responseText);
+                    var categories = datas.map(category => {
+                        return (`<option value="${category}">${category}</option>`)
+                    })
+                    selmaincategories.innerHTML = categories.join("");
+
+                })
+            }
+
+            LoadMainCategories();
+        </script>
+    }
