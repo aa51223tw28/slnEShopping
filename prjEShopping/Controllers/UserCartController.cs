@@ -9,7 +9,19 @@ namespace prjEShopping.Controllers
     public class UserCartController : Controller
     {
         // GET: UserCart
-                
+
+        [Authorize]
+        public ActionResult UserAddCart(int ProductId)//傳過來買了什麼的api
+        {
+            var customerAccount = User.Identity.Name;
+
+
+          
+
+            return new EmptyResult();
+        }
+
+
         [Authorize]
         public ActionResult UserShoppingCart()//購物車頁面
         {
