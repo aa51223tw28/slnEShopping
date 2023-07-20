@@ -31,7 +31,7 @@
                     <span>統編：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" value="@Model.SellerId">
+                    <input type="text" value="@Model.GUINumber" readonly style="background-color: #D0D0D0">
                 </div>
                 <div class="col-4">
                 </div>
@@ -137,7 +137,16 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row mb-2">
+                <div class="col-4 d-flex align-items-center">
+                    <span>銀行帳戶：</span>
+                </div>
+                <div class="col-4">
+                    <input type="text" value="@Model.BankAccount">
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
             <div class="row mb-2">
                 <div class="col-4 d-flex align-items-center">
                     <span>支付方式：</span>
@@ -161,7 +170,16 @@
                     </select>
                 </div>
             </div>
-
+            <div class="row mb-2">
+                <div class="col-4 d-flex align-items-center">
+                    <span>商城介紹：</span>
+                </div>
+                <div class="col-4">
+                    <input type="text" value="@Model.StoreIntro">
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
             <div class="btn btn-secondary mb-sm-3 mb-md-0" style="float:right">儲存</div>
 
         </div>
