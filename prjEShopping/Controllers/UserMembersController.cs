@@ -3,6 +3,8 @@ using prjEShopping.Models.Infra;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,8 +41,27 @@ namespace prjEShopping.Controllers
             (string returnUrl, HttpCookie cookie) processResult = ProcessLogin(vm.UserAccount, rememberMe);
             
             Response.Cookies.Add(processResult.cookie);
+            //return Redirect(processResult.returnUrl);
+            
+            // 根據使用者角色導向適當的頁面
+            var db = new AppDbContext();
+            var member = db.Users.FirstOrDefault(m => m.UserAccount == vm.UserAccount);
+            var roles = member.Gender.ToString();
+            
+            if (roles.Contains("Admin"))
+            {
+                return Redirect(ConfigurationManager.AppSettings["AdminRoleRedirectUrl"]);
+            }
+            else if (roles.Contains("User"))
+            {
+                return Redirect(ConfigurationManager.AppSettings["UserRoleRedirectUrl"]);
+            }
+            else
+            {
+                // 如果使用者角色不是 "Admin" 或 "User"，可以導向預設頁面
+                return RedirectToAction("Default");
+            }
 
-            return Redirect(processResult.returnUrl);
         }
 
         private UserResult ValidLogin(UserLoginVM vm)
