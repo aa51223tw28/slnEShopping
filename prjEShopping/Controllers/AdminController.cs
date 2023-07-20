@@ -67,15 +67,24 @@ namespace prjEShopping.Controllers
             return View();
         }
 
-        public ActionResult AdminEdit()
+        public ActionResult AdminEdit(int? id)
         {
-            return View();
+            //if (id == null)
+            //    return RedirectToAction("List");
+            var db=new AppDbContext();
+            var _adminId = db.Admins.FirstOrDefault(p => p.AdminId == 1);
+            return View(_adminId);
         }
 
         [HttpPost]
         public ActionResult AdminEdit(AdminVM vm)
         {
             return View();
+        }
+
+        public ActionResult AdminEdit2(AdminVM am)
+        {
+            return View(am);
         }
 
     }
