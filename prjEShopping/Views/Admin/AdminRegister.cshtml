@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AdminRegister";
 }
 
@@ -8,51 +7,56 @@
         <div class="container bg-info">
             <div class="row">
                 <div class="col-7">
-                    <form action="/Admin/AdminRegister" method="post" class="form-horizontal">
+                    <form method="post" class="form-horizontal" action="AdminRegister">
                         <div class="mb-3">
-                            <label class="form-label">管理員編號：</label>
-                            <input type="text" readonly class="form-control">
+                            <label class="form-label">職員編號：</label>
+                            <input type="text" class="form-control" id="AdminNumber" name="AdminNumber" value="@ViewBag.AdminNumber">
                         </div>
-                        <select class="form-select mb-3" aria-label="Default select example">
+                        <select class="form-select mb-3" name="PermissionsId" id="PermissionsId">
                             <option selected>管理權限</option>
-                            <option value="1">權限1</option>
-                            <option value="2">權限2</option>
-                            <option value="3">權限3</option>
+                            <option value="1">總管理員</option>
+                            <option value="2">管理員</option>
+                            <option value="3">平台管理</option>
+                            <option value="4">會員管理</option>
+                            <option value="5">行銷管理</option>
+                            <option value="6">客服管理</option>
+
                         </select>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">帳號(E-mail)</label>
-                            <input type="email" class="form-control">
+                            <label for="AdminAccount" class="form-label">帳號(E-mail)</label>
+                            <input type="email" class="form-control" id="AdminAccount" name="AdminAccount">
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword1" class="form-label">密碼</label>
-                            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                            <input type="password" id="AdminPassword" name="AdminPassword" class="form-control" aria-describedby="passwordHelpBlock">
                             <label for="inputPassword2" class="form-label">密碼確認</label>
-                            <input type="password" id="inputPassword5" class="form-control">
+                            <input type="password" id="Passwordcheck" class="form-control">
                             <div id="passwordHelpBlock" class="form-text">
                                 密碼為8~16碼數字加上英文大小寫。
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">職稱：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="Title" name="Title">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">姓名：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="AdminName" name="AdminName">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">電話：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" id="Phone" name="Phone">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">入職時間：</label>
-                            <input type="date" class="form-control">
+                            <input type="date" class="form-control" id="DateOfHire" name="DateOfHire">
                         </div>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" id="JobStatus" name="JobStatus">
                             <option selected>工作狀態</option>
-                            <option value="1">狀態1</option>
-                            <option value="2">狀態2</option>
-                            <option value="3">狀態3</option>
+                            <option value="1">在職中</option>
+                            <option value="2">未到職</option>
+                            <option value="3">留職停薪</option>
+                            <option value="4">已離職</option>
                         </select>
                         <button type="submit" class="btn btn-primary  my-3">新增管理員</button>
                     </form>
@@ -63,3 +67,17 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+<script>
+
+    </script>
+}
+
+
+
+@section Styles
+{
+    <style>
+    </style>
+}

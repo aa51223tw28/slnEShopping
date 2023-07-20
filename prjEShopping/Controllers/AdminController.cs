@@ -9,6 +9,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text.Json;
 
 namespace prjEShopping.Controllers
 {
@@ -46,7 +47,26 @@ namespace prjEShopping.Controllers
                 JobStatus = a.JobStatus
             }).ToList();
 
+            List<string> adminNumbers = db.Admins.Select(a => a.AdminNumber).ToList();
+
+            var date = DateTime.Now;
+            string year = date.Year.ToString().Substring(2, 2);
+            string month = date.Month.ToString().PadLeft(2, '0');
+            string day = date.Day.ToString().PadLeft(2, '0');
+
+            int count = 1;
+            string adminNumber = GenerateAdminNumber(year, month, day, count);
+
+            while (adminNumbers.Contains(adminNumber))
+            {
+                count++;
+                adminNumber = GenerateAdminNumber(year, month, day, count);
+            }
+
+            ViewBag.AdminNumber = adminNumber;
+
             return View(adminViewModels);
+
 
         }
 
@@ -58,13 +78,22 @@ namespace prjEShopping.Controllers
 
         public ActionResult AdminRegister()
         {
+          
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AdminRegister(AdminRegisterVM vm)
+        public string GenerateAdminNumber(string year, string month, string day, int count)
         {
-            return View();
+            return $"A{year}{month}{day}{count.ToString().PadLeft(2, '0')}";
+        }
+
+        [HttpPost]
+        public ActionResult AdminRegister(Admin admin)
+        {
+            AppDbContext db = new AppDbContext();
+            db.Admins.Add(admin);
+            db.SaveChanges();
+            return RedirectToAction("List");
         }
 
         public ActionResult AdminEdit(int? id)

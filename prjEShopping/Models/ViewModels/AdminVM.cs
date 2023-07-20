@@ -9,6 +9,7 @@ namespace prjEShopping.Models.ViewModels
 {
     public class AdminVM
     {
+        public string AdminId { get; set; }
         [DisplayName("職員編號")]
         [StringLength(50)]
         public string AdminNumber { get; set; }
@@ -39,7 +40,7 @@ namespace prjEShopping.Models.ViewModels
         [DisplayName("入職時間")]
         public DateTime? DateOfHire { get; set; }
 
-        [DisplayName("入職狀態")]
+        [DisplayName("在職狀態")]
         [StringLength(50)]
         public string JobStatus { get; set; }
     }
