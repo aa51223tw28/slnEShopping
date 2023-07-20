@@ -12,9 +12,9 @@
                             <label class="form-label">職員編號：</label>
                             <input type="text" class="form-control" id="AdminNumber" name="AdminNumber" value="@ViewBag.AdminNumber">
                         </div>
-                        <select class="form-select mb-3" name="PermissionsId" id="PermissionsId">
-                            <option selected>管理權限</option>
-                            <option value="1">總管理員</option>
+                        <select class="form-select mb-3" name="PermissionsId" id="PermissionsId" required>
+                            <option selected disabled value="">管理權限</option>
+                            @*<option value="1">總管理員</option>*@
                             <option value="2">管理員</option>
                             <option value="3">平台管理</option>
                             <option value="4">會員管理</option>
@@ -34,6 +34,9 @@
                             <div id="passwordHelpBlock" class="form-text">
                                 密碼為8~16碼數字加上英文大小寫。
                             </div>
+                            <div id="passwordMatchMessage" class="form-text d-none text-bg-danger">
+                                兩次輸入的密碼不一致。
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">職稱：</label>
@@ -51,8 +54,8 @@
                             <label class="form-label">入職時間：</label>
                             <input type="date" class="form-control" id="DateOfHire" name="DateOfHire">
                         </div>
-                        <select class="form-select" id="JobStatus" name="JobStatus">
-                            <option selected>工作狀態</option>
+                        <select class="form-select" id="JobStatus" name="JobStatus" required>
+                            <option selected disabled value="">工作狀態</option>
                             <option value="1">在職中</option>
                             <option value="2">未到職</option>
                             <option value="3">留職停薪</option>
@@ -68,13 +71,22 @@
     </div>
 </div>
 
-@section Scripts{
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://kit.fontawesome.com/df26c5ac19.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script>
-
-    </script>
+    $(document).ready(function () {
+        $('#Passwordcheck').on('input', function () {
+            var password = $("#AdminPassword").val();
+            var confirmPassword = $("#Passwordcheck").val();
+            if (password != confirmPassword)
+                $("#passwordMatchMessage").removeClass('d-none'); //移除d-none类
+            else
+                $("#passwordMatchMessage").addClass('d-none'); //添加d-none类
+        });
+    });
+</script>
 }
-
-
 
 @section Styles
 {
