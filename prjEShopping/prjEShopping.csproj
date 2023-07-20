@@ -143,13 +143,10 @@
     <Compile Include="Controllers\SellerRegisterController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
-    <Compile Include="Controllers\UserCheckoutListController.cs" />
+    <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserMembersController.cs" />
-    <Compile Include="Controllers\UserOrderDetailController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
-    <Compile Include="Controllers\UserPurchaseListController.cs" />
-    <Compile Include="Controllers\UserShoppingCartListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,11 +237,7 @@
     <Content Include="Views\SellerShipment\ShipmentList.cshtml" />
     <Content Include="Views\SellerProduct\ProductList.cshtml" />
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
-    <Content Include="Views\UserShoppingCartList\Index.cshtml" />
-    <Content Include="Views\UserCheckoutList\Index.cshtml" />
     <Content Include="Views\UserProduct\UserProdutList.cshtml" />
-    <Content Include="Views\UserOrderDetail\Index.cshtml" />
-    <Content Include="Views\UserPurchaseList\Index.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
@@ -252,6 +245,9 @@
     <Content Include="Views\Admin\AdminEdit.cshtml" />
     <Content Include="Views\SellerRegister\Index.cshtml" />
     <Content Include="Views\UserMembers\UserLogin.cshtml" />
+    <Content Include="Views\UserCart\UserCheckout.cshtml" />
+    <Content Include="Views\UserCart\UserOrderDetail.cshtml" />
+    <Content Include="Views\UserCart\UserShoppingCart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
