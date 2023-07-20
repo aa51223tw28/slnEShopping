@@ -21,11 +21,12 @@ namespace prjEShopping.Controllers
         {
             AppDbContext db = new AppDbContext();
             var subcategorynames = db.ProductMainCategories.Where(x => x.CategoryName == categoryname)
-                                .Join(db.ProductSubCategories, x => x.CategoryId, y => y.CategoryId, (x, y) => new
-                                {
-                                    subcategorynames = y.SubcategoryName
-                                });
-            return Json(subcategorynames);
+                                .Join(db.ProductSubCategories, x => x.CategoryId, y => y.CategoryId, (x, y) => 
+                                
+                                    y.SubcategoryName
+                                
+                                    ).ToList();
+            return Json(subcategorynames, JsonRequestBehavior.AllowGet);
         }
     }
 }
