@@ -9,7 +9,7 @@ namespace prjEShopping.Models.ViewModels
 {
     public class AdminVM
     {
-        public string AdminId { get; set; }
+        public int AdminId { get; set; }
         [DisplayName("職員編號")]
         [StringLength(50)]
         public string AdminNumber { get; set; }

@@ -2,6 +2,9 @@
 using prjEShopping.Models;
 using prjEShopping.Models.DTOs;
 using prjEShopping.Models.EFModels;
+using prjEShopping.Models.Infra.EFRepositories;
+using prjEShopping.Models.Interface;
+using prjEShopping.Models.Services;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +12,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Text.Json;
+
 
 namespace prjEShopping.Controllers
 {
@@ -18,35 +21,9 @@ namespace prjEShopping.Controllers
         // GET: Admin
         public ActionResult List()
         {
+            IEnumerable<AdminVM> admin = GetAdmins();
+
             var db = new AppDbContext();
-            List<Admin> admins = db.Admins.ToList();
-            var adminDto = admins.Select(a => new AdminDto
-            {
-                AdminId = a.AdminId,
-                AdminNumber = a.AdminNumber,
-                PermissionsId = a.PermissionsId,
-                AdminAccount = a.AdminAccount,
-                AdminPassword = a.AdminPassword,
-                Title = a.Title,
-                AdminName = a.AdminName,
-                Phone = a.Phone,
-                DateOfHire = a.DateOfHire,
-                JobStatus = a.JobStatus
-            }).ToList();
-
-            var adminViewModels = adminDto.Select(a => new AdminVM
-            {
-                AdminNumber = a.AdminNumber,
-                PermissionsId = a.PermissionsId,
-                AdminAccount = a.AdminAccount,
-                AdminPassword = a.AdminPassword,
-                Title = a.Title,
-                AdminName = a.AdminName,
-                Phone = a.Phone,
-                DateOfHire = a.DateOfHire,
-                JobStatus = a.JobStatus
-            }).ToList();
-
             List<string> adminNumbers = db.Admins.Select(a => a.AdminNumber).ToList();
 
             var date = DateTime.Now;
@@ -65,9 +42,30 @@ namespace prjEShopping.Controllers
 
             ViewBag.AdminNumber = adminNumber;
 
-            return View(adminViewModels);
+            return View(admin);
 
 
+        }
+
+        private IEnumerable<AdminVM> GetAdmins()
+        {
+            IAdminRepository repo = new AdminRepository();
+
+            AdminService service = new AdminService(repo);
+            return service.Search()
+                .Select(dto => new AdminVM
+                {
+                    AdminId = dto.AdminId,
+                    AdminNumber = dto.AdminNumber,
+                    PermissionsId = dto.PermissionsId,
+                    AdminAccount = dto.AdminAccount,
+                    AdminPassword = dto.AdminPassword,
+                    Title = dto.Title,
+                    AdminName = dto.AdminName,
+                    Phone = dto.Phone,
+                    DateOfHire = dto.DateOfHire,
+                    JobStatus = dto.JobStatus
+                });
         }
 
         public ActionResult AdminLogin()

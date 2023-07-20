@@ -219,8 +219,11 @@
     <Compile Include="Models\EFModels\SupportReplay.cs" />
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
+    <Compile Include="Models\Infra\EFRepositories\AdminRepository.cs" />
     <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
     <Compile Include="Models\Infra\UserResult.cs" />
+    <Compile Include="Models\Interface\IAdminRepository.cs" />
+    <Compile Include="Models\Services\AdminService.cs" />
     <Compile Include="Models\ViewModels\AdminEditVM.cs" />
     <Compile Include="Models\ViewModels\AdminLoginVM.cs" />
     <Compile Include="Models\ViewModels\AdminRegisterVM.cs" />
@@ -296,8 +299,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
-    <Folder Include="Models\Interface\" />
-    <Folder Include="Models\Services\" />
+    <Folder Include="Models\DAOs\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
