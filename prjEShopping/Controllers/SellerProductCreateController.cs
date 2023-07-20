@@ -25,7 +25,7 @@ namespace prjEShopping.Controllers
                                 
                                     y.SubcategoryName
                                 
-                                    ).ToList();
+                                    );
             return Json(subcategorynames, JsonRequestBehavior.AllowGet);
         }
     }
