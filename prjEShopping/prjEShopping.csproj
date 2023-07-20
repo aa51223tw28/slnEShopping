@@ -247,12 +247,11 @@
     <Content Include="Views\UserPurchaseList\Index.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
-    <Content Include="Views\UserMembers\UserLogin.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />
     <Content Include="Views\Admin\AdminEdit.cshtml" />
     <Content Include="Views\SellerRegister\Index.cshtml" />
-    <Content Include="Views\UserMembers\Index.cshtml" />
+    <Content Include="Views\UserMembers\UserLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
