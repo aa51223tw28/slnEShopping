@@ -56,6 +56,10 @@ namespace prjEShopping.Controllers
             {
                 return Redirect(ConfigurationManager.AppSettings["UserRoleRedirectUrl"]);
             }
+            else if (roles.Contains("Seller"))
+            {
+                return Redirect(ConfigurationManager.AppSettings["SellerRoleRedirectUrl"]);
+            }
             else
             {
                 // 如果使用者角色不是 "Admin" 或 "User"，可以導向預設頁面
