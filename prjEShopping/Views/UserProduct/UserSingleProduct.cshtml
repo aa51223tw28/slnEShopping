@@ -100,7 +100,7 @@
                         <div class="d-flex align-items-center">
                             <div class="input-group" style="width: 120px;">@*加減數量*@
                                 <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                                <input type="text" class="form-control quantityInput" value="1" min="1">
+                                <input type="text" class="form-control" id="quantityInput" readonly>
                                 <button class="btn btn-outline-primary plusBtn" type="button">+</button>
                             </div>
                             <span class="ms-2">還剩：</span>
@@ -531,8 +531,10 @@
         //取得所有的加减元件
         var minusButtons = document.querySelectorAll(".minusBtn");
         var plusButtons = document.querySelectorAll(".plusBtn");
-        var quantityInputs = document.querySelectorAll(".quantityInput");
-
+        var quantityInputs = document.querySelectorAll("#quantityInput");
+        quantityInputs.forEach(function (input) {
+            input.setAttribute("value", "1"); 
+        });
         // click
         for (var i = 0; i < minusButtons.length; i++) {
             minusButtons[i].addEventListener("click", createClickHandler(i, -1));
@@ -543,17 +545,26 @@
         }
 
         // 計算
+        var quantityValue=1
         function createClickHandler(index, change) {
             return function () {
                 var currentValue = parseInt(quantityInputs[index].value);
                 var newValue = currentValue + change;
                 if (newValue >= 1) {
-                    quantityInputs[index].value = newValue.toString();
+                    quantityInputs[index].value = newValue.toString();                   
+                    quantityInputs.forEach(function (input) {
+                        input.setAttribute("value", newValue);
+                        var quantityInput = document.querySelector("#quantityInput");
+                        quantityValue = quantityInput.value;
+                        console.log(quantityValue);
+                    });
                 }
             }
         }
+        
 
-        //--------------------------------------------------------------------------------------
+        //--------------------------------------------------------------------------------------       
+
         //加入購物車UserCartController/UserAddCart是api
         $(document).ready(function () {
             $(".add2cart").each(function () {
@@ -562,11 +573,9 @@
                     var productId = self.attr("data-id");
 
                     //找到數量
-                    //var quantityInput = document.querySelector(".quantityInput");
-                    //var quantityValue = quantityInput.value;
-                    //console.log(quantityValue);
+
                     //ajax送出request
-                    const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId);
+                    const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId + "&Quantity=" + quantityValue);
                     alert("已加入購物車");
                 })
             })

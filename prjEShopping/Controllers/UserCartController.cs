@@ -12,7 +12,7 @@ namespace prjEShopping.Controllers
         // GET: UserCart
 
         [Authorize]
-        public ActionResult UserAddCart(int ProductId)//傳過來買了什麼的api
+        public ActionResult UserAddCart(int ProductId, int quantity)//傳過來買了什麼的api
         {
             var db = new AppDbContext();
             var customerAccount = User.Identity.Name;
@@ -45,14 +45,14 @@ namespace prjEShopping.Controllers
                 {
                     CartId= cartid,
                     ProductId= ProductId,
-                    Quantity=1//先預設1
+                    Quantity= quantity
                 };
                 db.ShoppingCartDetails.Add(shoppingCartDetail);
                 
             }
             else
             {
-                shoppingCartDetail.Quantity += 1;
+                shoppingCartDetail.Quantity += quantity;
             }
             db.SaveChanges();
             return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
