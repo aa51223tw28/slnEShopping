@@ -46,7 +46,7 @@ namespace prjEShopping.Controllers
             // 根據使用者角色導向適當的頁面
             var db = new AppDbContext();
             var member = db.Users.FirstOrDefault(m => m.UserAccount == vm.UserAccount);
-            var roles = member.Gender.ToString();
+            var roles = member.Role.ToString();
             
             if (roles.Contains("Admin"))
             {
