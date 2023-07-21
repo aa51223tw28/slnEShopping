@@ -35,15 +35,7 @@ namespace prjEShopping.Controllers
 
             //取得新增資料加入table
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x=>x.CartId).Select(x => x.CartId).FirstOrDefault();
-
-            //List<int> qua = new List<int>();
-            //var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == ProductId).Select(x => x.Quantity);
-            //foreach (var item in shoppingdetails)
-            //{
-            //    qua.Add((int)item);
-            //}
-            ////加入ShoppingCartDetails table
-            //ShoppingCartDetail shoppingCartDetail;
+                        
 
             //確認是否已經加入過同一種商品
             var shoppingCartDetail = db.ShoppingCartDetails.FirstOrDefault(x => x.CartId == cartid && x.ProductId == ProductId);

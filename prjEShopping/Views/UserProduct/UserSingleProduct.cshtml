@@ -97,14 +97,12 @@
                         <span>數量：</span>
                     </div>
                     <div class="col-9">
-                        <div class="d-flex">
-                            <select style="width: 100px;">
-                                <option value="option1">1</option>
-                                <option value="option2">2</option>
-                                <option value="option3">3</option>
-                                <option value="option3">4</option>
-                                <option value="option3">5</option>
-                            </select>
+                        <div class="d-flex align-items-center">
+                            <div class="input-group" style="width: 120px;">
+                                <button class="btn btn-outline-primary minusBtn" type="button">-</button>
+                                <input type="text" class="form-control quantityInput" value="1" min="1">
+                                <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                            </div>
                             <span class="ms-2">還剩：</span>
                             <span>34</span>
                             <span>件</span>
@@ -528,6 +526,33 @@
                 activeCollapse = null;
             }
         }
+        //--------------------------------------------------------------------------------------
+        //加減按鈕購買數量會增減
+        //取得所有的加减元件
+        var minusButtons = document.querySelectorAll(".minusBtn");
+        var plusButtons = document.querySelectorAll(".plusBtn");
+        var quantityInputs = document.querySelectorAll(".quantityInput");
+
+        // click
+        for (var i = 0; i < minusButtons.length; i++) {
+            minusButtons[i].addEventListener("click", createClickHandler(i, -1));
+        }
+
+        for (var i = 0; i < plusButtons.length; i++) {
+            plusButtons[i].addEventListener("click", createClickHandler(i, 1));
+        }
+
+        // 計算
+        function createClickHandler(index, change) {
+            return function () {
+                var currentValue = parseInt(quantityInputs[index].value);
+                var newValue = currentValue + change;
+                if (newValue >= 1) {
+                    quantityInputs[index].value = newValue.toString();
+                }
+            }
+        }
+
         //--------------------------------------------------------------------------------------
         //加入購物車UserCartController/UserAddCart是api
         $(document).ready(function () {
