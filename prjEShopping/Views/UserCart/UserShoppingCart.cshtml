@@ -1,4 +1,4 @@
-﻿@model prjEShopping.Models.ViewModels.UserShoppingCartVM
+﻿@model List<prjEShopping.Models.ViewModels.UserShoppingCartVM>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -42,10 +42,8 @@
                     <button class="btn btn-blue">聊聊</button>
                 </div>
             </div>
-            @foreach (var item in Model.CartItems)
+            @foreach (var item in Model)
             {
-                <hr>
-                <!-- 一件商品-->
                 <div class="row">
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input">
@@ -54,36 +52,33 @@
                         <div class="mb-3" style="max-width: 540px;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
+                                    <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <p class="card-text">PlayStation 5 主機</p>
+                                        <p class="card-text">@item.ProductName</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <span>$19,999</span>
+                        <span>$@string.Format("{0:n0}", Math.Round((decimal)item.Price))</span>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <div class="input-group" style="width: 120px;">
+                        <div class="input-group" style="width: 120px;">@*加減數量*@                            
                             <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                            <input type="text" class="form-control quantityInput" value="1" min="1">
+                            <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
                             <button class="btn btn-outline-primary plusBtn" type="button">+</button>
-                        </div>
+                         </div>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <span class="text-danger fw-bold">$5,5555</span>
+                        <span class="text-danger fw-bold">@item.TotalPrice</span>
                     </div>
                     <div class="col-2 d-flex align-items-center">
                         <button class="btn btn-danger">刪除</button>
                     </div>
                 </div>
-                <hr>
-                <!-- 一件商品-->                
-                
             }
         </div>
 
@@ -115,30 +110,9 @@
 </div>
 @section Scripts{
     <script>
-        //取得所有的加减元件
-        var minusButtons = document.querySelectorAll(".minusBtn");
-        var plusButtons = document.querySelectorAll(".plusBtn");
-        var quantityInputs = document.querySelectorAll(".quantityInput");
+        
+     
 
-        // click
-        for (var i = 0; i < minusButtons.length; i++) {
-            minusButtons[i].addEventListener("click", createClickHandler(i, -1));
-        }
-
-        for (var i = 0; i < plusButtons.length; i++) {
-            plusButtons[i].addEventListener("click", createClickHandler(i, 1));
-        }
-
-        // 計算
-        function createClickHandler(index, change) {
-            return function () {
-                var currentValue = parseInt(quantityInputs[index].value);
-                var newValue = currentValue + change;
-                if (newValue >= 1) {
-                    quantityInputs[index].value = newValue.toString();
-                }
-            }
-        }
     </script>
 }
 
