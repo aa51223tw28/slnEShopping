@@ -168,6 +168,7 @@
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
     <Compile Include="Controllers\SellerProductController.cs" />
+    <Compile Include="Controllers\SellerProductCreateController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
@@ -301,6 +302,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
+    <Folder Include="Models\Interface\" />
+    <Folder Include="Models\Services\" />
+    <Folder Include="Views\SellerProductCreate\" />
     <Folder Include="Models\DAOs\" />
   </ItemGroup>
   <ItemGroup>
