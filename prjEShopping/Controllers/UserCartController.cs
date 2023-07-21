@@ -16,13 +16,22 @@ namespace prjEShopping.Controllers
         {
             var db = new AppDbContext();
             var customerAccount = User.Identity.Name;
+
             //找userid
-            //var userid=db.Users.Where(x=>x.UserAccount==x.
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x=>x.UserId).FirstOrDefault();
 
-            ////新增一台購物車
-            
-            //var cart=db.ShoppingCarts.FirstOrDefault
-
+            //新增一台購物車
+            var cart = db.ShoppingCarts.FirstOrDefault(x => x.UserId == userid);
+            //如果沒有購物車直接給他一台車
+            if (cart == null)
+            {
+                var shoppingcart = new ShoppingCart()
+                {
+                    UserId = userid
+                };
+                db.ShoppingCarts.Add(shoppingcart);
+                db.SaveChanges();
+            }
           
 
             return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
