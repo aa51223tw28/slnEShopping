@@ -571,8 +571,7 @@
                 $(this).on("click",async function () {
                     var self = $(this);
                     var productId = self.attr("data-id");
-
-                    //找到數量
+                                        
 
                     //ajax送出request
                     const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId + "&Quantity=" + quantityValue);
