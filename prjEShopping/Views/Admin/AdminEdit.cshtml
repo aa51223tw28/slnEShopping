@@ -1,84 +1,84 @@
-﻿
+﻿@model prjEShopping.Models.EFModels.Admin
 @{
     ViewBag.Title = "AdminEdit";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="col-9 bg-secondary ">
     <div class="container mt-2 ps-0 pe-0 ">
-        <div class="bg-info">
-            <p class="bg-primary text-light ps-3 fs-5">管理員資料設定</p>
-        </div>
         <div class="container bg-info">
             <div class="row">
                 <div class="col-7">
+                    <input type="text" id="AdminNumber" name="AdminNumber" value=">@Html.LabelFor(model => model.AdminId)" />
                     <form>
                         <div class="mb-3">
-                            <label class="form-label">管理員編號：</label>
-                            <input type="text" class="form-control">
+                            <label class="form-label">@Html.DisplayNameFor(model => model.AdminNumber)</label>
+                            <input type="text" class="form-control" readonly value="@Html.DisplayFor(model => model.AdminNumber)">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">管理權限：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" readonly value="Admin">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">帳號(E-mail)</label>
-                            <input type="email" class="form-control">
+                            <input type="email" class="form-control" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword5" class="form-label">密碼</label>
-                            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                            <input type="password" id="inputPassword5" readonly class="form-control" aria-describedby="passwordHelpBlock">
                             <div id="passwordHelpBlock" class="form-text">
                                 密碼為8~16碼數字加上英文大小寫。
                             </div>
-                            <div class="col-auto">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    變更密碼
-                                </button>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">變更密碼</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <label for="inputPassword5" class="form-label">舊密碼：</label>
-                                                <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-                                                <label for="inputPassword5" class="form-label">新密碼：</label>
-                                                <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-                                                <label for="inputPassword5" class="form-label">新密碼確認：</label>
-                                                <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                                                <button type="button" class="btn btn-primary">確認更新</button>
-                                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                變更密碼
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">變更密碼</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label for="inputPassword5" class="form-label">舊密碼：</label>
+                                            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                                            <label for="inputPassword5" class="form-label">新密碼：</label>
+                                            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                                            <label for="inputPassword5" class="form-label">新密碼確認：</label>
+                                            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                            <button type="button" class="btn btn-primary">確認更新</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">職稱：</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">姓名：</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">電話：</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">入職時間：</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">工作狀態：</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary  my-3">更新資料</button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">職稱：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">姓名：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">電話：</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">入職時間：</label>
+                            <input type="date" class="form-control" readonly>
+                        </div>
+                        <select class="form-select" aria-label="Select2">
+                            <option selected>工作狀態</option>
+                            <option value="1">狀態1</option>
+                            <option value="2">狀態2</option>
+                            <option value="3">狀態3</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary  my-3">更新資料</button>
                     </form>
                 </div>
             </div>

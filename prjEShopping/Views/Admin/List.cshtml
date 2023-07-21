@@ -1,32 +1,37 @@
 ﻿@model IEnumerable<prjEShopping.Models.ViewModels.AdminVM>
+
+
 @{
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <div class="col-9 bg-secondary ">
     <div class="container mt-2 ps-0 pe-0 ">
         <div class="bg-info">
             <p class="bg-primary text-light ps-3 fs-5">管理權限設定</p>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="tab101" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">管理員資料設定</button>
+                    <button class="nav-link active" id="tab101" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">員工一覽</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab102" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">員工一覽</button>
+                    <button class="nav-link" id="tab102" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">新增員工</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab103" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">員工權限設置</button>
+                    <button class="nav-link" id="tab103" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">管理員資料修改</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab104" data-bs-toggle="tab" data-bs-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">權限設置</button>
+                    <button class="nav-link" id="tab104" data-bs-toggle="tab" data-bs-target="#contact2" type="button" role="tab" aria-controls="contact" aria-selected="false">員工資料修改</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab105" data-bs-toggle="tab" data-bs-target="#contact3" type="button" role="tab" aria-controls="contact" aria-selected="false">權限設置</button>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active pt-2 pb-2 ps-2 pe-2 " id="home" role="tabpanel" aria-labelledby="tab101">
-                    <table class="table table-bordered border-primary fs-6 d-none d-md-table ">
-                        <thead>
+                    <table class="table table-bordered border-white fs-6 d-none d-md-table table-hover ">
+                        <thead class="bg-primary text-secondary ">
                             <tr>
+                                <td class="d-none">@Html.DisplayNameFor(model => model.AdminId)</td>
                                 <td>@Html.DisplayNameFor(model => model.AdminNumber)</td>
                                 <td>@Html.DisplayNameFor(model => model.Title)</td>
                                 <td>@Html.DisplayNameFor(model => model.AdminName)</td>
@@ -39,15 +44,16 @@
                         </thead>
                         @foreach (var item in Model)
                         {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => item.AdminNumber)</td>
-                            <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                            <td>@Html.DisplayFor(modelItem => item.AdminName)</td>
-                            <td>@Html.DisplayFor(modelItem => item.PermissionsId)</td>
-                            <td>@Html.DisplayFor(modelItem => item.JobStatus)</td>
-                            <td>@Html.DisplayFor(modelItem => item.AdminAccount)</td>
-                            <td>@Html.DisplayFor(modelItem => item.AdminPassword)</td>
-                        </tr>
+                            <tr>
+                                <td class="d-none">@Html.DisplayFor(modelItem => item.AdminId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminNumber)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PermissionsId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.JobStatus)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminAccount)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminPassword)</td>
+                            </tr>
                         }
                     </table>
                     <table class="table table-bordered border-primary d-md-none" style="font-size: 6px;">
@@ -60,6 +66,10 @@
                         </thead>
                         @foreach (var item in Model)
                         {
+                            <tr class="d-none">
+                                <td>@Html.DisplayNameFor(model => model.AdminId)</td>
+                                <td>@Html.DisplayFor(modelItem => item.AdminId)</td>
+                            </tr>
                             <tr>
                                 <td>@Html.DisplayNameFor(model => model.AdminNumber)</td>
                                 <td>@Html.DisplayFor(modelItem => item.AdminNumber)</td>
@@ -92,82 +102,50 @@
                     </table>
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="profile" role="tabpanel" aria-labelledby="tab102">
-                    <table class="table table-bordered border-primary ">
-                        <thead>
-                            <tr>
-                                <td>系統編號</td>
-                                <td>職稱</td>
-                                <td>姓名</td>
-                                <td>管理權限</td>
-                                <td>狀態</td>
-                                <td>帳號</td>
-                                <td>密碼</td>
-
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td>001</td>
-                            <td>IT經理</td>
-                            <td>謝小航</td>
-                            <td>總管理員</td>
-                            <td>正常</td>
-                            <td>Jason@123.com</td>
-                            <td>12345678</td>
-                        </tr>
-                    </table>
+                    @Html.Partial("AdminRegister")
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="contact" role="tabpanel" aria-labelledby="tab103">
-                    <table class="table table-bordered border-primary ">
-                        <thead>
-                            <tr>
-                                <td>系統編號</td>
-                                <td>職稱</td>
-                                <td>姓名</td>
-                                <td>管理權限</td>
-                                <td>狀態</td>
-                                <td>帳號</td>
-                                <td>密碼</td>
-
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td>001</td>
-                            <td>IT經理</td>
-                            <td>謝小航</td>
-                            <td>總管理員</td>
-                            <td>正常</td>
-                            <td>Jason@123.com</td>
-                            <td>12345678</td>
-                        </tr>
-                    </table>
+                    還沒放
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="contact2" role="tabpanel" aria-labelledby="tab104">
-                    <table class="table table-bordered border-primary ">
-                        <thead>
-                            <tr>
-                                <td>系統編號</td>
-                                <td>職稱</td>
-                                <td>姓名</td>
-                                <td>管理權限</td>
-                                <td>狀態</td>
-                                <td>帳號</td>
-                                <td>密碼</td>
-
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td>001</td>
-                            <td>IT經理</td>
-                            <td>謝小航</td>
-                            <td>總管理員</td>
-                            <td>正常</td>
-                            <td>Jason@123.com</td>
-                            <td>12345678</td>
-                        </tr>
-                    </table>
+                    還放
+                </div>
+                <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="contact3" role="tabpanel" aria-labelledby="tab105">
+                    還沒放
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Passwordcheck').on('input', function () {
+                var password = $("#AdminPassword").val();
+                var confirmPassword = $("#Passwordcheck").val();
+                if (password != confirmPassword) {
+                    $("#passwordMatchMessage").removeClass('d-none');
+                    $("#submitAdd").prop("disabled", true);
+                }
+                else {
+                    $("#passwordMatchMessage").addClass('d-none');
+                    $("#submitAdd").prop("disabled", false);
+                }
+            });
+        });
+        $(document).ready(function () {
+            $('#submitAdd').click(function (e) {
+                var password = $('#AdminPassword').val();
+                var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+                if (!regex.test(password)) {
+                    e.preventDefault();
+                    $('#passwordError').text('密碼必須至少有8個字符，並包含至少一個大寫字母，一個小寫字母，和一個數字。');
+                } else {
+                    $('#passwordError').text('');
+                }
+            });
+        });
+    </script>
+}

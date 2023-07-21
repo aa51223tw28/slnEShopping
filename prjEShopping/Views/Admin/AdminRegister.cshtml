@@ -1,0 +1,74 @@
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.AdminVM>
+@{
+    ViewBag.Title = "AdminRegister";
+}
+
+<div class="col-9 bg-secondary ">
+    <div class="container mt-2 ps-0 pe-0 ">
+        <div class="container bg-info">
+            <div class="row">
+                <div class="col-7">
+                    <form method="post" class="form-horizontal" >
+                        <div class="mb-3">
+                            <label class="form-label">職員編號：</label>
+                            <input type="text" class="form-control" id="AdminNumber" name="AdminNumber" value="@ViewBag.AdminNumber">
+                        </div>
+                        <select class="form-select mb-3" name="PermissionsId" id="PermissionsId" required>
+                            <option selected disabled value="">管理權限</option>
+                            @*<option value="1">總管理員</option>*@
+                            <option value="2">管理員</option>
+                            <option value="3">平台管理</option>
+                            <option value="4">會員管理</option>
+                            <option value="5">行銷管理</option>
+                            <option value="6">客服管理</option>
+
+                        </select>
+                        <div class="mb-3">
+                            <label for="AdminAccount" class="form-label">@Html.DisplayNameFor(model => model.AdminAccount)</label>
+                            <input type="email" class="form-control" id="AdminAccount" name="AdminAccount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword1" class="form-label">@Html.DisplayNameFor(model => model.AdminPassword)</label>
+                            <input type="password" id="AdminPassword" name="AdminPassword" class="form-control" aria-describedby="passwordHelpBlock">
+                            <label for="inputPassword2" class="form-label">密碼確認</label>
+                            <input type="password" id="Passwordcheck" class="form-control">
+                            <div id="passwordHelpBlock" class="form-text">
+                                密碼為8~16碼數字加上英文大小寫。
+                            </div>
+                            <div id="passwordMatchMessage" class="form-text d-none text-danger">
+                                兩次輸入的密碼不一致。
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">職稱：</label>
+                            <input type="text" class="form-control" id="Title" name="Title" >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">姓名：</label>
+                            <input type="text" class="form-control" id="AdminName" name="AdminName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">@Html.DisplayNameFor(model => model.Phone)：</label>
+                            <input type="text" class="form-control" id="Phone" name="Phone">
+                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">入職時間：</label>
+                            <input type="date" class="form-control" id="DateOfHire" name="DateOfHire" required>
+                        </div>
+                        <select class="form-select" id="JobStatus" name="JobStatus" required>
+                            <option selected disabled value="">工作狀態</option>
+                            <option value="1">在職中</option>
+                            <option value="2">未到職</option>
+                            <option value="3">留職停薪</option>
+                            <option value="4">已離職</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary  my-3" id="submitAdd">新增管理員</button>
+                        <p id="passwordError" class="text-danger"></p>
+                    </form>
+                </div>
+            </div>
+            <div class="col-4 ">
+            </div>
+        </div>
+    </div>
+</div>
