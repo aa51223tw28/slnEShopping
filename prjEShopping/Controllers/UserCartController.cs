@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,12 +14,18 @@ namespace prjEShopping.Controllers
         [Authorize]
         public ActionResult UserAddCart(int ProductId)//傳過來買了什麼的api
         {
+            var db = new AppDbContext();
             var customerAccount = User.Identity.Name;
+            //找userid
+            //var userid=db.Users.Where(x=>x.UserAccount==x.
 
+            ////新增一台購物車
+            
+            //var cart=db.ShoppingCarts.FirstOrDefault
 
           
 
-            return new EmptyResult();
+            return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
         }
 
 
