@@ -30,192 +30,63 @@
             </div>
         </div>
 
-        <!-- 一家店 -->
         <div class="row bg-success rounded py-3 mb-3">
             <div class="row mb-3">
                 <div class="col-1 d-flex align-items-center">
                     <input type="checkbox" class="form-check-input">
                 </div>
                 <div class="col-3 d-flex align-items-center">
-                    <span>Play Station</span>
+                    <span>playstation</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
                     <button class="btn btn-blue">聊聊</button>
                 </div>
             </div>
-
-            <hr>
-            <!-- 一件商品-->
-            <div class="row">
-                <div class="col-1">
-                    <input type="checkbox" class="form-check-input">
-                </div>
-                <div class="col-3">
-                    <div class="mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <p class="card-text">PlayStation 5 主機</p>
+            @foreach (var item in Model.CartItems)
+            {
+                <hr>
+                <!-- 一件商品-->
+                <div class="row">
+                    <div class="col-1">
+                        <input type="checkbox" class="form-check-input">
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <p class="card-text">PlayStation 5 主機</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span>$19,999</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <div class="input-group" style="width: 120px;">
-                        <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                        <input type="text" class="form-control quantityInput" value="1" min="1">
-                        <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                    <div class="col-2 d-flex align-items-center">
+                        <span>$19,999</span>
                     </div>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold">$5,5555</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-danger">刪除</button>
-                </div>
-            </div>
-            <hr>
-            <!-- 一件商品-->
-            <!-- 一件商品-->
-            <div class="row">
-                <div class="col-1">
-                    <input type="checkbox" class="form-check-input">
-                </div>
-                <div class="col-3">
-                    <div class="mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <p class="card-text">PlayStation 5 主機</p>
-                                </div>
-                            </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <div class="input-group" style="width: 120px;">
+                            <button class="btn btn-outline-primary minusBtn" type="button">-</button>
+                            <input type="text" class="form-control quantityInput" value="1" min="1">
+                            <button class="btn btn-outline-primary plusBtn" type="button">+</button>
                         </div>
                     </div>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span>$19,999</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <div class="input-group" style="width: 120px;">
-                        <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                        <input type="text" class="form-control quantityInput" value="1" min="1">
-                        <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                    <div class="col-2 d-flex align-items-center">
+                        <span class="text-danger fw-bold">$5,5555</span>
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <button class="btn btn-danger">刪除</button>
                     </div>
                 </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold">$5,5555</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-danger">刪除</button>
-                </div>
-            </div>
-
-            <!-- 一件商品-->
+                <hr>
+                <!-- 一件商品-->                
+                
+            }
         </div>
-        <!-- 一家店 -->
-        <!-- 一家店 -->
-        <div class="row bg-success rounded py-3 mb-3">
-            <div class="row mb-3">
-                <div class="col-1 d-flex align-items-center">
-                    <input type="checkbox" class="form-check-input">
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <span>Play Station</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-blue">聊聊</button>
-                </div>
-            </div>
 
-            <hr>
-            <!-- 一件商品-->
-            <div class="row">
-                <div class="col-1">
-                    <input type="checkbox" class="form-check-input">
-                </div>
-                <div class="col-3">
-                    <div class="mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <p class="card-text">PlayStation 5 主機</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span>$19,999</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <div class="input-group" style="width: 120px;">
-                        <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                        <input type="text" class="form-control quantityInput" value="1" min="1">
-                        <button class="btn btn-outline-primary plusBtn" type="button">+</button>
-                    </div>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold">$5,5555</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-danger">刪除</button>
-                </div>
-            </div>
-            <hr>
-            <!-- 一件商品-->
-            <!-- 一件商品-->
-            <div class="row">
-                <div class="col-1">
-                    <input type="checkbox" class="form-check-input">
-                </div>
-                <div class="col-3">
-                    <div class="mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <p class="card-text">PlayStation 5 主機</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span>$19,999</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <div class="input-group" style="width: 120px;">
-                        <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                        <input type="text" class="form-control quantityInput" value="1" min="1">
-                        <button class="btn btn-outline-primary plusBtn" type="button">+</button>
-                    </div>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold">$5,5555</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-danger">刪除</button>
-                </div>
-            </div>
-
-            <!-- 一件商品-->
-        </div>
-        <!-- 一家店 -->
         <!-- 結帳 -->
         <div class="row bg-success rounded py-3">
             <div class="row mb-3">
