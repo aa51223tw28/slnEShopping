@@ -62,6 +62,13 @@ namespace prjEShopping.Controllers
         [Authorize]
         public ActionResult UserShoppingCart()//購物車頁面
         {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid=db.ShoppingCarts.Where(x=>x.UserId== userid).Select(x=> x.CartId).FirstOrDefault();
+
+
             return View();
         }
 
