@@ -46,7 +46,7 @@
                         <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
                         <td><img src="~/img/@item.ProductImagePathOne" width="80" /></td>
                         <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                        <td><input type="text" class="input-group-text" size="4" value="@item.Quantity" name="Quantity" /></td>
+                        <td><input type="text" class="input-group-text" size="4" value="@item.Quantity" name="Quantity" readonly/></td>
                         <td>@Html.DisplayFor(modelItem => item.ItemPrice)</td>
                         <td><input type="checkbox" class="form-check-input" /></td>
                     </tr>

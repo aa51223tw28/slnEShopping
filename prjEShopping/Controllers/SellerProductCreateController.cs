@@ -28,5 +28,18 @@ namespace prjEShopping.Controllers
                                     );
             return Json(subcategorynames, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult getOptionNames(string subcategoryname) 
+        {
+            AppDbContext db = new AppDbContext();
+            var optionnames = db.ProductSubCategories.Where(x => x.SubcategoryName == subcategoryname)
+                           .Join(db.ProductSpecifications, x => x.SubcategoryId, y => y.SubcategoryId, (x, y) =>
+
+                           y.SpecificationName
+
+                           );
+            return Json(optionnames, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

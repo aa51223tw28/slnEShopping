@@ -200,27 +200,24 @@
 
                 xhr.addEventListener('load', () => {
                     const datas = JSON.parse(xhr.responseText);
-                    console.log(datas)
                     var categories = datas.map(category => {
                         return (`<option value="${category}">${category}</option>`)
                     })
                     selmaincategories.innerHTML = categories.join("");
                     LoadSubCategories();
                 })
-        }
+            }
 
             
             function LoadSubCategories()
             {
                 const categoryname = selmaincategories.options[selmaincategories.selectedIndex].value;
-                console.log(categoryname)
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', `@Url.Content("~/SellerProductCreate/getSubcategoryName?categoryname=")${categoryname}`);
                 xhr.send();
 
                 xhr.addEventListener('load', () => {
                     const datas = JSON.parse(xhr.responseText);
-                    console.log(datas)
                     var subcategories = datas.map(subcatory => {
                         return (`<option value="${subcatory}">${subcatory}</option>`)
                     })
