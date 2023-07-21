@@ -570,8 +570,7 @@
             $(".add2cart").each(function () {
                 $(this).on("click",async function () {
                     var self = $(this);
-                    var productId = self.attr("data-id");
-                                        
+                    var productId = self.attr("data-id");                                        
 
                     //ajax送出request
                     const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId + "&Quantity=" + quantityValue);
