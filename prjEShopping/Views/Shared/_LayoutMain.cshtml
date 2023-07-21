@@ -4,7 +4,7 @@
     <title>@Page.Title</title>
     @RenderSection("head", required: false)
     <link href="~/Content/all.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    @*<script src="~/Scripts/modernizr-2.6.2.js"></script>*@
     @RenderSection("Styles", required: false) @*引用css*@
 
 </head>
@@ -22,7 +22,7 @@
                                         <div class="d-flex align-items-center">
                                             <img src="~/img/man32px.png" alt="User Avatar" class="me-2">
                                             @*<span class="fw-bold text-light">John Doe</span>*@
-                                            <span><a href="/UsersMembers/Index/" class="fw-bold text-light">@(User.Identity.Name)</a></span>
+                                            <span href="/UsersMembers/Index/" class="fw-bold text-light">@(User.Identity.Name)</span>
                                         </div>
                                     </a>
                                 </li>
