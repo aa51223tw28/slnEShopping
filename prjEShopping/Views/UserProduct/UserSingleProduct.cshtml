@@ -503,6 +503,22 @@
     </div>
 </div>
 
+@*加入購物車跳出視窗*@
+<div class="modal" id="addToCartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">                
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                商品已成功加入購物車。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts{
@@ -574,7 +590,8 @@
 
                     //ajax送出request
                     const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId + "&Quantity=" + quantityValue);
-                    alert("已加入購物車");
+                    //alert("已加入購物車");
+                    $("#addToCartModal").modal("show");
                 })
             })
         })
