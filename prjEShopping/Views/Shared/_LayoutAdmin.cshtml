@@ -245,18 +245,6 @@
             }
         });
 
-
-        $(document).ready(function () {
-                $('#Passwordcheck').on('input', function () {
-                    var password = $("#AdminPassword").val();
-                    var confirmPassword = $("#Passwordcheck").val();
-                    if (password != confirmPassword)
-                        $("#passwordMatchMessage").removeClass('d-none'); //移除d-none类
-                    else
-                        $("#passwordMatchMessage").addClass('d-none'); //添加d-none类
-                });
-        });
-
     </script>
     @RenderSection("Scripts", required: false)
 

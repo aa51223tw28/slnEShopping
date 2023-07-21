@@ -29,7 +29,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active pt-2 pb-2 ps-2 pe-2 " id="home" role="tabpanel" aria-labelledby="tab101">
                     <table class="table table-bordered border-white fs-6 d-none d-md-table table-hover ">
-                        <thead class="bg-primary text-secondary " >
+                        <thead class="bg-primary text-secondary ">
                             <tr>
                                 <td class="d-none">@Html.DisplayNameFor(model => model.AdminId)</td>
                                 <td>@Html.DisplayNameFor(model => model.AdminNumber)</td>
@@ -105,10 +105,10 @@
                     @Html.Partial("AdminRegister")
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="contact" role="tabpanel" aria-labelledby="tab103">
-                     還沒放
+                    還沒放
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="contact2" role="tabpanel" aria-labelledby="tab104">
-                     還放
+                    還放
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="contact3" role="tabpanel" aria-labelledby="tab105">
                     還沒放
@@ -117,3 +117,35 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Passwordcheck').on('input', function () {
+                var password = $("#AdminPassword").val();
+                var confirmPassword = $("#Passwordcheck").val();
+                if (password != confirmPassword) {
+                    $("#passwordMatchMessage").removeClass('d-none');
+                    $("#submitAdd").prop("disabled", true);
+                }
+                else {
+                    $("#passwordMatchMessage").addClass('d-none');
+                    $("#submitAdd").prop("disabled", false);
+                }
+            });
+        });
+        $(document).ready(function () {
+            $('#submitAdd').click(function (e) {
+                var password = $('#AdminPassword').val();
+                var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+                if (!regex.test(password)) {
+                    e.preventDefault();
+                    $('#passwordError').text('密碼必須至少有8個字符，並包含至少一個大寫字母，一個小寫字母，和一個數字。');
+                } else {
+                    $('#passwordError').text('');
+                }
+            });
+        });
+    </script>
+}
