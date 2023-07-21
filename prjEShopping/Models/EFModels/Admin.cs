@@ -21,6 +21,9 @@ namespace prjEShopping.Models.EFModels
         [StringLength(50)]
         public string AdminPassword { get; set; }
 
+        [StringLength(100)]
+        public string AdminPasswordSalt { get; set; }
+
         [StringLength(50)]
         public string Title { get; set; }
 
@@ -34,5 +37,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string JobStatus { get; set; }
+
+        [StringLength(50)]
+        public string Role { get; set; }
     }
 }

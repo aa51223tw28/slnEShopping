@@ -15,5 +15,8 @@ namespace prjEShopping.Models.EFModels
         public int? ProductId { get; set; }
 
         public int? Quantity { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? CurrentPrice { get; set; }
     }
 }
