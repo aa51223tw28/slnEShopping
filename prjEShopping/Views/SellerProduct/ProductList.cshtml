@@ -106,6 +106,7 @@
 @section Scripts
     {
     <script>
+
             const selmaincategories = document.querySelector('#maincategories');
             const selsubcategories = document.querySelector('#subcategories');
 
@@ -140,11 +141,12 @@
                     })
                     selsubcategories.innerHTML = subcategories.join("");
                     LoadOptionNames();
+                    LoadOptionValue()
                 })
             }
 
             function LoadOptionNames()
-        {
+            {
                 const subcatorynames = selsubcategories.options[selsubcategories.selectedIndex].value;
             $.ajax({
                 url: '@Url.Content("/SellerProductCreate/getOptionNames")',
@@ -154,13 +156,14 @@
                 success: function (response) {
                     let count = 0;
                     let datas = '';
-                    response.forEach(function (item) {
+                    response.forEach( function (item) {
+
                         datas +=`<div class="row mb-2">
                                     <div class="col-4 d-flex align-items-center">
-                                        <span value="${response[count]}" class="fw-bold text-primary">${response[count]}：</span>
+                                        <span value="${response[count]}" class="fw-bold text-primary" id="optionname${count}">${response[count]}：</span>
                                     </div>
                                     <div class="col-4">
-                                        <select class="form-select" id="option${count}">
+                                        <select class="form-select" id="optionvalue${count}">
                                         </select>
                                     </div>
                                     <div class="col-4">
@@ -177,8 +180,33 @@
                     }
             });
 
-         }
+            }
 
+
+            function LoadOptionValue()
+            {
+                let count = 0;
+                for (let i = 0; i < 5; i++)
+                {
+                    const optionnameElement = document.querySelector(`#optionname${count}`);
+                    const optionname = optionnameElement.getAttribute('value');
+                    console.log(optionname)
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', `@Url.Content("~/SellerProductCreate/getOptionValues?specificationname=")${encodeURIComponent(optionname)}`);
+                    xhr.send();
+                    
+
+                    xhr.addEventListener('load', () => {
+                        const values = JSON.parse(xhr.responseText);
+                        const optionContainer = document.querySelector(`#optionvalue${count}`);
+                        var optionnames = values.map(option => {
+                         return (`<option value="${option}" name=option${i}>${option}</option>`);
+                        });
+                        optionContainer.innerHTML = optionnames.join("");
+                        count++;
+                    });
+                }
+            }
 
         LoadMainCategories();
 
@@ -188,6 +216,7 @@
 
         selsubcategories.addEventListener('change', () => {
             LoadOptionNames()
+            
         })
 
 

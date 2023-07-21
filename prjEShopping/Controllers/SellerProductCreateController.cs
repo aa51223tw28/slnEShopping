@@ -54,5 +54,18 @@ namespace prjEShopping.Controllers
             return Json(optionvalues, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult getOptionValuesTest(string subcategoryname)//測試用待刪
+        {
+            AppDbContext db = new AppDbContext();
+            var specificationId = db.ProductSubCategories.Where(x => x.SubcategoryName == subcategoryname).FirstOrDefault();
+            var optionvalues = db.ProductSpecifications.Where(x => x.SubcategoryId == specificationId.SubcategoryId)
+                            .Join(db.ProductOptions, x => x.SpecificationId, y => y.SpecificationId, (x, y) =>
+
+                            y.OptionName
+
+                            );
+            return Json(optionvalues, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
