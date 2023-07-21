@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.AdminVM>
+@{
     ViewBag.Title = "AdminRegister";
 }
 
@@ -7,7 +8,7 @@
         <div class="container bg-info">
             <div class="row">
                 <div class="col-7">
-                    <form method="post" class="form-horizontal" action="AdminRegister">
+                    <form method="post" class="form-horizontal" >
                         <div class="mb-3">
                             <label class="form-label">職員編號：</label>
                             <input type="text" class="form-control" id="AdminNumber" name="AdminNumber" value="@ViewBag.AdminNumber">
@@ -23,11 +24,11 @@
 
                         </select>
                         <div class="mb-3">
-                            <label for="AdminAccount" class="form-label">帳號(E-mail)</label>
-                            <input type="email" class="form-control" id="AdminAccount" name="AdminAccount">
+                            <label for="AdminAccount" class="form-label">@Html.DisplayNameFor(model => model.AdminAccount)</label>
+                            <input type="email" class="form-control" id="AdminAccount" name="AdminAccount" required>
                         </div>
                         <div class="mb-3">
-                            <label for="inputPassword1" class="form-label">密碼</label>
+                            <label for="inputPassword1" class="form-label">@Html.DisplayNameFor(model => model.AdminPassword)</label>
                             <input type="password" id="AdminPassword" name="AdminPassword" class="form-control" aria-describedby="passwordHelpBlock">
                             <label for="inputPassword2" class="form-label">密碼確認</label>
                             <input type="password" id="Passwordcheck" class="form-control">
@@ -40,19 +41,19 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">職稱：</label>
-                            <input type="text" class="form-control" id="Title" name="Title">
+                            <input type="text" class="form-control" id="Title" name="Title" >
                         </div>
                         <div class="mb-3">
                             <label class="form-label">姓名：</label>
-                            <input type="text" class="form-control" id="AdminName" name="AdminName">
+                            <input type="text" class="form-control" id="AdminName" name="AdminName" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">電話：</label>
+                            <label class="form-label">@Html.DisplayNameFor(model => model.Phone)：</label>
                             <input type="text" class="form-control" id="Phone" name="Phone">
-                        </div>
+                            </div>
                         <div class="mb-3">
                             <label class="form-label">入職時間：</label>
-                            <input type="date" class="form-control" id="DateOfHire" name="DateOfHire">
+                            <input type="date" class="form-control" id="DateOfHire" name="DateOfHire" required>
                         </div>
                         <select class="form-select" id="JobStatus" name="JobStatus" required>
                             <option selected disabled value="">工作狀態</option>
