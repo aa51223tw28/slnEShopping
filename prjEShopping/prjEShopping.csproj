@@ -284,7 +284,6 @@
     <Content Include="Views\UserCart\UserCheckout.cshtml" />
     <Content Include="Views\UserCart\UserOrderDetail.cshtml" />
     <Content Include="Views\UserCart\UserShoppingCart.cshtml" />
-    <Content Include="Views\UserMembers\Index.cshtml" />
     <Content Include="Views\Admin\AdminLogin.cshtml" />
     <Content Include="Views\Admin\AdminRegister.cshtml" />
     <Content Include="Views\Admin\AdminEdit2.cshtml" />
