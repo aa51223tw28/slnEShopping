@@ -29,7 +29,7 @@ namespace prjEShopping.Controllers
             return Json(subcategorynames, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult getOptionNames(string subcategoryname) 
+        public ActionResult getOptionNames(string subcategoryname)
         {
             AppDbContext db = new AppDbContext();
             var optionnames = db.ProductSubCategories.Where(x => x.SubcategoryName == subcategoryname)
@@ -39,6 +39,19 @@ namespace prjEShopping.Controllers
 
                            );
             return Json(optionnames, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getOptionValues(string specificationname) 
+        {
+            AppDbContext db = new AppDbContext();
+            var specificationId = db.ProductSpecifications.Where(x => x.SpecificationName == specificationname).FirstOrDefault();
+            var optionvalues = db.ProductSpecifications.Where(x => x.SpecificationName == specificationname)
+                            .Join(db.ProductOptions.Where(y => y.SpecificationId == specificationId.SpecificationId), x => x.SpecificationId, y => y.SpecificationId, (x, y) =>
+
+                            y.OptionName
+
+                            );
+            return Json(optionvalues, JsonRequestBehavior.AllowGet);
         }
 
     }
