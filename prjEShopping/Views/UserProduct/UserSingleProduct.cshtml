@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-9">
                         <div class="d-flex align-items-center">
-                            <div class="input-group" style="width: 120px;">
+                            <div class="input-group" style="width: 120px;">@*加減數量*@
                                 <button class="btn btn-outline-primary minusBtn" type="button">-</button>
                                 <input type="text" class="form-control quantityInput" value="1" min="1">
                                 <button class="btn btn-outline-primary plusBtn" type="button">+</button>
@@ -561,6 +561,10 @@
                     var self = $(this);
                     var productId = self.attr("data-id");
 
+                    //找到數量
+                    //var quantityInput = document.querySelector(".quantityInput");
+                    //var quantityValue = quantityInput.value;
+                    //console.log(quantityValue);
                     //ajax送出request
                     const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId);
                     alert("已加入購物車");
