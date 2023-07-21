@@ -81,10 +81,11 @@ namespace prjEShopping.Controllers
                                     ProductId = x.ProductId,
                                     ProductName = y.ProductName,
                                     Quantity = x.Quantity,
-                                    Price=y.Price,
-                                    SubTotal=(x.Quantity)*(y.Price),
-                                    ProductImagePathOne=y.ProductImagePathOne
-                                }).ToList();  
+                                    Price = y.Price,
+                                    SubTotal = (x.Quantity) * (y.Price),
+                                    ProductImagePathOne = y.ProductImagePathOne,
+                                    SellerId = y.SellerId
+                                }).ToList();
             
             datas=data.Select(x=>new UserShoppingCartVM
             {
@@ -96,8 +97,11 @@ namespace prjEShopping.Controllers
                 Quantity = (int)x.Quantity,
                 Price = (decimal)x.Price,
                 SubTotal = (decimal)x.SubTotal,
-                ProductImagePathOne = x.ProductImagePathOne
+                ProductImagePathOne = x.ProductImagePathOne,
+                SellerId = (int)x.SellerId
             }).ToList();
+
+
 
             return View(datas);
         }

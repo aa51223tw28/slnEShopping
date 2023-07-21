@@ -29,58 +29,61 @@
                 <span>操作</span>
             </div>
         </div>
-
-        <div class="row bg-success rounded py-3 mb-3">
-            <div class="row mb-3">
-                <div class="col-1 d-flex align-items-center">
-                    <input type="checkbox" class="form-check-input">
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <span>playstation</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-blue">聊聊</button>
-                </div>
-            </div>
-            @foreach (var item in Model)
-            {
-                <div class="row">
-                    <div class="col-1">
+   
+            <div class="row bg-success rounded py-3 mb-3">
+                <div class="row mb-3">
+                    <div class="col-1 d-flex align-items-center">
                         <input type="checkbox" class="form-check-input">
                     </div>
-                    <div class="col-3">
-                        <div class="mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <p class="card-text">@item.ProductName</p>
+                    <div class="col-3 d-flex align-items-center">
+                        <span>賣家名稱</span>
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <button class="btn btn-blue">聊聊</button>
+                    </div>
+                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-1">
+                            <input type="checkbox" class="form-check-input">
+                        </div>
+                        <div class="col-3">
+                            <div class="mb-3" style="max-width: 540px;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <p class="card-text">@item.ProductName</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <span>$@string.Format("{0:n0}", Math.Round((decimal)item.Price))</span>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <div class="input-group" style="width: 120px;">
+                                @*加減數量*@
+                                <button class="btn btn-outline-primary minusBtn" type="button">-</button>
+                                <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
+                                <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                            </div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <button class="btn btn-danger">刪除</button>
+                        </div>
                     </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <span>$@string.Format("{0:n0}", Math.Round((decimal)item.Price))</span>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <div class="input-group" style="width: 120px;">@*加減數量*@                            
-                            <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                            <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
-                            <button class="btn btn-outline-primary plusBtn" type="button">+</button>
-                         </div>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <span class="text-danger fw-bold">@item.TotalPrice</span>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <button class="btn btn-danger">刪除</button>
-                    </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        
+
 
         <!-- 結帳 -->
         <div class="row bg-success rounded py-3">
