@@ -298,10 +298,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
-    <Folder Include="Models\Interface\" />
-    <Folder Include="Models\Services\" />
-    <Folder Include="Views\SellerProductCreate\" />
     <Folder Include="Models\DAOs\" />
+    <Folder Include="Views\SellerProductCreate\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

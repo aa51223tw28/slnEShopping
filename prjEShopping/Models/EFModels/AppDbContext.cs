@@ -50,6 +50,10 @@ namespace prjEShopping.Models.EFModels
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<OrderDetail>()
+                .Property(e => e.CurrentPrice)
+                .HasPrecision(19, 4);
+
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)
                 .HasPrecision(19, 4);

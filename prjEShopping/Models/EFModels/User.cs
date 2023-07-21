@@ -19,6 +19,9 @@ namespace prjEShopping.Models.EFModels
         [StringLength(50)]
         public string UserPassword { get; set; }
 
+        [StringLength(100)]
+        public string UserPasswordSalt { get; set; }
+
         [StringLength(50)]
         public string Gender { get; set; }
 
@@ -48,5 +51,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string UserImagePath { get; set; }
+
+        [StringLength(50)]
+        public string Role { get; set; }
     }
 }

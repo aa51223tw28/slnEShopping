@@ -22,6 +22,9 @@ namespace prjEShopping.Models.EFModels
         [StringLength(50)]
         public string SellerPassword { get; set; }
 
+        [StringLength(100)]
+        public string SellerPasswordSalt { get; set; }
+
         [StringLength(50)]
         public string Phone { get; set; }
 
@@ -47,5 +50,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string SellerImagePath { get; set; }
+
+        [StringLength(50)]
+        public string Role { get; set; }
     }
 }
