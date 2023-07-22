@@ -8,7 +8,8 @@
         <div class="container bg-info">
             <div class="row">
                 <div class="col-7">
-                    <form method="post" class="form-horizontal" >
+                    <form method="post" class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="mb-3">
                             <label class="form-label">職員編號：</label>
                             <input type="text" class="form-control" id="AdminNumber" name="AdminNumber" value="@ViewBag.AdminNumber">
@@ -41,7 +42,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">職稱：</label>
-                            <input type="text" class="form-control" id="Title" name="Title" >
+                            <input type="text" class="form-control" id="Title" name="Title">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">姓名：</label>
@@ -50,7 +51,7 @@
                         <div class="mb-3">
                             <label class="form-label">@Html.DisplayNameFor(model => model.Phone)：</label>
                             <input type="text" class="form-control" id="Phone" name="Phone">
-                            </div>
+                        </div>
                         <div class="mb-3">
                             <label class="form-label">入職時間：</label>
                             <input type="date" class="form-control" id="DateOfHire" name="DateOfHire" required>

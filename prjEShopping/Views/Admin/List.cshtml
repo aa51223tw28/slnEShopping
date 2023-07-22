@@ -103,6 +103,10 @@
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="profile" role="tabpanel" aria-labelledby="tab102">
                     @Html.Partial("AdminRegister")
+                    @if (ViewBag.PartialViewName == "AdminRegister")
+                    {
+                        @Html.Partial("AdminRegister")
+                    }
                 </div>
                 <div class="tab-pane fade pt-2 pb-2 ps-2 pe-2" id="contact" role="tabpanel" aria-labelledby="tab103">
                     還沒放
