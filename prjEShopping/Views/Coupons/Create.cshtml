@@ -2,160 +2,158 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Create</h2>
+<div class="col-9 bg-secondary ">
+    <h2>新增優惠券</h2>
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="CouponNumber" name="CouponNumber" value="@ViewBag.CouponNum" />
+                    @Html.ValidationMessageFor(model => model.CouponNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-horizontal">
-        <h4>Coupon</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CouponNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="CouponNumber" name="CouponNumber" />
-                @Html.ValidationMessageFor(model => model.CouponNumber, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="CouponName" name="CouponName" />
+                    @Html.ValidationMessageFor(model => model.CouponName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponDetails, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="CouponDetails" name="CouponDetails" />
+                    @Html.ValidationMessageFor(model => model.CouponDetails, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="number" id="Quantity" name="Quantity" />
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponTerms, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="CouponTerms" name="CouponTerms" />
+                    @Html.ValidationMessageFor(model => model.CouponTerms, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="CouponType" name="CouponType">
+                        <option value="" disabled selected>請選擇</option>
+                        <option>折價券</option>
+                        <option>抵用券</option>
+                        <option>免運券</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.CouponType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="Discount" name="Discount" />
+                    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Storewide, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <label>全館:</label>
+                        <input type="checkbox" id="StorewideAll" name="Storewide" value="All" />
+                        <label>商家:</label>
+                        <select type="text" id="StorewideSeller" name="Storewide">
+                            <option value="" disabled selected>請選擇</option>
+                            <option>商家A</option>
+                            <option>商家B</option>
+                            <option>商家C</option>
+                        </select>
+                    @*<label>全館:</label>
+                    <input type="radio" id="Storewide" name="Storewide" value="All" />
+                    <label>商家:</label>
+                    <input type="radio" id="Storewide" name="Storewide" value="SellerId" />*@
+                    @Html.ValidationMessageFor(model => model.Storewide, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="date" id="StartTime" name="StartTime" />
+                    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClaimDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="date" id="ClaimDeadline" name="ClaimDeadline" />
+                    @Html.ValidationMessageFor(model => model.ClaimDeadline, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="date" id="EndTime" name="EndTime" />
+                    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EventStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <label>開始活動</label>
+                    <input type="radio" id="EventStatus" name="EventStatus" value="open" />
+                    <label>關閉活動</label>
+                    <input type="radio" id="EventStatus" name="EventStatus" value="close" />
+                    @Html.ValidationMessageFor(model => model.EventStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="新增優惠券" class="btn btn-primary my-2" />
+                </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CouponName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="CouponName" name="CouponName" />
-                @Html.ValidationMessageFor(model => model.CouponName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CouponDetails, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="CouponDetails" name="CouponDetails" />
-                @Html.ValidationMessageFor(model => model.CouponDetails, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="Quantity" name="Quantity" />
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CouponTerms, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="CouponTerms" name="CouponTerms" />
-                @Html.ValidationMessageFor(model => model.CouponTerms, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <select id="CouponType" name="CouponType">
-                    <option value="" disabled selected>請選擇</option>
-                    <option>折扣</option>
-                    <option>現金折價</option>
-                    <option>免運</option>
-                </select>
-                @Html.ValidationMessageFor(model => model.CouponType, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="text" id="Discount" name="Discount" />
-                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Storewide, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*<label>全館:</label>
-                <input type="checkbox" id="StorewideAll" name="Storewide" value="All" />
-                <label>商家:</label>
-                <select type="text" id="StorewideSeller" name="Storewide">
-                    <option value="" disabled selected>請選擇</option>
-                    <option>商家A</option>
-                    <option>商家B</option>
-                    <option>商家C</option>
-                </select>*@
-                <label>全館:</label>
-                <input type="radio" id="Storewide" name="Storewide" value="All" />
-                <label>商家:</label>
-                <input type="radio" id="Storewide" name="Storewide" value="SellerId" />
-                @Html.ValidationMessageFor(model => model.Storewide, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="date" id="StartTime" name="StartTime" />
-                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ClaimDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="date" id="ClaimDeadline" name="ClaimDeadline" />
-                @Html.ValidationMessageFor(model => model.ClaimDeadline, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="date" id="EndTime" name="EndTime" />
-                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EventStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <label>開始活動</label>
-                <input type="radio" id="EventStatus" name="EventStatus" value="open" />
-                <label>關閉活動</label>
-                <input type="radio" id="EventStatus" name="EventStatus" value="close" />
-                @Html.ValidationMessageFor(model => model.EventStatus, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="新增優惠券" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("取消", "Index", null, new { @class = "btn btn-primary my-2" })
     </div>
-}
-
-<div>
-    @Html.ActionLink("取消", "Index")
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#StorewideAll').change(function () {
-            if ($(this).is(":checked")) {
-                $('#StorewideSeller').prop('disabled', true);
-            } else {
-                $('#StorewideSeller').prop('disabled', false);
-            }
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#StorewideAll').change(function () {
+                if ($(this).is(":checked")) {
+                    $('#StorewideSeller').prop('disabled', true);
+                } else {
+                    $('#StorewideSeller').prop('disabled', false);
+                }
+            });
         });
-    });
-</script>
+    </script>
+    }

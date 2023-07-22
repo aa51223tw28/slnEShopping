@@ -21,16 +21,16 @@ namespace prjEShopping.Controllers
         //    return View(db.Coupons.ToList());
         //}
 
-        //測試分頁用
+        //優惠券列表分頁專用
         public ActionResult Index(int page = 1, int pageSize = 10)
         {
-            // Assume db is your DbContext
+            // 連資料庫
             using (db)
             {
                 int totalItems = db.Coupons.Count();
                 // Skip (page - 1) * pageSize records and Take pageSize records
                 var items = db.Coupons
-                              .OrderBy(c => c.CouponId)  // Important to order the records before Skip and Take
+                              .OrderBy(c => c.CouponId)  // 依照Id排序
                               .Skip((page - 1) * pageSize)
                               .Take(pageSize)
                               .ToList();
@@ -38,25 +38,26 @@ namespace prjEShopping.Controllers
                 var model = new PaginatedViewModel<Coupon>
                 {
                     CurrentPage = page,
-                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    Items = items
+                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
+                    Items = items  //優惠券
                 };
 
-                //return View(model);
-
+                //重要 要分開
                 if (Request.IsAjaxRequest())
                 {
-                    // 如果是 AJAX 请求，只返回包含表格和分页链接的视图
+                    // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
                     return PartialView("_IndexCoupons", model);
                 }
                 else
                 {
-                    // 如果不是 AJAX 请求，返回包含布局的完整页面
+                    // 如果不是 AJAX 请求，返回包含布局(Layout)的完整頁面
                     return View(model);
                 }
             }
         }
 
+        //todo 優惠券列表分頁VM未搬家
+        //優惠券分頁的VM 之後再搬家
         public class PaginatedViewModel<Coupon>
         {
             public int CurrentPage { get; set; }
@@ -67,7 +68,28 @@ namespace prjEShopping.Controllers
         // GET: Coupons/Create
         public ActionResult Create()
         {
+            List<string> CouponsNums = db.Coupons.Select(a => a.CouponNumber).ToList();
+
+            var date = DateTime.Now;
+            string year = date.Year.ToString().Substring(2, 2);
+            string month = date.Month.ToString().PadLeft(2, '0');
+
+            int count = 1;
+            string CouponNum = GetCouponNums(year, month, count);
+
+            while (CouponsNums.Contains(CouponNum))
+            {
+                count++;
+                CouponNum = GetCouponNums(year, month, count);
+            }
+
+            ViewBag.CouponNum = CouponNum;
             return View();
+        }
+
+        public string GetCouponNums(string year, string month,int count)
+        {
+            return $"C{year}{month}{count.ToString().PadLeft(2, '0')}";
         }
 
         // POST: Coupons/Create

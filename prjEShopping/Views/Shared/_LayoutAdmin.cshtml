@@ -125,7 +125,8 @@
                     <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="#">商家廣告設置</a></li>
                         <li><a class="dropdown-item" href="#">站內折扣設置</a></li>
-                        <li><a class="dropdown-item" href="#">優惠券設置</a></li>
+                        @*<li><a class="dropdown-item" href="@Url.Action("Index", "Coupons", new { id = 123 })">優惠券設置</a></li>*@
+                        <li>@Html.ActionLink("優惠券設置", "Index", "Coupons", new { area = "" }, new { @class = "nav-link" })</li>
                     </ul>
 
                     <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">

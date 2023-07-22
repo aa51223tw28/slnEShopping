@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<prjEShopping.Models.EFModels.Coupon>*@
+﻿@*優惠券分頁*@
 @model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.EFModels.Coupon>
 @{
     ViewBag.Title = "Index";
@@ -10,7 +10,8 @@
         <p>
             @Html.ActionLink("新增優惠券", "Create", null, new { @class = "btn btn-primary" })
         </p>
-        <table class="table table-primary table-bordered">
+        @*優惠券列表*@
+        @*<table class="table table-primary table-bordered">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Items[0].CouponNumber)
@@ -99,7 +100,50 @@
                 </tr>
             }
 
+        </table>*@
+
+        @*優惠券圖片版本*@
+    <table class="table table-primary table-bordered">
+        <tr>
+            <td>券號</td>
+            <td>優惠券</td>
+            <td>使用條件</td>
+            <td>說明</td>
+            <td>數量</td>
+            <td>領取期限</td>
+            <td>票券設定</td>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr><td>@Html.DisplayFor(modelItem => item.CouponNumber)</td>
+                <td>
+                    <div class="d-flex me-2 coupon-item mb-2">
+                        <img src="~/img/coupon.png" alt="">
+                        <div class="d-flex flex-column p-2 bg-info">
+                            <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
+                            <span>@Html.DisplayFor(modelItem => item.Storewide) @Html.DisplayFor(modelItem => item.Discount) </span>
+                            <span>@Html.DisplayFor(modelItem => item.StartTime)~@Html.DisplayFor(modelItem => item.EndTime)</span>
+                            <div class="d-flex">
+                                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                                <button type="button" class="btn btn-secondary ms-3">領取</button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.CouponTerms)</td>
+                <td>@Html.DisplayFor(modelItem => item.CouponDetails)</td>
+                <td>@Html.DisplayFor(modelItem => item.Quantity) </td>
+                <td>@Html.DisplayFor(modelItem => item.ClaimDeadline)</td>
+                <td>
+
+                    @Html.ActionLink("修改", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1" })
+                    @Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })
+                    
+                </td>
+            </tr>
+        }
         </table>
+        @*分頁標籤設定*@
         <nav>
             <ul class="pagination">
                 @if (Model.CurrentPage > 1 || Model.CurrentPage == Model.TotalPages)
@@ -132,7 +176,7 @@
                 @if (Model.CurrentPage == Model.TotalPages)
                 {
                     <li class="page-item" id="Next">
-                        <a class="page-link disabled">Next</a>
+                        <a class="page-link disabled bg-info">Next</a>
                     </li>
                 }
 
@@ -143,6 +187,7 @@
 
 @section Scripts{
     <script>
+       /* 分頁生成設定*/
         $(document).ready(function () {
             $('.page-link').click(function (e) {
                 e.preventDefault();
