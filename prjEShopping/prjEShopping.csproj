@@ -294,6 +294,7 @@
     <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
     <Content Include="Views\Coupons\Create.cshtml" />
+    <Content Include="Views\Coupons\_IndexCoupons.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

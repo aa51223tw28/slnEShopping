@@ -14,10 +14,54 @@ namespace prjEShopping.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
-        // GET: Coupons
-        public ActionResult Index()
+        // GET: Coupons 原始設定
+        //public ActionResult Index()
+        //{
+
+        //    return View(db.Coupons.ToList());
+        //}
+
+        //測試分頁用
+        public ActionResult Index(int page = 1, int pageSize = 10)
         {
-            return View(db.Coupons.ToList());
+            // Assume db is your DbContext
+            using (db)
+            {
+                int totalItems = db.Coupons.Count();
+                // Skip (page - 1) * pageSize records and Take pageSize records
+                var items = db.Coupons
+                              .OrderBy(c => c.CouponId)  // Important to order the records before Skip and Take
+                              .Skip((page - 1) * pageSize)
+                              .Take(pageSize)
+                              .ToList();
+
+                var model = new PaginatedViewModel<Coupon>
+                {
+                    CurrentPage = page,
+                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
+                    Items = items
+                };
+
+                //return View(model);
+
+                if (Request.IsAjaxRequest())
+                {
+                    // 如果是 AJAX 请求，只返回包含表格和分页链接的视图
+                    return PartialView("_IndexCoupons", model);
+                }
+                else
+                {
+                    // 如果不是 AJAX 请求，返回包含布局的完整页面
+                    return View(model);
+                }
+            }
+        }
+
+        public class PaginatedViewModel<Coupon>
+        {
+            public int CurrentPage { get; set; }
+            public int TotalPages { get; set; }
+            public List<Coupon> Items { get; set; }
         }
 
         // GET: Coupons/Create

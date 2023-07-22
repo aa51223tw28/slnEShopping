@@ -1,0 +1,163 @@
+﻿@*@model IEnumerable<prjEShopping.Models.EFModels.Coupon>*@
+@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.EFModels.Coupon>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="dataContainer">
+    <h2>優惠券列表</h2>
+    <div class="container overflow-auto">
+        <p>
+            @Html.ActionLink("新增優惠券", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+        <table class="table table-primary table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].CouponNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].CouponName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].CouponDetails)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].CouponTerms)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].CouponType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].Discount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].Storewide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].StartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].ClaimDeadline)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].EndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items[0].EventStatus)
+                </th>
+                <th>
+                    <label>票券設定</label>
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponDetails)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponTerms)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Storewide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClaimDeadline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventStatus)
+                    </td>
+                    <td>
+                        @Html.ActionLink("修改", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1" })
+                        @Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <nav>
+            <ul class="pagination">
+                @if (Model.CurrentPage > 1 || Model.CurrentPage == Model.TotalPages)
+                {
+                    <li class="page-item" id="Previous">
+                        <a class="page-link " href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">Previous</a>
+                    </li>
+                }
+                @if (Model.CurrentPage == 1)
+                {
+                    <li class="page-item" id="Previous">
+                        <a class="page-link disabled bg-info">Previous</a>
+                    </li>
+                }
+
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                    </li>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item" id="Next">
+                        <a class="page-link btn btn-secondary" href="@Url.Action("Index", new { page = Model.CurrentPage + 1 })">Next</a>
+                    </li>
+                }
+                @if (Model.CurrentPage == Model.TotalPages)
+                {
+                    <li class="page-item" id="Next">
+                        <a class="page-link disabled">Next</a>
+                    </li>
+                }
+
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.page-link').click(function (e) {
+                e.preventDefault();
+                var page = $(this).text();
+
+                $.ajax({
+                    url: '/Coupons/Index',
+                    type: 'GET',
+                    data: { page: page },
+                    success: function (data) {
+                        $('#dataContainer').html(data);
+                    }
+                });
+            });
+        });
+
+    </script>
+}
