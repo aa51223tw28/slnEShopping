@@ -134,6 +134,16 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult UserCheckout(UserCheckoutVM vm)//寫進資料庫
         {
+            //新增order
+
+
+            //新增orderdetail
+
+
+            //清空購物車--給一台新車
+
+
+
             return View("UserOrderDetail");
         }
 
