@@ -1,0 +1,114 @@
+﻿@model prjEShopping.Models.EFModels.Coupon
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Coupon</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CouponNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CouponNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CouponName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CouponName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CouponDetails)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CouponDetails)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CouponTerms)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CouponTerms)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CouponType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CouponType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Storewide)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Storewide)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClaimDeadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClaimDeadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CouponId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
