@@ -8,96 +8,119 @@
 <div class="col-9 bg-secondary ">
     <h2>優惠券列表</h2>
     <div class="container overflow-auto">
-    <p>
-        @Html.ActionLink("新增優惠券", "Create",null, new { @class = "btn btn-primary" })
-    </p>
-    <table class="table table-primary table-bordered">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CouponNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CouponName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CouponDetails)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CouponTerms)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CouponType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Discount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Storewide)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClaimDeadline)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventStatus)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <p>
+            @Html.ActionLink("新增優惠券", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+        <table class="table table-primary table-bordered">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CouponNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CouponName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CouponDetails)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CouponTerms)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CouponType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Discount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Storewide)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClaimDeadline)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventStatus)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1"})
-                    @Html.ActionLink("Delete", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1"})
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponDetails)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponTerms)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CouponType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Discount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Storewide)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClaimDeadline)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EventStatus)
+                </th>
+                <th></th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponDetails)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponTerms)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Storewide)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClaimDeadline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventStatus)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">2</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
+
+@section Scripts{
+    <script></script>
+    }
+
+@section Styles{
+    <style></style>
+    }

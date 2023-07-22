@@ -68,14 +68,14 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid=db.ShoppingCarts.Where(x=>x.UserId== userid).Select(x=> x.CartId).FirstOrDefault();
-            UserShoppingCartVM cart=db.ShoppingCarts.Include(x=>x.ShoppingCartDetails)
-                                    .Where(x=>x.UserId== userid)
-                                    .Select(x=>new UserShoppingCartVM
-                                    {
-                                        CartId=x.CartId,
-                                        UserId= (int)x.UserId,
-                                        CartItems=x.
-                                    }).First();
+            //UserShoppingCartVM cart=db.ShoppingCarts.Include(x=>x.ShoppingCartDetails)
+            //                        .Where(x=>x.UserId== userid)
+            //                        .Select(x=>new UserShoppingCartVM
+            //                        {
+            //                            CartId=x.CartId,
+            //                            UserId= (int)x.UserId,
+            //                            CartItems=x.
+            //                        }).First();
 
             return View();
         }

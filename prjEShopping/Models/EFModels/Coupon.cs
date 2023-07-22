@@ -36,7 +36,7 @@ namespace prjEShopping.Models.EFModels
         public DateTime? StartTime { get; set; }
 
         public DateTime? ClaimDeadline { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? EndTime { get; set; }
 
         [StringLength(50)]
