@@ -16,7 +16,6 @@ namespace prjEShopping.Models.ViewModels
         public int SellerId { get; set; }
         public string SellerName { get; set; }
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
         public decimal SubTotal { get; set; }
         public decimal TotalPrice { get; set; }
         public string ProductImagePathOne { get; set; }
