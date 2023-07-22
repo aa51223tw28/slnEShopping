@@ -117,7 +117,7 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).Select(x => x.CartId).FirstOrDefault();
             int totalCount=db.ShoppingCartDetails.Count(x=>x.CartId == cartid);
-            return Json(totalCount);
+            return Json(totalCount, JsonRequestBehavior.AllowGet);
         }
         
 
