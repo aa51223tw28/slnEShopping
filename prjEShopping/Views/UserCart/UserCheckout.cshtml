@@ -1,4 +1,4 @@
-﻿
+﻿@model List<prjEShopping.Models.ViewModels.UserShoppingCartVM>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -25,113 +25,34 @@
         <!-- 店家1 -->
         <div class="row bg-success rounded py-3 mb-3">
             <span class="fs-5 fw-bold">Play Station</span>
-            <!-- 商品1-->
-            <div class="col-6">
-                <div class="mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p class="card-text">PlayStation 5 主機</p>
+            @foreach (var item in Model)
+            {
+                <div class="col-6">
+                    <div class="mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <p class="card-text">@item.ProductName</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>$19,999</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>5</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span class="text-danger fw-bold">$5,5555</span>
-            </div>
-            <!-- 商品1-->
-            <!-- 商品1-->
-            <div class="col-6">
-                <div class="mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p class="card-text">PlayStation 5 主機</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-2 d-flex align-items-center">
+                    <span>@Math.Round(item.Price).ToString("C0")</span>
                 </div>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>$19,999</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>5</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span class="text-danger fw-bold">$5,5555</span>
-            </div>
-            <!-- 商品1-->
-        </div>
-        <!-- 店家1 -->
-        <!-- 店家2 -->
-        <div class="row bg-success rounded py-3 mb-3">
-            <span class="fs-5 fw-bold">Play Station</span>
-            <!-- 商品1-->
-            <div class="col-6">
-                <div class="mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p class="card-text">PlayStation 5 主機</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-2 d-flex align-items-center">
+                    <span>@item.Quantity</span>
                 </div>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>$19,999</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>5</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span class="text-danger fw-bold">$5,5555</span>
-            </div>
-            <!-- 商品1-->
-            <!-- 商品1-->
-            <div class="col-6">
-                <div class="mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <p class="card-text">PlayStation 5 主機</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-2 d-flex align-items-center">
+                    <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
                 </div>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>$19,999</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span>5</span>
-            </div>
-            <div class="col-2 d-flex align-items-center">
-                <span class="text-danger fw-bold">$5,5555</span>
-            </div>
-            <!-- 商品1-->
-        </div>
-        <!-- 店家2 -->
+            }
+
+            
         <!-- 結帳區 -->
         <!-- 優惠券 -->
         <div class="row bg-lightyellow rounded py-3 mb-3">

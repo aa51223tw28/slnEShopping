@@ -29,61 +29,61 @@
                 <span>操作</span>
             </div>
         </div>
-   
-            <div class="row bg-success rounded py-3 mb-3">
-                <div class="row mb-3">
-                    <div class="col-1 d-flex align-items-center">
+
+        <div class="row bg-success rounded py-3 mb-3">
+            <div class="row mb-3">
+                <div class="col-1 d-flex align-items-center">
+                    <input type="checkbox" class="form-check-input">
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <span>賣家名稱</span>
+                </div>
+                <div class="col-2 d-flex align-items-center">
+                    <button class="btn btn-blue">聊聊</button>
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+                <div class="row">
+                    <div class="col-1">
                         <input type="checkbox" class="form-check-input">
                     </div>
-                    <div class="col-3 d-flex align-items-center">
-                        <span>賣家名稱</span>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <button class="btn btn-blue">聊聊</button>
-                    </div>
-                </div>
-                @foreach (var item in Model)
-                {
-                    <div class="row">
-                        <div class="col-1">
-                            <input type="checkbox" class="form-check-input">
-                        </div>
-                        <div class="col-3">
-                            <div class="mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <p class="card-text">@item.ProductName</p>
-                                        </div>
+                    <div class="col-3">
+                        <div class="mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <p class="card-text">@item.ProductName</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <span>$@string.Format("{0:n0}", Math.Round((decimal)item.Price))</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <div class="input-group" style="width: 120px;">
-                                @*加減數量*@
-                                <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                                <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
-                                <button class="btn btn-outline-primary plusBtn" type="button">+</button>
-                            </div>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
-                            <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <button class="btn btn-danger">刪除</button>
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <span>@Math.Round(item.Price).ToString("C0")</span>
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <div class="input-group" style="width: 120px;">
+                            @*加減數量*@
+                            <button class="btn btn-outline-primary minusBtn" type="button">-</button>
+                            <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
+                            <button class="btn btn-outline-primary plusBtn" type="button">+</button>
                         </div>
                     </div>
-                }
-            </div>
-        
+                    <div class="col-2 d-flex align-items-center">
+                        @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                        <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <button class="btn btn-danger">刪除</button>
+                    </div>
+                </div>
+            }
+        </div>
+
 
 
         <!-- 結帳 -->
@@ -108,17 +108,34 @@
                     <span class="text-danger fw-bold fs-4"> @Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <a href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>
+                    <a id="checkoutLink" href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@*去買單跳出視窗是否有商品*@
+<div class="modal" id="checkCartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                購物車中沒有商品，無法前往結帳。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
         
-     
-
     </script>
 }
 

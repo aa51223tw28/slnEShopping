@@ -61,18 +61,23 @@ namespace prjEShopping.Controllers
             db.SaveChanges();
             return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
         }
-
+        public List<UserShoppingCartVM> datas { get; set; }
 
         [Authorize]
         public ActionResult UserShoppingCart()//購物車頁面
+        {
+            shoppingList();
+            return View(datas);
+        }
+
+        private void shoppingList()//UserShoppingCartVM的方法
         {
             var customerAccount = User.Identity.Name;
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
-            var cartid=db.ShoppingCarts.Where(x=>x.UserId== userid).Select(x=> x.CartId).FirstOrDefault();
-
-            List<UserShoppingCartVM> datas;
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).Select(x => x.CartId).FirstOrDefault();
+                        
             var data = db.ShoppingCartDetails.Where(x => x.CartId == cartid).OrderBy(x => x.CartDetailId)
                                 .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
                                 {
@@ -87,10 +92,10 @@ namespace prjEShopping.Controllers
                                     ProductImagePathOne = y.ProductImagePathOne,
                                     SellerId = y.SellerId
                                 }).ToList();
-            
-            datas=data.Select(x=>new UserShoppingCartVM
+
+            datas = data.Select(x => new UserShoppingCartVM
             {
-                CartId= (int)x.CartId,
+                CartId = (int)x.CartId,
                 UserId = userid,
                 CartDetailId = x.CartDetailId,
                 ProductId = (int)x.ProductId,
@@ -104,10 +109,7 @@ namespace prjEShopping.Controllers
 
             //總金額
             ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
-          
-            return View(datas);
         }
-
 
         public ActionResult GetTotalCount()//負責傳購買數量的api
         {
@@ -124,7 +126,8 @@ namespace prjEShopping.Controllers
         [Authorize]
         public ActionResult UserCheckout()//結帳頁面
         {
-            return View();
+            shoppingList();
+            return View(datas);
         }
         
         [Authorize]
