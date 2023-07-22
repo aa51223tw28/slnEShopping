@@ -129,7 +129,15 @@ namespace prjEShopping.Controllers
             shoppingList();
             return View(datas);
         }
-        
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UserCheckout(UserCheckoutVM vm)//寫進資料庫
+        {
+            return View("UserOrderDetail");
+        }
+
+
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳情頁面
         {
