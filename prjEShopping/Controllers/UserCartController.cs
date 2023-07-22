@@ -12,6 +12,7 @@ namespace prjEShopping.Controllers
 {
     public class UserCartController : Controller
     {
+
         // GET: UserCart
 
         [Authorize]
@@ -101,11 +102,24 @@ namespace prjEShopping.Controllers
                 SellerId = (int)x.SellerId
             }).ToList();
 
-
-
+            //總金額
+            ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
+          
             return View(datas);
         }
 
+
+        public ActionResult GetTotalCount()//負責傳購買數量的api
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).Select(x => x.CartId).FirstOrDefault();
+            int totalCount=db.ShoppingCartDetails.Count(x=>x.CartId == cartid);
+            return Json(totalCount);
+        }
+        
 
         [Authorize]
         public ActionResult UserCheckout()//結帳頁面

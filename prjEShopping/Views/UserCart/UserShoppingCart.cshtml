@@ -74,7 +74,8 @@
                             </div>
                         </div>
                         <div class="col-2 d-flex align-items-center">
-                            <span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>
+                            @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                            <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
                         </div>
                         <div class="col-2 d-flex align-items-center">
                             <button class="btn btn-danger">刪除</button>
@@ -102,7 +103,7 @@
                     <span>個商品)：</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold fs-4">$100,5555</span>
+                    <span class="text-danger fw-bold fs-4"> @Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
                     <button class="btn btn-secondary flex-grow-1 btn-lg">去買單</button>
