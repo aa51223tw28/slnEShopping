@@ -4,17 +4,34 @@
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
-<div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
     <hr>
-    <div class="row">
+    <div class="row col-md-6 bg-warning rounded" style="float:right">
+        <div class="col-3">
+            賣場照片:
+        </div>
+        <div class="col-6">
+            <form name="formUpload">
+                <div class="mb-3">
+                    <label for="photo" class="form-label"></label>
+                    <input class="form-control" type="file" id="photo" name="photo">
+                    <div id="div-preivew">
+                        <img src="#" id="preview" alt="預覽圖" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row col-md-6 bg-warning rounded justify-content:end">
         <div class="col-sm-9">
             <div class="row mb-2">
                 <div class="col-4 d-flex align-items-center">
                     <span>統編：</span>
                 </div>
                 <div class="col-4">
-                    <input type="text" value="@Model.SellerId">
+                    <input type="text" value="@Model.GUINumber" readonly style="background-color: #D0D0D0">
                 </div>
                 <div class="col-4">
                 </div>
@@ -41,10 +58,10 @@
             </div>
             <div class="row mb-2">
                 <div class="col-4 d-flex align-items-center">
-                    <span>使用者帳號：</span>
+                    <span>使用者帳號(電子郵件)：</span>
                 </div>
                 <div class="col-4">
-                    <span>John Doe</span>
+                    <input type="text" value="@Model.SellerAccount">
                 </div>
                 <div class="col-4">
                 </div>
@@ -93,14 +110,6 @@
             </div>
             <div class="row mb-2">
                 <div class="col-4 d-flex align-items-center">
-                    <span>Email：</span>
-                </div>
-                <div class="col-4">
-                    <input type="text">
-                </div>
-            </div>
-            <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
                     <span>手機號碼：</span>
                 </div>
                 <div class="col-4">
@@ -108,7 +117,7 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-3 d-flex align-items-center">
+                <div class="col-4 d-flex align-items-center">
                     <span>性別：</span>
                 </div>
                 <div class="col-3">
@@ -128,12 +137,21 @@
                     </div>
                 </div>
             </div>
-
             <div class="row mb-2">
-                <div class="col-3 d-flex align-items-center">
+                <div class="col-4 d-flex align-items-center">
+                    <span>銀行帳戶：</span>
+                </div>
+                <div class="col-4">
+                    <input type="text" value="@Model.BankAccount">
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-4 d-flex align-items-center">
                     <span>支付方式：</span>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <select>
                         <option value="option1">現金</option>
                         <option value="option2">信用卡</option>
@@ -141,10 +159,10 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-3 d-flex align-items-center">
+                <div class="col-4 d-flex align-items-center">
                     <span>取貨方式：</span>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <select>
                         <option value="option1">超商取貨</option>
                         <option value="option2">宅配到府</option>
@@ -152,30 +170,21 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-3">
-
+            <div class="row mb-2">
+                <div class="col-4 d-flex align-items-center">
+                    <span>商城介紹：</span>
                 </div>
-                <div class="col-6">
-                    <form name="formUpload">
-                        <div class="mb-3">
-                            <label for="photo" class="form-label">選擇檔案</label>
-                            <input class="form-control" type="file" id="photo" name="photo">
-                            <div id="div-preivew">
-                                <img src="#" id="preview" alt="預覽圖" />
-                            </div>
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="提交" id="submit" />
-                    </form>
+                <div class="col-4">
+                    <input type="text" value="@Model.StoreIntro">
                 </div>
-                <div class="col-3"></div>
+                <div class="col-4">
+                </div>
             </div>
-            <div class="btn btn-secondary mb-sm-3 mb-md-0">儲存</div>
+            <div class="btn btn-secondary mb-sm-3 mb-md-0" style="float:right">儲存</div>
 
         </div>
 
     </div>
-
 
 
 </div>

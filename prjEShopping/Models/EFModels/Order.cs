@@ -12,6 +12,8 @@ namespace prjEShopping.Models.EFModels
 
         public int? UserId { get; set; }
 
+        public int? CouponId { get; set; }
+
         public DateTime? OrderDate { get; set; }
 
         [StringLength(50)]

@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutUserMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
     //購物車
 }
 
@@ -242,14 +242,14 @@
         </div>
     </div>
 </div>
-
-<script>
-        // 获取所有的加减元件
+@section Scripts{
+    <script>
+        //取得所有的加减元件
         var minusButtons = document.querySelectorAll(".minusBtn");
         var plusButtons = document.querySelectorAll(".plusBtn");
         var quantityInputs = document.querySelectorAll(".quantityInput");
 
-        // 绑定事件监听器
+        // click
         for (var i = 0; i < minusButtons.length; i++) {
             minusButtons[i].addEventListener("click", createClickHandler(i, -1));
         }
@@ -258,9 +258,9 @@
             plusButtons[i].addEventListener("click", createClickHandler(i, 1));
         }
 
-        // 创建事件处理函数
+        // 計算
         function createClickHandler(index, change) {
-            return function() {
+            return function () {
                 var currentValue = parseInt(quantityInputs[index].value);
                 var newValue = currentValue + change;
                 if (newValue >= 1) {
@@ -268,4 +268,6 @@
                 }
             }
         }
-</script>
+    </script>
+}
+

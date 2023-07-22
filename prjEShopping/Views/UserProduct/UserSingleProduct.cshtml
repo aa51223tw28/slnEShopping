@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutUserMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
     //各項商品頁面
 
 
@@ -97,14 +97,12 @@
                         <span>數量：</span>
                     </div>
                     <div class="col-9">
-                        <div class="d-flex">
-                            <select style="width: 100px;">
-                                <option value="option1">1</option>
-                                <option value="option2">2</option>
-                                <option value="option3">3</option>
-                                <option value="option3">4</option>
-                                <option value="option3">5</option>
-                            </select>
+                        <div class="d-flex align-items-center">
+                            <div class="input-group" style="width: 120px;">@*加減數量*@
+                                <button class="btn btn-outline-primary minusBtn" type="button">-</button>
+                                <input type="text" class="form-control" id="quantityInput" readonly>
+                                <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                            </div>
                             <span class="ms-2">還剩：</span>
                             <span>34</span>
                             <span>件</span>
@@ -114,7 +112,7 @@
                 </div>
                 <div class="row mt-5 flex-column flex-md-row">
                     <div class="col mb-3 mb-md-0">
-                        <button class="btn-outline-primary btn rounded-pill btn-lg">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg add2cart" data-id="@(Model.ProductId)">
                             <i class="fa-solid fa-cart-shopping"></i>
                             加入購物車
                         </button>
@@ -504,24 +502,85 @@
         </div>
     </div>
 </div>
-<script>
 
-    //商品評價要用js判斷只留最新按的按紐
-    let activeCollapse = null;
 
-    function toggleCollapse(collapseId) {
-        if (activeCollapse !== collapseId) {
-            // 隱藏上一個 active 的 collapse
-            if (activeCollapse !== null) {
-                document.getElementById(activeCollapse).classList.remove('show');
+
+@section Scripts{
+    <script>
+
+        //商品評價要用js判斷只留最新按的按紐
+        let activeCollapse = null;
+
+        function toggleCollapse(collapseId) {
+            if (activeCollapse !== collapseId) {
+                // 隱藏上一個 active 的 collapse
+                if (activeCollapse !== null) {
+                    document.getElementById(activeCollapse).classList.remove('show');
+                }
+                // 顯示新的 active collapse
+                document.getElementById(collapseId).classList.add('show');
+                activeCollapse = collapseId;
+            } else {
+                // 如果已經是 active 的按鈕，再次點擊時隱藏該 collapse
+                document.getElementById(collapseId).classList.remove('show');
+                activeCollapse = null;
             }
-            // 顯示新的 active collapse
-            document.getElementById(collapseId).classList.add('show');
-            activeCollapse = collapseId;
-        } else {
-            // 如果已經是 active 的按鈕，再次點擊時隱藏該 collapse
-            document.getElementById(collapseId).classList.remove('show');
-            activeCollapse = null;
         }
-    }
-</script>
+        //--------------------------------------------------------------------------------------
+        //加減按鈕購買數量會增減
+        //取得所有的加减元件
+        var minusButtons = document.querySelectorAll(".minusBtn");
+        var plusButtons = document.querySelectorAll(".plusBtn");
+        var quantityInputs = document.querySelectorAll("#quantityInput");
+        quantityInputs.forEach(function (input) {
+            input.setAttribute("value", "1"); 
+        });
+        // click
+        for (var i = 0; i < minusButtons.length; i++) {
+            minusButtons[i].addEventListener("click", createClickHandler(i, -1));
+        }
+
+        for (var i = 0; i < plusButtons.length; i++) {
+            plusButtons[i].addEventListener("click", createClickHandler(i, 1));
+        }
+
+        // 計算
+        var quantityValue=1
+        function createClickHandler(index, change) {
+            return function () {
+                var currentValue = parseInt(quantityInputs[index].value);
+                var newValue = currentValue + change;
+                if (newValue >= 1) {
+                    quantityInputs[index].value = newValue.toString();                   
+                    quantityInputs.forEach(function (input) {
+                        input.setAttribute("value", newValue);
+                        var quantityInput = document.querySelector("#quantityInput");
+                        quantityValue = quantityInput.value;
+                        console.log(quantityValue);
+                    });
+                }
+            }
+        }
+        
+
+        //--------------------------------------------------------------------------------------       
+
+        //加入購物車UserCartController/UserAddCart是api
+        $(document).ready(function () {
+            $(".add2cart").each(function () {
+                $(this).on("click",async function () {
+                    var self = $(this);
+                    var productId = self.attr("data-id");                                        
+
+                    //ajax送出request
+                    const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId + "&Quantity=" + quantityValue);
+                    alert("已加入購物車");
+                })
+            })
+        })
+
+
+    </script>
+
+}
+
