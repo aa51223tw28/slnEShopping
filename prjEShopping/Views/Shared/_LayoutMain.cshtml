@@ -18,11 +18,11 @@
                         <div class="container d-flex justify-content-end">
                             <ul class="nav">
                                 <li class="nav-item px-3 d-flex align-items-center">
-                                    <a href="" class="text-decoration-none hover-opacity">
+                                    <a href="@Url.Content("~//")" class="text-decoration-none hover-opacity">
                                         <div class="d-flex align-items-center">
                                             <img src="~/img/man32px.png" alt="User Avatar" class="me-2">
                                             @*<span class="fw-bold text-light">John Doe</span>*@
-                                            <span href="/UsersMembers/Index/" class="fw-bold text-light">@(User.Identity.Name)</span>
+                                            <span class="fw-bold text-light">@(User.Identity.Name)</span>
                                         </div>
                                     </a>
                                 </li>
@@ -74,7 +74,7 @@
             <div class="container">
                 <div class="row g-2">
                     <div class="col-5 col-md-4 col-lg-3 col-xl-2">
-                        <a class="navbar-brand py-0 mb-4 mx-0" href="#">
+                        <a class="navbar-brand py-0 mb-4 mx-0" href="@Url.Content("~/Main/Index")">
                             <img src="~/img/logonew.png" alt="E起購 LOGO" class="d-inline-block" />
                         </a>
                     </div>
