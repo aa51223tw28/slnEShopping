@@ -177,6 +177,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserMembersController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
+    <Compile Include="Controllers\UsersCouponsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -294,6 +295,8 @@
     <Content Include="Views\Coupons\Index.cshtml" />
     <Content Include="Views\Coupons\Create.cshtml" />
     <Content Include="Views\Coupons\_IndexCoupons.cshtml" />
+    <Content Include="Views\UsersCoupons\List.cshtml" />
+    <Content Include="Views\UsersCoupons\List2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
