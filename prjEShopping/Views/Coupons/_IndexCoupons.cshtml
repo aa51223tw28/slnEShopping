@@ -12,136 +12,137 @@
         </p>
         @*優惠券列表*@
         @*<table class="table table-primary table-bordered">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].CouponNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].CouponName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].CouponDetails)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].Quantity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].CouponTerms)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].CouponType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].Discount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].Storewide)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].StartTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].ClaimDeadline)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].EndTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Items[0].EventStatus)
-                </th>
-                <th>
-                    <label>票券設定</label>
-                </th>
-            </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].CouponNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].CouponName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].CouponDetails)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].CouponTerms)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].CouponType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].Discount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].Storewide)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].StartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].ClaimDeadline)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].EndTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items[0].EventStatus)
+                    </th>
+                    <th>
+                        <label>票券設定</label>
+                    </th>
+                </tr>
 
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CouponNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CouponName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CouponDetails)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CouponTerms)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CouponType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Discount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Storewide)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClaimDeadline)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventStatus)
+                        </td>
+                        <td>
+                            @Html.ActionLink("修改", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1" })
+                            @Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })
+                        </td>
+                    </tr>
+                }
+
+            </table>*@
+
+        @*優惠券圖片版本*@
+        <table class="table table-primary table-bordered" style="width:1300px">
+            <tr>
+                <td style="width:100px">票券設定</td>
+                <td style="width:100px">券號</td>
+                <td style="width:320px">優惠券</td>
+                <td style="width:100px">使用條件</td>
+                <td style="width:100px">數量</td>
+                <td style="width:130px">領取期限</td>
+                <td style="width:380px">說明</td>
+            </tr>
             @foreach (var item in Model.Items)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CouponNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CouponName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CouponDetails)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CouponTerms)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CouponType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Discount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Storewide)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ClaimDeadline)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EventStatus)
-                    </td>
-                    <td>
                         @Html.ActionLink("修改", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1" })
-                        @Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })
+                        @*用不到刪除功能還在*@
+                        @*@Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })*@
                     </td>
-                </tr>
-            }
-
-        </table>*@
-
-        @*優惠券圖片版本*@
-    <table class="table table-primary table-bordered">
-        <tr>
-            <td>券號</td>
-            <td>優惠券</td>
-            <td>使用條件</td>
-            <td>說明</td>
-            <td>數量</td>
-            <td>領取期限</td>
-            <td>票券設定</td>
-        </tr>
-        @foreach (var item in Model.Items)
-        {
-            <tr><td>@Html.DisplayFor(modelItem => item.CouponNumber)</td>
-                <td>
-                    <div class="d-flex me-2 coupon-item mb-2">
-                        <img src="~/img/coupon.png" alt="">
-                        <div class="d-flex flex-column p-2 bg-info">
-                            <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
-                            <span>@Html.DisplayFor(modelItem => item.Storewide) @Html.DisplayFor(modelItem => item.Discount) </span>
-                            <span>@Html.DisplayFor(modelItem => item.StartTime)~@Html.DisplayFor(modelItem => item.EndTime)</span>
-                            <div class="d-flex">
-                                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    <td>@Html.DisplayFor(modelItem => item.CouponNumber)</td>
+                    <td>
+                        <div class="d-flex me-2 coupon-item mb-2">
+                            <img src="~/img/coupon.png" alt="">
+                            <div class="d-flex flex-column p-2 bg-info">
+                                <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
+                                <span>@Html.DisplayFor(modelItem => item.Storewide) @Html.DisplayFor(modelItem => item.Discount) </span>
+                                @*<span>使用期限 @Html.DisplayFor(modelItem => item.StartTime)</span>*@
+                                <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
+                                <div class="d-flex">
+                                    <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                                    <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>@Html.DisplayFor(modelItem => item.CouponTerms)</td>
-                <td>@Html.DisplayFor(modelItem => item.CouponDetails)</td>
-                <td>@Html.DisplayFor(modelItem => item.Quantity) </td>
-                <td>@Html.DisplayFor(modelItem => item.ClaimDeadline)</td>
-                <td>
-
-                    @Html.ActionLink("修改", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1" })
-                    @Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })
-                    
-                </td>
-            </tr>
-        }
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.CouponTerms)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Quantity) </td>
+                    <td>@Html.DisplayFor(modelItem => item.ClaimDeadline)</td>
+                    <td class="text-wrap">@Html.DisplayFor(modelItem => item.CouponDetails)</td>
+                </tr>
+            }
         </table>
         @*分頁標籤設定*@
         <nav>
@@ -187,7 +188,7 @@
 
 @section Scripts{
     <script>
-       /* 分頁生成設定*/
+        /* 分頁生成設定*/
         $(document).ready(function () {
             $('.page-link').click(function (e) {
                 e.preventDefault();

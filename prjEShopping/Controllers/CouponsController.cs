@@ -66,6 +66,9 @@ namespace prjEShopping.Controllers
         }
 
         // GET: Coupons/Create
+
+        //todo 建立欄位商家專屬優惠券未連結商家資料庫
+        //todo 優惠折扣內容選取欄位未變更 (選取免運 條件變成免運 選取打折 95折 9折 5折 或輸入數字+折字 選取抵扣 抵300 抵500 或填寫數字等)
         public ActionResult Create()
         {
             List<string> CouponsNums = db.Coupons.Select(a => a.CouponNumber).ToList();
