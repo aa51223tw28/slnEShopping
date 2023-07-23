@@ -108,7 +108,8 @@
                     <span class="text-danger fw-bold fs-4"> @Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <a id="checkoutLink" href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>
+                    @*<a id="checkoutLink" href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>*@
+                    <a href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg checkoutLink">去買單</a>
                 </div>
             </div>
         </div>
@@ -127,7 +128,7 @@
                 購物車中沒有商品，無法前往結帳。
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>                
             </div>
         </div>
     </div>
