@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,17 @@ namespace prjEShopping.Controllers
     public class SellerRegisterController : Controller
     {
         // GET: SellerRegister
-        public ActionResult Index()
+        public ActionResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Create(Seller s)
+        {
+            var db = new AppDbContext();
+            db.Sellers.Add(s);
+            db.SaveChanges();
+            return RedirectToAction("List");
         }
     }
 }
