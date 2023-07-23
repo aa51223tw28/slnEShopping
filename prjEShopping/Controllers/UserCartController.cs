@@ -218,9 +218,14 @@ namespace prjEShopping.Controllers
             db.SaveChanges ();
 
             //清空購物車--給一台新車
+            var shoppingcart = new ShoppingCart()
+            {
+                UserId= userid
+            };
+            db.ShoppingCarts.Add(shoppingcart);
+            db.SaveChanges ();
 
-
-
+            //還未做要------修改table ProductsStocks中的OrderQuantity      
 
             return View("UserOrderDetail");
         }
