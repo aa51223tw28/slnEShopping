@@ -117,7 +117,7 @@ namespace prjEShopping.Controllers
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
-            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).Select(x => x.CartId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
             int totalCount=db.ShoppingCartDetails.Count(x=>x.CartId == cartid);
             return Json(totalCount, JsonRequestBehavior.AllowGet);
         }
@@ -225,7 +225,20 @@ namespace prjEShopping.Controllers
             db.ShoppingCarts.Add(shoppingcart);
             db.SaveChanges ();
 
-            //還未做要------修改table ProductsStocks中的OrderQuantity      
+            //還未做要------修改table ProductsStocks中的OrderQuantity
+            
+
+
+
+
+
+
+
+
+
+
+
+
 
             return View("UserOrderDetail");
         }
