@@ -76,8 +76,8 @@ namespace prjEShopping.Controllers
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
-            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).Select(x => x.CartId).FirstOrDefault();
-                        
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
             var data = db.ShoppingCartDetails.Where(x => x.CartId == cartid).OrderBy(x => x.CartDetailId)
                                 .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
                                 {
@@ -134,9 +134,12 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult UserCheckout(UserCheckoutVM vm)//寫進資料庫
         {
+            //這四行會一直重複待待之後優化
             var customerAccount = User.Identity.Name;
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
             //新增order
 
             //取得下訂時間
@@ -163,6 +166,7 @@ namespace prjEShopping.Controllers
 
 
             //新增orderdetail
+            var shoppingdatas=db.ShoppingCartDetails.Where
 
 
             //清空購物車--給一台新車
