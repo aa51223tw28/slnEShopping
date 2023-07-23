@@ -219,9 +219,14 @@
 
         </div>
 
+
+
+
+
+
         <!-- 付款方式 -->
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("UserCheckout", "UserCart", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             <!-- 付款方式 -->
@@ -249,7 +254,7 @@
                         <span></span>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-lg add2order">下訂單</button>              
+                <button class="btn btn-secondary btn-lg add2order">下訂單</button>
 
             </div>
         }
@@ -259,6 +264,23 @@
 </div>
 
 
+@*購買完成，請到購買清單確認訂單詳情。*@
+<div class="modal" id="add2orderModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                購買完成，請到購買清單確認訂單詳情。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add2orderconfirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 @section Scripts{
@@ -266,12 +288,10 @@
 
         const add2order = document.querySelector(".add2order");
 
-        add2order.addEventListener('click', (event) => {            
+        add2order.addEventListener('click', (event) => {
             alert("購買完成，請到購買清單確認訂單詳情。");
         });
 
-        
-        
 
     </script>
 

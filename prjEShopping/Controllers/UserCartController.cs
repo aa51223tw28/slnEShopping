@@ -226,7 +226,6 @@ namespace prjEShopping.Controllers
             db.SaveChanges ();
 
             //還未做要------修改table ProductsStocks中的OrderQuantity
-            
 
 
 
@@ -240,7 +239,8 @@ namespace prjEShopping.Controllers
 
 
 
-            return View("UserOrderDetail");
+
+            return RedirectToAction("UserOrderDetail");
         }
 
 
