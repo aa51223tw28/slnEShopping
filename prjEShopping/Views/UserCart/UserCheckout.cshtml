@@ -249,20 +249,29 @@
                         <span></span>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-lg add2order">下訂單</button>
+                <button class="btn btn-secondary btn-lg add2order">下訂單</button>              
+
             </div>
         }
 
 
     </div>
-    </div>
+</div>
+
+
 
 
 @section Scripts{
-    <script>        
-        //待寫下訂單add2order之後要跳出modal提示alert的概念("訂單已完成,待賣家出貨。")
-       
-     
+    <script>
+
+        const add2order = document.querySelector(".add2order");
+
+        add2order.addEventListener('click', (event) => {            
+            alert("購買完成，請到購買清單確認訂單詳情。");
+        });
+
+        
+        
 
     </script>
 
