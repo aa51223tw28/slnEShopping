@@ -186,12 +186,39 @@ namespace prjEShopping.Controllers
 
             //在Shipments的table新增訂單資料
 
+            var orderdatas =db.OrderDetails.Where(x=>x.OrderId== orderId)
+                                            .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                            {
+                                                sellerid=y.SellerId,
+                                                orderid=x.OrderId
+                                            })
+                                            .Distinct()
+                                            .ToList();
 
+            foreach (var item in orderdatas)
+            {
+                //出貨編號(訂單日期+賣家ID+訂單ID)：20230707+S01+001
+                int sformattedsellerid = (int)item.sellerid; 
+                int sformattedOrderId= (int)item.orderid;
 
+                string ssformattedsellerid = sformattedsellerid.ToString("D2");
+                string ssformattedOrderId= sformattedOrderId.ToString("D3");
 
-
+                var ShipmentNumber = formattedDate + "S" + ssformattedsellerid + ssformattedOrderId;
+                var shipment = new Shipment
+                {                    
+                    ShipmentNumber = ShipmentNumber,
+                    OrderId = orderId,
+                    SellerId= item.sellerid,
+                    ShipmentDate= OrderDate,
+                    ShipmentStatusId=1,//準備中
+                };
+                db.Shipments.Add(shipment);
+            }
+            db.SaveChanges ();
 
             //清空購物車--給一台新車
+
 
 
 
