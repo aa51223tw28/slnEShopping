@@ -134,7 +134,32 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult UserCheckout(UserCheckoutVM vm)//寫進資料庫
         {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             //新增order
+
+            //取得下訂時間
+            DateTime OrderDate = DateTime.Now;
+            //訂單編號(日期+買家ID+訂單ID)：20230707+U01+001
+            string formattedDate = OrderDate.ToString("yyyyMMdd");
+           
+            string formatteduserid = userid.ToString("D2");
+
+            var orderId = db.Orders.OrderByDescending(x => x.OrderId).Select(x => x.OrderId).FirstOrDefault();
+            string formattedOrderId = (orderId+1).ToString("D3");//會自動補零保持3位
+            
+            var OrderNumber = formattedDate + "U" + formatteduserid + formattedOrderId;
+
+            var datas = new Order()
+            {
+                UserId = userid,
+                CouponId = 1,//先寫死
+                OrderDate = OrderDate,
+                OrderNumber = OrderNumber,
+            };
+            db.Orders.Add(datas);
+            db.SaveChanges();
 
 
             //新增orderdetail
