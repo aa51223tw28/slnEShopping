@@ -12,6 +12,8 @@ namespace prjEShopping.Controllers
     {
         private AppDbContext db = new AppDbContext();
         // GET: UsersCoupons
+
+        //未領取優惠券列表
         public ActionResult List(int? userId)
         {
             //先預設
@@ -25,10 +27,10 @@ namespace prjEShopping.Controllers
                 .Where(u => u.UserId == userId)  // 用你的用户ID替换这里
                 .Select(uc => uc.CouponId.Value);
 
-            // 使用Except操作，从activeCoupons中剔除用户已有的couponId
+            // 剔除相同的優惠券
             var couponsToDisplay =_coupons.Except(usersCouponIds);
 
-            // 获取相应的Coupon对象
+            // 取得的剩下的優惠券
             var model = db.Coupons
                 .Where(c => couponsToDisplay.Contains(c.CouponId))
                 .ToList();
@@ -55,6 +57,19 @@ namespace prjEShopping.Controllers
             }
          
             return View(usersCoupon);
+        }
+
+        //已領取優惠券列表
+        public ActionResult UsersCouponsList(int? userId)
+        {
+            userId = 1;
+            var usersCouponIds = db.UsersCoupons.Where(uc=>uc.UserId == userId).Select(uc => uc.CouponId);
+
+            var model = db.Coupons
+                          .Where(c => usersCouponIds.Contains(c.CouponId))
+                          .ToList();
+
+            return View(model);
         }
     }
 }
