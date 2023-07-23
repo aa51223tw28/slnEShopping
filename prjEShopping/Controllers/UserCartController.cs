@@ -130,9 +130,8 @@ namespace prjEShopping.Controllers
             return View(datas);
         }
 
-        [Authorize]
-        [HttpPost]
-        public ActionResult UserCheckout(UserCheckoutVM vm)//寫進資料庫
+        [Authorize]       
+        public ActionResult UserCheckoutapi()//寫進資料庫
         {
             //這四行會一直重複待待之後優化
             var customerAccount = User.Identity.Name;
@@ -239,8 +238,8 @@ namespace prjEShopping.Controllers
 
 
 
+            return new EmptyResult();
 
-            return RedirectToAction("UserOrderDetail");
         }
 
 
