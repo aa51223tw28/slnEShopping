@@ -140,7 +140,7 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            //新增order
+            //在Orders的table新增訂單資料
 
             //取得下訂時間
             DateTime OrderDate = DateTime.Now;
@@ -149,8 +149,8 @@ namespace prjEShopping.Controllers
            
             string formatteduserid = userid.ToString("D2");
 
-            var orderId = db.Orders.OrderByDescending(x => x.OrderId).Select(x => x.OrderId).FirstOrDefault();
-            string formattedOrderId = (orderId+1).ToString("D3");//會自動補零保持3位
+            var orderIdold = db.Orders.OrderByDescending(x => x.OrderId).Select(x => x.OrderId).FirstOrDefault();
+            string formattedOrderId = (orderIdold + 1).ToString("D3");//會自動補零保持3位
             
             var OrderNumber = formattedDate + "U" + formatteduserid + formattedOrderId;
 
@@ -165,8 +165,30 @@ namespace prjEShopping.Controllers
             db.SaveChanges();
 
 
-            //新增orderdetail
-            var shoppingdatas=db.ShoppingCartDetails.Where
+            //在OrderDetails的table新增訂單資料
+            var shoppingdatas =db.ShoppingCartDetails.Where(x=>x.CartId== cartid).ToList();
+            var orderId=db.Orders.Where(x=>x.UserId== userid).OrderByDescending(x=>x.OrderId).Select(x=>x.OrderId).FirstOrDefault();
+
+            foreach (var item in shoppingdatas)
+            {
+                var product = db.Products.FirstOrDefault(x => x.ProductId == item.ProductId);
+
+                var orderDetail = new OrderDetail
+                {
+                    OrderId= orderId,
+                    ProductId= item.ProductId,
+                    Quantity = item.Quantity,
+                    CurrentPrice= product.Price
+                };
+                db.OrderDetails.Add(orderDetail);
+            }
+            db.SaveChanges();
+
+            //在Shipments的table新增訂單資料
+
+
+
+
 
 
             //清空購物車--給一台新車
