@@ -168,8 +168,8 @@
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
-    <Compile Include="Controllers\SellerProductController.cs" />
     <Compile Include="Controllers\SellerProductCreateController.cs" />
+    <Compile Include="Controllers\SellerProductCreateApiController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
@@ -181,6 +181,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CFactory.cs" />
     <Compile Include="Models\DTOs\AdminDto.cs" />
     <Compile Include="Models\DTOs\UserProductIndexDto.cs" />
     <Compile Include="Models\EFModels\AccessRight.cs" />
@@ -229,10 +230,13 @@
     <Compile Include="Models\ViewModels\AdminRegisterVM.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
+    <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
+    <Compile Include="Models\ViewModels\UserCheckoutVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
+    <Compile Include="Models\ViewModels\UserOrderVM.cs" />
     <Compile Include="Models\ViewModels\UserShoppingCartVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -274,7 +278,7 @@
     <Content Include="Views\Shared\_LayoutSellerMain.cshtml" />
     <Content Include="Views\SellerMain\Index.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentList.cshtml" />
-    <Content Include="Views\SellerProduct\ProductList.cshtml" />
+    <Content Include="Views\SellerProductCreate\ProductCreate.cshtml" />
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserProduct\UserProdutList.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
@@ -282,7 +286,8 @@
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />
     <Content Include="Views\Admin\AdminEdit.cshtml" />
-    <Content Include="Views\SellerRegister\Index.cshtml" />
+    <Content Include="Views\UserMembers\Index.cshtml" />
+    <Content Include="Views\SellerRegister\Create.cshtml" />
     <Content Include="Views\UserMembers\UserLogin.cshtml" />
     <Content Include="Views\UserCart\UserCheckout.cshtml" />
     <Content Include="Views\UserCart\UserOrderDetail.cshtml" />
@@ -300,6 +305,7 @@
     <Content Include="Views\UsersCoupons\UsersCouponsList.cshtml" />
     <Content Include="Views\UsersCoupons\UsersCouponsUsed.cshtml" />
     <Content Include="Views\UsersCoupons\UsersCouponsOverdue.cshtml" />
+    <Content Include="Views\UserMembers\UserEditProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -311,7 +317,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
     <Folder Include="Models\DAOs\" />
-    <Folder Include="Views\SellerProductCreate\" />
+    <Folder Include="Views\SellerProductCreateApi\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "UserEditProfile";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="bg-light">
+    <div class="container py-3">
+        <div class="row py-2 gx-5">
+            <div class="col-sm-auto col-md-3 bg-light">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <img src="img/comment.jpeg" alt="" class="img-fluid">
+                        <span class="fw-bold ms-3">John Doe</span>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                    <div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    我的帳戶
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="6.index.html" class="link-blue text-decoration-none fw-bold">個人檔案</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="7.index.html" class="link-blue text-decoration-none fw-bold">修改密碼</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    我的焦點
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="8.index.html" class="link-blue text-decoration-none fw-bold">購買清單</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="10.index.html" class="link-blue text-decoration-none fw-bold">優惠券</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="11.index.html" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="12.index.html" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                </div>
+            </div>
+
+            <!-- 右邊分頁區 -->
+            <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+                <p class="fs-4 mt-3 fw-bold">個人檔案</p>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="row mb-2">
+                            <div class="col-4 d-flex align-items-center">
+                                <span>使用者帳號：</span>
+                            </div>
+                            <div class="col-4">
+                                <span>John Doe</span>
+                            </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 d-flex align-items-center">
+                                <span>姓名：</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="text">
+                            </div>
+                            <div class="col-4">
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 d-flex align-items-center">
+                                <span>Email：</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-4 d-flex align-items-center">
+                                <span>手機號碼：</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="text">
+                            </div>
+
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-3 d-flex align-items-center">
+                                <span>姓別：</span>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label">
+                                        男生
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label">
+                                        女生
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label">
+                                        其他/保密
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-3 d-flex align-items-center">
+                                <span>生日：</span>
+                            </div>
+                            <div class="col-3">
+                                <select>
+                                    <option value="option1">選項 1</option>
+                                    <option value="option2">選項 2</option>
+                                    <option value="option3">選項 3</option>
+                                </select>年
+                            </div>
+                            <div class="col-3">
+                                <select>
+                                    <option value="option1">選項 1</option>
+                                    <option value="option2">選項 2</option>
+                                    <option value="option3">選項 3</option>
+                                </select>月
+                            </div>
+                            <div class="col-3">
+                                <select>
+                                    <option value="option1">選項 1</option>
+                                    <option value="option2">選項 2</option>
+                                    <option value="option3">選項 3</option>
+                                </select>日
+                            </div>
+                        </div>
+                        <div class="btn btn-secondary mb-sm-3 mb-md-0">儲存</div>
+
+                    </div>
+                    <div class="col-sm-3 d-flex flex-column align-items-center">
+                        <img src="img/comment.jpeg" alt="" class="img-fluid">
+                        <div class="btn btn-secondary mt-2">選擇圖片</div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

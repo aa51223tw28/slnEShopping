@@ -131,6 +131,11 @@ namespace prjEShopping.Controllers
             FormsAuthentication.SignOut();
             return Redirect("/Main/Index");
         }
+
+        public ActionResult UserEditProfile()
+        {
+            return View();
+        }
     }
 
 }

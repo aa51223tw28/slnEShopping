@@ -10,10 +10,11 @@ namespace prjEShopping.Controllers
 {
     public class UserCartController : Controller
     {
+
         // GET: UserCart
 
         [Authorize]
-        public ActionResult UserAddCart(int ProductId, int quantity)//傳過來買了什麼的api
+        public ActionResult UserAddCartapi(int ProductId, int quantity)//傳過來買了什麼的api
         {
             var db = new AppDbContext();
             var customerAccount = User.Identity.Name;
@@ -58,35 +59,233 @@ namespace prjEShopping.Controllers
             db.SaveChanges();
             return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
         }
-
+        public List<UserShoppingCartVM> datas { get; set; }
 
         [Authorize]
         public ActionResult UserShoppingCart()//購物車頁面
+        {
+            shoppingList();
+            return View(datas);
+        }
+
+        private void shoppingList()//UserShoppingCartVM的方法
         {
             var customerAccount = User.Identity.Name;
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
-            var cartid=db.ShoppingCarts.Where(x=>x.UserId== userid).Select(x=> x.CartId).FirstOrDefault();
-            //UserShoppingCartVM cart=db.ShoppingCarts.Include(x=>x.ShoppingCartDetails)
-            //                        .Where(x=>x.UserId== userid)
-            //                        .Select(x=>new UserShoppingCartVM
-            //                        {
-            //                            CartId=x.CartId,
-            //                            UserId= (int)x.UserId,
-            //                            CartItems=x.
-            //                        }).First();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            return View();
+            var data = db.ShoppingCartDetails.Where(x => x.CartId == cartid).OrderBy(x => x.CartDetailId)
+                                .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                {
+                                    CartId = x.CartId,
+                                    UserId = userid,
+                                    CartDetailId = x.CartDetailId,
+                                    ProductId = x.ProductId,
+                                    ProductName = y.ProductName,
+                                    Quantity = x.Quantity,
+                                    Price = y.Price,
+                                    SubTotal = (x.Quantity) * (y.Price),
+                                    ProductImagePathOne = y.ProductImagePathOne,
+                                    SellerId = y.SellerId
+                                }).ToList();
+
+            datas = data.Select(x => new UserShoppingCartVM
+            {
+                CartId = (int)x.CartId,
+                UserId = userid,
+                CartDetailId = x.CartDetailId,
+                ProductId = (int)x.ProductId,
+                ProductName = x.ProductName,
+                Quantity = (int)x.Quantity,
+                Price = (decimal)x.Price,
+                SubTotal = (decimal)x.SubTotal,
+                ProductImagePathOne = x.ProductImagePathOne,
+                SellerId = (int)x.SellerId
+            }).ToList();
+
+            //總金額
+            ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
         }
 
+        public ActionResult GetTotalCount()//負責傳購買數量的api
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+            int totalCount=db.ShoppingCartDetails.Count(x=>x.CartId == cartid);
+            return Json(totalCount, JsonRequestBehavior.AllowGet);
+        }
+        
 
         [Authorize]
         public ActionResult UserCheckout()//結帳頁面
         {
-            return View();
+            shoppingList();
+            return View(datas);
         }
-        
+
+        [Authorize]       
+        public ActionResult UserCheckoutapi()//寫進資料庫
+        {
+            //這四行會一直重複待待之後優化
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            //在Orders的table新增訂單資料
+
+            //取得下訂時間
+            DateTime OrderDate = DateTime.Now;
+            //訂單編號(日期+買家ID+訂單ID)：20230707+U01+001
+            string formattedDate = OrderDate.ToString("yyyyMMdd");
+           
+            string formatteduserid = userid.ToString("D2");
+
+            var orderIdold = db.Orders.OrderByDescending(x => x.OrderId).Select(x => x.OrderId).FirstOrDefault();
+            string formattedOrderId = (orderIdold + 1).ToString("D3");//會自動補零保持3位
+            
+            var OrderNumber = formattedDate + "U" + formatteduserid + formattedOrderId;
+
+            var datas = new Order()
+            {
+                UserId = userid,
+                CouponId = 1,//先寫死
+                OrderDate = OrderDate,
+                OrderNumber = OrderNumber,
+            };
+            db.Orders.Add(datas);
+            db.SaveChanges();
+
+
+            //在OrderDetails的table新增訂單資料
+            var shoppingdatas =db.ShoppingCartDetails.Where(x=>x.CartId== cartid).ToList();
+            var orderId=db.Orders.Where(x=>x.UserId== userid).OrderByDescending(x=>x.OrderId).Select(x=>x.OrderId).FirstOrDefault();
+
+            foreach (var item in shoppingdatas)
+            {
+                var product = db.Products.FirstOrDefault(x => x.ProductId == item.ProductId);
+
+                var orderDetail = new OrderDetail
+                {
+                    OrderId= orderId,
+                    ProductId= item.ProductId,
+                    Quantity = item.Quantity,
+                    CurrentPrice= product.Price
+                };
+                db.OrderDetails.Add(orderDetail);
+            }
+            db.SaveChanges();
+
+            //在Shipments的table新增訂單資料
+
+            var orderdatas =db.OrderDetails.Where(x=>x.OrderId== orderId)
+                                            .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                            {
+                                                sellerid=y.SellerId,
+                                                orderid=x.OrderId
+                                            })
+                                            .Distinct()
+                                            .ToList();
+
+            foreach (var item in orderdatas)
+            {
+                //出貨編號(訂單日期+賣家ID+訂單ID)：20230707+S01+001
+                int sformattedsellerid = (int)item.sellerid; 
+                int sformattedOrderId= (int)item.orderid;
+
+                string ssformattedsellerid = sformattedsellerid.ToString("D2");
+                string ssformattedOrderId= sformattedOrderId.ToString("D3");
+
+                var ShipmentNumber = formattedDate + "S" + ssformattedsellerid + ssformattedOrderId;
+                var shipment = new Shipment
+                {                    
+                    ShipmentNumber = ShipmentNumber,
+                    OrderId = orderId,
+                    SellerId= item.sellerid,
+                    ShipmentDate= OrderDate,
+                    ShipmentStatusId=1,//準備中
+                };
+                db.Shipments.Add(shipment);
+            }
+            db.SaveChanges ();
+
+            //清空購物車--給一台新車
+            var shoppingcart = new ShoppingCart()
+            {
+                UserId= userid
+            };
+            db.ShoppingCarts.Add(shoppingcart);
+            db.SaveChanges ();
+
+            //todo 還未做要------修改table ProductsStocks中的OrderQuantity
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return new EmptyResult();
+
+        }
+
+        [Authorize]
+        public ActionResult UserDeleteCartapi(int ProductId)//刪除購物車商品的api
+        {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
+            if (cartItem == null) return new EmptyResult();
+
+            var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
+            db.ShoppingCartDetails.Remove(dbRemovecartDetailId);
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
+
+
+
+        [Authorize]
+        public ActionResult UserUpadateCartapi(int ProductId, int Quantity)//更新購物車商品數量的api
+        {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
+            if (cartItem == null) return new EmptyResult();
+
+            if (Quantity == 0)
+            {
+                var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
+                db.ShoppingCartDetails.Remove(dbRemovecartDetailId);
+                db.SaveChanges();
+            }
+
+            var cartItemDb = db.ShoppingCartDetails.FirstOrDefault(x => x.CartDetailId == cartItem.CartDetailId);
+            cartItemDb.Quantity = Quantity;
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
+
+
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳情頁面
         {

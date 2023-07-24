@@ -1,4 +1,4 @@
-﻿@model prjEShopping.Models.ViewModels.UserShoppingCartVM
+﻿@model List<prjEShopping.Models.ViewModels.UserShoppingCartVM>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -36,16 +36,14 @@
                     <input type="checkbox" class="form-check-input">
                 </div>
                 <div class="col-3 d-flex align-items-center">
-                    <span>playstation</span>
+                    <span>賣家名稱</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
                     <button class="btn btn-blue">聊聊</button>
                 </div>
             </div>
-            @foreach (var item in Model.CartItems)
+            @foreach (var item in Model)
             {
-                <hr>
-                <!-- 一件商品-->
                 <div class="row">
                     <div class="col-1">
                         <input type="checkbox" class="form-check-input">
@@ -54,38 +52,39 @@
                         <div class="mb-3" style="max-width: 540px;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="~/img/hot1.jpg" class="img-fluid rounded-start" alt="...">
+                                    <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <p class="card-text">PlayStation 5 主機</p>
+                                        <p class="card-text">@item.ProductName</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <span>$19,999</span>
+                        <span>@Math.Round(item.Price).ToString("C0")</span>
                     </div>
                     <div class="col-2 d-flex align-items-center">
                         <div class="input-group" style="width: 120px;">
-                            <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                            <input type="text" class="form-control quantityInput" value="1" min="1">
-                            <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                            @*加減數量*@
+                            <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity">-</button>
+                            <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
+                            <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity">+</button>
                         </div>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <span class="text-danger fw-bold">$5,5555</span>
+                        @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                        <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <button class="btn btn-danger">刪除</button>
+                        <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
                     </div>
                 </div>
-                <hr>
-                <!-- 一件商品-->                
-                
             }
         </div>
+
+
 
         <!-- 結帳 -->
         <div class="row bg-success rounded py-3">
@@ -95,50 +94,117 @@
                 </div>
                 <div class="col-3 d-flex align-items-center">
                     <span>全選</span>
-                    <span class="text-danger fw-bold">(4)</span>
+                    <span class="text-danger fw-bold">(</span>
+                    <span class="text-danger fw-bold totalItemCount"></span>
+                    <span class="text-danger fw-bold">)</span>
                 </div>
 
                 <div class="col-4 d-flex align-items-center">
                     <span>總金額(</span>
-                    <span class="text-danger fw-bold">4</span>
+                    <span class="text-danger fw-bold totalItemCount"></span>
                     <span>個商品)：</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold fs-4">$100,5555</span>
+                    <span class="text-danger fw-bold fs-4"> @Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-secondary flex-grow-1 btn-lg">去買單</button>
+                    @*<a id="checkoutLink" href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>*@
+                    <a href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg checkoutLink">去買單</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+@*去買單跳出視窗是否有商品*@
+<div class="modal" id="checkCartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                購物車中沒有商品，無法前往結帳。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*去買單跳出視窗是否有商品*@
+<div class="modal" id="deleteCartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                確定要從購物車刪除此商品嗎？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton2delete">確定</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancelButton2delete">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
-        //取得所有的加减元件
-        var minusButtons = document.querySelectorAll(".minusBtn");
-        var plusButtons = document.querySelectorAll(".plusBtn");
-        var quantityInputs = document.querySelectorAll(".quantityInput");
 
-        // click
-        for (var i = 0; i < minusButtons.length; i++) {
-            minusButtons[i].addEventListener("click", createClickHandler(i, -1));
-        }
 
-        for (var i = 0; i < plusButtons.length; i++) {
-            plusButtons[i].addEventListener("click", createClickHandler(i, 1));
-        }
 
-        // 計算
-        function createClickHandler(index, change) {
-            return function () {
-                var currentValue = parseInt(quantityInputs[index].value);
-                var newValue = currentValue + change;
-                if (newValue >= 1) {
-                    quantityInputs[index].value = newValue.toString();
-                }
-            }
-        }
+
+        //刪除購物車的商品
+        $(document).ready(function () {
+            $(".delete2cart").each(function () {
+                $(this).on('click', async function () {
+                    var self = $(this);
+                    var ProductId = self.attr("data-id");
+                    console.log(ProductId)
+
+                    $("#deleteCartModal").modal("show");
+
+                    $("#confirmButton2delete").on('click', async function () {
+                        //按下確認才呼叫刪除購物車商品的api
+                        const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + ProductId)
+                        // 成功刪除後重新載入頁面
+                        location.reload();
+                    })
+
+                    $("#cancelButton2delete").on('click', async function () {
+                        //不做動作
+                    })              
+                })
+            })
+        })
+
+
+
+        //更新購物車商品數量
+        $(document).ready(function () {
+            $(".plusBtn").each(function () {
+                $(this).on('click', function () {
+                    var self = $(this);
+
+                    var ProductId = self.attr("data-id");
+                    var Quantity = parseInt(self.attr("data-qty")) + 1;
+                    console.log(ProductId)
+                    console.log(Quantity)
+
+                    const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
+                    location.reload();
+                })
+            })
+
+
+
+            $(".minusBtn")
+        })
     </script>
 }
 

@@ -164,6 +164,7 @@ namespace prjEShopping.Controllers
                 var change = db.ProductStocks.Find(items.ProductStockId);
                 change.OrderQuantity = change.OrderQuantity - items.ChageQty;
                 change.QuantitySold = change.QuantitySold + items.ChageQty;
+                change.StockQuantity = change.StockQuantity - items.ChageQty;
             }
 
             var Shiptatusid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();

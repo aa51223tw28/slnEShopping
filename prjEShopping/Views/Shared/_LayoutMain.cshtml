@@ -18,11 +18,11 @@
                         <div class="container d-flex justify-content-end">
                             <ul class="nav">
                                 <li class="nav-item px-3 d-flex align-items-center">
-                                    <a href="" class="text-decoration-none hover-opacity">
+                                    <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="text-decoration-none hover-opacity">
                                         <div class="d-flex align-items-center">
                                             <img src="~/img/man32px.png" alt="User Avatar" class="me-2">
                                             @*<span class="fw-bold text-light">John Doe</span>*@
-                                            <span href="/UsersMembers/Index/" class="fw-bold text-light">@(User.Identity.Name)</span>
+                                            <span class="fw-bold text-light">@(User.Identity.Name)</span>
                                         </div>
                                     </a>
                                 </li>
@@ -30,14 +30,12 @@
                                     <a href="@Url.Content("~/UserCart/UserShoppingCart")" class="position-relative text-decoration-none">
                                         購物車
                                         <i class="bi bi-cart-fill fs-4"></i>
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            5 <!-- 這裡是購物車的數字，可以使用動態生成的方式填入數值 -->
-                                        </span>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger totalItemCount"></span>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">購買清單</a>
+                                    <a class="nav-link" href="@Url.Content("~/UserCart/UserOrderDetail")">購買清單</a>
                                 </li>
                                 <li class="nav-item">
                                     @*<a class="nav-link" href="0.index.html">登出</a>*@
@@ -76,21 +74,27 @@
             <div class="container">
                 <div class="row g-2">
                     <div class="col-5 col-md-4 col-lg-3 col-xl-2">
-                        <a class="navbar-brand py-0 mb-4 mx-0" href="#">
+                        <a class="navbar-brand py-0 mb-4 mx-0" href="@Url.Content("~/Main/Index")">
                             <img src="~/img/logonew.png" alt="E起購 LOGO" class="d-inline-block" />
                         </a>
                     </div>
                     <div class="col-5 col-md-6 col-lg-7 col-xl-9">
-                        <input class="form-control mt-3 mb-4 mx-0" type="search" placeholder="Search" aria-label="Search" style="height: 40px;">
-                    </div>
-                    <div class="col-2 col-md-2 col-lg-2 col-xl-1">
-                        <button class="btn btn-secondary mt-3 mb-4 mx-0" type="submit" style="height: 40px;">Search</button>
+                        <div class="input-group mt-3 mb-4">
+                            <input class="form-control" type="search" @*placeholder="去購物"*@ aria-label="Search" style="height: 40px;">
+                            <button class="btn btn-secondary" type="submit" style="height: 40px;">搜尋</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </header>
+
+
+
     @RenderBody()
+
+
+
     <!-- footer -->
     <div class="bg-primary" style="height: 20px;"></div>
     <div class="bg-warning">
@@ -164,9 +168,52 @@
     </div>
 
 
+    @*這兩行只是為了下方js,要hidden*@
+    <a class="checkoutLink" hidden></a>
+    <a class="confirmButton" hidden></a>
+
     <script src="https://kit.fontawesome.com/df26c5ac19.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        //呼叫購物車數字api
+        const totalItemCount = document.querySelectorAll('.totalItemCount')
+        async function getTotalCount() {
+            const response = await fetch('/UserCart/GetTotalCount');
+            const num = await response.json();
+            totalItemCount.forEach(element => {
+                element.textContent = num;
+            });
+
+
+            //要結合到UserShoppingCart.cshtml//判斷數量是否0,0無法結帳(上方html寫了兩個btn的hidden)
+            const checkoutLink = document.querySelector('.checkoutLink');
+            if (num == 0) {
+                checkoutLink.addEventListener('click', (event) => {
+                    //alert('購物車中沒有商品,無法前往結帳。');
+                    $("#checkCartModal").modal("show");
+                    event.preventDefault();
+                });
+            } else {
+                checkoutLink.removeEventListener('click', (event) => {
+                    event.preventDefault();
+                })
+            }
+        }
+        getTotalCount();
+
+
+
+        //要結合到UserSingleProduct.cshtml//按下modal的確認後更新購物車數字(上方html寫了兩個btn的hidden)
+        const confirmButton = document.querySelector('.confirmButton');
+        confirmButton.addEventListener('click', function () {
+            // 點擊 "確定" 按鈕時呼叫更新函式
+            getTotalCount();
+        });
+
+    </script>
+
     @RenderSection("Scripts", required: false)@*引用js或jquery*@
 </body>
 </html>
