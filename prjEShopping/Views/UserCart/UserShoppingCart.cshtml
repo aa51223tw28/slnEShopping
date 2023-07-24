@@ -186,25 +186,37 @@
 
 
         //更新購物車商品數量
-        //$(document).ready(function () {
-        //    $(".plusBtn").each(function () {
-        //        $(this).on('click', function () {
-        //            var self = $(this);
+        $(document).ready(function () {
+            $(".plusBtn").each(function () {
+                $(this).on('click', async function () {
+                    var self = $(this);
 
-        //            var ProductId = self.attr("data-id");
-        //            var Quantity = parseInt(self.attr("data-qty")) + 1;
-        //            console.log(ProductId)
-        //            console.log(Quantity)
+                    var ProductId = self.attr("data-id");
+                    var Quantity = parseInt(self.attr("data-qty")) + 1;                    
 
-        //            const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
-        //            location.reload();
-        //        })
-        //    })
+                    const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
+                    location.reload();
+                })
+            })
 
+            $(".minusBtn").each(function () {
+                $(this).on('click', async function () {
+                    var self = $(this);
 
+                    var ProductId = self.attr("data-id")
 
-        //    $(".minusBtn")
-        //})
+                    var Quantity = parseInt(self.attr("data-qty")) - 1;
+
+                    if (Quantity == 0) {
+                        const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + ProductId);//Quantity=0呼叫刪除api
+                        location.reload();
+                    } else {
+                        const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity);
+                        location.reload();
+                    }
+                })
+            })
+        })
     </script>
 }
 

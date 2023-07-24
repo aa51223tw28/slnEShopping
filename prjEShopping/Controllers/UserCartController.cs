@@ -248,7 +248,7 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId&&x.CartId== cartid);
             if (cartItem == null) return new EmptyResult();
 
             var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
@@ -268,15 +268,8 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
-            if (cartItem == null) return new EmptyResult();
-
-            if (Quantity == 0)
-            {
-                var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
-                db.ShoppingCartDetails.Remove(dbRemovecartDetailId);
-                db.SaveChanges();
-            }
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId && x.CartId == cartid);
+            if (cartItem == null) return new EmptyResult();            
 
             var cartItemDb = db.ShoppingCartDetails.FirstOrDefault(x => x.CartDetailId == cartItem.CartDetailId);
             cartItemDb.Quantity = Quantity;
