@@ -217,8 +217,11 @@
         })
 
         selsubcategories.addEventListener('change', () => {
-             LoadOptionNames();
-             LoadOptionValue();
+            LoadOptionNames();
+            setTimeout(() => {
+                LoadOptionValue();
+            }, 500);
+             /*LoadOptionValue();*/
         })
 
         
