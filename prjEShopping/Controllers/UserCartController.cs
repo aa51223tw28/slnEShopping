@@ -250,10 +250,10 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            var cartDetailId = db.ShoppingCartDetails.Where(x => x.ProductId == ProductId && x.CartId == cartid)
-                                                    .Select(x => x.CartDetailId)
-                                                    .FirstOrDefault();
-            var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartDetailId);
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
+            if (cartItem == null) return new EmptyResult();
+
+            var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
             db.ShoppingCartDetails.Remove(dbRemovecartDetailId);
             db.SaveChanges();
 
