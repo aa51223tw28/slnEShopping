@@ -1,4 +1,5 @@
 ﻿using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,37 +10,39 @@ namespace prjEShopping.Controllers
 {
     public class SellerProductCreateController : Controller
     {
-        // GET: SellerProductCreate
-        public ActionResult getCategoryName()
+        // GET: SellerProduct
+        public ActionResult Index()
         {
-            AppDbContext db = new AppDbContext();
-            var categorynames = db.ProductMainCategories.Select(x => x.CategoryName).Distinct();
-            return Json(categorynames,JsonRequestBehavior.AllowGet);
+            return View();
         }
 
-        public ActionResult getSubcategoryName(string categoryname) 
-        {
-            AppDbContext db = new AppDbContext();
-            var subcategorynames = db.ProductMainCategories.Where(x => x.CategoryName == categoryname)
-                                .Join(db.ProductSubCategories, x => x.CategoryId, y => y.CategoryId, (x, y) => 
-                                
-                                    y.SubcategoryName
-                                
-                                    );
-            return Json(subcategorynames, JsonRequestBehavior.AllowGet);
-        }
+		public ActionResult ProductCreate()
+		{
+			return View();
+		}
 
-        public ActionResult getOptionNames(string subcategoryname) 
-        {
-            AppDbContext db = new AppDbContext();
-            var optionnames = db.ProductSubCategories.Where(x => x.SubcategoryName == subcategoryname)
-                           .Join(db.ProductSpecifications, x => x.SubcategoryId, y => y.SubcategoryId, (x, y) =>
+        //[HttpPost]
+        //public ActionResult ProductCreate(SellerProductCreateVM vm)
+        //{
+        //    var db = new AppDbContext();
+        //    var product = new Product()
+        //    {
+        //        ProductName = vm.ProductName,
+        //        ProductDescription = vm.ProductDescription,
+        //        Price = vm.Price,
+        //        BrandId = (db.Brands.Where(x => x.BrandName == vm.BrandName).SingleOrDefault()).BrandId,
+        //        ProductStatusId = 2,
+        //    };
+        //    db.Products.Add(product);
+        //    db.SaveChanges();
 
-                           y.SpecificationName
-
-                           );
-            return Json(optionnames, JsonRequestBehavior.AllowGet);
-        }
-
+        //    var productdetail = new ProductDetail()
+        //    {
+        //        CategoryId = (db.ProductMainCategories.Where(x => x.CategoryName == vm.CategoryName).SingleOrDefault()).CategoryId,
+        //        SubcategoryId = (db.ProductSubCategories.Where(x => x.SubcategoryName == vm.SubcategoryName).SingleOrDefault()).SubcategoryId,
+        //        OptionIdOne = db.ProductOptions.Where(x => x.SpecificationId == (db.ProductSpecifications.Where(y =>y.SpecificationName == vm.SpecificationName1).SingleOrDefault().SpecificationId).SingleOrDefault()).OptionId,
+        //    };
+        //    return RedirectToAction("Index","SellerMain");
+        //}
     }
 }
