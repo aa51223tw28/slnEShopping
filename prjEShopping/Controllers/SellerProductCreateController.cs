@@ -10,6 +10,13 @@ namespace prjEShopping.Controllers
     public class SellerProductCreateController : Controller
     {
         // GET: SellerProductCreate
+
+        public ActionResult getBrand() 
+        {
+            AppDbContext db = new AppDbContext();
+            var brandnames = db.Brands.Select(x => x.BrandName).Distinct();
+            return Json(brandnames, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult getCategoryName()
         {
             AppDbContext db = new AppDbContext();

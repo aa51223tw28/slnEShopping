@@ -40,7 +40,7 @@
                     <span class="fw-bold text-primary">品牌：</span>
                 </div>
                 <div class="col-4">
-                    <select class="form-select">
+                    <select class="form-select" id="brand">
                         
                     </select>
                 </div>
@@ -110,7 +110,7 @@
             const selmaincategories = document.querySelector('#maincategories');
             const selsubcategories = document.querySelector('#subcategories');
             const seloptions = document.querySelector('#A>span');
-        
+
             function LoadMainCategories()
             {
                 const xhr = new XMLHttpRequest();
@@ -142,7 +142,7 @@
                     })
                     selsubcategories.innerHTML = subcategories.join("");
                      LoadOptionNames();
-                     LoadOptionValue();
+
                 })
             }
 
@@ -181,13 +181,16 @@
                 }
 
             });
-                 
+                 setTimeout(() => {
+                     LoadOptionValue();
+                 }, 200);
+
             }
 
 
              function LoadOptionValue()
             {
-                
+
                 for (let i = 0; i < 5; i++)
                 {
                     const optionnameElement = document.querySelector(`#optionname${i}`);
@@ -196,7 +199,7 @@
                     const xhr = new XMLHttpRequest();
                     xhr.open('GET', `@Url.Content("~/SellerProductCreate/getOptionValues?specificationname=")${encodeURIComponent(optionname)}`);
                     xhr.send();
-                    
+
 
                     xhr.addEventListener('load', () => {
                         const values = JSON.parse(xhr.responseText);
@@ -205,12 +208,30 @@
                          return (`<option value="${option}" name=option${i}>${option}</option>`);
                         });
                         optionContainer.innerHTML = optionnames.join("");
-                        
+
                     });
                 }
             }
 
+            function LoadBrand()
+            {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', '@Url.Content("~/SellerProductCreate/getBrand")');
+                xhr.send();
+
+                xhr.addEventListener('load', () => {
+                    const datas = JSON.parse(xhr.responseText);
+                    var brandnames = datas.map(brand => {
+                        return (`<option value="${brand}">${brand}</option>`)
+                    })
+
+                    $('#brand').html(brandnames.join(""));
+                   
+                })
+            }
+
         LoadMainCategories();
+        LoadBrand();
 
         selmaincategories.addEventListener('change', () => {
             LoadSubCategories()
@@ -220,11 +241,10 @@
             LoadOptionNames();
             setTimeout(() => {
                 LoadOptionValue();
-            }, 500);
-             /*LoadOptionValue();*/
+            }, 200);
         })
 
-        
+
 
 
     </script>
