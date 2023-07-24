@@ -243,8 +243,20 @@ namespace prjEShopping.Controllers
         }
 
         [Authorize]
-        public ActionResult UserDeleteCartapi(int ProductId)
+        public ActionResult UserDeleteCartapi(int ProductId)//刪除購物車商品的api
         {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            var cartDetailId = db.ShoppingCartDetails.Where(x => x.ProductId == ProductId && x.CartId == cartid)
+                                                    .Select(x => x.CartDetailId)
+                                                    .FirstOrDefault();
+            var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartDetailId);
+            db.ShoppingCartDetails.Remove(dbRemovecartDetailId);
+            db.SaveChanges();
+
             return new EmptyResult();
         }
 

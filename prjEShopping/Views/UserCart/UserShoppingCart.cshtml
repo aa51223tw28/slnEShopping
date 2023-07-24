@@ -128,7 +128,26 @@
                 購物車中沒有商品，無法前往結帳。
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*去買單跳出視窗是否有商品*@
+<div class="modal" id="deleteCartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                確定要從購物車刪除此商品嗎？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton2delete">確定</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancelButton2delete">取消</button>
             </div>
         </div>
     </div>
@@ -141,11 +160,19 @@
             $(".delete2cart").each(function () {
                 $(this).on('click', async function () {
                     var self = $(this);
-                    var productid = self.attr("data-id");
+                    var ProductId = self.attr("data-id");
+                    console.log(ProductId)
 
-                    const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + productId)
+                    $("#deleteCartModal").modal("show");
 
-                    //待補跳出視窗確定是否要刪除
+                    $("#confirmButton2delete").on('click', async function () {
+                        //按下確認才呼叫刪除購物車商品的api
+                        const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + ProductId)
+                    })
+
+                    $("#cancelButton2delete").on('click', async function () {
+                        //不做動作
+                    })              
                 })
             })
         })
