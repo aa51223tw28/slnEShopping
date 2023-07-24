@@ -261,6 +261,33 @@ namespace prjEShopping.Controllers
         }
 
 
+
+        [Authorize]
+        public ActionResult UserUpadateCartapi(int ProductId, int Quantity)//更新購物車商品數量的api
+        {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
+            if (cartItem == null) return new EmptyResult();
+
+            if (Quantity == 0)
+            {
+                var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
+                db.ShoppingCartDetails.Remove(dbRemovecartDetailId);
+                db.SaveChanges();
+            }
+
+            var cartItemDb = db.ShoppingCartDetails.FirstOrDefault(x => x.CartDetailId == cartItem.CartDetailId);
+            cartItemDb.Quantity = Quantity;
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
+
+
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳情頁面
         {
