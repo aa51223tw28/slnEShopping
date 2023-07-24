@@ -9,9 +9,9 @@
     <div class="container text-center">
         <h2 class="text-primary">優惠券列表</h2>
         @Html.ActionLink("未領取", "List", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
-        <button class = "btn btn-info my-2 mx-1">可使用</button>
-        @Html.ActionLink("已使用", "#", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
-        @Html.ActionLink("已逾期", "#", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
+        <button class="btn btn-info my-2 mx-1">可使用</button>
+        @Html.ActionLink("已使用", "UsersCouponsUsed", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
+        @Html.ActionLink("已逾期", "UsersCouponsOverdue", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
     </div>
     <hr class="border border-primary border-3" />
 

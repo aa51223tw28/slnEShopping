@@ -28,18 +28,18 @@ namespace prjEShopping.Controllers
                 .Select(uc => uc.CouponId.Value);
 
             // 剔除相同的優惠券
-            var couponsToDisplay =_coupons.Except(usersCouponIds);
+            var couponsToDisplay = _coupons.Except(usersCouponIds);
 
             // 取得的剩下的優惠券
             var model = db.Coupons
-                .Where(c => couponsToDisplay.Contains(c.CouponId))
+                .Where(c => couponsToDisplay.Contains(c.CouponId) && c.EventStatus == "open")
                 .ToList();
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult List(int userId,int couponId)
+        public ActionResult List(int userId, int couponId)
         {
             UsersCoupon usersCoupon = new UsersCoupon()
             {
@@ -55,7 +55,7 @@ namespace prjEShopping.Controllers
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
-         
+
             return View(usersCoupon);
         }
 
@@ -63,7 +63,20 @@ namespace prjEShopping.Controllers
         public ActionResult UsersCouponsList(int? userId)
         {
             userId = 1;
-            var usersCouponIds = db.UsersCoupons.Where(uc=>uc.UserId == userId).Select(uc => uc.CouponId);
+            var usersCouponIds = db.UsersCoupons.Where(uc => uc.UserId == userId && uc.CouponStatus == "可使用").Select(uc => uc.CouponId);
+
+            var model = db.Coupons
+                          .Where(c => usersCouponIds.Contains(c.CouponId) && c.EndTime > DateTime.Now)
+                          .ToList();
+
+            return View(model);
+        }
+
+        //已使用優惠券列表
+        public ActionResult UsersCouponsUsed(int? userId)
+        {
+            userId = 1;
+            var usersCouponIds = db.UsersCoupons.Where(uc => uc.UserId == userId && uc.CouponStatus == "已使用").Select(uc => uc.CouponId);
 
             var model = db.Coupons
                           .Where(c => usersCouponIds.Contains(c.CouponId))
@@ -71,5 +84,19 @@ namespace prjEShopping.Controllers
 
             return View(model);
         }
+
+        //已逾期優惠券列表
+        public ActionResult UsersCouponsOverdue(int? userId)
+        {
+            userId = 1;
+            var usersCouponIds = db.UsersCoupons.Where(uc => uc.UserId == userId && uc.CouponStatus == "可使用").Select(uc => uc.CouponId);
+
+            var model = db.Coupons
+                          .Where(c => usersCouponIds.Contains(c.CouponId) && c.EndTime < DateTime.Now)
+                          .ToList();
+
+            return View(model);
+        }
+
     }
 }
