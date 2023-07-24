@@ -1,5 +1,4 @@
-﻿using prjEShopping.Models.EFModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,70 +8,21 @@ namespace prjEShopping.Controllers
 {
     public class SellerProductCreateController : Controller
     {
-        // GET: SellerProductCreate
-
-        public ActionResult getBrand() 
+        // GET: SellerProduct
+        public ActionResult Index()
         {
-            AppDbContext db = new AppDbContext();
-            var brandnames = db.Brands.Select(x => x.BrandName).Distinct();
-            return Json(brandnames, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult getCategoryName()
-        {
-            AppDbContext db = new AppDbContext();
-            var categorynames = db.ProductMainCategories.Select(x => x.CategoryName).Distinct();
-            return Json(categorynames,JsonRequestBehavior.AllowGet);
+            return View();
         }
 
-        public ActionResult getSubcategoryName(string categoryname) 
+		public ActionResult ProductCreate()
+		{
+			return View();
+		}
+
+        [HttpPost]
+        public ActionResult ProductCreate()
         {
-            AppDbContext db = new AppDbContext();
-            var subcategorynames = db.ProductMainCategories.Where(x => x.CategoryName == categoryname)
-                                .Join(db.ProductSubCategories, x => x.CategoryId, y => y.CategoryId, (x, y) => 
-                                
-                                    y.SubcategoryName
-                                
-                                    );
-            return Json(subcategorynames, JsonRequestBehavior.AllowGet);
+            return View();
         }
-
-        public ActionResult getOptionNames(string subcategoryname)
-        {
-            AppDbContext db = new AppDbContext();
-            var optionnames = db.ProductSubCategories.Where(x => x.SubcategoryName == subcategoryname)
-                           .Join(db.ProductSpecifications, x => x.SubcategoryId, y => y.SubcategoryId, (x, y) =>
-
-                           y.SpecificationName
-
-                           );
-            return Json(optionnames, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult getOptionValues(string specificationname) 
-        {
-            AppDbContext db = new AppDbContext();
-            var specificationId = db.ProductSpecifications.Where(x => x.SpecificationName == specificationname).FirstOrDefault();
-            var optionvalues = db.ProductSpecifications.Where(x => x.SpecificationName == specificationname)
-                            .Join(db.ProductOptions.Where(y => y.SpecificationId == specificationId.SpecificationId), x => x.SpecificationId, y => y.SpecificationId, (x, y) =>
-
-                            y.OptionName
-
-                            );
-            return Json(optionvalues, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult getOptionValuesTest(string subcategoryname)//測試用待刪
-        {
-            AppDbContext db = new AppDbContext();
-            var specificationId = db.ProductSubCategories.Where(x => x.SubcategoryName == subcategoryname).FirstOrDefault();
-            var optionvalues = db.ProductSpecifications.Where(x => x.SubcategoryId == specificationId.SubcategoryId)
-                            .Join(db.ProductOptions, x => x.SpecificationId, y => y.SpecificationId, (x, y) =>
-
-                            y.OptionName
-
-                            );
-            return Json(optionvalues, JsonRequestBehavior.AllowGet);
-        }
-
     }
 }

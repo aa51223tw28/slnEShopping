@@ -167,8 +167,8 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
-    <Compile Include="Controllers\SellerProductController.cs" />
     <Compile Include="Controllers\SellerProductCreateController.cs" />
+    <Compile Include="Controllers\SellerProductCreateApiController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
@@ -227,6 +227,7 @@
     <Compile Include="Models\ViewModels\AdminRegisterVM.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
+    <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
@@ -271,7 +272,7 @@
     <Content Include="Views\Shared\_LayoutSellerMain.cshtml" />
     <Content Include="Views\SellerMain\Index.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentList.cshtml" />
-    <Content Include="Views\SellerProduct\ProductList.cshtml" />
+    <Content Include="Views\SellerProductCreate\ProductCreate.cshtml" />
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserProduct\UserProdutList.cshtml" />
     <Content Include="Views\SellerUpdate\List.cshtml" />
@@ -299,7 +300,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
     <Folder Include="Models\DAOs\" />
-    <Folder Include="Views\SellerProductCreate\" />
+    <Folder Include="Views\SellerProductCreateApi\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
