@@ -147,7 +147,7 @@
         @*分頁標籤設定*@
         <nav>
             <ul class="pagination">
-                @if (Model.CurrentPage > 1 || Model.CurrentPage == Model.TotalPages)
+                @if (Model.CurrentPage > 1 )
                 {
                     <li class="page-item" id="Previous">
                         <a class="page-link " href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">Previous</a>
