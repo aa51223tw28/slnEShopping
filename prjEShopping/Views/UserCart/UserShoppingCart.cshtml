@@ -78,7 +78,7 @@
                         <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <button class="btn btn-danger">刪除</button>
+                        <button class="btn btn-danger" data-id="@item.ProductId">刪除</button>
                     </div>
                 </div>
             }

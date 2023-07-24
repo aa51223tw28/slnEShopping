@@ -224,7 +224,7 @@ namespace prjEShopping.Controllers
             db.ShoppingCarts.Add(shoppingcart);
             db.SaveChanges ();
 
-            //還未做要------修改table ProductsStocks中的OrderQuantity
+            //todo 還未做要------修改table ProductsStocks中的OrderQuantity
 
 
 
