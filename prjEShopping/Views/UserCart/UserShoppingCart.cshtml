@@ -186,25 +186,25 @@
 
 
         //更新購物車商品數量
-        $(document).ready(function () {
-            $(".plusBtn").each(function () {
-                $(this).on('click', function () {
-                    var self = $(this);
+        //$(document).ready(function () {
+        //    $(".plusBtn").each(function () {
+        //        $(this).on('click', function () {
+        //            var self = $(this);
 
-                    var ProductId = self.attr("data-id");
-                    var Quantity = parseInt(self.attr("data-qty")) + 1;
-                    console.log(ProductId)
-                    console.log(Quantity)
+        //            var ProductId = self.attr("data-id");
+        //            var Quantity = parseInt(self.attr("data-qty")) + 1;
+        //            console.log(ProductId)
+        //            console.log(Quantity)
 
-                    const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
-                    location.reload();
-                })
-            })
+        //            const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
+        //            location.reload();
+        //        })
+        //    })
 
 
 
-            $(".minusBtn")
-        })
+        //    $(".minusBtn")
+        //})
     </script>
 }
 
