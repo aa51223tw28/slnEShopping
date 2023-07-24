@@ -1,0 +1,43 @@
+﻿@model prjEShopping.Models.EFModels.Coupon
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary ">
+    <h2>刪除優惠券</h2>
+
+    <h3 class="text-danger">你確定要刪除優惠券!?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt class="fs-5">
+                @Html.DisplayNameFor(model => model.CouponNumber):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CouponNumber)
+            </dd>
+
+            <dt  class="fs-5">
+                @Html.DisplayNameFor(model => model.CouponName):
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CouponName)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="刪除" class="btn btn-danger mx-2 my-2" /> 
+                @Html.ActionLink("取消", "Index", null, new {@class= "btn btn-primary my-2"})
+            </div>
+        }
+    </div>
+</div>

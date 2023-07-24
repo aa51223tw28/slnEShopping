@@ -1,0 +1,38 @@
+﻿@model IEnumerable<prjEShopping.Models.EFModels.Coupon>
+
+@{
+    ViewBag.Title = "UsersCouponsOverdue";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary ">
+    <div class="container text-center">
+        <h2 class="text-primary">優惠券列表</h2>
+        @Html.ActionLink("未領取", "List", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
+        @Html.ActionLink("可使用", "UsersCouponsList", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
+        @Html.ActionLink("已使用", "UsersCouponsUsed", new { userId = 1 }, new { @class = "btn btn-primary my-2 mx-1" })
+        <button class="btn btn-info my-2 mx-1">已逾期</button>
+    </div>
+    <hr class="border border-primary border-3" />
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-6">
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
+                        <span>@Html.DisplayFor(modelItem => item.Storewide) @Html.DisplayFor(modelItem => item.Discount) </span>
+                        <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
+                        <div class="d-flex">
+                            <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                            <button type="button" class="btn btn-danger ms-3">已逾期</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

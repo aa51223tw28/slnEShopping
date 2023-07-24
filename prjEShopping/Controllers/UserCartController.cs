@@ -1,9 +1,7 @@
-﻿using prjEShopping.Models.DTOs;
-using prjEShopping.Models.EFModels;
+﻿using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;

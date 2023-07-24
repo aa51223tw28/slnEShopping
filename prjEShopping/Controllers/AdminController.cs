@@ -47,6 +47,38 @@ namespace prjEShopping.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult List(AdminVM vm)
+        {
+            AppDbContext db = new AppDbContext();
+            var data = db.Admins.FirstOrDefault(a => a.AdminAccount == vm.AdminAccount);
+            if(data!=null)
+            {
+                ModelState.AddModelError(string.Empty, "這個信箱已註冊，請用其他信箱進行申請帳號!");
+            }
+            if (ModelState.IsValid)
+            {
+                var datas = new Admin
+                {
+                    AdminId = vm.AdminId,
+                    AdminNumber = vm.AdminNumber,
+                    PermissionsId = vm.PermissionsId,
+                    AdminAccount = vm.AdminAccount,
+                    AdminPassword = vm.AdminPassword,
+                    Title = vm.Title,
+                    AdminName = vm.AdminName,
+                    Phone = vm.Phone,
+                    DateOfHire = vm.DateOfHire,
+                    JobStatus = vm.JobStatus
+                };
+                db.Admins.Add(datas);
+                db.SaveChanges();
+                return RedirectToAction("List");
+            }
+
+            return View();
+        }
+
         private IEnumerable<AdminVM> GetAdmins()
         {
             IAdminRepository repo = new AdminRepository();

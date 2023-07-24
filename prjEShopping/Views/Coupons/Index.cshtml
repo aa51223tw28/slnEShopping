@@ -1,0 +1,41 @@
+﻿@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.EFModels.Coupon>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary ">
+    @Html.Partial("_IndexCoupons")
+
+</div>
+
+@section Scripts{
+    <script>
+//        const btn = document.querySelector('#showOpening')
+//        btn.addEventListener('click', function () {
+///*            alert("123");*/
+//            fetch('/Coupons/CouponsOpening')
+//                .then(response => response.text())
+//                .then(data => {
+//                    document.getElementById('dataContainer').innerHTML = data;
+//                });
+//        });
+
+        const btn = document.querySelector('#showOpening')
+
+        btn.addEventListener('click', async function () {
+            alert("123");
+            try {
+                const response = await fetch('/Coupons/CouponsOpening');
+                const data = await response.text();
+                document.getElementById('dataContainer').innerHTML = data;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+}
+
+@section Styles{
+    <style></style>
+}

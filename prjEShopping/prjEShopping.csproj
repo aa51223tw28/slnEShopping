@@ -165,6 +165,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
     <Compile Include="Controllers\SellerProductCreateController.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserMembersController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
+    <Compile Include="Controllers\UsersCouponsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -291,6 +293,16 @@
     <Content Include="Views\Admin\AdminLogin.cshtml" />
     <Content Include="Views\Admin\AdminRegister.cshtml" />
     <Content Include="Views\Admin\AdminEdit2.cshtml" />
+    <Content Include="Views\Coupons\Delete.cshtml" />
+    <Content Include="Views\Coupons\Edit.cshtml" />
+    <Content Include="Views\Coupons\Index.cshtml" />
+    <Content Include="Views\Coupons\Create.cshtml" />
+    <Content Include="Views\Coupons\_IndexCoupons.cshtml" />
+    <Content Include="Views\UsersCoupons\List.cshtml" />
+    <Content Include="Views\UsersCoupons\List2.cshtml" />
+    <Content Include="Views\UsersCoupons\UsersCouponsList.cshtml" />
+    <Content Include="Views\UsersCoupons\UsersCouponsUsed.cshtml" />
+    <Content Include="Views\UsersCoupons\UsersCouponsOverdue.cshtml" />
     <Content Include="Views\UserMembers\UserEditProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
