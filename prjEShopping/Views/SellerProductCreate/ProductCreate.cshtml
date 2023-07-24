@@ -199,7 +199,7 @@
                 {
                     const optionnameElement = document.querySelector(`#optionname${i}`);
                     const optionname = optionnameElement.getAttribute('value');
-                    console.log(optionname)
+                    
                     const xhr = new XMLHttpRequest();
                     xhr.open('GET', `@Url.Content("~/SellerProductCreateApi/getOptionValues?specificationname=")${encodeURIComponent(optionname)}`);
                     xhr.send();
