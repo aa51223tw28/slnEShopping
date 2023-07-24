@@ -29,29 +29,29 @@ namespace prjEShopping.Controllers
             return View(data);
         }
 
-        [HttpPost]
-        public ActionResult Edit(Seller s)
-        {
-            var db = new AppDbContext();
-            Seller data = db.Sellers.Where(x => x.SellerId == s.SellerId).FirstOrDefault();
-            if (data != null)
-            {
-                if (s.photo != null)
-                {
-                    string photoName = Guid.NewGuid().ToString() + ".jpg";
-                    data.SellerImagePath = photoName;
-                    s.photo.SaveAs(Server.MapPath("../../Images/" + photoName));
-                }
+        //[HttpPost]
+        //public ActionResult Edit(Seller s)
+        //{
+        //    var db = new AppDbContext();
+        //    Seller data = db.Sellers.Where(x => x.SellerId == s.SellerId).FirstOrDefault();
+        //    if (data != null)
+        //    {
+        //        if (s.photo != null)
+        //        {
+        //            string photoName = Guid.NewGuid().ToString() + ".jpg";
+        //            data.SellerImagePath = photoName;
+        //            s.photo.SaveAs(Server.MapPath("../../Images/" + photoName));
+        //        }
 
-                data.SellerName = s.SellerName;
-                data.Phone = s.Phone;
-                data.StoreName = s.StoreName;
-                data.SellerPassword = s.SellerPassword;
-                data.Address = s.Address;
-                data.BankAccount = s.BankAccount;
-                db.SaveChanges();
-            }
-            return RedirectToAction("List");
-        }
+        //        data.SellerName = s.SellerName;
+        //        data.Phone = s.Phone;
+        //        data.StoreName = s.StoreName;
+        //        data.SellerPassword = s.SellerPassword;
+        //        data.Address = s.Address;
+        //        data.BankAccount = s.BankAccount;
+        //        db.SaveChanges();
+        //    }
+        //    return RedirectToAction("List");
+        //}
     }
 }
