@@ -91,16 +91,9 @@ namespace prjEShopping.Controllers
                     Items = items
                 };
 
-                if (Request.IsAjaxRequest())
-                {
-                    // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
-                    return PartialView("_IndexCoupons", model);
-                }
-                else
-                {
-                    // 如果不是 AJAX 请求，返回包含布局(Layout)的完整頁面
-                    return View(model);
-                }
+                //return new EmptyResult();
+                return PartialView("_IndexCoupons", model);
+
             }
         }
 

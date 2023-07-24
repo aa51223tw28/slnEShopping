@@ -11,7 +11,29 @@
 
 @section Scripts{
     <script>
+//        const btn = document.querySelector('#showOpening')
 
+//        btn.addEventListener('click', function () {
+///*            alert("123");*/
+//            fetch('/Coupons/CouponsOpening')
+//                .then(response => response.text())
+//                .then(data => {
+//                    document.getElementById('dataContainer').innerHTML = data;
+//                });
+//        });
+
+        const btn = document.querySelector('#showOpening')
+
+        btn.addEventListener('click', async function () {
+            alert("123");
+            try {
+                const response = await fetch('/Coupons/CouponsOpening');
+                const data = await response.text();
+                document.getElementById('dataContainer').innerHTML = data;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
     </script>
 }
 

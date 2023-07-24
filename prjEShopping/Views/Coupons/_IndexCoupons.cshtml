@@ -222,53 +222,7 @@
             });
         });
 
-        document.getElementById('showOpening').addEventListener('click', function () {
-            fetch('/Coupons/OpeningCoupons')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('dataContainer').innerHTML = data;
-                });
-        });
 
-        //document.addEventListener('DOMContentLoaded', () => {
-        //    let currentUrl = "/Coupons/Index";
-        //    const dataContainer = document.getElementById('dataContainer');
-        //    const pageLinks = document.querySelectorAll('.page-link');         
-        //    const showOpeningButton = document.getElementById('showOpening');
-
-        //    const fetchData = async (url) => {
-        //        const response = await fetch(url);
-        //        if (!response.ok) {
-        //            throw new Error(`HTTP error! status: ${response.status}`);
-        //        } else {
-        //            return await response.text();
-        //        }
-        //    }
-
-        //    const loadPage = async (url) => {
-        //        try {
-        //            const data = await fetchData(url);
-        //            dataContainer.innerHTML = data;
-        //        } catch (error) {
-        //            console.log(error);
-        //        }
-        //    }
-
-        //    showOpeningButton.addEventListener('click', () => {
-        //        currentUrl = "/Coupons/CouponsOpening";
-        //        loadPage(currentUrl);
-        //    });
-
-        //    pageLinks.forEach(pageLink => {
-        //        pageLink.addEventListener('click', async (e) => {
-        //            e.preventDefault();
-        //            const page = e.target.textContent;
-        //            const url = `${currentUrl}?page=${page}`;
-        //            loadPage(url);
-        //            console.log(url);
-        //        });
-        //    });
-        //});
 
     </script>
 }
