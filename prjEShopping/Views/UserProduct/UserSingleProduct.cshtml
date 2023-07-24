@@ -589,7 +589,7 @@
                     var productId = self.attr("data-id");                                        
 
                     //ajax送出request
-                    const result = await $.get("/UserCart/UserAddCart?ProductId=" + productId + "&Quantity=" + quantityValue);
+                    const result = await $.get("/UserCart/UserAddCartapi?ProductId=" + productId + "&Quantity=" + quantityValue);
                     //alert("已加入購物車");
                     $("#addToCartModal").modal("show");
                 })

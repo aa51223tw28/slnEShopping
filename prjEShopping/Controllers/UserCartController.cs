@@ -16,7 +16,7 @@ namespace prjEShopping.Controllers
         // GET: UserCart
 
         [Authorize]
-        public ActionResult UserAddCart(int ProductId, int quantity)//傳過來買了什麼的api
+        public ActionResult UserAddCartapi(int ProductId, int quantity)//傳過來買了什麼的api
         {
             var db = new AppDbContext();
             var customerAccount = User.Identity.Name;
