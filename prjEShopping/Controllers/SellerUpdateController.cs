@@ -46,7 +46,7 @@ namespace prjEShopping.Controllers
                 {
                     string photoName = Guid.NewGuid().ToString() + ".jpg";
                     data.SellerImagePath = photoName;
-                    //s.SellerImagePath.SaveAs(Server.MapPath("../../Images/" + photoName));
+                    s.photo.SaveAs(Server.MapPath("../../Images/" + photoName));
                 }
 
                 data.SellerName = s.SellerName;

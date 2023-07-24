@@ -5,6 +5,7 @@ namespace prjEShopping.Models.EFModels
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Web;
 
     public partial class Seller
     {
@@ -53,5 +54,6 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string Role { get; set; }
+        public HttpPostedFileBase photo { get; set; }
     }
 }
