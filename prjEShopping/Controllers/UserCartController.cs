@@ -242,6 +242,12 @@ namespace prjEShopping.Controllers
 
         }
 
+        [Authorize]
+        public ActionResult UserDeleteCartapi(int ProductId)
+        {
+            return new EmptyResult();
+        }
+
 
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳情頁面

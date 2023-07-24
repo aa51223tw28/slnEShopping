@@ -78,7 +78,7 @@
                         <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
                     </div>
                     <div class="col-2 d-flex align-items-center">
-                        <button class="btn btn-danger" data-id="@item.ProductId">刪除</button>
+                        <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
                     </div>
                 </div>
             }
@@ -136,7 +136,19 @@
 
 @section Scripts{
     <script>
-        //
+        //刪除購物車的商品
+        $(document).ready(function () {
+            $(".delete2cart").each(function () {
+                $(this).on('click', async function () {
+                    var self = $(this);
+                    var productid = self.attr("data-id");
+
+                    const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + productId)
+
+                    //待補跳出視窗確定是否要刪除
+                })
+            })
+        })
     </script>
 }
 
