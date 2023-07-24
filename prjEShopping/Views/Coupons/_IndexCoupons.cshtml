@@ -9,6 +9,7 @@
     <div class="container overflow-auto">
         <p>
             @Html.ActionLink("新增優惠券", "Create", null, new { @class = "btn btn-primary" })
+            <button id="showOpening" class="btn btn-primary">開放中的優惠券</button>
         </p>
         @*優惠券列表*@
         @*<table class="table table-primary table-bordered">
@@ -188,19 +189,74 @@
 
 @section Scripts{
     <script>
-        /* 分頁生成設定*/
-        $(document).ready(function () {
-            $('.page-link').click(function (e) {
-                e.preventDefault();
-                var page = $(this).text();
+        ///* 分頁生成設定*/
+        //$(document).ready(function () {
+        //    $('.page-link').click(function (e) {
+        //        e.preventDefault();
+        //        var page = $(this).text();
 
-                $.ajax({
-                    url: '/Coupons/Index',
-                    type: 'GET',
-                    data: { page: page },
-                    success: function (data) {
-                        $('#dataContainer').html(data);
-                    }
+        //        $.ajax({
+        //            url: '/Coupons/Index',
+        //            type: 'GET',
+        //            data: { page: page },
+        //            success: function (data) {
+        //                $('#dataContainer').html(data);
+        //            }
+        //        });
+        //    });
+        //});
+        /* 分頁生成設定 async/await模式 改寫*/
+        //$(document).ready(function () {
+        //    $('.page-link').click(async function (e) {
+        //        e.preventDefault();
+        //        var page = $(this).text();
+        //        var url = "/Coupons/Index?";
+
+        //        try {
+        //            const response = await fetch(`${url}page=${page}`);
+        //            const data = await response.text();
+        //            $('#dataContainer').html(data);
+        //        } catch (error) {
+        //            console.error('Error:', error);
+        //        }
+        //    });
+        //});
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentUrl = "/Coupons/Index";
+            const dataContainer = document.getElementById('dataContainer');
+            const pageLinks = document.querySelectorAll('.page-link');         
+            const showOpeningButton = document.getElementById('showOpening');
+
+            const fetchData = async (url) => {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                } else {
+                    return await response.text();
+                }
+            }
+
+            const loadPage = async (url) => {
+                try {
+                    const data = await fetchData(url);
+                    dataContainer.innerHTML = data;
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
+            showOpeningButton.addEventListener('click', () => {
+                currentUrl = "/Coupons/CouponsOpening";
+                loadPage(currentUrl);
+            });
+
+            pageLinks.forEach(pageLink => {
+                pageLink.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const page = e.target.textContent;
+                    const url = `${currentUrl}?page=${page}`;
+                    loadPage(url);
                 });
             });
         });
