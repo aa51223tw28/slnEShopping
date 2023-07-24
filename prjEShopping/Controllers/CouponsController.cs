@@ -104,7 +104,6 @@ namespace prjEShopping.Controllers
             }
         }
 
-
         public ActionResult Create()
         {
             List<string> CouponsNums = db.Coupons.Select(a => a.CouponNumber).ToList();
