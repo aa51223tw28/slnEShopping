@@ -57,6 +57,14 @@ namespace prjEShopping.Controllers
                 shoppingCartDetail.Quantity += quantity;
             }
             db.SaveChanges();
+
+
+
+            //按下加入購物車同時要Update ProductStocks table的PurchaseQuantity
+            var purchaseQuantity = db.ProductStocks.FirstOrDefault(x => x.ProductId == ProductId);           
+            purchaseQuantity.PurchaseQuantity += quantity;            
+            db.SaveChanges();
+
             return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
         }
         public List<UserShoppingCartVM> datas { get; set; }
