@@ -25,17 +25,17 @@ namespace prjEShopping.Controllers
         public ActionResult ProductCreate(SellerProductCreateVM vm)
         {
             var db = new AppDbContext();
-            //var product = new Product()
-            //{
-            //    ProductName = vm.ProductName,
-            //    ProductDescription = vm.ProductDescription,
-            //    Price = vm.Price,
-            //    BrandId = (db.Brands.Where(x => x.BrandName == vm.BrandName).SingleOrDefault()).BrandId,
-            //    ProductStatusId = 2,
-            //    SellerId = 1,
-            //};
-            //db.Products.Add(product);
-            //db.SaveChanges();
+            var product = new Product()
+            {
+                ProductName = vm.ProductName,
+                ProductDescription = vm.ProductDescription,
+                Price = vm.Price,
+                BrandId = (db.Brands.Where(x => x.BrandName == vm.BrandName).SingleOrDefault()).BrandId,
+                ProductStatusId = 2,
+                SellerId = 1,
+            };
+            db.Products.Add(product);
+            db.SaveChanges();
 
             var productdetail = new ProductDetail()
             {
