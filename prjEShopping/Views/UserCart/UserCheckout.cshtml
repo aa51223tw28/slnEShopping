@@ -275,6 +275,8 @@
             $(".add2order").each(function () {
                 $(this).on('click', async function () {
                     const result = await $.get("/UserCart/UserCheckoutapi");
+
+
                     $("#add2orderModal").modal("show");//modal-購買完成
 
                     $("#add2orderconfirmButton").on('click', () => {
