@@ -590,6 +590,7 @@
 
                     //ajax送出request
                     const result = await $.get("/UserCart/UserAddCartapi?ProductId=" + productId + "&Quantity=" + quantityValue);
+                    const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + productId)
                     //alert("已加入購物車");
                     $("#addToCartModal").modal("show");
                 })

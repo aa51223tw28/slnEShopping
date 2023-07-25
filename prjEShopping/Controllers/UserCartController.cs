@@ -58,13 +58,6 @@ namespace prjEShopping.Controllers
             }
             db.SaveChanges();
 
-
-
-            //按下加入購物車同時要Update ProductStocks table的PurchaseQuantity
-            var purchaseQuantity = db.ProductStocks.FirstOrDefault(x => x.ProductId == ProductId);           
-            purchaseQuantity.PurchaseQuantity += quantity;            
-            db.SaveChanges();
-
             return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
         }
         public List<UserShoppingCartVM> datas { get; set; }
@@ -286,6 +279,21 @@ namespace prjEShopping.Controllers
             return new EmptyResult();
         }
 
+
+        [Authorize]
+        public ActionResult UserUpadateCartStockapi(int ProductId)
+        {
+            //在購物車頁面按下+同時要Update ProductStocks table的PurchaseQuantity
+            //直接去抓ShoppingCartDetails 裡面ProductId的Quantity合計
+            //在UserShoppingCart頁面&UserSingleProduct頁面都要用到因為都是編輯購物車的商品數量
+            var db = new AppDbContext();
+            var shoppingdetailquantity = db.ShoppingCartDetails.Where(x=>x.ProductId== ProductId).Sum(x => x.Quantity);
+            var purchaseQuantity = db.ProductStocks.FirstOrDefault(x => x.ProductId == ProductId);
+            purchaseQuantity.PurchaseQuantity = shoppingdetailquantity;
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
 
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳情頁面
