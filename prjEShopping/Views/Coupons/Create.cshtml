@@ -26,7 +26,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CouponName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <input type="text" id="CouponName" name="CouponName" class="form-control" />
+                    <input type="text" id="CouponName" name="CouponName" class="form-control" required/>
                     @Html.ValidationMessageFor(model => model.CouponName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CouponDetails, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="text" id="CouponDetails" name="CouponDetails" class="form-control" >
+                    <input type="text" id="CouponDetails" name="CouponDetails" class="form-control" required>
                     @Html.ValidationMessageFor(model => model.CouponDetails, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -42,7 +42,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <input type="number" id="Quantity" name="Quantity" class="form-control" value="99999"/>
+                    <input type="number" id="Quantity" name="Quantity" class="form-control" value="99999" required/>
                     @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -50,7 +50,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CouponTerms, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <select id="CouponTerms" name="CouponTerms" class="form-control">
+                    <select id="CouponTerms" name="CouponTerms" class="form-control" required>
                         <option value="" disabled selected>請選擇</option>
                         <option>滿2000</option>
                         <option>滿5000</option>
@@ -65,7 +65,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <select id="CouponType" name="CouponType" class="form-control">
+                    <select id="CouponType" name="CouponType" class="form-control" required>
                         <option value="" disabled selected>請選擇</option>
                         <option value="折價券">折價券</option>
                         <option value="抵用券">抵用券</option>
@@ -88,26 +88,27 @@
                 @Html.LabelFor(model => model.Storewide, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
                     <label>全館:</label>
-                        <input type="checkbox" id="StorewideAll" name="Storewide" value="全館" />
+                        <input type="checkbox" id="StorewideAll" name="Storewide" value="全館" checked/>
                         <label>商家:</label>
                         <select type="text" id="StorewideSeller" name="Storewide">
                             <option value="" disabled selected>請選擇</option>
-                            <option>商家A</option>
-                            <option>商家B</option>
-                            <option>商家C</option>
+                            @foreach (var sellers in ViewBag.SellerName)
+                            {
+                                <option value="@sellers">@sellers</option>
+                            }
                         </select>
                     @*<label>全館:</label>
                     <input type="radio" id="Storewide" name="Storewide" value="All" />
                     <label>商家:</label>
-                    <input type="radio" id="Storewide" name="Storewide" value="SellerId" />*@
-                    @Html.ValidationMessageFor(model => model.Storewide, "", new { @class = "text-danger" })
+                    <input type="radio" id="Storewide" name="Storewide" value="SellerId" />
+                    @Html.ValidationMessageFor(model => model.Storewide, "", new { @class = "text-danger" })*@
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <input type="date" id="StartTime" name="StartTime" class="form-control"/>
+                    <input type="date" id="StartTime" name="StartTime" class="form-control" required />
                     @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -115,7 +116,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ClaimDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <input type="date" id="ClaimDeadline" name="ClaimDeadline" class="form-control" />
+                    <input type="date" id="ClaimDeadline" name="ClaimDeadline" class="form-control" required/>
                     @Html.ValidationMessageFor(model => model.ClaimDeadline, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -123,7 +124,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    <input type="date" id="EndTime" name="EndTime" class="form-control" />
+                    <input type="date" id="EndTime" name="EndTime" class="form-control" required/>
                     @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -159,8 +160,10 @@
             $('#StorewideAll').change(function () {
                 if ($(this).is(":checked")) {
                     $('#StorewideSeller').prop('disabled', true);
+                    $("#StorewideSeller").prop("required", false);
                 } else {
                     $('#StorewideSeller').prop('disabled', false);
+                    $("#StorewideSeller").prop("required", true);
                 }
             });
         });
@@ -225,6 +228,41 @@
 
         });
 
+        //時間設定
+
+        $(document).ready(function () {
+            // Set today's date for StartTime
+            let today = new Date();
+            let dateStr = today.toISOString().split('T')[0];
+            $("#StartTime").attr("min", dateStr);
+            $("#StartTime").val(dateStr);
+
+            // Set tomorrow's date for ClaimDeadline
+            let tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            let tomorrowStr = tomorrow.toISOString().split('T')[0];
+            $("#ClaimDeadline").attr("min", tomorrowStr);
+            $("#EndTime").attr("min", tomorrowStr);
+            $("#ClaimDeadline").val(tomorrowStr);
+            $("#EndTime").val(tomorrowStr);
+        });
+
+        $("#StartTime").change(function () {
+            $("#ClaimDeadline").val("");
+            $("#EndTime").val("");
+            let selectedDate = new Date(this.value);
+            selectedDate.setDate(selectedDate.getDate() + 1);
+            let nextDateStr = selectedDate.toISOString().split('T')[0];
+            $("#ClaimDeadline").attr("min", nextDateStr);
+        });
+
+        $("#ClaimDeadline").change(function () {
+            $("#EndTime").val("");
+            let selectedDate = new Date(this.value);
+            selectedDate.setDate(selectedDate.getDate());
+            let nextDateStr = selectedDate.toISOString().split('T')[0];
+            $("#EndTime").attr("min", nextDateStr);
+        });
 
     </script>
     }
