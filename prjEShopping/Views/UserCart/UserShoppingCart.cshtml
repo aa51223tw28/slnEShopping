@@ -190,6 +190,7 @@
                     $("#confirmButton2delete").on('click', async function () {
                         //按下確認才呼叫刪除購物車商品的api
                         const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + ProductId)
+                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId)
                         // 成功刪除後重新載入頁面
                         location.reload();
                     })

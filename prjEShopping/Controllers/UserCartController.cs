@@ -312,11 +312,19 @@ namespace prjEShopping.Controllers
 
             var purchaseQuantity = db.ProductStocks.FirstOrDefault(x => x.ProductId == ProductId);
 
-            if (orderDetails == null)
+            if (orderDetails == null && shoppingdetailquantity == null)
+            {
+                purchaseQuantity.PurchaseQuantity = 0;
+            }
+            else if (orderDetails == null && shoppingdetailquantity != null)
             {
                 purchaseQuantity.PurchaseQuantity = shoppingdetailquantity;
             }
-            else
+            else if (orderDetails != null && shoppingdetailquantity == null)
+            {
+                purchaseQuantity.PurchaseQuantity =  orderDetails;
+            }
+            else if(orderDetails != null && shoppingdetailquantity != null) 
             {
                 purchaseQuantity.PurchaseQuantity = shoppingdetailquantity - orderDetails;
             }                
