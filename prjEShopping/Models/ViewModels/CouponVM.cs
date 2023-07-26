@@ -11,13 +11,10 @@ namespace prjEShopping.Models.ViewModels
     {
         public int CouponId { get; set; }
 
-        [StringLength(50)]
-
         [Display(Name = "商家ID")]
         public int? SellerId { get; set; }
 
         [StringLength(50)]
-
         [Display(Name = "券號")]
         public string CouponNumber { get; set; }
 
