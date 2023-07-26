@@ -21,12 +21,9 @@ namespace prjEShopping.Controllers
                                     return new UserProductIndexDto()
                                     {
                                         ProductId = x.ProductId,
-                                        ProductName = x.ProductName,
-                                        ProductDescription = x.ProductDescription,
+                                        ProductName = x.ProductName,                                        
                                         Price = (decimal)x.Price,
-                                        ProductImagePathOne = x.ProductImagePathOne,
-                                        ProductImagePathTwo = x.ProductImagePathTwo,
-                                        ProductImagePathThree = x.ProductImagePathThree,
+                                        ProductImagePathOne = x.ProductImagePathOne,                                        
                                     };
                                 }).ToList();
 
