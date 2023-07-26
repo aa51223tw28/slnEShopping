@@ -20,6 +20,7 @@ namespace prjEShopping.Models.ViewModels
         public decimal Price { get; set; }
 
         public string ProductImagePathOne { get; set; }
+        public int ProductStock { get; set; }
     }
 }
 

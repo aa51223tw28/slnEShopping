@@ -69,7 +69,7 @@ namespace prjEShopping.Controllers
             return View(datas);
         }
 
-        private void shoppingList()//UserShoppingCartVM的方法
+        private void shoppingList()//秀UserShoppingCartVM的方法
         {
             var customerAccount = User.Identity.Name;
 
@@ -103,11 +103,21 @@ namespace prjEShopping.Controllers
                 Price = (decimal)x.Price,
                 SubTotal = (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
-                SellerId = (int)x.SellerId
+                SellerId = (int)x.SellerId,
+                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)
             }).ToList();
 
             //總金額
             ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
+        }
+
+        private int calculateProductStock(int productId,int quantity)//計算庫存的方法
+        {
+            var db=new AppDbContext();
+            var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;
+            var stockQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
+            var productStock = stockQuantity - orderQuantity;
+            return productStock;
         }
 
         public ActionResult GetTotalCount()//負責傳購買數量的api
@@ -301,7 +311,14 @@ namespace prjEShopping.Controllers
 
             var purchaseQuantity = db.ProductStocks.FirstOrDefault(x => x.ProductId == ProductId);
 
-            purchaseQuantity.PurchaseQuantity = shoppingdetailquantity- orderDetails;            
+            if (orderDetails == 0)
+            {
+                purchaseQuantity.PurchaseQuantity = shoppingdetailquantity;
+            }
+            else
+            {
+                purchaseQuantity.PurchaseQuantity = shoppingdetailquantity - orderDetails;
+            }                
             db.SaveChanges();
 
             return new EmptyResult();

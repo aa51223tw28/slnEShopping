@@ -68,9 +68,9 @@
                     <div class="col-2 d-flex align-items-center">
                         <div class="input-group" style="width: 120px;">
                             @*加減數量*@
-                            <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity">-</button>
+                            <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">-</button>
                             <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
-                            <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity">+</button>
+                            <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
                         </div>
                     </div>
                     <div class="col-2 d-flex align-items-center">
@@ -165,7 +165,7 @@
                 $(this).on('click', async function () {
                     var self = $(this);
                     var ProductId = self.attr("data-id");
-                    console.log(ProductId)
+                    //console.log(ProductId)                    
 
                     $("#deleteCartModal").modal("show");
 
@@ -192,11 +192,15 @@
                     var self = $(this);
 
                     var ProductId = self.attr("data-id");
-                    var Quantity = parseInt(self.attr("data-qty")) + 1;                    
+                    var Quantity = parseInt(self.attr("data-qty")) + 1; 
+                    var Productstock = self.attr("data-stockqty");
 
-                    const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
-                    const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId )
-
+                    if (Productstock > 0) {
+                        const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
+                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId)
+                    } else {
+                        alert("庫存不足")
+                    }            
                     location.reload();
                 })
             })
