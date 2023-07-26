@@ -3,6 +3,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
+@if (TempData["Success"] != null)
+{
+    <script>alert("@TempData["Success"].ToString()")</script>
+}
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 ">
     <div class="accordion" id="accordionPanelsStayOpenExample2">
         <div class="accordion-item">

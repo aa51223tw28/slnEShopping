@@ -18,13 +18,7 @@ namespace prjEShopping.Controllers
                         select t;
             return View(datas);
         }
-        public ActionResult List1()
-        {
-            AppDbContext db = new AppDbContext();
-            var datas = from t in db.Sellers
-                        select t;
-            return Json(datas);
-        }
+        
         // GET: SellerRegister
         public ActionResult Create()
         {
@@ -33,11 +27,59 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult Create(Seller s)
         {
+            if (String.IsNullOrEmpty(s.GUINumber))
+            {
+                TempData["Fail"] = "統編為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.SellerName))
+            {
+                TempData["Fail"] = "負責人姓名為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.StoreName))
+            {
+                TempData["Fail"] = "商家姓名為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.SellerAccount))
+            {
+                TempData["Fail"] = "電子郵件為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.SellerPassword))
+            {
+                TempData["Fail"] = "使用者密碼為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.Address))
+            {
+                TempData["Fail"] = "住址為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.Phone))
+            {
+                TempData["Fail"] = "手機號碼為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.BankAccount))
+            {
+                TempData["Fail"] = "銀行帳戶為必填欄位！";
+                return View();
+            }
+            if (String.IsNullOrEmpty(s.StoreIntro))
+            {
+                TempData["Fail"] = "商城介紹為必填欄位！";
+                return View();
+            }
             var db = new AppDbContext();
             db.Sellers.Add(s);
             db.SaveChanges();
-            return RedirectToAction("List");
+            TempData["Success"] = "您已註冊成功！";
             
+            return View("~/Views/SellerMain/Index.cshtml");
+            //return Response.Write(msg);
+
         }
 
 
