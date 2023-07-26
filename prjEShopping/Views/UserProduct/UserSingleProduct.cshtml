@@ -624,17 +624,16 @@
                         
                         $("#addToCartModal").modal("show");//加入購物車成功
                         $("#confirmButtonadd").on('click',()=>{
-                            window.location.href = "/UserProdutList/UserSingleProduct"; 
+                            location.reload();
                         }) 
                     }
                     else {
                         
-                        //$("#stockCartModal").modal("show");//庫存不足
-                        //$("#confirmButtonstock").on('click', () => {
-                        //    window.location.href = "/UserProdutList/UserSingleProduct"; 
-                        //}) 
-                    }
-                    location.reload();
+                        $("#stockCartModal").modal("show");//庫存不足
+                        $("#confirmButtonstock").on('click', () => {
+                            location.reload();
+                        }) 
+                    }                    
                 })
             })
         })      
