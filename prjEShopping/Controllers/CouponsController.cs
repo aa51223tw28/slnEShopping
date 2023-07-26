@@ -243,9 +243,9 @@ namespace prjEShopping.Controllers
 
             ViewBag.CouponNum = CouponNum;
 
-            var SellerName=db.Sellers.Select(x=>x.SellerName).ToList();
+            var Sellers = db.Sellers.Select(x => x.StoreName).ToList();
 
-            ViewBag.SellerName = SellerName;
+            ViewBag.StoreName = Sellers;
 
             return View();
         }
@@ -260,8 +260,31 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CouponId,CouponNumber,CouponName,CouponDetails,Quantity,CouponTerms,CouponType,Discount,Storewide,StartTime,ClaimDeadline,EndTime,EventStatus")] Coupon coupon)
+        public ActionResult Create([Bind(Include = "CouponId,SellerId,CouponNumber,CouponName,CouponDetails,Quantity,ReceivedQuantity,CouponTerms,CouponType,Discount,Storewide,StartTime,ClaimDeadline,EndTime,EventStatus")] CouponVM vm)
         {
+            int _sellerId =0;
+            if (vm.Storewide != "全館")
+                _sellerId = db.Sellers.Where(s => s.StoreName == vm.Storewide).Select(s => s.SellerId).FirstOrDefault();
+
+            var coupon = new Coupon
+            {
+                CouponId = vm.CouponId,
+                SellerId = _sellerId,
+                CouponNumber = vm.CouponNumber,
+                CouponName = vm.CouponName,
+                CouponDetails = vm.CouponDetails,
+                Quantity = vm.Quantity,
+                ReceivedQuantity = 0,
+                CouponTerms = vm.CouponTerms,
+                CouponType = vm.CouponType,
+                Discount = vm.Discount,
+                Storewide = vm.Storewide,
+                StartTime = vm.StartTime,
+                ClaimDeadline = vm.ClaimDeadline,
+                EndTime = vm.EndTime,
+                EventStatus = vm.EventStatus
+            };
+
             if (ModelState.IsValid)
             {
                 db.Coupons.Add(coupon);
