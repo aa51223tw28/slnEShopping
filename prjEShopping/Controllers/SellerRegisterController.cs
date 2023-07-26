@@ -4,8 +4,10 @@ using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace prjEShopping.Controllers
 {
@@ -27,6 +29,8 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult Create(Seller s)
         {
+            //var itemship = new AppDbContext().ShippingMethodId.Where(x => x.ShippingMethodId == shipid).Select(x => x.ShippingMethodId).FirstOrDefault();
+            //var itempay = new AppDbContext().PaymentMethodId.Where(x => x.PaymentMethodId == payid).Select(x => x.PaymentMethodId).FirstOrDefault();
             if (String.IsNullOrEmpty(s.GUINumber))
             {
                 TempData["Fail"] = "統編為必填欄位！";
@@ -73,30 +77,12 @@ namespace prjEShopping.Controllers
                 return View();
             }
             var db = new AppDbContext();
+            
             db.Sellers.Add(s);
             db.SaveChanges();
             TempData["Success"] = "您已註冊成功！";
             
             return View("~/Views/SellerMain/Index.cshtml");
-            //return Response.Write(msg);
-
         }
-
-
-        //public ActionResult Save()
-        //{
-        //    SellerRegisterVM s = new SellerRegisterVM();
-        //    s.GUINumber = Request.Form["txtGUINumber"];
-        //    s.SellerName = Request.Form["txtSellerName"];
-        //    s.StoreName = Request.Form["txtStoreName"];
-        //    s.SellerAccount = Request.Form["txtSellerAccount"];
-        //    s.SellerPassword = Request.Form["txtSellerPassword"];
-        //    s.Address = Request.Form["txtAddress"];
-        //    s.Phone = Request.Form["txtPhone"];
-        //    s.BankAccount = Request.Form["txtBankAccount"];
-        //    s.StoreIntro = Request.Form["txtStoreIntro"];
-        //     (new CFactory()).create(s);
-        //    return RedirectToAction("List");
-        //}
     }
 }
