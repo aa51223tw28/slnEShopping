@@ -148,13 +148,12 @@
     <script>
         $(document).ready(function () {
 
-            const StartTime = $('#StartTime');
             const ClaimDeadline = $('#ClaimDeadline');
             const EndTime = $('#EndTime');
 
             // Set minimum date for ClaimDeadline and EndTime
-            ClaimDeadline.attr("min", StartTime.val());
-            EndTime.attr("min", ClaimDeadline.val());
+            ClaimDeadline.attr("min", ClaimDeadline.val());
+            EndTime.attr("min", EndTime.val());
 
             // If the selected date is less than minimum, reset the selected date
             if (new Date(ClaimDeadline.val()) < new Date(StartTime.val())) {
