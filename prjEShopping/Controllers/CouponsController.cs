@@ -70,6 +70,31 @@ namespace prjEShopping.Controllers
         //todo 建立欄位商家專屬優惠券未連結商家資料庫
         //todo 優惠折扣內容選取欄位未變更 (選取免運 條件變成免運 選取打折 95折 9折 5折 或輸入數字+折字 選取抵扣 抵300 抵500 或填寫數字等)
 
+        // GET: Coupons/All
+        public ActionResult CouponsAll(int page = 1, int pageSize = 10)
+        {
+            using (db)
+            {
+                int totalItems = db.Coupons.Count();
+                //Skip(page - 1) * pageSize records and Take pageSize records
+                var items = db.Coupons
+                              .OrderBy(c => c.CouponId)  // 依照Id排序
+                              .Skip((page - 1) * pageSize)
+                              .Take(pageSize)
+                              .ToList();
+
+                var model = new PaginatedViewModel<Coupon>
+                {
+                    CurrentPage = page,
+                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
+                    Items = items  //優惠券
+                };
+
+                    // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
+                    return PartialView("_IndexCoupons", model);
+            }
+        }
+
 
         // GET: Coupons/CouponsOpening
         public ActionResult CouponsOpening(int page = 1, int pageSize = 10)
@@ -77,6 +102,31 @@ namespace prjEShopping.Controllers
             using (db)
             {
                 var openCoupons = db.Coupons.Where(c => c.EndTime > DateTime.Now);
+                int totalItems = openCoupons.Count();
+                var items = openCoupons
+                   .OrderBy(c => c.CouponId)
+                   .Skip((page - 1) * pageSize)
+                   .Take(pageSize)
+                   .ToList();
+
+                var model = new PaginatedViewModel<Coupon>
+                {
+                    CurrentPage = page,
+                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
+                    Items = items
+                };
+
+                //return new EmptyResult();
+                return PartialView("_IndexCoupons", model);
+
+            }
+        }
+
+        public ActionResult CouponsClosing(int page = 1, int pageSize = 10)
+        {
+            using (db)
+            {
+                var openCoupons = db.Coupons.Where(c => c.EndTime < DateTime.Now);
                 int totalItems = openCoupons.Count();
                 var items = openCoupons
                    .OrderBy(c => c.CouponId)
@@ -115,6 +165,11 @@ namespace prjEShopping.Controllers
             }
 
             ViewBag.CouponNum = CouponNum;
+
+            var SellerName=db.Sellers.Select(x=>x.SellerName).ToList();
+
+            ViewBag.SellerName = SellerName;
+
             return View();
         }
 

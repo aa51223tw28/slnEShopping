@@ -5,6 +5,14 @@
 }
 
 <div class="col-9 bg-secondary ">
+    <h2 >優惠券列表</h2>
+    <select id="select1"   class="form-select form-select-lg mb-3">
+        <option selected value="all">全列表</option>
+        <option id="" value="open">進行中票券</option>
+        <option id="" value="close">已結束票券</option>
+    </select>
+
+
     @Html.Partial("_IndexCoupons")
 
 </div>
@@ -21,16 +29,50 @@
 //                });
 //        });
 
-        const btn = document.querySelector('#showOpening')
+        //document.querySelector('#showOpening').addEventListener('click', async function () {
+        //    /*alert("123");*/
+        //    try {
+        //        const response = await fetch('/Coupons/CouponsOpening');
+        //        const data = await response.text();
+        //        document.getElementById('dataContainer').innerHTML = data;
+        //    } catch (error) {
+        //        console.error('Error:', error);
+        //    }
+        //});
 
-        btn.addEventListener('click', async function () {
-            alert("123");
-            try {
-                const response = await fetch('/Coupons/CouponsOpening');
-                const data = await response.text();
-                document.getElementById('dataContainer').innerHTML = data;
-            } catch (error) {
-                console.error('Error:', error);
+        document.querySelector('#select1').addEventListener('change', async function (e) {
+            var selectedOption = e.target.value;
+            if (selectedOption == "all") { 
+                /*alert("000");*/
+                try {
+                    const response = await fetch('/Coupons/CouponsAll');
+                    const data = await response.text();
+                    document.getElementById('dataContainer').innerHTML = data;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+              
+            if (selectedOption == "open") {
+                /*alert("123");*/
+                try {
+                    const response = await fetch('/Coupons/CouponsOpening');
+                    const data = await response.text();
+                    document.getElementById('dataContainer').innerHTML = data;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+                
+            if (selectedOption == "close") {
+               /* alert("456");*/
+                try {
+                    const response = await fetch('/Coupons/CouponsClosing');
+                    const data = await response.text();
+                    document.getElementById('dataContainer').innerHTML = data;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             }
         });
     </script>
