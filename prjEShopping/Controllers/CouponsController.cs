@@ -165,6 +165,11 @@ namespace prjEShopping.Controllers
             }
 
             ViewBag.CouponNum = CouponNum;
+
+            var SellerName=db.Sellers.Select(x=>x.SellerName).ToList();
+
+            ViewBag.SellerName = SellerName;
+
             return View();
         }
 

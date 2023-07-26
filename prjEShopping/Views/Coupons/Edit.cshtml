@@ -43,7 +43,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                    <input type="number" id="Quantity" name="Quantity" class="form-control" value="@Html.DisplayFor(model => model.Quantity)" min="@Html.DisplayFor(model => model.Quantity)" required />
                     @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -67,7 +67,13 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.CouponType, new { htmlAttributes = new { @class = "form-control" } })
+                    <select id="CouponType" name="CouponType" class="form-control" >
+                        <option>@Html.DisplayFor(model => model.CouponType)</option>
+                        @*<option value="折價券">折價券</option>
+                        <option value="抵用券">抵用券</option>
+                        <option value="免運券">免運券</option>*@
+                    </select>
+                    @*@Html.EditorFor(model => model.CouponType, new { htmlAttributes = new { @class = "form-control" } })*@
                     @Html.ValidationMessageFor(model => model.CouponType, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -75,7 +81,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -83,7 +89,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Storewide, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.Storewide, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Storewide, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.Storewide, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -91,7 +97,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    <input type="date" id="StartTime" name="StartTime" class="form-control" required value="@Html.DisplayFor(model => model.StartTime)" readonly />
                     @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -99,7 +105,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ClaimDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.ClaimDeadline, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    <input type="date" id="ClaimDeadline" name="ClaimDeadline" class="form-control" required value="@Html.DisplayFor(model => model.ClaimDeadline)"/>
                     @Html.ValidationMessageFor(model => model.ClaimDeadline, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -107,7 +113,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                    <input type="date" id="EndTime" name="EndTime" class="form-control" required value="@Html.DisplayFor(model => model.ClaimDeadline)" />
                     @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -135,3 +141,39 @@
         @Html.ActionLink("取消", "Index", null, new { @class = "btn btn-primary my-2" })
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+
+            let today = new Date();
+
+            // Set tomorrow's date for ClaimDeadline
+            let tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            let tomorrowStr = tomorrow.toISOString().split('T')[0];
+            $("#ClaimDeadline").attr("min", tomorrowStr);
+            $("#EndTime").attr("min", tomorrowStr);
+            $("#ClaimDeadline").val(tomorrowStr);
+            $("#EndTime").val(tomorrowStr);
+        });
+
+        $("#StartTime").change(function () {
+            $("#ClaimDeadline").val("");
+            $("#EndTime").val("");
+            let selectedDate = new Date(this.value);
+            selectedDate.setDate(selectedDate.getDate() + 1);
+            let nextDateStr = selectedDate.toISOString().split('T')[0];
+            $("#ClaimDeadline").attr("min", nextDateStr);
+        });
+
+        $("#ClaimDeadline").change(function () {
+            $("#EndTime").val("");
+            let selectedDate = new Date(this.value);
+            selectedDate.setDate(selectedDate.getDate());
+            let nextDateStr = selectedDate.toISOString().split('T')[0];
+            $("#EndTime").attr("min", nextDateStr);
+        });
+
+    </script>
+    }
