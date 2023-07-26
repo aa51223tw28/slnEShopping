@@ -184,6 +184,7 @@
     </Compile>
     <Compile Include="Models\CFactory.cs" />
     <Compile Include="Models\DTOs\AdminDto.cs" />
+    <Compile Include="Models\DTOs\CouponDto.cs" />
     <Compile Include="Models\DTOs\UserProductIndexDto.cs" />
     <Compile Include="Models\EFModels\AccessRight.cs" />
     <Compile Include="Models\EFModels\Admin.cs" />

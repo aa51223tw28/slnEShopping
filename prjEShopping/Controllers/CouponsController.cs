@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 
 namespace prjEShopping.Controllers
 {
@@ -29,17 +30,36 @@ namespace prjEShopping.Controllers
             {
                 int totalItems = db.Coupons.Count();
                 //Skip(page - 1) * pageSize records and Take pageSize records
-               var items = db.Coupons
-                             .OrderBy(c => c.CouponId)  // 依照Id排序
-                             .Skip((page - 1) * pageSize)
-                             .Take(pageSize)
-                             .ToList();
+                var items = db.Coupons
+                              .OrderBy(c => c.CouponId)  // 依照Id排序
+                              .Skip((page - 1) * pageSize)
+                              .Take(pageSize);
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
-                    Items = items  //優惠券
+                    Items = vm  //優惠券
                 };
 
                 //重要 要分開
@@ -58,11 +78,11 @@ namespace prjEShopping.Controllers
 
         //todo 優惠券列表分頁VM未搬家
         //優惠券分頁的VM 之後再搬家
-        public class PaginatedViewModel<Coupon>
+        public class PaginatedViewModel<CouponVM>
         {
             public int CurrentPage { get; set; }
             public int TotalPages { get; set; }
-            public List<Coupon> Items { get; set; }
+            public List<CouponVM> Items { get; set; }
         }
 
         // GET: Coupons/Create
@@ -75,23 +95,43 @@ namespace prjEShopping.Controllers
         {
             using (db)
             {
+
                 int totalItems = db.Coupons.Count();
                 //Skip(page - 1) * pageSize records and Take pageSize records
                 var items = db.Coupons
                               .OrderBy(c => c.CouponId)  // 依照Id排序
                               .Skip((page - 1) * pageSize)
-                              .Take(pageSize)
-                              .ToList();
+                              .Take(pageSize);
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
-                    Items = items  //優惠券
+                    Items = vm  //優惠券
                 };
 
-                    // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
-                    return PartialView("_IndexCoupons", model);
+                // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
+                return PartialView("_IndexCoupons", model);
             }
         }
 
@@ -106,14 +146,32 @@ namespace prjEShopping.Controllers
                 var items = openCoupons
                    .OrderBy(c => c.CouponId)
                    .Skip((page - 1) * pageSize)
-                   .Take(pageSize)
-                   .ToList();
+                   .Take(pageSize);
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    Items = items
+                    Items = vm
                 };
 
                 //return new EmptyResult();
@@ -134,11 +192,30 @@ namespace prjEShopping.Controllers
                    .Take(pageSize)
                    .ToList();
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    Items = items
+                    Items = vm
                 };
 
                 //return new EmptyResult();
