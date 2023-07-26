@@ -199,7 +199,6 @@
     <Compile Include="Models\EFModels\PaymentMethod.cs" />
     <Compile Include="Models\EFModels\Permission.cs" />
     <Compile Include="Models\EFModels\Product.cs" />
-    <Compile Include="Models\EFModels\ProductDetail.cs" />
     <Compile Include="Models\EFModels\ProductInventory.cs" />
     <Compile Include="Models\EFModels\ProductMainCategory.cs" />
     <Compile Include="Models\EFModels\ProductOption.cs" />
