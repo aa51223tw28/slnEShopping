@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.SellerProductListVM>
 @{
     ViewBag.Title = "SellerProductList";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
@@ -17,26 +17,60 @@
         <thead>
             <tr>
                 <th scope="col">序號</th>
-                <th scope="col">商品圖片</th>
-                <th scope="col">商品名稱</th>
-                <th scope="col">庫存</th>
-                <th scope="col">可購買數量</th>
-                <th scope="col">價格</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.ProductImagePathOne)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.ProductName)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.StockQuantity)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CanBuyQuantity)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.Price)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.ProductStatusName)</th>
                 <th scope="col">操作</th>
             </tr>
         </thead>
-        <tbody>
-           
-               
+        <tbody class="svg">
+            @{
+                int count = 0;
 
-               
-                    <tr onclick="">
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                
+                foreach (var item in Model)
+                {
+                    count++;
+                        <tr>
+                            <th scope="row">@count</th>
+                            <td><img src="~/img/@item.ProductImagePathOne" width="80" /></td>
+                            <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.StockQuantity)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CanBuyQuantity)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ProductStatusName)</td>
+                            <td>
+                                @{
+                                    if (item.ProductStatusName != "審核中")
+                                    {
+                                        @Html.ActionLink("修改", "Edit", "SellerProduct", new { id = item.ProductID }, new {  Class = "btn btn-secondary mb-2" })
+                                    }
+
+                                }
+
+                                @{
+                                    if (item.ProductStatusName == "販售中")
+                                    {
+                                        @Html.ActionLink("下架", "ChangeStatus", "SellerProduct", new { id = item.ProductID },
+                                        new { onclick = "return confirm('確定要下架嗎?按下確定提出申請!')", Class = "btn btn-secondary mb-2" })
+                                    }
+                                    else if (item.ProductStatusName == "下架中")
+                                    {
+                                        @Html.ActionLink("上架", "ChangeStatus", "SellerProduct", new { id = item.ProductID },
+                                        new { onclick = "return confirm('確定要上架嗎?按下確定提出申請!')", Class = "btn btn-secondary mb-2" })
+                                    }
+                                    else
+                                    {
+                                        @:<label class="text-danger fw-bold mx-2">審核中</label>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                 }
+               }
+
         </tbody>
     </table>
 </div>
