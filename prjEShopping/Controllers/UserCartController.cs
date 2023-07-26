@@ -67,7 +67,7 @@ namespace prjEShopping.Controllers
         {
             shoppingList();
             return View(datas);
-        }
+        }       
 
         private void shoppingList()//秀UserShoppingCartVM的方法
         {
@@ -332,8 +332,17 @@ namespace prjEShopping.Controllers
 
             return new EmptyResult();
         }
+        [Authorize]
+        public ActionResult UserCartCheckStockapi(int cartid)//按下去買單要在檢核一次現在的訂單量
+        {            
+            var db = new AppDbContext();
+           
 
-       
+
+            return new EmptyResult();
+        }
+
+
 
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳情頁面
