@@ -16,6 +16,7 @@ namespace prjEShopping.Controllers
         //未領取優惠券列表
         public ActionResult List(int? userId)
         {
+            //todo 要判定總數量是否<0 
             //先預設
             userId = 1;
             var _coupons = db.Coupons

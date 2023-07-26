@@ -16,10 +16,10 @@ namespace prjEShopping.Controllers
             return View();
         }
 
-		public ActionResult ProductCreate()
-		{
-			return View();
-		}
-
-        
+        public ActionResult ProductCreate()
+        {
+            return View();
+        }
+    }
 }
+
