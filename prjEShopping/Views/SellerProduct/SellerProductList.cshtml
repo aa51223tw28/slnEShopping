@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "SellerProductList";
+    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
+}
+
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+    <p class="fs-4 mt-3 fw-bold text-center text-primary">商品一覽</p>
+    <hr>
+
+    @using (Html.BeginForm())
+    {
+        @:搜尋: <input type="text" name="SearchKeyword" class="mb-2 mx-2" /> <input type="submit" value="查詢" class="btn btn-secondary mb-2" />
+    }
+
+    <table class="table table-striped fw-bold">
+        <thead>
+            <tr>
+                <th scope="col">序號</th>
+                <th scope="col">商品圖片</th>
+                <th scope="col">商品名稱</th>
+                <th scope="col">庫存</th>
+                <th scope="col">可購買數量</th>
+                <th scope="col">價格</th>
+                <th scope="col">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+               
+
+               
+                    <tr onclick="">
+                        <th scope="row"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                
+        </tbody>
+    </table>
+</div>
+
+

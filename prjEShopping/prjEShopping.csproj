@@ -168,6 +168,7 @@
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
+    <Compile Include="Controllers\SellerProductController.cs" />
     <Compile Include="Controllers\SellerProductCreateController.cs" />
     <Compile Include="Controllers\SellerProductCreateApiController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
@@ -304,6 +305,7 @@
     <Content Include="Views\UsersCoupons\UsersCouponsUsed.cshtml" />
     <Content Include="Views\UsersCoupons\UsersCouponsOverdue.cshtml" />
     <Content Include="Views\UserMembers\UserEditProfile.cshtml" />
+    <Content Include="Views\SellerProduct\SellerProductList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
