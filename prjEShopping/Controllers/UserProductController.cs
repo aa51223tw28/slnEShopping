@@ -14,19 +14,30 @@ namespace prjEShopping.Controllers
         public ActionResult UserProdutList()
         {
             var db = new AppDbContext();
-            List<UserProductIndexDto> datas;
-            datas = db.Products.ToList()
-                                .Select(x =>
-                                {
-                                    return new UserProductIndexDto()
-                                    {
-                                        ProductId = x.ProductId,
-                                        ProductName = x.ProductName,                                        
-                                        Price = (decimal)x.Price,
-                                        ProductImagePathOne = x.ProductImagePathOne,                                        
-                                    };
-                                }).ToList();
+            List<UserProductIndexDto> datas = new List<UserProductIndexDto>();
 
+            var products = db.Products.ToList();
+
+            foreach (var item in products)
+            {
+                var orderQuantity = db.ProductStocks.Where(x => x.ProductId == item.ProductId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;
+
+                var stockQuantity = db.ProductStocks.Where(x => x.ProductId == item.ProductId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
+
+                if (stockQuantity - orderQuantity > 0)
+                {
+                    var data = new UserProductIndexDto()
+                    {
+                        ProductId = item.ProductId,
+                        ProductName = item.ProductName,
+                        Price = (decimal)item.Price,
+                        ProductImagePathOne = item.ProductImagePathOne,
+                        ProductStock = stockQuantity - orderQuantity
+                    };
+
+                    datas.Add(data);
+                }
+            }
             return View(datas);
         }
 
