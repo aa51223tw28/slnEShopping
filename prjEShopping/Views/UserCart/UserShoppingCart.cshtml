@@ -270,16 +270,16 @@
             $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
                     var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
-                    var qua = 0;
-                    //console.log(cartid)
                     
-                    if (qua > 0) {//要改
+                    const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
+                    
+                    if (result === "success") {
                         window.location.href = "/UserCart/UserCheckout";
                     } else {
-                        $("#stockCartcheckModal").modal("show")
-                        $("#confirmButtonstockcheck").on('click', async function () {
-                            const result = await$.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
-                        })
+                        $("#stockCartcheckModal").modal("show");  
+                        $("#confirmButtonstockcheck").on('click', function () {                            
+                            location.reload();
+                        });
                     }
                 })
             })

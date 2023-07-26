@@ -336,35 +336,33 @@ namespace prjEShopping.Controllers
         public ActionResult UserCartCheckStockapi(int cartid)//按下去買單要在檢核一次現在的訂單量
         {            
             var db = new AppDbContext();
-            var cartDetails = db.ShoppingCartDetails.Where(x=>x.CartId== cartid)
-                                                    .Select(x => new
-                                                    {
-                                                        x.ProductId,
-                                                        x.Quantity
-                                                    }).ToList();
+            var cartDetails = db.ShoppingCartDetails.Where(x=>x.CartId== cartid).ToList();                                                  
 
             foreach (var cartDetail in cartDetails)
             {
                 int productId = (int)cartDetail.ProductId;
                 int cartQuantity=(int)cartDetail.Quantity;
 
-                var productStock=db.ProductStocks.Where(x=>x.ProductId== productId)
-                                                    .Select(x => new
-                                                    {
-                                                        x.StockQuantity,
-                                                        x.OrderQuantity
-                                                    }).FirstOrDefault();
-
+                var productStock=db.ProductStocks.Where(x=>x.ProductId== productId).FirstOrDefault();
+                                                    
                 if (productStock != null)
                 {
+                    int stockQuantity = (int)productStock.StockQuantity;
+                    int orderQuantity = (int)productStock.OrderQuantity;
 
+                    int availableQuantity = stockQuantity - orderQuantity;
+                    
+                    if(cartQuantity> availableQuantity)
+                    {
+                        cartDetail.Quantity = 0;
+                        int newPurchaseQuantity = (int)(productStock.PurchaseQuantity - cartQuantity);
+                        productStock.PurchaseQuantity = newPurchaseQuantity;
+                        db.SaveChanges();
+                        return Content("stock_insufficient");
+                    }
                 }
-
-
-
-            }
-
-            return new EmptyResult();
+            }            
+            return Content("success");
         }
 
 
