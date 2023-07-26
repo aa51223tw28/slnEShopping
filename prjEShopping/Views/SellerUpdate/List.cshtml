@@ -31,7 +31,7 @@
                     <span>統編：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.GUINumber" readonly style="background-color: #D0D0D0">
+                    @Html.EditorFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -39,7 +39,7 @@
                     <span>負責人姓名：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.SellerName">
+                    @Html.EditorFor(model => model.SellerName, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -47,7 +47,7 @@
                     <span>商家姓名：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.StoreName">
+                    @Html.EditorFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -55,7 +55,7 @@
                     <span>使用者帳號(電子郵件)：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.SellerAccount">
+                    @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -63,7 +63,7 @@
                     <span>使用者密碼：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.SellerPassword">
+                    @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -71,7 +71,7 @@
                     <span>住址：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.Address">
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -79,7 +79,7 @@
                     <span>手機號碼：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.Phone">
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -87,7 +87,7 @@
                     <span>銀行帳戶：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.BankAccount">
+                    @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="row mb-2">
@@ -118,7 +118,7 @@
                     <span>商城介紹：</span>
                 </div>
                 <div class="col-7">
-                    <input type="text" value="@Model.StoreIntro">
+                    @Html.EditorFor(model => model.StoreIntro, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             @using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
