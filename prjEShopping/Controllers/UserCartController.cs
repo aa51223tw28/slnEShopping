@@ -311,7 +311,7 @@ namespace prjEShopping.Controllers
 
             var purchaseQuantity = db.ProductStocks.FirstOrDefault(x => x.ProductId == ProductId);
 
-            if (orderDetails == 0)
+            if (orderDetails == null)
             {
                 purchaseQuantity.PurchaseQuantity = shoppingdetailquantity;
             }
