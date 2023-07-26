@@ -23,45 +23,28 @@ namespace prjEShopping.Controllers
         {
             if (id == null)
                 return RedirectToAction("List");
-
-            using (var db = new AppDbContext())
-            {
-                Seller data = db.Sellers.FirstOrDefault(x => x.SellerId == id);
-                if (data == null)
-                    return RedirectToAction("List");
-
-                return View(data);
-            }
+            var db = new AppDbContext();
+            Seller data = db.Sellers.FirstOrDefault(x => x.SellerId == id);
+            return View(data);    
         }
 
         [HttpPost]
         public ActionResult Edit(Seller s)
         {
-            if (ModelState.IsValid)
+            var db = new AppDbContext();
+            Seller data = db.Sellers.FirstOrDefault(x => x.SellerId == s.SellerId);
+            if (data != null)
             {
-                using (var db = new AppDbContext())
-                {
-                    Seller data = db.Sellers.FirstOrDefault(x => x.SellerId == s.SellerId);
-                    if (data != null)
-                    {
-                        data.SellerName = s.SellerName;
-                        data.Phone = s.Phone;
-                        data.StoreName = s.StoreName;
-                        data.SellerPassword = s.SellerPassword;
-                        data.Address = s.Address;
-                        data.BankAccount = s.BankAccount;
-                        db.SaveChanges();
-                        TempData["UpdateSuccess"] = "您已修改完成！";
-                    }
-                }
-            }
-            else
-            {
-                // 如果ModelState有錯誤，返回原始的Edit View，讓使用者能夠看到並修正這些錯誤。
-                return View(s);
-            }
-
-            return RedirectToAction("List");
+                data.SellerName = s.SellerName;
+                data.Phone = s.Phone;
+                data.StoreName = s.StoreName;
+                data.SellerPassword = s.SellerPassword;
+                data.Address = s.Address;
+                data.BankAccount = s.BankAccount;
+                db.SaveChanges();
+                TempData["UpdateSuccess"] = "您已修改完成！";
+            } 
+            return View("~/Views/SellerMain/Index.cshtml");
         }
     }
 }
