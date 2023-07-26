@@ -1,4 +1,6 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,27 +12,12 @@ namespace prjEShopping.Controllers
     public class SellerLoginController : Controller
     {
         // GET: SellerLogin
-        public ActionResult Login()
+        public ActionResult Login(SellerLoginVM vm)
         {
-            return View();
+            var db = new AppDbContext();
+            var member = db.Sellers.FirstOrDefault(m => m.SellerAccount == vm.SellerAccount);
+            return View(/*"~/Views/SellerMain/Index.cshtml"*/);
         }
-        //[HttpPost]
-        //public ActionResult Login(string account,string password,string chkRemember)
-        //{
-        //    if (FormsAuthentication.Authenticate(account, password))
-        //    {
-        //        FormsAuthentication.RedirectFromLoginPage(account, chkRemember == "on");
-        //    }
-        //    else
-        //    {
-        //        ViewBag.jsCode = "<script>alert('您輸入的帳號密碼有誤，請重新輸入');</script>";
-        //    }
-        //    return View();
-        //}
-        //public ActionResult Logout()
-        //{
-        //    FormsAuthentication.SignOut();
-        //    return Redirect("/SellerLogin/Login/");
-        //}
+       
     }
 }

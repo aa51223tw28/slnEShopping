@@ -27,103 +27,67 @@
     <div class="row col-md-6 bg-warning rounded justify-content:end">
         <div class="col-sm-9">
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>統編：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.GUINumber" readonly style="background-color: #D0D0D0">
                 </div>
-                <div class="col-4">
-                </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>負責人姓名：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.SellerName">
                 </div>
-                <div class="col-4">
-                </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>商家姓名：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.StoreName">
                 </div>
-                <div class="col-4">
-                </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>使用者帳號(電子郵件)：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.SellerAccount">
                 </div>
-                <div class="col-4">
-                </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>使用者密碼：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.SellerPassword">
                 </div>
-                <div class="col-4">
-                </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>住址：</span>
                 </div>
-                <div class="col-3">
-                    <select>
-                        <option value="option1">臺北市</option>
-                        <option value="option3">新北市</option>
-                        <option value="option2">桃園市</option>
-                        <option value="option3">臺中市</option>
-                        <option value="option3">臺南市</option>
-                        <option value="option3">高雄市</option>
-                        <option value="option3">基隆市</option>
-                        <option value="option3">新竹縣</option>
-                        <option value="option3">新竹市</option>
-                        <option value="option3">彰化縣</option>
-                        <option value="option3">南投縣</option>
-                        <option value="option3">雲林縣</option>
-                        <option value="option3">嘉義縣</option>
-                        <option value="option3">嘉義市</option>
-                        <option value="option3">屏東縣</option>
-                        <option value="option3">宜蘭縣</option>
-                        <option value="option3">花蓮縣</option>
-                        <option value="option3">澎湖縣</option>
-                        <option value="option3">金門縣</option>
-                        <option value="option3">連江縣</option>
-                    </select>
-                    <div class="col-4">
-                        <input type="text">
-                    </div>
+                <div class="col-7">
+                    <input type="text" value="@Model.Address">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>手機號碼：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.Phone">
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>銀行帳戶：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.BankAccount">
-                </div>
-                <div class="col-4">
                 </div>
             </div>
             <div class="row mb-2">
@@ -150,17 +114,22 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-5 d-flex align-items-center">
                     <span>商城介紹：</span>
                 </div>
-                <div class="col-4">
+                <div class="col-7">
                     <input type="text" value="@Model.StoreIntro">
                 </div>
-                <div class="col-4">
-                </div>
             </div>
-            <div class="btn btn-secondary mb-sm-3 mb-md-0" style="float:right">儲存</div>
-
+            @using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
+       new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="修改" class="btn btn-secondary" style="float:right" />
+                    </div>
+                </div>
+            }
         </div>
 
     </div>
@@ -207,21 +176,21 @@
             }
         })
         //表單點擊送出
-        $("#submit").click(()=>{
-            event.preventDefault()
-            var xhr = new XMLHttpRequest();
+        //$("#submit").click(()=>{
+        //    event.preventDefault()
+        //    var xhr = new XMLHttpRequest();
 
-            var formData = new FormData(document.formUpload);
-            formData.append('file',input.files[0])
+        //    var formData = new FormData(document.formUpload);
+        //    formData.append('file',input.files[0])
 
-            xhr.open('POST', '/api/UploadProfilePhoto')
-            xhr.send(formData)
+        //    xhr.open('POST', '/api/UploadProfilePhoto')
+        //    xhr.send(formData)
 
-            xhr.addEventListener('load',()=>{
-               const result = xhr.responseText
-               alert(result)
-            })
-        })
+        //    xhr.addEventListener('load',()=>{
+        //       const result = xhr.responseText
+        //       alert(result)
+        //    })
+        //})
     </script>
 }
 

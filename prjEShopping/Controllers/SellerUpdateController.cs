@@ -24,34 +24,44 @@ namespace prjEShopping.Controllers
             if (id == null)
                 return RedirectToAction("List");
 
-            var db = new AppDbContext();
-            Seller data = db.Sellers.Where(x => x.SellerId == id).SingleOrDefault();
-            return View(data);
+            using (var db = new AppDbContext())
+            {
+                Seller data = db.Sellers.FirstOrDefault(x => x.SellerId == id);
+                if (data == null)
+                    return RedirectToAction("List");
+
+                return View(data);
+            }
         }
 
-        //[HttpPost]
-        //public ActionResult Edit(Seller s)
-        //{
-        //    var db = new AppDbContext();
-        //    Seller data = db.Sellers.Where(x => x.SellerId == s.SellerId).FirstOrDefault();
-        //    if (data != null)
-        //    {
-        //        if (s.photo != null)
-        //        {
-        //            string photoName = Guid.NewGuid().ToString() + ".jpg";
-        //            data.SellerImagePath = photoName;
-        //            s.photo.SaveAs(Server.MapPath("../../Images/" + photoName));
-        //        }
+        [HttpPost]
+        public ActionResult Edit(Seller s)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var db = new AppDbContext())
+                {
+                    Seller data = db.Sellers.FirstOrDefault(x => x.SellerId == s.SellerId);
+                    if (data != null)
+                    {
+                        data.SellerName = s.SellerName;
+                        data.Phone = s.Phone;
+                        data.StoreName = s.StoreName;
+                        data.SellerPassword = s.SellerPassword;
+                        data.Address = s.Address;
+                        data.BankAccount = s.BankAccount;
+                        db.SaveChanges();
+                        TempData["UpdateSuccess"] = "您已修改完成！";
+                    }
+                }
+            }
+            else
+            {
+                // 如果ModelState有錯誤，返回原始的Edit View，讓使用者能夠看到並修正這些錯誤。
+                return View(s);
+            }
 
-        //        data.SellerName = s.SellerName;
-        //        data.Phone = s.Phone;
-        //        data.StoreName = s.StoreName;
-        //        data.SellerPassword = s.SellerPassword;
-        //        data.Address = s.Address;
-        //        data.BankAccount = s.BankAccount;
-        //        db.SaveChanges();
-        //    }
-        //    return RedirectToAction("List");
-        //}
+            return RedirectToAction("List");
+        }
     }
 }

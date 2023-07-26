@@ -35,103 +35,70 @@
         <div class="row col-md-6 bg-warning rounded justify-content:end">
             <div class="col-sm-9">
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>統編：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    <div class="col-4">
-                    </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>負責人姓名：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.SellerName, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    <div class="col-4">
-                    </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>商家姓名：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    <div class="col-4">
-                    </div>
+
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>使用者帳號(電子郵件)：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    <div class="col-4">
-                    </div>
+
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>使用者密碼：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    <div class="col-4">
-                    </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>住址：</span>
                     </div>
-                    <div class="col-3">
-                        <select>
-                            <option value="option1">臺北市</option>
-                            <option value="option3">新北市</option>
-                            <option value="option2">桃園市</option>
-                            <option value="option3">臺中市</option>
-                            <option value="option3">臺南市</option>
-                            <option value="option3">高雄市</option>
-                            <option value="option3">基隆市</option>
-                            <option value="option3">新竹縣</option>
-                            <option value="option3">新竹市</option>
-                            <option value="option3">彰化縣</option>
-                            <option value="option3">南投縣</option>
-                            <option value="option3">雲林縣</option>
-                            <option value="option3">嘉義縣</option>
-                            <option value="option3">嘉義市</option>
-                            <option value="option3">屏東縣</option>
-                            <option value="option3">宜蘭縣</option>
-                            <option value="option3">花蓮縣</option>
-                            <option value="option3">澎湖縣</option>
-                            <option value="option3">金門縣</option>
-                            <option value="option3">連江縣</option>
-                        </select>
-                        <div class="col-4">
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
+
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>手機號碼：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>銀行帳戶：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="col-4">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -158,13 +125,11 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-4 d-flex align-items-center">
+                    <div class="col-5 d-flex align-items-center">
                         <span>商城介紹：</span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-7">
                         @Html.EditorFor(model => model.StoreIntro, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                    <div class="col-4">
                     </div>
                 </div>
 
@@ -178,7 +143,7 @@
                     </div>
                 }
 
-
+                <div class="btn btn-light border border-3" id="btndemocreate">demo</div>
             </div>
         </div>
     </form>
@@ -227,38 +192,62 @@
 
             }
         })
-                //表單點擊送出
-                //$("form").submit((event) => {
-                //    event.preventDefault()
-                //    var xhr = new XMLHttpRequest();
+        //表單點擊送出
+        //$("form").submit((event) => {
+        //    event.preventDefault()
+        //    var xhr = new XMLHttpRequest();
 
-                //    var formData = new FormData(document.formUpload);
-                //    formData.append('file', input.files[0])
+        //    var formData = new FormData(document.formUpload);
+        //    formData.append('file', input.files[0])
 
-                //    xhr.open('POST', '/api/UploadProfilePhoto')
-                //    xhr.send(formData)
+        //    xhr.open('POST', '/api/UploadProfilePhoto')
+        //    xhr.send(formData)
 
-                //})
-                    //form.addEventListener('submit', (event) => {
-                    //    event.preventDefault();
-                    //    const formData = new FormData(form);
-                    //    formData.append('file', input.files[0]);
+        //})
+        //form.addEventListener('submit', (event) => {
+        //    event.preventDefault();
+        //    const formData = new FormData(form);
+        //    formData.append('file', input.files[0]);
 
-                    //    fetch('/SellerRegister/Create', {
-                    //        method: 'POST',
-                    //        body: formData
-                    //    })
-                    //        .then(response => response.json())
-                    //        .then(data => {
-                    //            // 處理伺服器回傳的資料...
-                    //            alert("送出並新增成功！");
-                    //            window.location.href = "/SellerRegister/List"; // 可導向會員列表頁面
-                    //        })
-                    //        .catch(error => {
-                    //            // 處理錯誤情況...
-                    //            alert("送出並新增失敗！請檢查輸入資料。");
-                    //        });
-                    //});
+        //    fetch('/SellerRegister/Create', {
+        //        method: 'POST',
+        //        body: formData
+        //    })
+        //        .then(response => response.json())
+        //        .then(data => {
+        //            // 處理伺服器回傳的資料...
+        //            alert("送出並新增成功！");
+        //            window.location.href = "/SellerRegister/List"; // 可導向會員列表頁面
+        //        })
+        //        .catch(error => {
+        //            // 處理錯誤情況...
+        //            alert("送出並新增失敗！請檢查輸入資料。");
+        //        });
+        //});
+        const GUINumber = document.querySelector('#GUINumber')
+        const SellerName = document.querySelector('#SellerName')
+        const StoreName = document.querySelector('#StoreName')
+        const SellerAccount = document.querySelector('#SellerAccount')
+        const SellerPassword = document.querySelector('#SellerPassword')
+        const Address = document.querySelector('#Address')
+        const Phone = document.querySelector('#Phone')
+        const BankAccount = document.querySelector('#BankAccount')
+        const StoreIntro = document.querySelector('#StoreIntro')
+
+
+        const btndemocreate = document.querySelector('#btndemocreate')
+
+        btndemocreate.addEventListener('click', () => {
+            GUINumber.value = "29428318"
+            SellerName.value = "Gary"
+            StoreName.value = "UA"
+            SellerAccount.value = "Gary@gmail.com"
+            SellerPassword.value = "1234"
+            Address.value = "Kaohsiung"
+            Phone.value = "0954213245"
+            BankAccount.value = "0532445123456"
+            StoreIntro.value = "EASY SHOPPING"
+        })
     </script>
 }
 
