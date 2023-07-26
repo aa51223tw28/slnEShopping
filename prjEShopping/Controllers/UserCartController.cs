@@ -104,7 +104,7 @@ namespace prjEShopping.Controllers
                 SubTotal = (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
                 SellerId = (int)x.SellerId,
-                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)
+                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)//計算庫存可不可以買
             }).ToList();
 
             //總金額
@@ -116,7 +116,8 @@ namespace prjEShopping.Controllers
             var db=new AppDbContext();
             var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;
             var stockQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
-            var productStock = stockQuantity - orderQuantity;
+            var availableStock = stockQuantity - orderQuantity;
+            int productStock = Math.Max(0, availableStock - quantity);
             return productStock;
         }
 

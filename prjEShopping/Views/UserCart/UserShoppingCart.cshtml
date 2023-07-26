@@ -153,6 +153,24 @@
     </div>
 </div>
 
+
+@*庫存不足*@
+<div class="modal" id="stockCartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                庫存不足，請選購其他商品。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstock">確定</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
 
@@ -165,7 +183,7 @@
                 $(this).on('click', async function () {
                     var self = $(this);
                     var ProductId = self.attr("data-id");
-                    //console.log(ProductId)                    
+                    //console.log(ProductId)
 
                     $("#deleteCartModal").modal("show");
 
@@ -178,7 +196,7 @@
 
                     $("#cancelButton2delete").on('click', async function () {
                         //不做動作
-                    })              
+                    })
                 })
             })
         })
@@ -192,16 +210,20 @@
                     var self = $(this);
 
                     var ProductId = self.attr("data-id");
-                    var Quantity = parseInt(self.attr("data-qty")) + 1; 
+                    var Quantity = parseInt(self.attr("data-qty")) + 1;
                     var Productstock = self.attr("data-stockqty");
 
                     if (Productstock > 0) {
                         const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
                         const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId)
+                        location.reload();
                     } else {
-                        alert("庫存不足")
-                    }            
-                    location.reload();
+                        //alert("庫存不足")
+                        $("#stockCartModal").modal("show");
+                        $("#confirmButtonstock").on('click', () => {
+                            window.location.href = "/UserCart/UserShoppingCart";
+                        })
+                    }                    
                 })
             })
 
