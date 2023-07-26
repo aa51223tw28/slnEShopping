@@ -183,7 +183,7 @@
                 $(this).on('click', async function () {
                     var self = $(this);
                     var ProductId = self.attr("data-id");
-                    //console.log(ProductId)
+                    //console.log(ProductId)                    
 
                     $("#deleteCartModal").modal("show");
 
@@ -221,7 +221,7 @@
                         //alert("庫存不足")
                         $("#stockCartModal").modal("show");
                         $("#confirmButtonstock").on('click', () => {
-                            window.location.href = "/UserCart/UserShoppingCart";
+                            location.reload();
                         })
                     }                    
                 })

@@ -611,11 +611,11 @@
                     var availableStock = self.attr("data-stockqty");
                     availableStock = parseInt(availableStock);
                     var cartqty = @ViewBag.TotalQuantity;
-                    console.log(cartqty)
+                    //console.log(cartqty)
                     //var Productstock = Math.max(0, availableStock - quantityValue);
 
                     var Productstock  = availableStock - quantityValue - cartqty;//庫存-現在數量-購物車數量
-                    console.log(Productstock)
+                    //console.log(Productstock)
 
                     if (Productstock >= 0) {  
                         //ajax送出request
