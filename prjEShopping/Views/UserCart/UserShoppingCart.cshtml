@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-2 d-flex align-items-center">
                     @*<a id="checkoutLink" href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>*@
-                    <a href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg" id="checkoutLink">去買單</a>
+                    <a class="btn btn-secondary flex-grow-1 btn-lg" id="checkoutLink">去買單</a>
                 </div>
             </div>
         </div>
@@ -267,15 +267,20 @@
 
         //按下去買單要在檢核一次現在的訂單量
         $(document).ready(function () {
-            $(".checkoutLink").each(function () {
+            $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
-                    var cartid = document.querySelector("#cartid").attr("data-cartid")
-
-                    $("#stockCartcheckModal").modal("show")
-
-                    $("#confirmButtonstockcheck").on('click', async function () {
-                        const result = await$.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
-                    })
+                    var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
+                    var qua = 0;
+                    //console.log(cartid)
+                    
+                    if (qua > 0) {//要改
+                        window.location.href = "/UserCart/UserCheckout";
+                    } else {
+                        $("#stockCartcheckModal").modal("show")
+                        $("#confirmButtonstockcheck").on('click', async function () {
+                            const result = await$.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
+                        })
+                    }
                 })
             })
         })

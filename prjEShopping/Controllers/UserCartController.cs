@@ -336,8 +336,33 @@ namespace prjEShopping.Controllers
         public ActionResult UserCartCheckStockapi(int cartid)//按下去買單要在檢核一次現在的訂單量
         {            
             var db = new AppDbContext();
-           
+            var cartDetails = db.ShoppingCartDetails.Where(x=>x.CartId== cartid)
+                                                    .Select(x => new
+                                                    {
+                                                        x.ProductId,
+                                                        x.Quantity
+                                                    }).ToList();
 
+            foreach (var cartDetail in cartDetails)
+            {
+                int productId = (int)cartDetail.ProductId;
+                int cartQuantity=(int)cartDetail.Quantity;
+
+                var productStock=db.ProductStocks.Where(x=>x.ProductId== productId)
+                                                    .Select(x => new
+                                                    {
+                                                        x.StockQuantity,
+                                                        x.OrderQuantity
+                                                    }).FirstOrDefault();
+
+                if (productStock != null)
+                {
+
+                }
+
+
+
+            }
 
             return new EmptyResult();
         }
