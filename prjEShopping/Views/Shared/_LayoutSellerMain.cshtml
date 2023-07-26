@@ -103,8 +103,8 @@
                                         <li class="nav-item">
                                             @Html.ActionLink("新增商品(上架)", "ProductCreate", "SellerProductCreate", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="text-decoration-none">查詢商品(修改/刪除/再上架)</a>
+                                        <li class="nav-item">                            
+                                            @Html.ActionLink("查詢商品(修改/刪除/再上架)", "SellerProductList", "SellerProduct", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                     </ul>
                                 </div>
