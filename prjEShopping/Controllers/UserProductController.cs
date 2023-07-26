@@ -73,7 +73,14 @@ namespace prjEShopping.Controllers
             };
             //現在購物車該使用者該購物車id該商品的數量
             var qua = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == productId).Select(x => x.Quantity).FirstOrDefault();
-            ViewBag.TotalQuantity = qua;
+            if(qua != null)
+            {
+                ViewBag.TotalQuantity = qua;
+            }
+            else
+            {
+                ViewBag.TotalQuantity = 0;
+            }            
             return View(datas);
         }
     }
