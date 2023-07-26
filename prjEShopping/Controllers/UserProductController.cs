@@ -13,7 +13,12 @@ namespace prjEShopping.Controllers
         // GET: UserProduct
         public ActionResult UserProdutList()
         {
+            var customerAccount = User.Identity.Name;
+
             var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
             List<UserProductIndexDto> datas = new List<UserProductIndexDto>();
 
             var products = db.Products.ToList();
@@ -42,8 +47,13 @@ namespace prjEShopping.Controllers
         }
 
         public ActionResult UserSingleProduct(int productId)
-        {            
-            var db=new AppDbContext();
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
             var product = db.Products.FirstOrDefault(x => x.ProductId == productId);
 
             //剩餘多少數量計算式為ProductStocks table=StockQuantity-OrderQuantity
@@ -59,9 +69,11 @@ namespace prjEShopping.Controllers
                 ProductImagePathOne = product.ProductImagePathOne,
                 ProductImagePathTwo = product.ProductImagePathTwo,
                 ProductImagePathThree = product.ProductImagePathThree,
-                ProductStock= stockQuantity- orderQuantity
+                ProductStock= stockQuantity- orderQuantity,                
             };
-
+            //現在購物車該使用者該購物車id該商品的數量
+            var qua = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == productId).Select(x => x.Quantity).FirstOrDefault();
+            ViewBag.TotalQuantity = qua;
             return View(datas);
         }
     }

@@ -111,7 +111,7 @@ namespace prjEShopping.Controllers
             ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
         }
 
-        private int calculateProductStock(int productId,int quantity)//計算庫存的方法
+        public int calculateProductStock(int productId,int quantity)//計算庫存的方法
         {
             var db=new AppDbContext();
             var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;

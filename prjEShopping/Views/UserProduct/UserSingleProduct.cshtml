@@ -100,15 +100,15 @@
                         <div class="d-flex align-items-center">
                             <div class="input-group" style="width: 120px;">
                                 @*加減數量*@
-                            <button class="btn btn-outline-primary minusBtn" type="button">-</button>
-                            <input type="text" class="form-control" id="quantityInput" readonly>
-                            <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                                <button class="btn btn-outline-primary minusBtn" type="button">-</button>
+                                <input type="text" class="form-control" id="quantityInput" readonly>
+                                <button class="btn btn-outline-primary plusBtn" type="button">+</button>
+                            </div>
+                            <span class="ms-2">還剩：</span>
+                            <span>@(Model.ProductStock)</span>
+                            <span>件</span>     
+                            <span id="totalQuantitySpan">11</span>
                         </div>
-                        <span class="ms-2">還剩：</span>
-                        <span>@(Model.ProductStock)</span>
-                        <span>件</span>
-                    </div>
-
                 </div>
             </div>
             <div class="row mt-5 flex-column flex-md-row">
@@ -116,7 +116,8 @@
                     <button class="btn-outline-primary btn rounded-pill btn-lg add2cart" data-id="@(Model.ProductId)" data-stockqty="@(Model.ProductStock)">
                         <i class="fa-solid fa-cart-shopping"></i>
                         加入購物車
-                    </button>
+                    </button>      
+                    
                 </div>
                 <div class="col mb-3 mb-md-0">
                     <button class="btn-outline-primary btn rounded-pill btn-lg">
@@ -606,9 +607,22 @@
                 $(this).on("click", async function () {
                     var self = $(this);
                     var productId = self.attr("data-id");
+
+                    //計算可購買量
                     var availableStock = self.attr("data-stockqty");
                     availableStock = parseInt(availableStock);
-                    var Productstock = Math.max(0, availableStock - quantityValue);
+                    //var cartqty =
+
+                    //console.log(cartqty)
+                    //var Productstock = Math.max(0, availableStock - quantityValue);
+                    if (cartqty == null) {
+                        var Productstock = availableStock - quantityValue ;//庫存-現在數量(購物車沒數量)
+                    } else {
+                        var Productstock = availableStock - quantityValue - cartqty;//庫存-現在數量-購物車數量
+                    }
+
+                    //console.log(Productstock)
+
 
                     if (Productstock >= 0) {
                         //ajax送出request
@@ -624,6 +638,12 @@
                 })
             })
         })
+
+
+        document.addEventListener("DOMContentLoaded", function () {        
+        var totalQuantity = @ViewBag.TotalQuantity;         
+        document.getElementById("totalQuantitySpan").textContent = totalQuantity;
+    });
 
 
     </script>
