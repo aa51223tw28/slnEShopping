@@ -323,17 +323,17 @@
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2">
 
                     @foreach (var item in Model)
-                    {
+                    {                       
                         <div class="col">
                             <div class="card w-100">
                                 <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
                                     <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
-                                    <p class="card-text text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.Price))</p>
+                                    <p class="card-text text-danger fw-bold">@Math.Round(item.Price).ToString("C0")</p>
                                     <a href="@Url.Action("UserSingleProduct", "UserProduct", new {productid=item.ProductId})" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>                        
                     }
                 </div>
                 <!-- 商品結束 -->

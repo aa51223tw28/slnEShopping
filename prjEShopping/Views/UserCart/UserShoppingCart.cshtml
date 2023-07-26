@@ -68,9 +68,9 @@
                     <div class="col-2 d-flex align-items-center">
                         <div class="input-group" style="width: 120px;">
                             @*加減數量*@
-                            <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity">-</button>
+                            <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">-</button>
                             <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
-                            <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity">+</button>
+                            <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
                         </div>
                     </div>
                     <div class="col-2 d-flex align-items-center">
@@ -153,6 +153,24 @@
     </div>
 </div>
 
+
+@*庫存不足*@
+<div class="modal" id="stockCartModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                庫存不足，請選購其他商品。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstock">確定</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
 
@@ -165,20 +183,21 @@
                 $(this).on('click', async function () {
                     var self = $(this);
                     var ProductId = self.attr("data-id");
-                    console.log(ProductId)
+                    //console.log(ProductId)                    
 
                     $("#deleteCartModal").modal("show");
 
                     $("#confirmButton2delete").on('click', async function () {
                         //按下確認才呼叫刪除購物車商品的api
                         const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + ProductId)
+                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId)
                         // 成功刪除後重新載入頁面
                         location.reload();
                     })
 
                     $("#cancelButton2delete").on('click', async function () {
                         //不做動作
-                    })              
+                    })
                 })
             })
         })
@@ -188,22 +207,46 @@
         //更新購物車商品數量
         $(document).ready(function () {
             $(".plusBtn").each(function () {
-                $(this).on('click', function () {
+                $(this).on('click', async function () {
                     var self = $(this);
 
                     var ProductId = self.attr("data-id");
                     var Quantity = parseInt(self.attr("data-qty")) + 1;
-                    console.log(ProductId)
-                    console.log(Quantity)
+                    var Productstock = self.attr("data-stockqty");
 
-                    const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
-                    location.reload();
+                    if (Productstock > 0) {
+                        const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity)
+                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId)
+                        location.reload();
+                    } else {
+                        //alert("庫存不足")
+                        $("#stockCartModal").modal("show");
+                        $("#confirmButtonstock").on('click', () => {
+                            location.reload();
+                        })
+                    }                    
                 })
             })
 
+            $(".minusBtn").each(function () {
+                $(this).on('click', async function () {
+                    var self = $(this);
 
+                    var ProductId = self.attr("data-id")
 
-            $(".minusBtn")
+                    var Quantity = parseInt(self.attr("data-qty")) - 1;
+
+                    if (Quantity == 0) {
+                        const result = await $.get("/UserCart/UserDeleteCartapi?ProductId=" + ProductId);//Quantity=0呼叫刪除api
+                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId)
+                        location.reload();
+                    } else {
+                        const result = await $.get("/UserCart/UserUpadateCartapi?ProductId=" + ProductId + "&Quantity=" + Quantity);
+                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + ProductId)
+                        location.reload();
+                    }
+                })
+            })
         })
     </script>
 }

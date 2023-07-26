@@ -7,7 +7,7 @@
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <p class="fs-4 mt-3 fw-bold text-center text-primary">新增商品</p>
     <hr>
-    <form method="post" enctype="multipart/form-data" action="ProductCreate">
+    <form method="post" enctype="multipart/form-data" action="ProductCreate" >
         <div class="row container">
 
             <div class="col-sm-6 col-xl-6">
@@ -17,7 +17,7 @@
                         <span class="fw-bold text-primary">主分類：</span>
                     </div>
                     <div class="col-4">
-                        <select id="maincategories" class="form-select">
+                        <select id="maincategories" class="form-select" name="CategoryName">
                         </select>
                     </div>
                     <div class="col-4">
@@ -28,7 +28,7 @@
                         <span class="fw-bold text-primary">小分類：</span>
                     </div>
                     <div class="col-4">
-                        <select id="subcategories" class="form-select">
+                        <select id="subcategories" class="form-select" name="SubcategoryName">
                         </select>
                     </div>
                     <div class="col-4">
@@ -102,7 +102,7 @@
             </div>
         </div>
         <div class="container">
-            <input type="submit" class="btn btn-secondary mt-2 align-items-center" value="儲存" />
+            <input type="submit" class="btn btn-secondary mt-2 align-items-center" value="儲存" id="btnsubmit"/>
         </div>
     </form>
 </div>
@@ -124,7 +124,7 @@
                 xhr.addEventListener('load', () => {
                     const datas = JSON.parse(xhr.responseText);
                     var categories = datas.map(category => {
-                        return (`<option value="${category}" name="CategoryName">${category}</option>`)
+                        return (`<option value="${category}">${category}</option>`)
                     })
                     selmaincategories.innerHTML = categories.join("");
                     LoadSubCategories();
@@ -142,7 +142,7 @@
                 xhr.addEventListener('load', () => {
                     const datas = JSON.parse(xhr.responseText);
                     var subcategories = datas.map(subcatory => {
-                        return (`<option value="${subcatory}" name="SubcategoryName">${subcatory}</option>`)
+                        return (`<option value="${subcatory}">${subcatory}</option>`)
                     })
                     selsubcategories.innerHTML = subcategories.join("");
                      LoadOptionNames();
@@ -165,10 +165,11 @@
 
                         datas +=`<div class="row mb-2">
                                     <div class="col-4 d-flex align-items-center" id="A">
-                                        <span value="${response[count]}" class="fw-bold text-primary" id="optionname${count}" name="SpecificationName${count}">${response[count]}：</span>
+                                        <span value="${response[count]}" class="fw-bold text-primary">${response[count]}：</span>
+                                        <input type="hidden" value="${response[count]}" id="optionname${count}" name="SpecificationName${count}"/>
                                     </div>
                                     <div class="col-4">
-                                        <select class="form-select" id="optionvalue${count}">
+                                        <select class="form-select" id="optionvalue${count}" name="OptionName${count}">
                                         </select>
                                     </div>
                                     <div class="col-4">
@@ -199,7 +200,7 @@
                 {
                     const optionnameElement = document.querySelector(`#optionname${i}`);
                     const optionname = optionnameElement.getAttribute('value');
-                    console.log(optionname)
+                    
                     const xhr = new XMLHttpRequest();
                     xhr.open('GET', `@Url.Content("~/SellerProductCreateApi/getOptionValues?specificationname=")${encodeURIComponent(optionname)}`);
                     xhr.send();
@@ -209,7 +210,7 @@
                         const values = JSON.parse(xhr.responseText);
                         const optionContainer = document.querySelector(`#optionvalue${i}`);
                         var optionnames = values.map(option => {
-                            return (`<option value="${option}" name=OptionName${i}>${option}</option>`);
+                            return (`<option value="${option}">${option}</option>`);
                         });
                         optionContainer.innerHTML = optionnames.join("");
 
@@ -248,7 +249,7 @@
             }, 200);
         })
 
-
+        
 
 
     </script>

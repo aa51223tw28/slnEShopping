@@ -24,7 +24,6 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
-        public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<ProductInventory> ProductInventories { get; set; }
         public virtual DbSet<ProductMainCategory> ProductMainCategories { get; set; }
         public virtual DbSet<ProductOption> ProductOptions { get; set; }

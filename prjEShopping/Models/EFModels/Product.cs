@@ -33,5 +33,24 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string ProductImagePathThree { get; set; }
+
+        public int? CategoryId { get; set; }
+
+        public int? SubcategoryId { get; set; }
+
+        [StringLength(50)]
+        public string OptionIdOne { get; set; }
+
+        [StringLength(50)]
+        public string OptionIdTwo { get; set; }
+
+        [StringLength(50)]
+        public string OptionIdThree { get; set; }
+
+        [StringLength(50)]
+        public string OptionIdFour { get; set; }
+
+        [StringLength(50)]
+        public string OptionIdFive { get; set; }
     }
 }

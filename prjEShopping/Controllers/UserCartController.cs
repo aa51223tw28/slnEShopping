@@ -57,6 +57,7 @@ namespace prjEShopping.Controllers
                 shoppingCartDetail.Quantity += quantity;
             }
             db.SaveChanges();
+
             return new EmptyResult();//這個Action方法返回一個空結果(EmptyResult)，表示操作已經完成，並不需要返回任何特定的內容或視圖。
         }
         public List<UserShoppingCartVM> datas { get; set; }
@@ -68,7 +69,7 @@ namespace prjEShopping.Controllers
             return View(datas);
         }
 
-        private void shoppingList()//UserShoppingCartVM的方法
+        private void shoppingList()//秀UserShoppingCartVM的方法
         {
             var customerAccount = User.Identity.Name;
 
@@ -102,11 +103,22 @@ namespace prjEShopping.Controllers
                 Price = (decimal)x.Price,
                 SubTotal = (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
-                SellerId = (int)x.SellerId
+                SellerId = (int)x.SellerId,
+                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)//計算庫存可不可以買
             }).ToList();
 
             //總金額
             ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
+        }
+
+        public int calculateProductStock(int productId,int quantity)//計算庫存的方法
+        {
+            var db=new AppDbContext();
+            var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;
+            var stockQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
+            var availableStock = stockQuantity - orderQuantity;
+            int productStock = Math.Max(0, availableStock - quantity);
+            return productStock;
         }
 
         public ActionResult GetTotalCount()//負責傳購買數量的api
@@ -222,19 +234,24 @@ namespace prjEShopping.Controllers
             db.ShoppingCarts.Add(shoppingcart);
             db.SaveChanges ();
 
-            //todo 還未做要------修改table ProductsStocks中的OrderQuantity
 
+            //修改table ProductsStocks中的OrderQuantity
+            var listproductid=db.OrderDetails.Where(x=>x.OrderId== orderId).Select(x=>x.ProductId).ToList();
+            var productStocks = db.ProductStocks.Where(x => listproductid.Contains(x.ProductId));
 
+            foreach (var item in productStocks)
+            {
+                var orderDetail = db.OrderDetails.FirstOrDefault(x => x.OrderId == orderId && x.ProductId == item.ProductId);
 
+                if(orderDetail != null)
+                {
+                    int orderQuantity= (int)orderDetail.Quantity;
+                    item.OrderQuantity += orderQuantity;
+                    item.PurchaseQuantity -= orderQuantity;
+                }
+            }
 
-
-
-
-
-
-
-
-
+            db.SaveChanges();
 
             return new EmptyResult();
 
@@ -248,7 +265,7 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId&&x.CartId== cartid);
             if (cartItem == null) return new EmptyResult();
 
             var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
@@ -268,15 +285,8 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId);
-            if (cartItem == null) return new EmptyResult();
-
-            if (Quantity == 0)
-            {
-                var dbRemovecartDetailId = db.ShoppingCartDetails.Find(cartItem.CartDetailId);
-                db.ShoppingCartDetails.Remove(dbRemovecartDetailId);
-                db.SaveChanges();
-            }
+            var cartItem = db.ShoppingCartDetails.FirstOrDefault(x => x.ProductId == ProductId && x.CartId == cartid);
+            if (cartItem == null) return new EmptyResult();            
 
             var cartItemDb = db.ShoppingCartDetails.FirstOrDefault(x => x.CartDetailId == cartItem.CartDetailId);
             cartItemDb.Quantity = Quantity;
@@ -285,6 +295,45 @@ namespace prjEShopping.Controllers
             return new EmptyResult();
         }
 
+
+        [Authorize]
+        public ActionResult UserUpadateCartStockapi(int ProductId)
+        {
+            //在購物車頁面按下+或加入購物車同時要Update ProductStocks table的PurchaseQuantity            
+            //在UserShoppingCart頁面&UserSingleProduct頁面都要用到因為都是編輯購物車的商品數量
+            
+            var db = new AppDbContext();
+            
+            //直接去抓ShoppingCartDetails 裡面ProductId的Quantity合計
+            var shoppingdetailquantity = db.ShoppingCartDetails.Where(x=>x.ProductId== ProductId).Sum(x => x.Quantity);
+
+            //直接去抓OrderDetails 裡面ProductId的Quantity合計
+            var orderDetails=db.OrderDetails.Where(x => x.ProductId == ProductId).Sum(x => x.Quantity);
+
+            var purchaseQuantity = db.ProductStocks.FirstOrDefault(x => x.ProductId == ProductId);
+
+            if (orderDetails == null && shoppingdetailquantity == null)
+            {
+                purchaseQuantity.PurchaseQuantity = 0;
+            }
+            else if (orderDetails == null && shoppingdetailquantity != null)
+            {
+                purchaseQuantity.PurchaseQuantity = shoppingdetailquantity;
+            }
+            else if (orderDetails != null && shoppingdetailquantity == null)
+            {
+                purchaseQuantity.PurchaseQuantity =  orderDetails;
+            }
+            else if(orderDetails != null && shoppingdetailquantity != null) 
+            {
+                purchaseQuantity.PurchaseQuantity = shoppingdetailquantity - orderDetails;
+            }                
+            db.SaveChanges();
+
+            return new EmptyResult();
+        }
+
+       
 
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳情頁面
