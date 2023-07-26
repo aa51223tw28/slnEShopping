@@ -36,8 +36,12 @@ namespace prjEShopping.Controllers
         public ActionResult UserSingleProduct(int productId)
         {            
             var db=new AppDbContext();
-            var product = db.Products.FirstOrDefault(x => x.ProductId == productId);            
+            var product = db.Products.FirstOrDefault(x => x.ProductId == productId);
 
+            //剩餘多少數量計算式為ProductStocks table=StockQuantity-OrderQuantity
+            var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x=>x.OrderQuantity).FirstOrDefault() ?? 0;
+            var stockQuantity= db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
+            
             var datas = new UserProductIndexDto()
             {
                 ProductId = product.ProductId,
@@ -46,7 +50,8 @@ namespace prjEShopping.Controllers
                 Price = (decimal)product.Price,
                 ProductImagePathOne = product.ProductImagePathOne,
                 ProductImagePathTwo = product.ProductImagePathTwo,
-                ProductImagePathThree = product.ProductImagePathThree
+                ProductImagePathThree = product.ProductImagePathThree,
+                ProductStock= stockQuantity- orderQuantity
             };
 
             return View(datas);
