@@ -1,6 +1,7 @@
 ﻿@model prjEShopping.Models.EFModels.Admin
 @{
     ViewBag.Title = "AdminEdit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="col-9 bg-secondary ">
@@ -8,23 +9,23 @@
         <div class="container bg-info">
             <div class="row">
                 <div class="col-7">
-                    <input type="text" id="AdminNumber" name="AdminNumber" value=">@Html.LabelFor(model => model.AdminId)" />
-                    <form>
+                    <form method="Post">
+                        <div class="mb-3">
+                            <input type="text" id="AdminId" name="AdminId" value="@Html.DisplayFor(model=>model.AdminId)" hidden />
+                        </div>
+                        <h3>帳號資料</h3>
                         <div class="mb-3">
                             <label class="form-label">@Html.DisplayNameFor(model => model.AdminNumber)</label>
-                            <input type="text" class="form-control" readonly value="@Html.DisplayFor(model => model.AdminNumber)">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">管理權限：</label>
-                            <input type="text" class="form-control" readonly value="Admin">
+                            <input type="text" class="form-control" name="AdminNumber" readonly value="@Html.DisplayFor(model => model.AdminNumber)">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">帳號(E-mail)</label>
-                            <input type="email" class="form-control" readonly>
+                            <input type="email" class="form-control" name="AdminAccount" value="@Html.DisplayFor(model => model.AdminAccount)" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword5" class="form-label">密碼</label>
-                            <input type="password" id="inputPassword5" readonly class="form-control" aria-describedby="passwordHelpBlock">
+                            <input type="password" id="inputPassword5" name="AdminPassword" readonly class="form-control"
+                                   aria-describedby="passwordHelpBlock" value="@Html.DisplayFor(model => model.AdminPassword)">
                             <div id="passwordHelpBlock" class="form-text">
                                 密碼為8~16碼數字加上英文大小寫。
                             </div>
@@ -56,33 +57,42 @@
                                 </div>
                             </div>
                         </div>
+                        <br />
+                        <h3>個人資料</h3>
                         <div class="mb-3">
                             <label class="form-label">職稱：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="Title" value="@Html.DisplayFor(model => model.Title)">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">姓名：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="AdminName" value="@Html.DisplayFor(model => model.AdminName)">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">電話：</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="Phone" value="@Html.DisplayFor(model => model.Phone)">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">入職時間：</label>
-                            <input type="date" class="form-control" readonly>
+                            <input type="text" class="form-control" readonly name="DateOfHire" value="@Html.DisplayFor(model => model.DateOfHire)">
                         </div>
-                        <select class="form-select" aria-label="Select2">
-                            <option selected>工作狀態</option>
+                        <select class="form-select" aria-label="Select2" name="JobStatus" value="@Html.DisplayNameFor(model => model.JobStatus)">
+                            <option selected value="@Html.DisplayFor(model => model.JobStatus)">@Html.DisplayFor(model => model.JobStatus)</option>
                             <option value="1">狀態1</option>
                             <option value="2">狀態2</option>
                             <option value="3">狀態3</option>
                         </select>
+                        <input type="text" name="PermissionsId" value="@Html.DisplayFor(model => model.PermissionsId)" hidden>
                         <button type="submit" class="btn btn-primary  my-3">更新資料</button>
                     </form>
                 </div>
             </div>
+            <br />
+            <h3>權限變更</h3>
             <div class="col-4 ">
+                <div class="mb-3">
+                    <label class="form-label">管理權限：</label>
+                    <input type="text" class="form-control" readonly name="PermissionsId" value="@Html.DisplayFor(model => model.PermissionsId)">
+                </div>
                 <div class="mb-3">
                     <label class="form-label">權限轉移：</label>
                     <select class="form-select" aria-label="Default select example">
@@ -91,7 +101,7 @@
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
-                    <button class="btn btn-primary mt-3">轉移確認</button>
+                    <button class="btn btn-primary my-3">轉移確認</button>
                 </div>
             </div>
         </div>

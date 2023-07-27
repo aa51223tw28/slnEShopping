@@ -28,6 +28,9 @@ namespace prjEShopping.Models.ViewModels
         [Required]
         public string AdminPassword { get; set; }
 
+        [StringLength(100)]
+        public string AdminPasswordSalt { get; set; }
+
         [DisplayName("職稱")]
         [StringLength(50)]
         [Required]
@@ -51,5 +54,9 @@ namespace prjEShopping.Models.ViewModels
         [StringLength(50)]
         [Required]
         public string JobStatus { get; set; }
+
+        [StringLength(50)]
+        public string Role { get; set; }
+
     }
 }
