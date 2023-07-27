@@ -226,9 +226,7 @@
     <Compile Include="Models\Infra\UserResult.cs" />
     <Compile Include="Models\Interface\IAdminRepository.cs" />
     <Compile Include="Models\Services\AdminService.cs" />
-    <Compile Include="Models\ViewModels\AdminEditVM.cs" />
     <Compile Include="Models\ViewModels\AdminLoginVM.cs" />
-    <Compile Include="Models\ViewModels\AdminRegisterVM.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
