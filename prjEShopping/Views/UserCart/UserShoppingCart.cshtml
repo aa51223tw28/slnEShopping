@@ -180,10 +180,29 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                購物車內有商品庫存不足，無法進入結帳，請先刪除商品數量為0商品。
+                購物車內『有商品庫存不足』，無法進入結帳，請先刪除商品數量為0商品。
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstockcheck">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*有商品數量=0無法結帳*@
+<div class="modal" id="quaCartcheckModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                購物車內『有商品數量為0』，無法進入結帳，請先刪除商品數量為0商品。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonquacheck">確定</button>
             </div>
         </div>
     </div>
@@ -273,13 +292,23 @@
 
 
                     //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
+                    //確定購物車所選取的商品數量不為0才可以去買單
                     const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
-                    
+
                     if (result === "success") {
                         window.location.href = "/UserCart/UserCheckout";
-                    } else {
-                        $("#stockCartcheckModal").modal("show");  
-                        $("#confirmButtonstockcheck").on('click', function () {                            
+                    }
+                    else if (result === "stock_insufficient")//庫存不夠
+                    {
+                        $("#stockCartcheckModal").modal("show");
+                        $("#confirmButtonstockcheck").on('click', function () {
+                            location.reload();
+                        });
+                    }
+                    else if (result === "quantity_zero")//購物車中商品有數量為0
+                    {
+                        $("#quaCartcheckModal").modal("show");
+                        $("#confirmButtonquacheck").on('click', function () {
                             location.reload();
                         });
                     }

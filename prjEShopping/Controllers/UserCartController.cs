@@ -352,7 +352,7 @@ namespace prjEShopping.Controllers
 
                     int availableQuantity = stockQuantity - orderQuantity;
                     
-                    if(cartQuantity> availableQuantity)
+                    if(cartQuantity> availableQuantity)//如果購物車數量>可以購買數量
                     {
                         cartDetail.Quantity = 0;
                         int newPurchaseQuantity = (int)(productStock.PurchaseQuantity - cartQuantity);
@@ -361,7 +361,17 @@ namespace prjEShopping.Controllers
                         return Content("stock_insufficient");
                     }
                 }
-            }            
+            }
+
+            //確定所有商品的購買數量都不為0
+            bool allQuantitiesNonZero = cartDetails.All(x => x.Quantity != 0);
+            if (!allQuantitiesNonZero)
+            {
+                return Content("quantity_zero");
+
+            }
+
+
             return Content("success");
         }
 
