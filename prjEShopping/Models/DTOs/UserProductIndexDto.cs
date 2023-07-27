@@ -16,10 +16,13 @@ namespace prjEShopping.Models.DTOs
         public string ProductImagePathThree { get; set; }
         public int ProductStock { get; set; }
         public int QuantitySold { get; set; }
-        //待確認還有其他大分類小分類規格...
-        public string CategoryName { get; set; }
-        
-        
+
+
+
+        //一堆規格        
+        public string BrandName { get; set; }
+
+
 
     }
 }

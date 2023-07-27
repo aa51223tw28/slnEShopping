@@ -67,6 +67,10 @@ namespace prjEShopping.Controllers
             //售出數量ProductStocks中的QuantitySold
             var quantitySold = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.QuantitySold).FirstOrDefault();
 
+            //品牌
+            var brandId = db.Products.Where(x => x.ProductId == productId).Select(x => x.BrandId).FirstOrDefault();
+            var brandName = db.Brands.Where(x => x.BrandId == brandId).Select(x => x.BrandName).FirstOrDefault();
+
             var datas = new UserProductIndexDto()
             {
                 ProductId = product.ProductId,
@@ -78,6 +82,11 @@ namespace prjEShopping.Controllers
                 ProductImagePathThree = product.ProductImagePathThree,
                 ProductStock= stockQuantity- orderQuantity,
                 QuantitySold= (int)quantitySold,
+
+                //一堆規格
+                BrandName= brandName,
+
+
             };
             //現在購物車該使用者該購物車id該商品的數量
             var qua = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == productId).Select(x => x.Quantity).FirstOrDefault();
