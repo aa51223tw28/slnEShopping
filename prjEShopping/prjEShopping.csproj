@@ -306,6 +306,7 @@
     <Content Include="Views\UsersCoupons\UsersCouponsOverdue.cshtml" />
     <Content Include="Views\UserMembers\UserEditProfile.cshtml" />
     <Content Include="Views\SellerProduct\SellerProductList.cshtml" />
+    <Content Include="Views\SellerProduct\ProductEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -318,7 +319,6 @@
     <Folder Include="img\" />
     <Folder Include="Models\DAOs\" />
     <Folder Include="Views\SellerProductCreateApi\" />
-    <Folder Include="Views\SellerProductListVM\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

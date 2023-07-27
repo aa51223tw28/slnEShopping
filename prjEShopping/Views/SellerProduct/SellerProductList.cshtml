@@ -45,7 +45,7 @@
                                 @{
                                     if (item.ProductStatusName != "審核中")
                                     {
-                                        @Html.ActionLink("修改", "Edit", "SellerProduct", new { id = item.ProductID }, new {  Class = "btn btn-secondary mb-2" })
+                                        @Html.ActionLink("修改", "ProductEdit", "SellerProduct", new { id = item.ProductID }, new {  Class = "btn btn-secondary mb-2" })
                                     }
 
                                 }
