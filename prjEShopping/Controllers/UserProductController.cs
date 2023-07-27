@@ -67,9 +67,30 @@ namespace prjEShopping.Controllers
             //售出數量ProductStocks中的QuantitySold
             var quantitySold = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.QuantitySold).FirstOrDefault();
 
+            //一堆規格
             //品牌
             var brandId = db.Products.Where(x => x.ProductId == productId).Select(x => x.BrandId).FirstOrDefault();
             var brandName = db.Brands.Where(x => x.BrandId == brandId).Select(x => x.BrandName).FirstOrDefault();
+
+            //選項名稱
+            var optionIdOne = db.Products.Where(x => x.ProductId == productId).Select(x => x.OptionIdOne).FirstOrDefault();
+            var optionIdTwo = db.Products.Where(x => x.ProductId == productId).Select(x => x.OptionIdTwo).FirstOrDefault();
+            var optionIdThree = db.Products.Where(x => x.ProductId == productId).Select(x => x.OptionIdThree).FirstOrDefault();
+            var optionIdFour = db.Products.Where(x => x.ProductId == productId).Select(x => x.OptionIdFour).FirstOrDefault();
+            var optionIdFive = db.Products.Where(x => x.ProductId == productId).Select(x => x.OptionIdFive).FirstOrDefault();
+
+            int parsedOptionIdOne = int.Parse(optionIdOne);
+            int parsedOptionIdTwo = int.Parse(optionIdTwo);
+            int parsedOptionIdThree = int.Parse(optionIdThree);
+            int parsedOptionIdFour = int.Parse(optionIdFour);
+            int parsedOptionIdFive = int.Parse(optionIdFive);
+
+
+            var optionNameOne = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdOne).Select(x => x.OptionName).FirstOrDefault();
+            var optionNameTwo = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdTwo) .Select(x => x.OptionName).FirstOrDefault();
+            var optionNameThree = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdThree).Select(x => x.OptionName).FirstOrDefault();
+            var optionNameFour = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdFour).Select(x => x.OptionName).FirstOrDefault();
+            var optionNameFive = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdFive).Select(x => x.OptionName).FirstOrDefault();
 
             var datas = new UserProductIndexDto()
             {
@@ -85,7 +106,17 @@ namespace prjEShopping.Controllers
 
                 //一堆規格
                 BrandName= brandName,
+                //SpecificationNameOne=,
+                //SpecificationNameTwo=,
+                //SpecificationNameThree=,
+                //SpecificationNameFour=,
+                //SpecificationNameFive=,
 
+                OptionNameOne= optionNameOne,
+                OptionNameTwo= optionNameTwo,
+                OptionNameThree= optionNameThree,
+                OptionNameFour= optionNameFour,
+                OptionNameFive= optionNameFive,
 
             };
             //現在購物車該使用者該購物車id該商品的數量

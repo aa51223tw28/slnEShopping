@@ -22,7 +22,16 @@ namespace prjEShopping.Models.DTOs
         //一堆規格        
         public string BrandName { get; set; }
 
+        public string SpecificationNameOne { get; set; }
+        public string SpecificationNameTwo { get; set; }
+        public string SpecificationNameThree { get; set; }
+        public string SpecificationNameFour { get; set; }
+        public string SpecificationNameFive { get; set; }
 
-
+        public string OptionNameOne { get; set; }
+        public string OptionNameTwo { get; set; }
+        public string OptionNameThree { get; set; }
+        public string OptionNameFour { get; set; }
+        public string OptionNameFive { get; set; }
     }
 }
