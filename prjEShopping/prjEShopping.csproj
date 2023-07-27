@@ -221,6 +221,7 @@
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
     <Compile Include="Models\Infra\EFRepositories\AdminRepository.cs" />
+    <Compile Include="Models\Infra\SellerResult.cs" />
     <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
     <Compile Include="Models\Infra\UserResult.cs" />
     <Compile Include="Models\Interface\IAdminRepository.cs" />

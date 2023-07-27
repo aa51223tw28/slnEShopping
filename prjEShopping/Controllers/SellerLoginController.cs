@@ -19,23 +19,35 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult Login(SellerLoginVM vm)
         {
-            var db = new AppDbContext();
-            if (ModelState.IsValid)
+            using(var db=new AppDbContext())
             {
-                var seller = db.Sellers.FirstOrDefault(m => m.SellerAccount == vm.SellerAccount && m.SellerPassword == vm.SellerPassword);
-                if (seller != null)
+                var sellerDetail = db.Sellers.Where(x=>x.SellerAccount == vm.SellerAccount && x.SellerPassword == vm.SellerPassword).FirstOrDefault();
+                if(sellerDetail == null)
                 {
-                    return View("~/Views/SellerMain/Index.cshtml");
+                    vm.LoginErrorMessage = "帳號或密碼有誤!!";
+                    return View("Login", vm);
                 }
                 else
                 {
-                    // 登入失敗，顯示錯誤訊息
-                    ModelState.AddModelError("", "請輸入正確帳號或密碼");
+                    Session["SellerId"] = vm.SellerId;
+                    return RedirectToAction("Index", "SellerMain");
                 }
             }
 
-            // 若登入失敗，或模型驗證失敗，返回登入頁面，並保留使用者輸入的資料
-            return View(vm);
+            //var db = new AppDbContext();
+            //if (ModelState.IsValid==true)
+            //{
+            //    var seller = db.Sellers.FirstOrDefault(m => m.SellerAccount == vm.SellerAccount && m.SellerPassword == vm.SellerPassword);
+            //    if (seller != null)
+            //    {
+            //        return View("~/Views/SellerMain/Index.cshtml");
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("", "請輸入正確帳號或密碼");
+            //    }
+            //}
+            //return View(vm);
         }
     }
 }
