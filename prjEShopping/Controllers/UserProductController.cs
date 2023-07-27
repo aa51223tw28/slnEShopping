@@ -63,7 +63,10 @@ namespace prjEShopping.Controllers
             //剩餘多少數量計算式為ProductStocks table=StockQuantity-OrderQuantity
             var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x=>x.OrderQuantity).FirstOrDefault() ?? 0;
             var stockQuantity= db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
-            
+
+            //售出數量ProductStocks中的QuantitySold
+            var quantitySold = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.QuantitySold).FirstOrDefault();
+
             var datas = new UserProductIndexDto()
             {
                 ProductId = product.ProductId,
@@ -73,7 +76,8 @@ namespace prjEShopping.Controllers
                 ProductImagePathOne = product.ProductImagePathOne,
                 ProductImagePathTwo = product.ProductImagePathTwo,
                 ProductImagePathThree = product.ProductImagePathThree,
-                ProductStock= stockQuantity- orderQuantity,                
+                ProductStock= stockQuantity- orderQuantity,
+                QuantitySold= (int)quantitySold,
             };
             //現在購物車該使用者該購物車id該商品的數量
             var qua = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == productId).Select(x => x.Quantity).FirstOrDefault();

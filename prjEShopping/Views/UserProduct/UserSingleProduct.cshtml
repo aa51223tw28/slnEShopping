@@ -71,8 +71,6 @@
                             <a href="#">
                                 <h5 class="text-danger fw-bold">17</h5>
                             </a><span class="ms-2 me-2">評價</span>
-                            <span>18</span>
-                            <span>已售出</span>
                         </div>
                     </div>
                 </div>
@@ -106,7 +104,10 @@
                             </div>
                             <span class="ms-2">還剩：</span>
                             <span>@(Model.ProductStock)</span>
-                            <span>件</span>                                 
+                            <span>件</span>
+                            <span class="ms-2">/</span>
+                            <span class="ms-2">已售出：</span>
+                            <span>@(Model.QuantitySold)</span>
                         </div>
                 </div>
             </div>
