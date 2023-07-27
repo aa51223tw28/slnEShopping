@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 
 namespace prjEShopping.Controllers
 {
@@ -17,7 +18,8 @@ namespace prjEShopping.Controllers
         // GET: Admins
         public ActionResult Index()
         {
-            return View(db.Admins.ToList());
+            var model = db.Admins.Admin2VM();
+            return View(model);
         }
 
         // GET: Admins/Details/5

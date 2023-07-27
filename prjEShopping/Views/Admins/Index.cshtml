@@ -1,7 +1,8 @@
-﻿@model IEnumerable<prjEShopping.Models.EFModels.Admin>
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.AdminVM>
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Index</h2>
@@ -9,7 +10,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-primary ">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.AdminNumber)

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing.Imaging;
 using System.Linq;
+using System.Security;
 using System.Web;
 
 namespace prjEShopping.Models.ViewModels
@@ -73,5 +76,56 @@ namespace prjEShopping.Models.ViewModels
         [StringLength(50)]
         [Required]
         public string AdminPassword { get; set; }
+    }
+
+    public static class AdminChange
+    {
+        public static Admin VM2Admin(AdminVM vm)
+        {
+            return new Admin
+            {
+                AdminId = vm.AdminId,
+                AdminNumber = vm.AdminNumber,
+                PermissionsId = vm.PermissionsId,
+                AdminAccount = vm.AdminAccount,
+                AdminPassword = vm.AdminPassword,
+                AdminPasswordSalt = vm.AdminPasswordSalt,
+                Title = vm.Title,
+                AdminName = vm.AdminName,
+                Phone = vm.Phone,
+                DateOfHire = vm.DateOfHire,
+                JobStatus = vm.JobStatus,
+                Role = vm.Role,
+            };
+        }
+
+        public static AdminVM Admin2VM(Admin admin)
+        {
+            return new AdminVM
+            {
+                AdminId = admin.AdminId,
+                AdminNumber = admin.AdminNumber,
+                PermissionsId = admin.PermissionsId,
+                AdminAccount = admin.AdminAccount,
+                AdminPassword = admin.AdminPassword,
+                AdminPasswordSalt = admin.AdminPasswordSalt,
+                Title = admin.Title,
+                AdminName = admin.AdminName,
+                Phone = admin.Phone,
+                DateOfHire = admin.DateOfHire,
+                JobStatus = admin.JobStatus,
+                Role = admin.Role,
+            };
+        }
+
+        public static List<AdminVM> Admin2VM(this IEnumerable<Admin> source)
+        {
+            if (source == null || source.Count() == 0)
+            {
+                return Enumerable.Empty<AdminVM>().ToList();
+            }
+
+            return source.Select(s => Admin2VM(s)).ToList();
+        }
     }
 }
