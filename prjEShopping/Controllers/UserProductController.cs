@@ -29,7 +29,11 @@ namespace prjEShopping.Controllers
 
                 var stockQuantity = db.ProductStocks.Where(x => x.ProductId == item.ProductId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
 
-                if (stockQuantity - orderQuantity > 0)
+                //商品狀態 1審核中/2販售中/3下架中
+                var productstatus = products.Where(x => x.ProductId == item.ProductId).Select(x => x.ProductStatusId).FirstOrDefault();
+                
+
+                if (stockQuantity - orderQuantity > 0&& productstatus==2)
                 {
                     var data = new UserProductIndexDto()
                     {
