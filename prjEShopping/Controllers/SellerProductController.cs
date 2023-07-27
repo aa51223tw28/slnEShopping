@@ -14,10 +14,9 @@ namespace prjEShopping.Controllers
     
     public class SellerProductController : Controller
     {
-
-        List<string> optionids = new List<string>();
-        List<string> optionames = new List<string>();
-        List<string> specification = new List<string>();
+        List<string> optionIdsString = new List<string>();
+        List<int> optionIds = new List<int>();
+        
         // GET: SellerProduct
         public ActionResult SellerProductList()
         {
@@ -44,46 +43,83 @@ namespace prjEShopping.Controllers
 
             return View(products);
         }
-
         public ActionResult ProductEdit(int? id)
         {
-            
-
-            getAllOptionIds(id);
-            getAllOptionNames();
-            getAllSpecificationNames();
-
             var db = new AppDbContext();
+            getAllOptionIds(id);
+            int OptionIdOne = optionIds[0];
+            int OptionIdTwo = optionIds[1];
+            int OptionIdThree = optionIds[2];
+            int OptionIdFour = optionIds[3];
+            int OptionIdFive = optionIds[4];
+            string CategoryName = db.ProductMainCategories.FirstOrDefault(y => y.CategoryId == (db.Products.FirstOrDefault(x => x.ProductId == id).CategoryId)).CategoryName;
+            string SubcategoryName = db.ProductSubCategories.FirstOrDefault(y => y.SubcategoryId == (db.Products.FirstOrDefault(x => x.ProductId == id).SubcategoryId)).SubcategoryName;
+            string SpecificationName0 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdOne)).SpecificationId).SpecificationName;
+            string SpecificationName1 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdTwo)).SpecificationId).SpecificationName;
+            string SpecificationName2 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdThree)).SpecificationId).SpecificationName;
+            string SpecificationName3 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdFour)).SpecificationId).SpecificationName;
+            string SpecificationName4 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdFive)).SpecificationId).SpecificationName;
+            string OptionName0 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdOne).OptionName;
+            string OptionName1 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdTwo).OptionName;
+            string OptionName2 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdThree).OptionName;
+            string OptionName3 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFour).OptionName;
+            string OptionName4 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFive).OptionName;
+            string BrandName = db.Brands.FirstOrDefault(y => y.BrandId == (db.Products.FirstOrDefault(x => x.ProductId == id).BrandId)).BrandName;
 
-             var datashow = db.Products.Where(x => x.ProductId == id).Select(x => new SellerProductCreateVM
+            var datashow = db.Products.Where(x => x.ProductId == id).Select(x => new SellerProductCreateVM
             {
                 ProductID = x.ProductId,
                 ProductName = x.ProductName,
                 Price = x.Price,
                 ProductDescription = x.ProductDescription,
-                BrandName = db.Brands.FirstOrDefault(y => y.BrandId == x.BrandId).BrandName,
                 ProductImagePathOne = x.ProductImagePathOne,
                 ProductImagePathTwo = x.ProductImagePathTwo,
                 ProductImagePathThree = x.ProductImagePathThree,
-                CategoryName = db.ProductMainCategories.FirstOrDefault(y => y.CategoryId == x.CategoryId).CategoryName,
-                SubcategoryName = db.ProductSubCategories.FirstOrDefault(y => y.SubcategoryId == x.SubcategoryId).SubcategoryName,
-                SpecificationName0 = specification[0],
-                SpecificationName1 = specification[1],
-                SpecificationName2 = specification[2],
-                SpecificationName3 = specification[3],
-                SpecificationName4 = specification[4],
-                OptionName0 = optionames[0],
-                OptionName1 = optionames[1],
-                OptionName2 = optionames[2],
-                OptionName3 = optionames[3],
-                OptionName4 = optionames[4],
-            }); 
-
-
+            }).ToList();
             return View(datashow);
         }
 
-        public ActionResult ChangeStatus(int? id)
+
+            //public ActionResult ProductEdit(int? id)
+            //{
+            //    getAllOptionIds(id);
+            //    int OptionIdOne = optionIds[0];
+            //    int OptionIdTwo = optionIds[1];
+            //    int OptionIdThree = optionIds[2];
+            //    int OptionIdFour = optionIds[3];
+            //    int OptionIdFive = optionIds[4];
+
+            //    var db = new AppDbContext();
+
+            //    var datashow = db.Products.Where(x => x.ProductId == id).Select(x => new SellerProductCreateVM
+            //    {
+            //        ProductID = x.ProductId,
+            //        ProductName = x.ProductName,
+            //        Price = x.Price,
+            //        ProductDescription = x.ProductDescription,
+            //        //BrandName = db.Brands.FirstOrDefault(y => y.BrandId == x.BrandId).BrandName,
+            //        ProductImagePathOne = x.ProductImagePathOne,
+            //        ProductImagePathTwo = x.ProductImagePathTwo,
+            //        ProductImagePathThree = x.ProductImagePathThree,
+            //        //CategoryName = db.ProductMainCategories.FirstOrDefault(y => y.CategoryId == x.CategoryId).CategoryName,
+            //        //SubcategoryName = db.ProductSubCategories.FirstOrDefault(y => y.SubcategoryId == x.SubcategoryId).SubcategoryName,
+            //SpecificationName0 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdOne)).SpecificationId).SpecificationName,
+            //SpecificationName1 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdTwo)).SpecificationId).SpecificationName,
+            //SpecificationName2 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdThree)).SpecificationId).SpecificationName,
+            //SpecificationName3 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdFour)).SpecificationId).SpecificationName,
+            //SpecificationName4 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdFive)).SpecificationId).SpecificationName,
+            //OptionName0 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdOne).OptionName,
+            //OptionName1 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdTwo).OptionName,
+            //OptionName2 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdThree).OptionName,
+            //OptionName3 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFour).OptionName,
+            //OptionName4 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFive).OptionName,
+            //    }).ToList(); 
+
+
+            //    return View(datashow);
+            //}
+
+            public ActionResult ChangeStatus(int? id)
         {
             var db = new AppDbContext();
             var product = db.Products.Find(id);
@@ -97,58 +133,27 @@ namespace prjEShopping.Controllers
         public void getAllOptionIds(int? id)
         {
             var db = new AppDbContext();
-            var optionIds = db.Products
-                              .Where(x => x.ProductId == id)
-                              .Select(x => new
-                              {
-                                  OptionIdOne = x.OptionIdOne,
-                                  OptionIdTwo = x.OptionIdTwo,
-                                  OptionIdThree = x.OptionIdThree,
-                                  OptionIdFour = x.OptionIdFour,
-                                  OptionIdFive = x.OptionIdFive
-                              })
-                              .ToList();
+            var optionIdsQuery = db.Products
+                                  .Where(x => x.ProductId == id)
+                                  .Select(x => new List<string>
+                                  {
+                                    x.OptionIdOne,
+                                    x.OptionIdTwo,
+                                    x.OptionIdThree,
+                                    x.OptionIdFour,
+                                    x.OptionIdFive
+                                  })
+                                  .FirstOrDefault();
 
-            foreach (var optionId in optionIds)
+            if (optionIdsQuery != null)
             {
-                optionids.Add(optionId.OptionIdOne);
-                optionids.Add(optionId.OptionIdTwo);
-                optionids.Add(optionId.OptionIdThree);
-                optionids.Add(optionId.OptionIdFour);
-                optionids.Add(optionId.OptionIdFive);
-            }
-        }
-
-        public void getAllOptionNames() 
-        {
-            var db = new AppDbContext();
-            
-            foreach (var idnames in optionids) 
-            {
-                int intid;
-                intid = Int32.Parse(idnames);
-                var datas = db.ProductOptions.SingleOrDefault(x => x.OptionId == intid).OptionName;
-                optionames.Add(datas);
-            }
-         
-        }
-
-        public void getAllSpecificationNames() 
-        {
-            var db = new AppDbContext();
-            foreach (var optionid in optionids) 
-            {
-                int intid;
-                intid = Int32.Parse(optionid);
-                var datas = db.ProductOptions.Where(x => x.OptionId == intid)
-                    .Join(db.ProductSpecifications, x => x.SpecificationId, y => y.SpecificationId, (x, y) =>
-
-                     y.SpecificationName
-
-                ).FirstOrDefault();
-                specification.Add(datas);
+                optionIdsString.AddRange(optionIdsQuery);
             }
 
-        }
+            optionIds = optionIdsString
+                .Select(x => int.Parse(x))
+                .ToList();
+ 
+        } 
     }
 }
