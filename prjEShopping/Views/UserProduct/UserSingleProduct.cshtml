@@ -121,7 +121,7 @@
 
                     </div>
                     <div class="col mb-3 mb-md-0">
-                        <button class="btn-outline-primary btn rounded-pill btn-lg">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg directadd2cart" data-id="@(Model.ProductId)">
                             <i class="fa-solid fa-wallet"></i>
                             直接購買
                         </button>
@@ -604,40 +604,51 @@
 
         //加入購物車UserCartController/UserAddCart是api
         $(document).ready(function () {
-            $(".add2cart").each(function () {
-                $(this).on("click", async function () {
-                    var self = $(this);
-                    var productId = self.attr("data-id");
+            function addToCart(productId, quantityValue, isDirectAdd) {
+               
+                //計算可購買量
+                var availableStock = parseInt(document.querySelector(".add2cart").getAttribute("data-stockqty"));     
+                
+                var cartqty = @ViewBag.TotalQuantity;
+                
+                var Productstock  = availableStock - quantityValue - cartqty;//庫存-現在數量-購物車數量
+                
+                if (Productstock >= 0) {
+                    //ajax送出request
+                    $.get("/UserCart/UserAddCartapi?ProductId=" + productId + "&Quantity=" + quantityValue)
+                        .done(function () {
+                            $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + productId)
+                                .done(function () {
+                                    if (isDirectAdd) {
+                                        window.location.href = "/UserCart/UserShoppingCart";
+                                    } else {
+                                        $("#addToCartModal").modal("show");//加入購物車成功
+                                        $("#confirmButtonadd").on('click', () => {
+                                            location.reload();
+                                        });
+                                    }
+                                });
+                        });                  
+                }
+                else {
+                    $("#stockCartModal").modal("show");//庫存不足
+                    $("#confirmButtonstock").on('click', () => {
+                        location.reload();
+                    });
+                }
+            }
 
-                    //計算可購買量
-                    var availableStock = self.attr("data-stockqty");
-                    availableStock = parseInt(availableStock);
-                    var cartqty = @ViewBag.TotalQuantity;
-                    //console.log(cartqty)
-                    //var Productstock = Math.max(0, availableStock - quantityValue);
+            $(".add2cart, .directadd2cart").each(function () {
+                $(this).on('click', function () {
+                    var productId = $(this).attr("data-id");
+                    var isDirectAdd = $(this).hasClass("directadd2cart");
 
-                    var Productstock  = availableStock - quantityValue - cartqty;//庫存-現在數量-購物車數量
-                    //console.log(Productstock)
-
-                    if (Productstock >= 0) {
-                        //ajax送出request
-                        const result = await $.get("/UserCart/UserAddCartapi?ProductId=" + productId + "&Quantity=" + quantityValue);
-                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + productId)
-
-                        $("#addToCartModal").modal("show");//加入購物車成功
-                        $("#confirmButtonadd").on('click',()=>{
-                            location.reload();
-                        })
-                    }
-                    else {
-
-                        $("#stockCartModal").modal("show");//庫存不足
-                        $("#confirmButtonstock").on('click', () => {
-                            location.reload();
-                        })
-                    }
+                    addToCart(productId, quantityValue, isDirectAdd)
                 })
             })
+
+
+
         })
 
         //--------------------------------------------------------------------------------------
