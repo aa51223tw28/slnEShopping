@@ -47,6 +47,7 @@ namespace prjEShopping.Models.ViewModels
         public string Phone { get; set; }
 
         [DisplayName("入職時間")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Required]
         public DateTime? DateOfHire { get; set; }
 
@@ -58,5 +59,19 @@ namespace prjEShopping.Models.ViewModels
         [StringLength(50)]
         public string Role { get; set; }
 
+    }
+
+    public class AdminLoginVM
+    {
+
+        [DisplayName("帳號")]
+        [StringLength(50)]
+        [Required]
+        public string AdminAccount { get; set; }
+
+        [DisplayName("密碼")]
+        [StringLength(50)]
+        [Required]
+        public string AdminPassword { get; set; }
     }
 }
