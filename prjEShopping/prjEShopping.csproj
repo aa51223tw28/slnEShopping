@@ -176,7 +176,10 @@
     <Compile Include="Controllers\SellerUpdateController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\UserCouponController.cs" />
+    <Compile Include="Controllers\UserFollowController.cs" />
     <Compile Include="Controllers\UserMembersController.cs" />
+    <Compile Include="Controllers\UserOrderController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UsersCouponsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -289,7 +292,6 @@
     <Content Include="Views\SellerRegister\Create.cshtml" />
     <Content Include="Views\UserMembers\UserLogin.cshtml" />
     <Content Include="Views\UserCart\UserCheckout.cshtml" />
-    <Content Include="Views\UserCart\UserOrderDetail.cshtml" />
     <Content Include="Views\UserCart\UserShoppingCart.cshtml" />
     <Content Include="Views\Admin\AdminLogin.cshtml" />
     <Content Include="Views\Admin\AdminRegister.cshtml" />
@@ -305,6 +307,12 @@
     <Content Include="Views\UsersCoupons\UsersCouponsOverdue.cshtml" />
     <Content Include="Views\UserMembers\UserEditProfile.cshtml" />
     <Content Include="Views\SellerProduct\SellerProductList.cshtml" />
+    <Content Include="Views\UserOrder\UserOrderDetail.cshtml" />
+    <Content Include="Views\UserOrder\UserOrderDetailAll.cshtml" />
+    <Content Include="Views\UserMembers\UserEditPassword.cshtml" />
+    <Content Include="Views\UserCoupon\UserCouponList.cshtml" />
+    <Content Include="Views\UserFollow\UserFollowSeller.cshtml" />
+    <Content Include="Views\UserFollow\UserFollowProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

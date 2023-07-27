@@ -376,11 +376,5 @@ namespace prjEShopping.Controllers
         }
 
 
-
-        [Authorize]
-        public ActionResult UserOrderDetail()//訂單詳情頁面
-        {
-            return View();
-        }
     }
  }
