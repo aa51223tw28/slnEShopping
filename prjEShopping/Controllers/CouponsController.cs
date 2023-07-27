@@ -26,6 +26,7 @@ namespace prjEShopping.Controllers
         public ActionResult Index(int page = 1, int pageSize = 10)
         {
             // 連資料庫
+            //todo 分類篩選頁面異常未排除
             using (db)
             {
                 int totalItems = db.Coupons.Count();
