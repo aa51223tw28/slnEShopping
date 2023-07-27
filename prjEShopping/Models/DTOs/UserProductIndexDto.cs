@@ -33,5 +33,9 @@ namespace prjEShopping.Models.DTOs
         public string OptionNameThree { get; set; }
         public string OptionNameFour { get; set; }
         public string OptionNameFive { get; set; }
+
+        //分類
+        public string CategoryName { get; set; }
+        public string SubcategoryName { get; set; }
     }
 }

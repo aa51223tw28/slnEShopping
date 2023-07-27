@@ -91,10 +91,27 @@ namespace prjEShopping.Controllers
             var optionNameThree = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdThree).Select(x => x.OptionName).FirstOrDefault();
             var optionNameFour = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdFour).Select(x => x.OptionName).FirstOrDefault();
             var optionNameFive = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdFive).Select(x => x.OptionName).FirstOrDefault();
-            
-                        
-            //選項名稱
 
+            //選項名稱
+            var SpecificationIdOne = db.ProductOptions.Where(x => x.OptionName == optionNameOne).Select(x => x.SpecificationId).FirstOrDefault();
+            var SpecificationIdTwo = db.ProductOptions.Where(x => x.OptionName == optionNameTwo).Select(x => x.SpecificationId).FirstOrDefault();
+            var SpecificationIdThree = db.ProductOptions.Where(x => x.OptionName == optionNameThree).Select(x => x.SpecificationId).FirstOrDefault();
+            var SpecificationIdFour = db.ProductOptions.Where(x => x.OptionName == optionNameFour).Select(x => x.SpecificationId).FirstOrDefault();
+            var SpecificationIdOFive = db.ProductOptions.Where(x => x.OptionName == optionNameFive).Select(x => x.SpecificationId).FirstOrDefault();
+
+            var SpecificationNameOne=db.ProductSpecifications.Where(x=>x.SpecificationId== SpecificationIdOne).Select(x => x.SpecificationName).FirstOrDefault();
+            var SpecificationNameTwo = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdTwo).Select(x => x.SpecificationName).FirstOrDefault();
+            var SpecificationNameThree = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdThree).Select(x => x.SpecificationName).FirstOrDefault();
+            var SpecificationNameFour = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdFour).Select(x => x.SpecificationName).FirstOrDefault();
+            var SpecificationNameFive = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdOFive).Select(x => x.SpecificationName).FirstOrDefault();
+
+            //大分類名稱
+            var categoryId = db.Products.Where(x => x.ProductId == productId).Select(x => x.CategoryId).FirstOrDefault();
+            var categoryName=db.ProductMainCategories.Where(x=>x.CategoryId== categoryId).Select(x => x.CategoryName).FirstOrDefault();
+
+            //小分類名稱
+            var subcategoryId=db.Products.Where(x=>x.ProductId== productId).Select(x=>x.SubcategoryId).FirstOrDefault();
+            var subcategoryName=db.ProductSubCategories.Where(x=>x.SubcategoryId== subcategoryId).Select(x=>x.SubcategoryName).FirstOrDefault();
 
             var datas = new UserProductIndexDto()
             {
@@ -110,18 +127,20 @@ namespace prjEShopping.Controllers
 
                 //一堆規格
                 BrandName= brandName,
-                //SpecificationNameOne=,
-                //SpecificationNameTwo=,
-                //SpecificationNameThree=,
-                //SpecificationNameFour=,
-                //SpecificationNameFive=,
+                SpecificationNameOne = SpecificationNameOne,
+                SpecificationNameTwo = SpecificationNameTwo,
+                SpecificationNameThree = SpecificationNameThree,
+                SpecificationNameFour = SpecificationNameFour,
+                SpecificationNameFive = SpecificationNameFive,
 
-                OptionNameOne= optionNameOne,
+                OptionNameOne = optionNameOne,
                 OptionNameTwo= optionNameTwo,
                 OptionNameThree= optionNameThree,
                 OptionNameFour= optionNameFour,
                 OptionNameFive= optionNameFive,
 
+                CategoryName= categoryName,
+                SubcategoryName = subcategoryName,
             };
             //現在購物車該使用者該購物車id該商品的數量
             var qua = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == productId).Select(x => x.Quantity).FirstOrDefault();
