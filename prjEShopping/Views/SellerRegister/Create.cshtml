@@ -1,7 +1,7 @@
 ﻿@model prjEShopping.Models.EFModels.Seller
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
 }
 @if (TempData["Fail"] != null)
 {
@@ -142,7 +142,11 @@
                         </div>
                     </div>
                 }
-
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a href="@Url.Action("Login","SellerLogin")" class="btn btn-outline-primary">返回首頁</a>
+                    </div>
+                </div>
                 <div class="btn btn-light border border-3" id="btndemocreate">demo</div>
             </div>
         </div>

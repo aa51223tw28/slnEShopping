@@ -29,25 +29,16 @@ namespace prjEShopping.Controllers
                 }
                 else
                 {
-                    Session["SellerId"] = vm.SellerId;
+                    Session["StoreName"] = sellerDetail.StoreName;
                     return RedirectToAction("Index", "SellerMain");
                 }
             }
 
-            //var db = new AppDbContext();
-            //if (ModelState.IsValid==true)
-            //{
-            //    var seller = db.Sellers.FirstOrDefault(m => m.SellerAccount == vm.SellerAccount && m.SellerPassword == vm.SellerPassword);
-            //    if (seller != null)
-            //    {
-            //        return View("~/Views/SellerMain/Index.cshtml");
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "請輸入正確帳號或密碼");
-            //    }
-            //}
-            //return View(vm);
+        }
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login", "SellerLogin");
         }
     }
 }
