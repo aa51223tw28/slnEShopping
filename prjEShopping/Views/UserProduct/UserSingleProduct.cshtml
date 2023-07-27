@@ -37,7 +37,7 @@
     <div class="container bg-success rounded py-2">
         <div class="row">
             <div class="col-5">
-                <img src="~/img/@(Model.ProductImagePathOne)" alt="" class="img-fluid" id="mainimg" />
+                <img src="" alt="" class="img-fluid" id="mainimg" />
                 <div class="row">
                     <div class="col">
                         <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid thumb-img" data-target="#mainimg" />
@@ -642,6 +642,27 @@
 
         //--------------------------------------------------------------------------------------
         //點選圖片切換
+        $(document).ready(function () {
+
+            //點選縮圖時切換主圖片
+            $(".thumb-img").on('click', function () {
+                var targetImg = $(this).attr("src");
+                var mainImg = $($(this).data("target"));
+                mainImg.attr("src", targetImg);
+            });
+
+            //點選縮圖時有黃外框
+            $(".thumb-img").on('click', function () {
+                $(".thumb-img").removeClass("selected-thumbnail");
+                $(this).addClass("selected-thumbnail");
+            });
+
+            //一載入頁面同時第一張圖片有外框
+            var firstThumb = $(".thumb-img:first");
+            var mainImg = $(firstThumb.data("target"));
+            mainImg.attr("src", firstThumb.attr("src"));
+            firstThumb.addClass("selected-thumbnail")
+        })
 
     </script>
 
@@ -651,7 +672,7 @@
     <style>
         /*點選圖片要有的樣式*/
         .selected-thumbnail {
-            border: 2px solid red;
+            border: 2px solid #FFE180;
         }
     </style>
     }
