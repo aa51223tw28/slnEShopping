@@ -270,7 +270,9 @@
             $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
                     var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
-                    
+
+
+                    //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
                     const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
                     
                     if (result === "success") {
