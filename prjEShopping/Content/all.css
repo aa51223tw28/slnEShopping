@@ -11635,3 +11635,24 @@ textarea.form-control-lg {
         border-color: black;
     }
 /*# sourceMappingURL=all.css.map */
+
+/*點選圖片要有的樣式--以下三行UserSingleProduct用*/
+.selected-thumbnail {
+    border: 2px solid #FFE180;
+}
+
+.img-fluidMY {
+    max-width: 100%;
+    height: 300PX;
+}
+
+@media (max-width: 992px) {
+    .img-fluidMY {
+        height: 250px;
+    }
+}
+@media (max-width: 768px) {
+    .img-fluidMY {
+        height: 200px;
+    }
+}
