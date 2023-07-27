@@ -1,0 +1,93 @@
+﻿@model IEnumerable<prjEShopping.Models.EFModels.Admin>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PermissionsId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminAccount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminPassword)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminPasswordSalt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdminName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfHire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PermissionsId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminAccount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminPassword)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminPasswordSalt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfHire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JobStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Role)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AdminId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AdminId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AdminId })
+        </td>
+    </tr>
+}
+
+</table>

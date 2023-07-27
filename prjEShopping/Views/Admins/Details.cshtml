@@ -1,0 +1,106 @@
+﻿@model prjEShopping.Models.EFModels.Admin
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Admin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PermissionsId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PermissionsId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminAccount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminAccount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminPassword)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminPasswordSalt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminPasswordSalt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdminName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdminName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfHire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfHire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdminId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

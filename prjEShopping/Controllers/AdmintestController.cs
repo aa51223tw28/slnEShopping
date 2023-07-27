@@ -16,7 +16,7 @@ using System.Web.Mvc;
 
 namespace prjEShopping.Controllers
 {
-    public class AdminController : Controller
+    public class AdmintestController : Controller
     {
         // GET: Admin
         public ActionResult List()
