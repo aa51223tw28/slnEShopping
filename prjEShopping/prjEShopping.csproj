@@ -282,7 +282,7 @@
     <Content Include="Views\SellerProductCreate\ProductCreate.cshtml" />
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserProduct\UserProdutList.cshtml" />
-    <Content Include="Views\SellerUpdate\List.cshtml" />
+    <Content Include="Views\SellerUpdate\Edit.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />

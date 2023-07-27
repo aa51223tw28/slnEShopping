@@ -29,6 +29,7 @@ namespace prjEShopping.Controllers
                 }
                 else
                 {
+                    Session["SellerId"] = sellerDetail.SellerId;
                     Session["StoreName"] = sellerDetail.StoreName;
                     return RedirectToAction("Index", "SellerMain");
                 }

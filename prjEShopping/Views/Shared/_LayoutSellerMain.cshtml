@@ -27,6 +27,7 @@
                             <ul class="navbar-nav me-auto">
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">@Session["StoreName"] 您好</a>
+                                    <input type="hidden" value="@Session["SellerId"]">
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="@Url.Action("Logout","SellerLogin")">登出</a>
@@ -56,7 +57,7 @@
                                 <div class="accordion-body bg-primary">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                            <a href="@Url.Content("~/SellerUpdate/List")" class="text-decoration-none">基本資料修改</a>
+                                            @Html.ActionLink("基本資料修改", "Edit", "SellerUpdate", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                     </ul>
                                 </div>
