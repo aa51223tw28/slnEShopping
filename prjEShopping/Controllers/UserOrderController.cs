@@ -17,6 +17,14 @@ namespace prjEShopping.Controllers
             return View();
         }
 
+
+        [Authorize]
+        public ActionResult UserOrderDetail()//訂單詳細頁面
+        {
+            return View();
+        }
+
+
         [Authorize]
         public ActionResult UserShipmentDetail()//出貨單單詳情頁面
         {

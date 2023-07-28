@@ -1,9 +1,7 @@
-﻿@model List<prjEShopping.Models.ViewModels.UserOrderVM>
-
+﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UserOrderDetail";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    
 }
 
 <div class="bg-light">
@@ -69,71 +67,34 @@
             <!-- 右邊分頁區 -->
             <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
                 <div class="d-flex align-items-center justify-content-between">
-                    <p class="fs-4 mt-3 fw-bold">出貨狀態</p>                   
+                    <p class="fs-4 mt-3 fw-bold">訂單詳情</p>
                 </div>
-
-                <hr style="margin: 0;">
-                <div class="row my-3">
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">準備中</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已出貨</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">待收貨</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/package128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已領取</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/completed128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已完成</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/feedback128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已評價</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                </div>
-
+                     
 
                 <div class="card mb-3">
-
                     <div class="row g-0 bg-lightyellow">
                         <div class="col">
-                            <div class="card-body d-flex">
-                                <h5 class="card-title">訂單編號：</h5>
-                                <h5 class="card-title">20230707U01001</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row g-0 bg-lightyellow">
-                        <div class="col">
-                            <div class="card-body d-flex">
-                                <h5 class="card-title">出貨編號：</h5>
-                                <h5 class="card-title">20230707S01001</h5>
+                            <div class="card-body d-flex align-items-center">
+                                <span class="fs-5">訂單編號：</span>
+                                <span class="fs-5">20230707U01001</span>
+                                <button type="button" class="btn btn-blue ms-2">再買一次</button>
                             </div>
                         </div>
                     </div>
 
 
-                    <!-- 出貨單號1 -->
+
+                    @*一家店*@
+                    <div class="row g-0 bg-light">
+                        <h5 class="card-title ps-2 pt-2">賣家名稱</h5>
+                    </div>
                     <div class="row g-0">
                         <div class="col-md-2">
                             <img src="~/img/hot1.jpg" class="img-fluid rounded-start p-2" alt="...">
                         </div>
                         <div class="col-md-7">
-                            <div class="card-body">                                
+
+                            <div class="card-body">
                                 <p style="margin: 0;">PlayStation 5 主機</p>
                                 <p style="margin: 0;" class="text-muted fs-6">X5</p>
                             </div>
@@ -145,14 +106,36 @@
                         </div>
 
                     </div>
-                    <!-- 出貨單號1 -->
-                    <!-- 出貨單號1 -->
+
                     <div class="row g-0">
                         <div class="col-md-2">
                             <img src="~/img/hot1.jpg" class="img-fluid rounded-start p-2" alt="...">
                         </div>
                         <div class="col-md-7">
-                            <div class="card-body">                                
+                            <div class="card-body">
+                                <p style="margin: 0;">PlayStation 5 主機</p>
+                                <p style="margin: 0;" class="text-muted fs-6">X5</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <div class="card-body">
+                                <h5 class="card-title">$19,999</h5>
+                            </div>
+                        </div>
+                    </div>
+                    @*一家店*@
+
+                    @*一家店*@
+                    <div class="row g-0 bg-light">
+                        <h5 class="card-title ps-2 pt-2">賣家名稱</h5>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-md-2">
+                            <img src="~/img/hot1.jpg" class="img-fluid rounded-start p-2" alt="...">
+                        </div>
+                        <div class="col-md-7">
+
+                            <div class="card-body">
                                 <p style="margin: 0;">PlayStation 5 主機</p>
                                 <p style="margin: 0;" class="text-muted fs-6">X5</p>
                             </div>
@@ -164,12 +147,52 @@
                         </div>
 
                     </div>
-                    <!-- 出貨單號1 -->                    
 
+                    <div class="row g-0">
+                        <div class="col-md-2">
+                            <img src="~/img/hot1.jpg" class="img-fluid rounded-start p-2" alt="...">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <p style="margin: 0;">PlayStation 5 主機</p>
+                                <p style="margin: 0;" class="text-muted fs-6">X5</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-center justify-content-center">
+                            <div class="card-body">
+                                <h5 class="card-title">$19,999</h5>
+                            </div>
+                        </div>
+                    </div>
+                    @*一家店*@
+
+                    <div class="bg-light py-3 px-3">
+                        <div class="d-flex justify-content-between">
+                            <span>商品價格小計：</span>
+                            <span>$99,999</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>運費：</span>
+                            <span>$60</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-danger">運費折扣小計：</span>
+                            <span class="text-danger">-$60</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-danger">已使用賣場優惠券：</span>
+                            <span class="text-danger">-$60</span>
+                        </div>
+                        <div class="d-flex border-top border-2 border-dark pt-2 mt-2 justify-content-between">
+                            <span>訂單金額：</span>
+                            <span>$33,333</span>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
+                </div>
         </div>
     </div>
 </div>
+
+
 
