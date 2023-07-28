@@ -77,7 +77,6 @@ namespace prjEShopping.Controllers
                 return View();
             }
             var db = new AppDbContext();
-            
             db.Sellers.Add(s);
             db.SaveChanges();
             TempData["Success"] = "您已註冊成功！";
