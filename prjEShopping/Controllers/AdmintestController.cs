@@ -16,7 +16,7 @@ using System.Web.Mvc;
 
 namespace prjEShopping.Controllers
 {
-    public class AdminController : Controller
+    public class AdmintestController : Controller
     {
         // GET: Admin
         public ActionResult List()
@@ -136,9 +136,25 @@ namespace prjEShopping.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdminEdit(AdminVM vm)
+        public ActionResult AdminEdit(Admin admin)
         {
-            return View();
+            var db = new AppDbContext();
+            var dbAdmin = db.Admins.FirstOrDefault(a => a.AdminId == admin.AdminId);
+            if (dbAdmin == null)
+            {
+                // Handle the case where the admin was not found in the database
+                return HttpNotFound();
+            }
+            if (TryUpdateModel(dbAdmin))
+            {
+                db.SaveChanges();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                // Handle the case where the model was invalid
+                return View(admin);
+            }
         }
 
         public ActionResult AdminEdit2(AdminVM am)

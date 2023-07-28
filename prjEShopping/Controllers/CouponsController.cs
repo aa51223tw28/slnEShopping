@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 
 namespace prjEShopping.Controllers
 {
@@ -24,22 +25,41 @@ namespace prjEShopping.Controllers
         //優惠券列表分頁專用
         public ActionResult Index(int page = 1, int pageSize = 10)
         {
-            // 連資料庫
+            //todo 分類篩選頁面異常未排除
             using (db)
             {
                 int totalItems = db.Coupons.Count();
                 //Skip(page - 1) * pageSize records and Take pageSize records
-               var items = db.Coupons
-                             .OrderBy(c => c.CouponId)  // 依照Id排序
-                             .Skip((page - 1) * pageSize)
-                             .Take(pageSize)
-                             .ToList();
+                var items = db.Coupons
+                              .OrderBy(c => c.CouponId)  // 依照Id排序
+                              .Skip((page - 1) * pageSize)
+                              .Take(pageSize);
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
-                    Items = items  //優惠券
+                    Items = vm  //優惠券
                 };
 
                 //重要 要分開
@@ -58,40 +78,59 @@ namespace prjEShopping.Controllers
 
         //todo 優惠券列表分頁VM未搬家
         //優惠券分頁的VM 之後再搬家
-        public class PaginatedViewModel<Coupon>
+        public class PaginatedViewModel<CouponVM>
         {
             public int CurrentPage { get; set; }
             public int TotalPages { get; set; }
-            public List<Coupon> Items { get; set; }
+            public List<CouponVM> Items { get; set; }
         }
 
         // GET: Coupons/Create
 
         //todo 建立欄位商家專屬優惠券未連結商家資料庫
-        //todo 優惠折扣內容選取欄位未變更 (選取免運 條件變成免運 選取打折 95折 9折 5折 或輸入數字+折字 選取抵扣 抵300 抵500 或填寫數字等)
 
         // GET: Coupons/All
         public ActionResult CouponsAll(int page = 1, int pageSize = 10)
         {
             using (db)
             {
+
                 int totalItems = db.Coupons.Count();
                 //Skip(page - 1) * pageSize records and Take pageSize records
                 var items = db.Coupons
                               .OrderBy(c => c.CouponId)  // 依照Id排序
                               .Skip((page - 1) * pageSize)
-                              .Take(pageSize)
-                              .ToList();
+                              .Take(pageSize);
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
-                    Items = items  //優惠券
+                    Items = vm  //優惠券
                 };
 
-                    // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
-                    return PartialView("_IndexCoupons", model);
+                // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
+                return PartialView("_IndexCoupons", model);
             }
         }
 
@@ -106,14 +145,32 @@ namespace prjEShopping.Controllers
                 var items = openCoupons
                    .OrderBy(c => c.CouponId)
                    .Skip((page - 1) * pageSize)
-                   .Take(pageSize)
-                   .ToList();
+                   .Take(pageSize);
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    Items = items
+                    Items = vm
                 };
 
                 //return new EmptyResult();
@@ -134,11 +191,30 @@ namespace prjEShopping.Controllers
                    .Take(pageSize)
                    .ToList();
 
-                var model = new PaginatedViewModel<Coupon>
+                var vm = items.Select(c => new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                }).ToList();
+
+                var model = new PaginatedViewModel<CouponVM>
                 {
                     CurrentPage = page,
                     TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    Items = items
+                    Items = vm
                 };
 
                 //return new EmptyResult();
@@ -166,9 +242,9 @@ namespace prjEShopping.Controllers
 
             ViewBag.CouponNum = CouponNum;
 
-            var SellerName=db.Sellers.Select(x=>x.SellerName).ToList();
+            var Sellers = db.Sellers.Select(x => x.StoreName).ToList();
 
-            ViewBag.SellerName = SellerName;
+            ViewBag.StoreName = Sellers;
 
             return View();
         }
@@ -183,8 +259,31 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CouponId,CouponNumber,CouponName,CouponDetails,Quantity,CouponTerms,CouponType,Discount,Storewide,StartTime,ClaimDeadline,EndTime,EventStatus")] Coupon coupon)
+        public ActionResult Create([Bind(Include = "CouponId,SellerId,CouponNumber,CouponName,CouponDetails,Quantity,ReceivedQuantity,CouponTerms,CouponType,Discount,Storewide,StartTime,ClaimDeadline,EndTime,EventStatus")] CouponVM vm)
         {
+            int _sellerId =0;
+            if (vm.Storewide != "全館")
+                _sellerId = db.Sellers.Where(s => s.StoreName == vm.Storewide).Select(s => s.SellerId).FirstOrDefault();
+
+            var coupon = new Coupon
+            {
+                CouponId = vm.CouponId,
+                SellerId = _sellerId,
+                CouponNumber = vm.CouponNumber,
+                CouponName = vm.CouponName,
+                CouponDetails = vm.CouponDetails,
+                Quantity = vm.Quantity,
+                ReceivedQuantity = 0,
+                CouponTerms = vm.CouponTerms,
+                CouponType = vm.CouponType,
+                Discount = vm.Discount,
+                Storewide = vm.Storewide,
+                StartTime = vm.StartTime,
+                ClaimDeadline = vm.ClaimDeadline,
+                EndTime = vm.EndTime,
+                EventStatus = vm.EventStatus
+            };
+
             if (ModelState.IsValid)
             {
                 db.Coupons.Add(coupon);
@@ -202,12 +301,32 @@ namespace prjEShopping.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Coupon coupon = db.Coupons.Find(id);
-            if (coupon == null)
+            Coupon c = db.Coupons.Find(id);
+            if (c == null)
             {
                 return HttpNotFound();
             }
-            return View(coupon);
+
+            var vm = new CouponVM
+            {
+                CouponId =(int)c.CouponId,
+                SellerId =(int)c.SellerId,
+                CouponNumber = c.CouponNumber,
+                CouponName = c.CouponName,
+                CouponDetails = c.CouponDetails,
+                Quantity =(int) c.Quantity,
+                ReceivedQuantity =(int)c.ReceivedQuantity,
+                CouponTerms = c.CouponTerms,
+                CouponType = c.CouponType,
+                Discount = c.Discount,
+                Storewide = c.Storewide,
+                StartTime = c.StartTime,
+                ClaimDeadline = c.ClaimDeadline,
+                EndTime = c.EndTime,
+                EventStatus = c.EventStatus
+            };
+
+            return View(vm);
         }
 
         // POST: Coupons/Edit/5
@@ -215,8 +334,27 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CouponId,CouponNumber,CouponName,CouponDetails,Quantity,CouponTerms,CouponType,Discount,Storewide,StartTime,ClaimDeadline,EndTime,EventStatus")] Coupon coupon)
+        public ActionResult Edit([Bind(Include = "CouponId,SellerId,CouponNumber,CouponName,CouponDetails,Quantity,ReceivedQuantity,CouponTerms,CouponType,Discount,Storewide,StartTime,ClaimDeadline,EndTime,EventStatus")] CouponVM vm)
         {
+            var coupon = new Coupon
+            {
+                CouponId =(int) vm.CouponId,
+                SellerId =(int) vm.SellerId,
+                CouponNumber = vm.CouponNumber,
+                CouponName = vm.CouponName,
+                CouponDetails = vm.CouponDetails,
+                Quantity = (int)vm.Quantity,
+                ReceivedQuantity =(int)vm.ReceivedQuantity,
+                CouponTerms = vm.CouponTerms,
+                CouponType = vm.CouponType,
+                Discount = vm.Discount,
+                Storewide = vm.Storewide,
+                StartTime = vm.StartTime,
+                ClaimDeadline = vm.ClaimDeadline,
+                EndTime = vm.EndTime,
+                EventStatus = vm.EventStatus
+            };
+
             if (ModelState.IsValid)
             {
                 db.Entry(coupon).State = EntityState.Modified;
@@ -224,32 +362,6 @@ namespace prjEShopping.Controllers
                 return RedirectToAction("Index");
             }
             return View(coupon);
-        }
-
-        // GET: Coupons/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Coupon coupon = db.Coupons.Find(id);
-            if (coupon == null)
-            {
-                return HttpNotFound();
-            }
-            return View(coupon);
-        }
-
-        // POST: Coupons/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Coupon coupon = db.Coupons.Find(id);
-            db.Coupons.Remove(coupon);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

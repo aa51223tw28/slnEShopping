@@ -1,4 +1,5 @@
 ﻿using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,16 +17,15 @@ namespace prjEShopping.Controllers
         //未領取優惠券列表
         public ActionResult List(int? userId)
         {
-            //todo 要判定總數量是否<0 
-            //先預設
+            //todo 先預設userId=1
             userId = 1;
             var _coupons = db.Coupons
-                .Where(x => x.StartTime < DateTime.Now && x.EndTime > DateTime.Now)
+                .Where(x => x.StartTime < DateTime.Now && x.EndTime > DateTime.Now&&x.Quantity-x.ReceivedQuantity>0)
                 .Select(c => c.CouponId);
 
             // 找出已有的CouponId
             var usersCouponIds = db.UsersCoupons
-                .Where(u => u.UserId == userId)  // 用你的用户ID替换这里
+                .Where(u => u.UserId == userId)  
                 .Select(uc => uc.CouponId.Value);
 
             // 剔除相同的優惠券
@@ -34,6 +34,24 @@ namespace prjEShopping.Controllers
             // 取得的剩下的優惠券
             var model = db.Coupons
                 .Where(c => couponsToDisplay.Contains(c.CouponId) && c.EventStatus == "open")
+                .Select(c=>new CouponVM
+                {
+                    CouponId = c.CouponId,
+                    SellerId = c.SellerId,
+                    CouponNumber = c.CouponNumber,
+                    CouponName = c.CouponName,
+                    CouponDetails = c.CouponDetails,
+                    Quantity = c.Quantity,
+                    ReceivedQuantity = c.ReceivedQuantity,
+                    CouponTerms = c.CouponTerms,
+                    CouponType = c.CouponType,
+                    Discount = c.Discount,
+                    Storewide = c.Storewide,
+                    StartTime = c.StartTime,
+                    ClaimDeadline = c.ClaimDeadline,
+                    EndTime = c.EndTime,
+                    EventStatus = c.EventStatus
+                } )
                 .ToList();
 
             return View(model);
@@ -52,6 +70,12 @@ namespace prjEShopping.Controllers
 
             if (ModelState.IsValid)
             {
+                var coupon = db.Coupons.FirstOrDefault(c => c.CouponId == couponId);
+                if (coupon != null) // 確保找到了 Coupon
+                {
+                    coupon.ReceivedQuantity += 1;
+                    db.SaveChanges();
+                }
                 db.UsersCoupons.Add(usersCoupon);
                 db.SaveChanges();
                 return RedirectToAction("List");
@@ -68,6 +92,24 @@ namespace prjEShopping.Controllers
 
             var model = db.Coupons
                           .Where(c => usersCouponIds.Contains(c.CouponId) && c.EndTime > DateTime.Now)
+                          .Select(c => new CouponVM
+                          {
+                              CouponId = c.CouponId,
+                              SellerId = c.SellerId,
+                              CouponNumber = c.CouponNumber,
+                              CouponName = c.CouponName,
+                              CouponDetails = c.CouponDetails,
+                              Quantity = c.Quantity,
+                              ReceivedQuantity = c.ReceivedQuantity,
+                              CouponTerms = c.CouponTerms,
+                              CouponType = c.CouponType,
+                              Discount = c.Discount,
+                              Storewide = c.Storewide,
+                              StartTime = c.StartTime,
+                              ClaimDeadline = c.ClaimDeadline,
+                              EndTime = c.EndTime,
+                              EventStatus = c.EventStatus
+                          })
                           .ToList();
 
             return View(model);
@@ -81,6 +123,24 @@ namespace prjEShopping.Controllers
 
             var model = db.Coupons
                           .Where(c => usersCouponIds.Contains(c.CouponId))
+                          .Select(c => new CouponVM
+                          {
+                              CouponId = c.CouponId,
+                              SellerId = c.SellerId,
+                              CouponNumber = c.CouponNumber,
+                              CouponName = c.CouponName,
+                              CouponDetails = c.CouponDetails,
+                              Quantity = c.Quantity,
+                              ReceivedQuantity = c.ReceivedQuantity,
+                              CouponTerms = c.CouponTerms,
+                              CouponType = c.CouponType,
+                              Discount = c.Discount,
+                              Storewide = c.Storewide,
+                              StartTime = c.StartTime,
+                              ClaimDeadline = c.ClaimDeadline,
+                              EndTime = c.EndTime,
+                              EventStatus = c.EventStatus
+                          })
                           .ToList();
 
             return View(model);
@@ -94,6 +154,24 @@ namespace prjEShopping.Controllers
 
             var model = db.Coupons
                           .Where(c => usersCouponIds.Contains(c.CouponId) && c.EndTime < DateTime.Now)
+                          .Select(c => new CouponVM
+                          {
+                              CouponId = c.CouponId,
+                              SellerId = c.SellerId,
+                              CouponNumber = c.CouponNumber,
+                              CouponName = c.CouponName,
+                              CouponDetails = c.CouponDetails,
+                              Quantity = c.Quantity,
+                              ReceivedQuantity = c.ReceivedQuantity,
+                              CouponTerms = c.CouponTerms,
+                              CouponType = c.CouponType,
+                              Discount = c.Discount,
+                              Storewide = c.Storewide,
+                              StartTime = c.StartTime,
+                              ClaimDeadline = c.ClaimDeadline,
+                              EndTime = c.EndTime,
+                              EventStatus = c.EventStatus
+                          })
                           .ToList();
 
             return View(model);

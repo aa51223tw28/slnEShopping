@@ -165,7 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\AdmintestController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
@@ -187,6 +188,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\AdminDto.cs" />
+    <Compile Include="Models\DTOs\CouponDto.cs" />
     <Compile Include="Models\DTOs\UserProductIndexDto.cs" />
     <Compile Include="Models\EFModels\AccessRight.cs" />
     <Compile Include="Models\EFModels\Admin.cs" />
@@ -229,10 +231,8 @@
     <Compile Include="Models\Infra\UserResult.cs" />
     <Compile Include="Models\Interface\IAdminRepository.cs" />
     <Compile Include="Models\Services\AdminService.cs" />
-    <Compile Include="Models\ViewModels\AdminEditVM.cs" />
-    <Compile Include="Models\ViewModels\AdminLoginVM.cs" />
-    <Compile Include="Models\ViewModels\AdminRegisterVM.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
+    <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductListVM.cs" />
@@ -278,7 +278,7 @@
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutMain.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Admin\List.cshtml" />
+    <Content Include="Views\Admintest\List.cshtml" />
     <Content Include="Views\Shared\_LayoutUpdate.cshtml" />
     <Content Include="Views\Update\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutSellerMain.cshtml" />
@@ -291,14 +291,14 @@
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />
-    <Content Include="Views\Admin\AdminEdit.cshtml" />
+    <Content Include="Views\Admintest\AdminEdit.cshtml" />
     <Content Include="Views\SellerRegister\Create.cshtml" />
     <Content Include="Views\UserMembers\UserLogin.cshtml" />
     <Content Include="Views\UserCart\UserCheckout.cshtml" />
     <Content Include="Views\UserCart\UserShoppingCart.cshtml" />
-    <Content Include="Views\Admin\AdminLogin.cshtml" />
-    <Content Include="Views\Admin\AdminRegister.cshtml" />
-    <Content Include="Views\Admin\AdminEdit2.cshtml" />
+    <Content Include="Views\Admintest\AdminLogin.cshtml" />
+    <Content Include="Views\Admintest\AdminRegister.cshtml" />
+    <Content Include="Views\Admintest\AdminEdit2.cshtml" />
     <Content Include="Views\Coupons\Delete.cshtml" />
     <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
@@ -310,6 +310,10 @@
     <Content Include="Views\UsersCoupons\UsersCouponsOverdue.cshtml" />
     <Content Include="Views\UserMembers\UserEditProfile.cshtml" />
     <Content Include="Views\SellerProduct\SellerProductList.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
     <Content Include="Views\SellerProduct\ProductEdit.cshtml" />
     <Content Include="Views\UserOrder\UserShipmentDetail.cshtml" />
     <Content Include="Views\UserOrder\UserOrderDetailAll.cshtml" />

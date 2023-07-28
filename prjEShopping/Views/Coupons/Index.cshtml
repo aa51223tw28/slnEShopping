@@ -1,12 +1,13 @@
-﻿@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.EFModels.Coupon>
+﻿@*@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.EFModels.Coupon>*@
+@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.ViewModels.CouponVM>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="col-9 bg-secondary ">
-    <h2 >優惠券列表</h2>
-    <select id="select1"   class="form-select form-select-lg mb-3">
+    <h2>優惠券列表</h2>
+    <select id="select1" class="form-select form-select-lg mb-3">
         <option selected value="all">全列表</option>
         <option id="" value="open">進行中票券</option>
         <option id="" value="close">已結束票券</option>
@@ -19,15 +20,15 @@
 
 @section Scripts{
     <script>
-//        const btn = document.querySelector('#showOpening')
-//        btn.addEventListener('click', function () {
-///*            alert("123");*/
-//            fetch('/Coupons/CouponsOpening')
-//                .then(response => response.text())
-//                .then(data => {
-//                    document.getElementById('dataContainer').innerHTML = data;
-//                });
-//        });
+        //        const btn = document.querySelector('#showOpening')
+        //        btn.addEventListener('click', function () {
+        ///*            alert("123");*/
+        //            fetch('/Coupons/CouponsOpening')
+        //                .then(response => response.text())
+        //                .then(data => {
+        //                    document.getElementById('dataContainer').innerHTML = data;
+        //                });
+        //        });
 
         //document.querySelector('#showOpening').addEventListener('click', async function () {
         //    /*alert("123");*/
@@ -42,7 +43,7 @@
 
         document.querySelector('#select1').addEventListener('change', async function (e) {
             var selectedOption = e.target.value;
-            if (selectedOption == "all") { 
+            if (selectedOption == "all") {
                 /*alert("000");*/
                 try {
                     const response = await fetch('/Coupons/CouponsAll');
@@ -52,7 +53,7 @@
                     console.error('Error:', error);
                 }
             }
-              
+
             if (selectedOption == "open") {
                 /*alert("123");*/
                 try {
@@ -63,9 +64,9 @@
                     console.error('Error:', error);
                 }
             }
-                
+
             if (selectedOption == "close") {
-               /* alert("456");*/
+                /* alert("456");*/
                 try {
                     const response = await fetch('/Coupons/CouponsClosing');
                     const data = await response.text();

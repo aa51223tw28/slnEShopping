@@ -1,4 +1,5 @@
-﻿@model prjEShopping.Models.EFModels.Coupon
+﻿@*@model prjEShopping.Models.EFModels.Coupon*@
+@model prjEShopping.Models.ViewModels.CouponVM
 
 @{
     ViewBag.Title = "Edit";
@@ -11,130 +12,131 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.CouponId)
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CouponNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.CouponNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.CouponNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CouponName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.CouponName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CouponName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CouponDetails, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.CouponDetails, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CouponDetails, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    <input type="number" id="Quantity" name="Quantity" class="form-control" value="@Html.DisplayFor(model => model.Quantity)" min="@Html.DisplayFor(model => model.Quantity)" required />
-                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CouponTerms, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @*@Html.EditorFor(model => model.CouponTerms, new { htmlAttributes = new { @class = "form-control" } })*@
-                    <select id="CouponTerms" name="CouponTerms" class="form-control">
-                        <option>@Html.DisplayFor(model => model.CouponTerms)</option>
-                        <option>滿2000</option>
-                        <option>滿5000</option>
-                        <option>滿10000</option>
-                        <option>週年慶期間</option>
-                        <option>生日月期間</option>
-                    </select>
-                    @Html.ValidationMessageFor(model => model.CouponTerms, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    <select id="CouponType" name="CouponType" class="form-control" >
-                        <option>@Html.DisplayFor(model => model.CouponType)</option>
-                        @*<option value="折價券">折價券</option>
-                        <option value="抵用券">抵用券</option>
-                        <option value="免運券">免運券</option>*@
-                    </select>
-                    @*@Html.EditorFor(model => model.CouponType, new { htmlAttributes = new { @class = "form-control" } })*@
-                    @Html.ValidationMessageFor(model => model.CouponType, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Storewide, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    @Html.EditorFor(model => model.Storewide, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.Storewide, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    <input type="date" id="StartTime" name="StartTime" class="form-control" required value="@Html.DisplayFor(model => model.StartTime)" readonly />
-                    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ClaimDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    <input type="date" id="ClaimDeadline" name="ClaimDeadline" class="form-control" required value="@Html.DisplayFor(model => model.ClaimDeadline)"/>
-                    @Html.ValidationMessageFor(model => model.ClaimDeadline, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    <input type="date" id="EndTime" name="EndTime" class="form-control" required value="@Html.DisplayFor(model => model.ClaimDeadline)" />
-                    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.EventStatus, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-6">
-                    <input type="radio" id="EventStatus" name="EventStatus" value="open" @(Model.EventStatus == "open" ? "checked" : "") />
-                    <label>開啟活動</label>
-                    <input type="radio" id="EventStatus" name="EventStatus" value="close" @(Model.EventStatus == "close" ? "checked" : "") />
-                    <label>關閉活動</label>
-                    @Html.ValidationMessageFor(model => model.EventStatus, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-6">
-                    <input type="submit" value="修改" class="btn btn-primary my-2" />
-                </div>
-            </div>
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CouponId)
+    @Html.HiddenFor(model => model.SellerId)
+    @Html.HiddenFor(model => model.ReceivedQuantity)
+    <div class="form-group">
+        @Html.LabelFor(model => model.CouponNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.CouponNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.CouponNumber, "", new { @class = "text-danger" })
         </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CouponName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.CouponName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CouponName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CouponDetails, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.CouponDetails, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CouponDetails, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <input type="number" id="Quantity" name="Quantity" class="form-control" value="@Html.DisplayFor(model => model.Quantity)" min="@Html.DisplayFor(model => model.Quantity)" required />
+            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CouponTerms, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @*@Html.EditorFor(model => model.CouponTerms, new { htmlAttributes = new { @class = "form-control" } })*@
+            <select id="CouponTerms" name="CouponTerms" class="form-control">
+                <option>@Html.DisplayFor(model => model.CouponTerms)</option>
+                <option>滿2000</option>
+                <option>滿5000</option>
+                <option>滿10000</option>
+                <option>週年慶期間</option>
+                <option>生日月期間</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.CouponTerms, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <select id="CouponType" name="CouponType" class="form-control">
+                <option>@Html.DisplayFor(model => model.CouponType)</option>
+                @*<option value="折價券">折價券</option>
+                    <option value="抵用券">抵用券</option>
+                    <option value="免運券">免運券</option>*@
+            </select>
+            @*@Html.EditorFor(model => model.CouponType, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.ValidationMessageFor(model => model.CouponType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Storewide, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(model => model.Storewide, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Storewide, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <input type="date" id="StartTime" name="StartTime" class="form-control" required value="@Html.DisplayFor(model => model.StartTime)" readonly />
+            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ClaimDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <input type="date" id="ClaimDeadline" name="ClaimDeadline" class="form-control" required value="@Html.DisplayFor(model => model.ClaimDeadline)" />
+            @Html.ValidationMessageFor(model => model.ClaimDeadline, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <input type="date" id="EndTime" name="EndTime" class="form-control" required value="@Html.DisplayFor(model => model.EndTime)" />
+            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EventStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            <input type="radio" id="EventStatus" name="EventStatus" value="open" @(Model.EventStatus == "open" ? "checked" : "") />
+            <label>開啟活動</label>
+            <input type="radio" id="EventStatus" name="EventStatus" value="close" @(Model.EventStatus == "close" ? "checked" : "") />
+            <label>關閉活動</label>
+            @Html.ValidationMessageFor(model => model.EventStatus, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-6">
+            <input type="submit" value="修改" class="btn btn-primary my-2" />
+        </div>
+    </div>
+</div>
     }
 
     <div>
@@ -146,25 +148,20 @@
     <script>
         $(document).ready(function () {
 
-            let today = new Date();
+            const ClaimDeadline = $('#ClaimDeadline');
+            const EndTime = $('#EndTime');
 
-            // Set tomorrow's date for ClaimDeadline
-            let tomorrow = new Date();
-            tomorrow.setDate(today.getDate() + 1);
-            let tomorrowStr = tomorrow.toISOString().split('T')[0];
-            $("#ClaimDeadline").attr("min", tomorrowStr);
-            $("#EndTime").attr("min", tomorrowStr);
-            $("#ClaimDeadline").val(tomorrowStr);
-            $("#EndTime").val(tomorrowStr);
-        });
+            // Set minimum date for ClaimDeadline and EndTime
+            ClaimDeadline.attr("min", ClaimDeadline.val());
+            EndTime.attr("min", EndTime.val());
 
-        $("#StartTime").change(function () {
-            $("#ClaimDeadline").val("");
-            $("#EndTime").val("");
-            let selectedDate = new Date(this.value);
-            selectedDate.setDate(selectedDate.getDate() + 1);
-            let nextDateStr = selectedDate.toISOString().split('T')[0];
-            $("#ClaimDeadline").attr("min", nextDateStr);
+            // If the selected date is less than minimum, reset the selected date
+            if (new Date(ClaimDeadline.val()) < new Date(StartTime.val())) {
+                ClaimDeadline.val("");
+            }
+            if (new Date(EndTime.val()) < new Date(ClaimDeadline.val())) {
+                EndTime.val("");
+            }
         });
 
         $("#ClaimDeadline").change(function () {
@@ -173,7 +170,12 @@
             selectedDate.setDate(selectedDate.getDate());
             let nextDateStr = selectedDate.toISOString().split('T')[0];
             $("#EndTime").attr("min", nextDateStr);
+
+            // If the selected date is less than minimum, reset the selected date
+            if (new Date($("#EndTime").val()) < selectedDate) {
+                $("#EndTime").val("");
+            }
         });
 
     </script>
-    }
+}

@@ -1,5 +1,6 @@
 ﻿@*優惠券分頁*@
-@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.EFModels.Coupon>
+@*@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.EFModels.Coupon>*@
+@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.ViewModels.CouponVM>
 @{
     ViewBag.Title = "Index";
 }
@@ -138,7 +139,7 @@
                                     {
                                         <text>@Html.DisplayFor(modelItem => item.Discount)元</text>
                                     }
-                                    else if (item.CouponType =="免運券" )
+                                    else if (item.CouponType == "免運券")
                                     {
                                         <text>免運</text>
                                     }
@@ -149,7 +150,7 @@
                                     <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
                                     <button type="button" class="btn btn-secondary ms-3">領取</button>
                                 </div>
-</div>
+                            </div>
                         </div>
                     </td>
                     <td>@Html.DisplayFor(modelItem => item.CouponTerms)</td>
@@ -162,7 +163,7 @@
         @*分頁標籤設定*@
         <nav>
             <ul class="pagination">
-                @if (Model.CurrentPage > 1 )
+                @if (Model.CurrentPage > 1)
                 {
                     <li class="page-item" id="Previous">
                         <a class="page-link " href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">Previous</a>
