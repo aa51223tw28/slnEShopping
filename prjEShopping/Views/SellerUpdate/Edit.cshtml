@@ -3,7 +3,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
-
+@if (TempData["Fail"] != null)
+{
+    <script>alert("@TempData["Fail"].ToString()")</script>
+}
 
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
@@ -36,10 +39,10 @@
             <div class="col-sm-9">
                 <div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
-                        <span>統編：</span>
+                        <span>商家姓名：</span>
                     </div>
                     <div class="col-7">
-                        @Html.DisplayFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -52,10 +55,10 @@
                 </div>
                 <div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
-                        <span>商家姓名：</span>
+                        <span>統編：</span>
                     </div>
                     <div class="col-7">
-                        @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DisplayFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -64,14 +67,6 @@
                     </div>
                     <div class="col-7">
                         @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control", name = "SellerAccount" } })
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-5 d-flex align-items-center">
-                        <span>使用者密碼：</span>
-                    </div>
-                    <div class="col-7">
-                        @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control", name = "SellerPassword" } })
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -132,7 +127,14 @@
                         @Html.EditorFor(model => model.StoreIntro, new { htmlAttributes = new { @class = "form-control", name = "StoreIntro" } })
                     </div>
                 </div>
-
+                <br />
+                <div class="form-group">
+                    請輸入密碼:
+                    <div class="col-md-12">
+                        @Html.PasswordFor(model => model.SellerPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+                <br />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="修改" class="btn btn-secondary" style="float:right" />
@@ -183,22 +185,22 @@
 
             }
         })
-                    //表單點擊送出
-                    //$("#submit").click(()=>{
-                    //    event.preventDefault()
-                    //    var xhr = new XMLHttpRequest();
+                        //表單點擊送出
+                        //$("#submit").click(()=>{
+                        //    event.preventDefault()
+                        //    var xhr = new XMLHttpRequest();
 
-                    //    var formData = new FormData(document.formUpload);
-                    //    formData.append('file',input.files[0])
+                        //    var formData = new FormData(document.formUpload);
+                        //    formData.append('file',input.files[0])
 
-                    //    xhr.open('POST', '/api/UploadProfilePhoto')
-                    //    xhr.send(formData)
+                        //    xhr.open('POST', '/api/UploadProfilePhoto')
+                        //    xhr.send(formData)
 
-                    //    xhr.addEventListener('load',()=>{
-                    //       const result = xhr.responseText
-                    //       alert(result)
-                    //    })
-                    //})
+                        //    xhr.addEventListener('load',()=>{
+                        //       const result = xhr.responseText
+                        //       alert(result)
+                        //    })
+                        //})
     </script>
 }
 

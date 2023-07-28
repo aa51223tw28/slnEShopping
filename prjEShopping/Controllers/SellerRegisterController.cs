@@ -30,6 +30,15 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult Create(Seller s, HttpPostedFileBase photo)
         {
+            var db = new AppDbContext();
+
+            // 檢查是否有相同的帳號已經存在於資料庫中
+            var newAccount = db.Sellers.FirstOrDefault(x => x.SellerAccount == s.SellerAccount);
+            if (newAccount != null)
+            {
+                TempData["Fail"] = "此帳號已經被註冊！";
+                return View();
+            }
             if (photo != null && photo.ContentLength > 0)
             {
                 // 確認有上傳圖片
@@ -41,7 +50,7 @@ namespace prjEShopping.Controllers
                 var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
 
                 // 獲取伺服器上的路徑
-                var serverPath = Server.MapPath("~/Uploads/"); // 這裡假設保存到名為 "Uploads" 的資料夾中
+                var serverPath = Server.MapPath("~/img/"); //儲存到 "img" 的資料夾中
 
                 // 確保資料夾存在
                 if (!Directory.Exists(serverPath))
@@ -102,7 +111,6 @@ namespace prjEShopping.Controllers
                 TempData["Fail"] = "商城介紹為必填欄位！";
                 return View();
             }
-            var db = new AppDbContext();
             db.Sellers.Add(s);
             db.SaveChanges();
             TempData["Success"] = "您已註冊成功！";

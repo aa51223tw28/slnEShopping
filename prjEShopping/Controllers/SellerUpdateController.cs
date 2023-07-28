@@ -46,17 +46,16 @@ namespace prjEShopping.Controllers
         public ActionResult Edit(SellerRegisterVM s)
         {
             var editId = (int)Session["SellerId"];
-            //Debug.WriteLine("editId: " + editId);
             var db = new AppDbContext();
             var data = db.Sellers.FirstOrDefault(x => x.SellerId == editId);
-            //var datas = new SellerRegisterVM
-            //{
-            //    SellerName = data.SellerName,
-            //    StoreName = data.StoreName,
-            //    SellerImagePath = data.SellerImagePath
-            //};
             if (data != null)
             {
+                string password = Request.Form["SellerPassword"];
+                if (password != data.SellerPassword)
+                {
+                    TempData["Fail"] = "密碼輸入不正確！";
+                    return View(s);
+                }
                 if (s.photo != null)
                 {
                     string photoName = Guid.NewGuid().ToString() + ".jpg";
@@ -76,6 +75,7 @@ namespace prjEShopping.Controllers
                 //data.ShippingMethodId = (db.ShippingMethods.Where(x => x.ShippingMethodId == s.ShippingMethodId).SingleOrDefault()).ShippingMethodId;
                 db.SaveChanges();
                 TempData["Success"] = "您已修改完成！";
+                return RedirectToAction("Index", "SellerMain");
             } 
             return View("~/Views/SellerMain/Index.cshtml");
         }
