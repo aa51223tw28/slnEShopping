@@ -14,24 +14,24 @@
         <div class="modal-body">
             @using (Html.BeginForm("Login", "SellerLogin", FormMethod.Post))
             {
-               <div class="form-group">
+                <div class="form-group">
                     @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control mt-3", placeholder = "請輸入帳號", id = "SellerAccount" } })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control mt-3", placeholder = "請輸入密碼", id = "SellerPassword" } })
+                </div>
+                <div class="form-group" style="float:right">
+                    <input type="checkbox" class="remember">記住我的密碼
+                </div>
+                <br />
+                <label class="error">@Html.DisplayFor(model => model.LoginErrorMessage)</label>
+                <div class="d-grid gap-2 mb-3">
+                    <input type="submit" value="登入" class="btn btn-secondary mt-3" />
+                    <input type="reset" value="取消" class="btn btn-secondary mt-3" />
+                </div>
+                <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
+            }
         </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control mt-3", placeholder = "請輸入密碼", id = "SellerPassword" } })
-        </div>
-        <div class="form-group" style="float:right">
-            <input type="checkbox" class="remember">記住我的密碼
-        </div>
-        <br />
-        <label class="error">@Html.DisplayFor(model=>model.LoginErrorMessage)</label>
-        <div class="d-grid gap-2 mb-3">
-            <input type="submit" value="登入" class="btn btn-secondary mt-3" />
-            <input type="reset" value="取消" class="btn btn-secondary mt-3" />
-        </div>
-        <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
-        }
-    </div>
         <!-- Footer -->
         <div class="modal-footer">
             <div class="signup">

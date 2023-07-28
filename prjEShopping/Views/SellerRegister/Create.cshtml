@@ -13,149 +13,149 @@
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <p class="fs-4 mt-3 fw-bold">基本資料</p>
     <hr>
-        @using (Html.BeginForm("Create", "SellerRegister", FormMethod.Post,
-           new { enctype = "multipart/form-data" }))
-        {
-            <div class="row col-md-6 bg-warning rounded" style="float:right">
-                <div class="col-3">
-                    賣場照片:
-                </div>
-                <div class="col-6">
-                    <div class="mb-3">
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <input class="form-control" type="file" id="photo" name="photo123">
-                        </div>
-                        <div id="div-preivew">
-                            <img src="#" id="preview" alt="預覽圖" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3"></div>
+    @using (Html.BeginForm("Create", "SellerRegister", FormMethod.Post,
+       new { enctype = "multipart/form-data" }))
+    {
+        <div class="row col-md-6 bg-warning rounded" style="float:right">
+            <div class="col-3">
+                賣場照片:
             </div>
-            <div class="row col-md-6 bg-warning rounded justify-content:end">
-                <div class="col-sm-9">
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>統編：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
+            <div class="col-6">
+                <div class="mb-3">
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.photo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input class="form-control" type="file" id="photo" name="photo">
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>負責人姓名：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.SellerName, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
+                    <div id="div-preivew">
+                        <img src="#" id="preview" alt="預覽圖" />
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>商家姓名：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>使用者帳號<br />(電子郵件)：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>使用者密碼：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>住址：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>手機號碼：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>銀行帳戶：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>支付方式：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(new List<SelectListItem>
-                            {
-                                new SelectListItem { Value = "1", Text = "現金" },
-                                new SelectListItem { Value = "2", Text = "信用卡" }
-                            }, "Value", "Text"), "請選擇", new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>取貨方式：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.DropDownListFor(model => model.ShippingMethodId, new SelectList(new List<SelectListItem>
-                            {
-                                new SelectListItem { Value = "1", Text = "超商取貨" },
-                                new SelectListItem { Value = "2", Text = "宅配到府" },
-                                new SelectListItem { Value = "3", Text = "黑貓宅急便" }
-                            }, "Value", "Text"), "請選擇", new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>商城介紹：</span>
-                        </div>
-                        <div class="col-7">
-                            @Html.EditorFor(model => model.StoreIntro, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
-                    </div>
-
-                    
-                    
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="送出並新增" class="btn btn-secondary" style="float:right" />
-                            </div>
-                        </div>
-                    
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <a href="@Url.Action("Login","SellerLogin")" class="btn btn-outline-primary">返回首頁</a>
-                        </div>
-                    </div>
-                    <div class="btn btn-light border border-3" id="btndemocreate">demo</div>
                 </div>
             </div>
-        }
+            <div class="col-3"></div>
+        </div>
+        <div class="row col-md-6 bg-warning rounded justify-content:end">
+            <div class="col-sm-9">
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>統編：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>負責人姓名：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.SellerName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>商家姓名：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>使用者帳號<br />(電子郵件)：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>使用者密碼：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>住址：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>手機號碼：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>銀行帳戶：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>支付方式：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = "1", Text = "現金" },
+                            new SelectListItem { Value = "2", Text = "信用卡" }
+                        }, "Value", "Text"), "請選擇", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>取貨方式：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.DropDownListFor(model => model.ShippingMethodId, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = "1", Text = "超商取貨" },
+                            new SelectListItem { Value = "2", Text = "宅配到府" },
+                            new SelectListItem { Value = "3", Text = "黑貓宅急便" }
+                        }, "Value", "Text"), "請選擇", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>商城介紹：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.StoreIntro, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="送出並新增" class="btn btn-secondary" style="float:right" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <a href="@Url.Action("Login","SellerLogin")" class="btn btn-outline-primary">返回首頁</a>
+                    </div>
+                </div>
+                <div class="btn btn-light border border-3" id="btndemocreate">demo</div>
+            </div>
+        </div>
+    }
 </div>
 
 
@@ -242,6 +242,8 @@
         const Phone = document.querySelector('#Phone')
         const BankAccount = document.querySelector('#BankAccount')
         const StoreIntro = document.querySelector('#StoreIntro')
+        const PaymentMethodId = document.querySelector('#PaymentMethodId')
+        const ShippingMethodId = document.querySelector('#ShippingMethodId')
 
 
         const btndemocreate = document.querySelector('#btndemocreate')
@@ -256,6 +258,8 @@
             Phone.value = "0954213245"
             BankAccount.value = "0532445123456"
             StoreIntro.value = "EASY SHOPPING"
+            PaymentMethodId.value = "2"
+            ShippingMethodId.value="2"
         })
     </script>
 }
