@@ -18,7 +18,7 @@ namespace prjEShopping.Controllers
         }
 
         [Authorize]
-        public ActionResult UserOrderDetail()//訂單詳情頁面
+        public ActionResult UserShipmentDetail()//出貨單單詳情頁面
         {
             var customerAccount = User.Identity.Name;
 

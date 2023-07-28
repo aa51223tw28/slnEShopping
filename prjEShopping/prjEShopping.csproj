@@ -307,7 +307,7 @@
     <Content Include="Views\UsersCoupons\UsersCouponsOverdue.cshtml" />
     <Content Include="Views\UserMembers\UserEditProfile.cshtml" />
     <Content Include="Views\SellerProduct\SellerProductList.cshtml" />
-    <Content Include="Views\UserOrder\UserOrderDetail.cshtml" />
+    <Content Include="Views\UserOrder\UserShipmentDetail.cshtml" />
     <Content Include="Views\UserOrder\UserOrderDetailAll.cshtml" />
     <Content Include="Views\UserMembers\UserEditPassword.cshtml" />
     <Content Include="Views\UserCoupon\UserCouponList.cshtml" />
