@@ -10,7 +10,7 @@
             <div class="col-sm-auto col-md-3 bg-light">
                 <div class="d-flex flex-column">
                     <div class="d-flex align-items-center">
-                        <img src="img/comment.jpeg" alt="" class="img-fluid">
+                        <img src="~/img/comment.jpeg" alt="" class="img-fluid">
                         <span class="fw-bold ms-3">John Doe</span>
                     </div>
                     <!-- 手風琴左邊選項區 -->
@@ -25,10 +25,10 @@
                                 <div class="accordion-body">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                            <a href="6.index.html" class="link-blue text-decoration-none fw-bold">個人檔案</a>
+                                            <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="link-blue text-decoration-none fw-bold">個人檔案</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="7.index.html" class="link-blue text-decoration-none fw-bold">修改密碼</a>
+                                            <a href="@Url.Content("~/UserMembers/UserEditPassword")" class="link-blue text-decoration-none fw-bold">修改密碼</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -44,16 +44,16 @@
                                 <div class="accordion-body">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                            <a href="8.index.html" class="link-blue text-decoration-none fw-bold">購買清單</a>
+                                            <a href="@Url.Content("~/UserOrder/UserOrderDetailAll")" class="link-blue text-decoration-none fw-bold">購買清單</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="10.index.html" class="link-blue text-decoration-none fw-bold">優惠券</a>
+                                            <a href="@Url.Content("~/UserCoupon/UserCouponList")" class="link-blue text-decoration-none fw-bold">優惠券</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="11.index.html" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
+                                            <a href="@Url.Content("~/UserFollow/UserFollowProduct")" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="12.index.html" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
+                                            <a href="@Url.Content("~/UserFollow/UserFollowSeller")" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -166,7 +166,7 @@
 
                     </div>
                     <div class="col-sm-3 d-flex flex-column align-items-center">
-                        <img src="img/comment.jpeg" alt="" class="img-fluid">
+                        <img src="~/img/comment.jpeg" alt="" class="img-fluid">
                         <div class="btn btn-secondary mt-2">選擇圖片</div>
                     </div>
 

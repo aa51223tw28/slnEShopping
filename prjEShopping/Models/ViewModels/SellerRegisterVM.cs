@@ -23,6 +23,7 @@ namespace prjEShopping.Models.ViewModels
         public string SellerAccount { get; set; }
 
         [DisplayName("使用者密碼")]
+        [DataType(DataType.Password)]
         [StringLength(50)]
         public string SellerPassword { get; set; }
 
@@ -60,5 +61,6 @@ namespace prjEShopping.Models.ViewModels
        
         [DisplayName("商家圖片")]
         public string SellerImagePath { get; set; }
+        public HttpPostedFileBase photo { get; set; }
     }
 }

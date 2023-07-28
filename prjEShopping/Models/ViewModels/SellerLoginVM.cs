@@ -9,12 +9,15 @@ namespace prjEShopping.Models.ViewModels
 {
     public class SellerLoginVM
     {
+        public int SellerId { get; set; }   
         [Display(Name = "帳號")]
-        [Required]
+        [Required(ErrorMessage ="帳號為必填欄位")]
         public string SellerAccount { get; set; }
 
         [Display(Name = "密碼")]
-        [Required]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "密碼為必填欄位")]
         public string SellerPassword { get; set; }
+        public string LoginErrorMessage { get; set; }
     }
 }

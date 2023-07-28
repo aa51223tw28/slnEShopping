@@ -160,6 +160,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\sweetalert2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -177,13 +178,15 @@
     <Compile Include="Controllers\SellerUpdateController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\UserCouponController.cs" />
+    <Compile Include="Controllers\UserFollowController.cs" />
     <Compile Include="Controllers\UserMembersController.cs" />
+    <Compile Include="Controllers\UserOrderController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UsersCouponsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CFactory.cs" />
     <Compile Include="Models\DTOs\AdminDto.cs" />
     <Compile Include="Models\DTOs\CouponDto.cs" />
     <Compile Include="Models\DTOs\UserProductIndexDto.cs" />
@@ -223,6 +226,7 @@
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
     <Compile Include="Models\Infra\EFRepositories\AdminRepository.cs" />
+    <Compile Include="Models\Infra\SellerResult.cs" />
     <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
     <Compile Include="Models\Infra\UserResult.cs" />
     <Compile Include="Models\Interface\IAdminRepository.cs" />
@@ -231,11 +235,13 @@
     <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
+    <Compile Include="Models\ViewModels\SellerProductListVM.cs" />
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
     <Compile Include="Models\ViewModels\UserCheckoutVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
+    <Compile Include="Models\ViewModels\UserOrderAllVM.cs" />
     <Compile Include="Models\ViewModels\UserOrderVM.cs" />
     <Compile Include="Models\ViewModels\UserShoppingCartVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -281,7 +287,7 @@
     <Content Include="Views\SellerProductCreate\ProductCreate.cshtml" />
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserProduct\UserProdutList.cshtml" />
-    <Content Include="Views\SellerUpdate\List.cshtml" />
+    <Content Include="Views\SellerUpdate\Edit.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />
@@ -289,7 +295,6 @@
     <Content Include="Views\SellerRegister\Create.cshtml" />
     <Content Include="Views\UserMembers\UserLogin.cshtml" />
     <Content Include="Views\UserCart\UserCheckout.cshtml" />
-    <Content Include="Views\UserCart\UserOrderDetail.cshtml" />
     <Content Include="Views\UserCart\UserShoppingCart.cshtml" />
     <Content Include="Views\Admintest\AdminLogin.cshtml" />
     <Content Include="Views\Admintest\AdminRegister.cshtml" />
@@ -309,6 +314,14 @@
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\SellerProduct\ProductEdit.cshtml" />
+    <Content Include="Views\UserOrder\UserShipmentDetail.cshtml" />
+    <Content Include="Views\UserOrder\UserOrderDetailAll.cshtml" />
+    <Content Include="Views\UserMembers\UserEditPassword.cshtml" />
+    <Content Include="Views\UserCoupon\UserCouponList.cshtml" />
+    <Content Include="Views\UserFollow\UserFollowSeller.cshtml" />
+    <Content Include="Views\UserFollow\UserFollowProduct.cshtml" />
+    <Content Include="Views\UserOrder\UserOrderDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
