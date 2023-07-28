@@ -18,6 +18,14 @@
             @Html.ActionLink("取消訂單", "Cancle", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定要取消嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" }) @:|
             @Html.ActionLink("出貨", "ToShip", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定出貨嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" });
         }
+        if (@ViewBag.ShipmentStatus == "已出貨")
+        {
+            @Html.ActionLink("送貨", "setToRecieve", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定送貨嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" });
+        }
+        if (@ViewBag.ShipmentStatus == "已領取")
+        {
+            @Html.ActionLink("結單", "setToComplete", "SellerShipment", new { ShipNum = @ViewBag.ShipmentNumber }, new { onclick = "return confirm('確定要結單嗎?')", Class = "text-decoration-none btn btn-secondary mb-2" });
+        }
     }
     <table class="table table-striped fw-bold" style=" text-align:center ; vertical-align:middle">
         <thead>
@@ -46,7 +54,7 @@
                         <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
                         <td><img src="~/img/@item.ProductImagePathOne" width="80" /></td>
                         <td>@Html.DisplayFor(modelItem => item.Price)</td>
-                        <td><input type="text" class="input-group-text" size="4" value="@item.Quantity" name="Quantity" readonly/></td>
+                        <td><input type="text" class="input-group-text" size="4" value="@item.Quantity" name="Quantity" readonly /></td>
                         <td>@Html.DisplayFor(modelItem => item.ItemPrice)</td>
                         <td><input type="checkbox" class="form-check-input" /></td>
                     </tr>
@@ -77,6 +85,36 @@
         <span class="text-danger fw-bold mx-2">@ViewBag.Fright   元</span>
         <span>總金額:</span>
         <span class="text-danger fw-bold mx-2">@total.ToString("###,###,##0")   元</span>
+    </div>
+    <div class="mt-2 text-primary fw-bold">
+        <span>訂單日期:</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.ShipmentDate</span>
+        @{
+            if (@ViewBag.ShipDate != null)
+            {
+                <span>出貨日期:</span>
+                <span class="text-danger fw-bold mx-2">@ViewBag.ShipDate</span>
+            }
+        }
+     </div>
+    <div class="mt-2 text-primary fw-bold">
+        @{
+            if (ViewBag.ArrivalTimeDate != null)
+            {
+                <span>送達日期:</span>
+                <span class="text-danger fw-bold mx-2">@ViewBag.ArrivalTimeDate</span>
+            }
+            if (@ViewBag.PickDate != null)
+            {
+                <span>收貨日期:</span>
+                <span class="text-danger fw-bold mx-2">@ViewBag.PickDate</span>
+            }
+            if (@ViewBag.CompletionDate != null)
+            {
+                <span>完成日期:</span>
+                <span class="text-danger fw-bold mx-2">@ViewBag.CompletionDate</span>
+            }
+        }
     </div>
 </div>
 

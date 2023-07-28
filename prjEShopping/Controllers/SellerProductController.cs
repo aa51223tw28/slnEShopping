@@ -52,8 +52,8 @@ namespace prjEShopping.Controllers
             int OptionIdThree = optionIds[2];
             int OptionIdFour = optionIds[3];
             int OptionIdFive = optionIds[4];
-            string CategoryName = db.ProductMainCategories.FirstOrDefault(y => y.CategoryId == (db.Products.FirstOrDefault(x => x.ProductId == id).CategoryId)).CategoryName;
-            string SubcategoryName = db.ProductSubCategories.FirstOrDefault(y => y.SubcategoryId == (db.Products.FirstOrDefault(x => x.ProductId == id).SubcategoryId)).SubcategoryName;
+            string CategoryName = db.ProductMainCategories.FirstOrDefault(y => y.CategoryId == (db.Products.FirstOrDefault(z => z.ProductId == id).CategoryId)).CategoryName;
+            string SubcategoryName = db.ProductSubCategories.FirstOrDefault(y => y.SubcategoryId == (db.Products.FirstOrDefault(z => z.ProductId == id).SubcategoryId)).SubcategoryName;
             string SpecificationName0 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdOne)).SpecificationId).SpecificationName;
             string SpecificationName1 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdTwo)).SpecificationId).SpecificationName;
             string SpecificationName2 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdThree)).SpecificationId).SpecificationName;
@@ -64,9 +64,9 @@ namespace prjEShopping.Controllers
             string OptionName2 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdThree).OptionName;
             string OptionName3 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFour).OptionName;
             string OptionName4 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFive).OptionName;
-            string BrandName = db.Brands.FirstOrDefault(y => y.BrandId == (db.Products.FirstOrDefault(x => x.ProductId == id).BrandId)).BrandName;
-
-            var datashow = db.Products.Where(x => x.ProductId == id).Select(x => new SellerProductCreateVM
+            string BrandName = db.Brands.FirstOrDefault(y => y.BrandId == (db.Products.FirstOrDefault(G => G.ProductId == id).BrandId)).BrandName;
+            var x = db.Products.FirstOrDefault(y => y.ProductId == id);
+            var datashow = new SellerProductCreateVM
             {
                 ProductID = x.ProductId,
                 ProductName = x.ProductName,
@@ -75,50 +75,52 @@ namespace prjEShopping.Controllers
                 ProductImagePathOne = x.ProductImagePathOne,
                 ProductImagePathTwo = x.ProductImagePathTwo,
                 ProductImagePathThree = x.ProductImagePathThree,
-            }).ToList();
+                CategoryName = CategoryName,
+                SubcategoryName = SubcategoryName,
+                SpecificationName0 = SpecificationName0,
+                SpecificationName1 = SpecificationName1,
+                SpecificationName2 = SpecificationName2,
+                SpecificationName3 = SpecificationName3,
+                SpecificationName4 = SpecificationName4,
+                OptionName0 = OptionName0,
+                OptionName1 = OptionName1,
+                OptionName2 = OptionName2,
+                OptionName3 = OptionName3,
+                OptionName4 = OptionName4,
+                BrandName = BrandName,
+            };
             return View(datashow);
         }
+        [HttpPost]
+        public ActionResult ProductEdit(SellerProductCreateVM vm) 
+        {
+            var db = new AppDbContext();
+            var product = db.Products.FirstOrDefault(x => x.ProductId == vm.ProductID);
 
+                product.ProductDescription = vm.ProductDescription;
+                product.Price = vm.Price;
+                product.ProductImagePathOne = vm.ProductImagePathOne;
+                product.ProductImagePathTwo = vm.ProductImagePathTwo;
+                product.ProductImagePathThree = vm.ProductImagePathThree;
+                db.SaveChanges();
+            if(vm.Quantity > 0 && vm.Quantity != null)
+            { 
+            var stock = db.ProductStocks.FirstOrDefault(x => x.ProductId == vm.ProductID);
+                stock.StockQuantity = stock.StockQuantity + vm.Quantity;
+                db.SaveChanges();
 
-            //public ActionResult ProductEdit(int? id)
-            //{
-            //    getAllOptionIds(id);
-            //    int OptionIdOne = optionIds[0];
-            //    int OptionIdTwo = optionIds[1];
-            //    int OptionIdThree = optionIds[2];
-            //    int OptionIdFour = optionIds[3];
-            //    int OptionIdFive = optionIds[4];
+            var createstock = new ProductInventory()
+            {
+                ProductId = vm.ProductID,
+                SellerId = 1,
+                Quantity = vm.Quantity,
+            };
+            db.ProductInventories.Add(createstock);
+                db.SaveChanges();
+            }
 
-            //    var db = new AppDbContext();
-
-            //    var datashow = db.Products.Where(x => x.ProductId == id).Select(x => new SellerProductCreateVM
-            //    {
-            //        ProductID = x.ProductId,
-            //        ProductName = x.ProductName,
-            //        Price = x.Price,
-            //        ProductDescription = x.ProductDescription,
-            //        //BrandName = db.Brands.FirstOrDefault(y => y.BrandId == x.BrandId).BrandName,
-            //        ProductImagePathOne = x.ProductImagePathOne,
-            //        ProductImagePathTwo = x.ProductImagePathTwo,
-            //        ProductImagePathThree = x.ProductImagePathThree,
-            //        //CategoryName = db.ProductMainCategories.FirstOrDefault(y => y.CategoryId == x.CategoryId).CategoryName,
-            //        //SubcategoryName = db.ProductSubCategories.FirstOrDefault(y => y.SubcategoryId == x.SubcategoryId).SubcategoryName,
-            //SpecificationName0 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdOne)).SpecificationId).SpecificationName,
-            //SpecificationName1 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdTwo)).SpecificationId).SpecificationName,
-            //SpecificationName2 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdThree)).SpecificationId).SpecificationName,
-            //SpecificationName3 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdFour)).SpecificationId).SpecificationName,
-            //SpecificationName4 = db.ProductSpecifications.FirstOrDefault(y => y.SpecificationId == (db.ProductOptions.FirstOrDefault(z => z.OptionId == OptionIdFive)).SpecificationId).SpecificationName,
-            //OptionName0 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdOne).OptionName,
-            //OptionName1 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdTwo).OptionName,
-            //OptionName2 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdThree).OptionName,
-            //OptionName3 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFour).OptionName,
-            //OptionName4 = db.ProductOptions.FirstOrDefault(y => y.OptionId == OptionIdFive).OptionName,
-            //    }).ToList(); 
-
-
-            //    return View(datashow);
-            //}
-
+            return RedirectToAction("SellerProductList");
+        }
             public ActionResult ChangeStatus(int? id)
         {
             var db = new AppDbContext();

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<prjEShopping.Models.ViewModels.SellerProductCreateVM>
+﻿@model prjEShopping.Models.ViewModels.SellerProductCreateVM
 @{
     ViewBag.Title = "ProductEdit";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
@@ -11,13 +11,13 @@
         <div class="row container">
 
             <div class="col-sm-6 col-xl-6">
-
+                <input type="hidden" value="@Model.ProductID" name="ProductID" />
                 <div class="row mb-2">
                     <div class="col-4 d-flex align-items-center">
                         <span class="fw-bold text-primary">主分類：</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.CategoryName</span>
+                        <span class="fw-bold text-primary" name="CategoryName">@Model.CategoryName</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -27,7 +27,7 @@
                         <span class="fw-bold text-primary">小分類：</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.SubcategoryName</span>
+                        <span class="fw-bold text-primary" name="SubcategoryName">@Model.SubcategoryName</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -37,7 +37,7 @@
                         <span class="fw-bold text-primary">@Model.SpecificationName0</span><span> :</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.OptionName0</span>
+                        <span class="fw-bold text-primary" name="OptionName0">@Model.OptionName0</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -47,7 +47,7 @@
                         <span class="fw-bold text-primary">@Model.SpecificationName1</span><span> :</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.OptionName1</span>
+                        <span class="fw-bold text-primary" name="OptionName1">@Model.OptionName1</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -57,7 +57,7 @@
                         <span class="fw-bold text-primary">@Model.SpecificationName2</span><span> :</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.OptionName2</span>
+                        <span class="fw-bold text-primary" name="OptionName2">@Model.OptionName2</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -67,7 +67,7 @@
                         <span class="fw-bold text-primary">@Model.SpecificationName3</span><span> :</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.OptionName3</span>
+                        <span class="fw-bold text-primary" name="OptionName3">@Model.OptionName3</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -77,7 +77,7 @@
                         <span class="fw-bold text-primary">@Model.SpecificationName4</span><span> :</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.OptionName4</span>
+                        <span class="fw-bold text-primary" name="OptionName4">@Model.OptionName4</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -87,7 +87,7 @@
                         <span class="fw-bold text-primary">品牌：</span>
                     </div>
                     <div class="col-4">
-                        <span class="fw-bold text-primary">@Model.BrandName</span>
+                        <span class="fw-bold text-primary" name="BrandName">@Model.BrandName</span>
                     </div>
                     <div class="col-4">
                     </div>
@@ -97,7 +97,7 @@
                         <span class="fw-bold text-primary">商品名稱：</span>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="ProductName" value="@Model.ProductName">
+                        <input type="text" name="ProductName" value="@Model.ProductName" readonly>
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -106,7 +106,7 @@
                         <span class="fw-bold text-primary">商品描述：</span>
                     </div>
                     <div class="col-4">
-                        <textarea name="ProductDescription" value="@Model.ProductDescription"></textarea>
+                        <input type="text" name="ProductDescription" value="@Model.ProductDescription">
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -133,15 +133,15 @@
         </div>
         <div class="d-flex col-sm-6 col-xl-6 ">
             <div class="d-flex flex-column align-items-start  ms-2">
-                <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid align-items-start" name="ProductImagePathOne">
+                <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid align-items-start" name="ProductImagePathOne" width="130">
                 <div class="btn btn-secondary mt-2">選擇圖片</div>
             </div>
-            <div class="d-flex flex-column align-items-start  ms-2 " name="ProductImagePathTwo">
-                <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid align-items-start">
+            <div class="d-flex flex-column align-items-start  ms-2 " >
+                <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid align-items-start" width="130" name="ProductImagePathTwo">
                 <div class="btn btn-secondary mt-2">選擇圖片</div>
             </div>
-            <div class="d-flex flex-column align-items-start  ms-2 " name="ProductImagePathThree">
-                <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid align-items-start">
+            <div class="d-flex flex-column align-items-start  ms-2 " >
+                <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid align-items-start" width="130" name="ProductImagePathThree">
                 <div class="btn btn-secondary mt-2">選擇圖片</div>
             </div>
         </div>

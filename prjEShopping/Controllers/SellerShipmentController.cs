@@ -52,7 +52,11 @@ namespace prjEShopping.Controllers
             ViewBag.Fright = (int)db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault().Freight;
             ViewBag.ShipmentNumber = ShipNum;
             ViewBag.ShipmentStatus = Shiptatus;
-
+            ViewBag.ShipmentDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).ShipmentDate;
+            ViewBag.ShipDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).ShipDate;
+            ViewBag.ArrivalTimeDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).ArrivalTimeDate;
+            ViewBag.PickDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).PickDate;
+            ViewBag.CompletionDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).CompletionDate;
             //購買人
             var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 
@@ -69,7 +73,7 @@ namespace prjEShopping.Controllers
                 ProductId = y.ProductId,
                 ProductName = y.ProductName,
                 ProductImage = y.ProductImagePathOne,
-                ProductPrice = y.Price,
+                ProductPrice = x.CurrentPrice,
                 Qty = x.Quantity,
             })
             .ToList();
@@ -78,7 +82,7 @@ namespace prjEShopping.Controllers
             {
                 ProductId = x.ProductId,
                 ProductName = x.ProductName,
-                Price = (decimal)x.ProductPrice,
+                Price = Convert.ToInt32(x.ProductPrice),
                 Quantity = (int)x.Qty,
                 ProductImagePathOne = x.ProductImage,
             }).ToList();
@@ -183,6 +187,46 @@ namespace prjEShopping.Controllers
             };
             return RedirectToAction("ShipmentDetail", parameters);
 
+        }
+
+        public ActionResult setToRecieve(string ShipNum) 
+        {
+            var db = new AppDbContext();
+            var Shiptatusid = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum);
+
+            Shiptatusid.ShipmentStatusId = 3;
+            Shiptatusid.ArrivalTimeDate = DateTime.Now;
+            db.SaveChanges();
+
+            var Shiptatus = db.ShipmentStatusDetails.FirstOrDefault(x => x.ShipmentStatusId == 3).ShipmentStatus;
+
+            var parameters = new RouteValueDictionary
+            {
+                { "ShipNum", ShipNum },
+                { "Shiptatus", Shiptatus },
+
+            };
+            return RedirectToAction("ShipmentDetail", parameters);
+        }
+
+        public ActionResult setToComplete(string ShipNum)
+        {
+            var db = new AppDbContext();
+            var Shiptatusid = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum);
+
+            Shiptatusid.ShipmentStatusId = 5;
+            Shiptatusid.CompletionDate = DateTime.Now;
+            db.SaveChanges();
+
+            var Shiptatus = db.ShipmentStatusDetails.FirstOrDefault(x => x.ShipmentStatusId == 5).ShipmentStatus;
+
+            var parameters = new RouteValueDictionary
+            {
+                { "ShipNum", ShipNum },
+                { "Shiptatus", Shiptatus },
+
+            };
+            return RedirectToAction("ShipmentDetail", parameters);
         }
     }
 }
