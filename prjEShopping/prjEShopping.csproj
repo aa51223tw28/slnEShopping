@@ -239,6 +239,7 @@
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
+    <Compile Include="Models\ViewModels\UserOrderAllVM.cs" />
     <Compile Include="Models\ViewModels\UserOrderVM.cs" />
     <Compile Include="Models\ViewModels\UserShoppingCartVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
