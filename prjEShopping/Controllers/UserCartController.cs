@@ -104,6 +104,7 @@ namespace prjEShopping.Controllers
                 SubTotal = (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
                 SellerId = (int)x.SellerId,
+                SellerName=db.Sellers.FirstOrDefault(y=>y.SellerId== x.SellerId).SellerName,
                 ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)//計算庫存可不可以買
             }).ToList();
 

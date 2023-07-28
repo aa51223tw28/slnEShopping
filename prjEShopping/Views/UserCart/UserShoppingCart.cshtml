@@ -30,60 +30,69 @@
             </div>
         </div>
 
-        <div class="row bg-success rounded py-3 mb-3">
-            <div class="row mb-3">
-                <div class="col-1 d-flex align-items-center">
-                    <input type="checkbox" class="form-check-input">
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <span>賣家名稱</span>
-                </div>
-                <div class="col-2 d-flex align-items-center">
-                    <button class="btn btn-blue">聊聊</button>
-                </div>
-            </div>
-            @foreach (var item in Model)
-            {
-                <div class="row">
-                    <div class="col-1">
+        @{
+            //依照賣家ID分組
+            var productBySeller = Model.GroupBy(item => item.SellerId);
+        }
+
+        @foreach (var sellerGroup in productBySeller)
+        {
+            <div class="row bg-success rounded py-3 mb-3">
+                <div class="row mb-3">
+                    <div class="col-1 d-flex align-items-center">
                         <input type="checkbox" class="form-check-input">
                     </div>
-                    <div class="col-3">
-                        <div class="mb-3" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <p class="card-text">@item.ProductName</p>
+                    <div class="col-3 d-flex align-items-center">
+                        <span>@sellerGroup.FirstOrDefault().SellerName</span>
+                    </div>
+                    <div class="col-2 d-flex align-items-center">
+                        <button class="btn btn-blue">聊聊</button>
+                    </div>
+                </div>
+                @foreach (var item in sellerGroup)
+                {
+                    <div class="row">
+                        <div class="col-1">
+                            <input type="checkbox" class="form-check-input">
+                        </div>
+                        <div class="col-3">
+                            <div class="mb-3" style="max-width: 540px;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <p class="card-text">@item.ProductName</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <span>@Math.Round(item.Price).ToString("C0")</span>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <div class="input-group" style="width: 120px;">
-                            @*加減數量*@
-                            <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">-</button>
-                            <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
-                            <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
+                        <div class="col-2 d-flex align-items-center">
+                            <span>@Math.Round(item.Price).ToString("C0")</span>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <div class="input-group" style="width: 120px;">
+                                @*加減數量*@
+                                <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">-</button>
+                                <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
+                                <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
+                            </div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                            <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
+                            <span hidden data-cartid="@item.CartId" id="cartid"></span>@*為了獲得購物車編號*@
                         </div>
                     </div>
-                    <div class="col-2 d-flex align-items-center">
-                        @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
-                        <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
-                        <span hidden data-cartid="@item.CartId" id="cartid"></span>@*為了獲得購物車編號*@
-                    </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
+
 
 
 
