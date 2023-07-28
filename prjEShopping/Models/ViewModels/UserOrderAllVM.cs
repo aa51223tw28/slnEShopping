@@ -13,9 +13,9 @@ namespace prjEShopping.Models.ViewModels
         public int ShipmentId { get; set; }
         public string ShipmentNumber { get; set; }
         public int SellerId { get; set; }
-        public string SellerName { get; set; }
-        public int Quantity { get; set; }        
+        public string SellerName { get; set; }               
         public string SellerImagePath { get; set; }
+        public int Quantity { get; set; }       
         public decimal PriceBySeller { get; set; }
         public int ShipmentStatusId { get; set; }
         public string ShipmentStatus { get; set; }

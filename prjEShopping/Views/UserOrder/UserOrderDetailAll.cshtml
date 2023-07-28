@@ -137,7 +137,8 @@
                                 @foreach (var item in orderGroup)
                                 {
                                     <div class="row g-0">
-                                        <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                        <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                            <span>出貨單號：</span>
                                             <span>@item.ShipmentNumber</span>
                                         </div>
                                         <div class="col-md-2 d-flex align-items-center justify-content-center">
@@ -156,7 +157,7 @@
                                         </div>
                                         <div class="col-md-2 d-flex align-items-center justify-content-center">
                                             <div class="card-body">
-                                                <span>一張訂單編號中一個賣家的總價</span>
+                                                <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
                                             </div>
                                         </div>
                                         <div class="col-md-2 d-flex align-items-center justify-content-center">

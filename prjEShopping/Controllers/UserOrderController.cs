@@ -35,17 +35,17 @@ namespace prjEShopping.Controllers
 
                 var productQuantities = db.OrderDetails
                                           .Where(x => orderDetailIds.Contains(x.OrderDetailId))
-                                          .Select(x => new { x.ProductId, x.Quantity })
+                                          .Select(x => new { x.ProductId, x.Quantity,x.CurrentPrice })
                                           .ToList();
 
                 var sellerQuantities = new Dictionary<int, int>();//這個字典的鍵 (Key) 是賣家的 ID (SellerId)，值 (Value) 是該賣家的合計數量。
 
-                foreach (var productQuantity in productQuantities)
+                foreach (var productQuantity in productQuantities)//查詢所有訂單明細OrderDetails
                 {
                     int productId = (int)productQuantity.ProductId;
                     int quantity = (int)productQuantity.Quantity;
 
-                    int sellerId = db.Products.FirstOrDefault(x => x.ProductId == productId)?.SellerId ?? 0;
+                    int sellerId = db.Products.FirstOrDefault(x => x.ProductId == productId)?.SellerId ?? 0;//?.如果不為空取出SellerId
 
                     if (sellerQuantities.ContainsKey(sellerId))
                     {
@@ -58,6 +58,7 @@ namespace prjEShopping.Controllers
                 }
                 //---計算該筆OrderId所買的商品ProductId該SellerId的合計Quantity
 
+                
 
                 var data = new UserOrderAllVM
                 {
@@ -68,7 +69,8 @@ namespace prjEShopping.Controllers
                     ShipmentNumber = item.ShipmentNumber,
                     SellerId = (int)item.SellerId,
                     SellerName = db.Sellers.FirstOrDefault(x => x.SellerId == item.SellerId).SellerName,
-                    Quantity = sellerQuantities.ContainsKey((int)item.SellerId) ? sellerQuantities[(int)item.SellerId] : 0,
+                    Quantity = sellerQuantities.ContainsKey((int)item.SellerId) ? sellerQuantities[(int)item.SellerId] : 0,                    
+                    PriceBySeller= (decimal)productQuantities.Where(x => db.Products.FirstOrDefault(p => p.ProductId == x.ProductId)?.SellerId == (int)item.SellerId).Sum(x => x.CurrentPrice * x.Quantity),
                     SellerImagePath = db.Sellers.FirstOrDefault(x => x.SellerId == item.SellerId).SellerImagePath,
                     ShipmentStatusId = (int)item.ShipmentStatusId,
                     ShipmentStatus = db.ShipmentStatusDetails.FirstOrDefault(x => x.ShipmentStatusId == item.ShipmentStatusId).ShipmentStatus,
