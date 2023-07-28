@@ -5,90 +5,77 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Index</h2>
+<div class="col-9 bg-secondary overflow-auto">
+    <h2 class="text-primary">員工一覽</h2>
+    <p>
+        @Html.ActionLink("新增員工", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table table-primary table-bordered">
+        @*沒salt Role 跟Id*@
+        <tr class="table-info">
+            <th style="width:100px">
+                @Html.DisplayNameFor(model => model.AdminNumber)
+            </th>
+            <th style="width:100px">
+                @Html.DisplayNameFor(model => model.AdminName)
+            </th>
+            <th style="width:80px">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th style="width:120px">
+                @Html.DisplayNameFor(model => model.AdminAccount)
+            </th>
+            <th style="width:80px">
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th style="width:80px">
+                @Html.DisplayNameFor(model => model.JobStatus)
+            </th>
+            <th style="width:50px">
+                功能
+            </th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table table-primary ">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AdminNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PermissionsId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdminAccount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdminPassword)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdminPasswordSalt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdminName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfHire)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JobStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr style="cursor:pointer" class="clickable-row" data-href="@Url.Action("Details", "Admins", new { id = item.AdminId })">
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdminNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdminName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdminAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobStatus)
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", new { id = item.AdminId }, new { @class = "btn btn-secondary" })
+                </td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PermissionsId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminAccount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminPassword)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminPasswordSalt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfHire)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobStatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AdminId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AdminId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AdminId })
-        </td>
-    </tr>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 }
 
-</table>
+@section Styles{
+    }
