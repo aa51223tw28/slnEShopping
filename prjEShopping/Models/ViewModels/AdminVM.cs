@@ -104,6 +104,7 @@ namespace prjEShopping.Models.ViewModels
         public string AdminPassword { get; set; }
     }
 
+
     public static class AdminChange
     {
         public static Admin VM2Admin(AdminVM vm)
@@ -125,6 +126,24 @@ namespace prjEShopping.Models.ViewModels
             };
         }
 
+            public static Admin VM2AdminEdit (AdminVM vm)
+        {
+            return new Admin
+            {
+                AdminId = vm.AdminId,
+                AdminNumber = vm.AdminNumber,
+                PermissionsId = vm.PermissionsId,
+                AdminAccount = vm.AdminAccount,
+                AdminPassword = vm.AdminPassword,
+                AdminPasswordSalt = vm.AdminPasswordSalt,
+                Title = vm.Title,
+                AdminName = vm.AdminName,
+                Phone = vm.Phone,
+                DateOfHire = vm.DateOfHire,
+                JobStatus = vm.JobStatus,
+            };
+        }
+
         public static AdminVM Admin2VM(Admin admin)
         {
             return new AdminVM
@@ -143,7 +162,7 @@ namespace prjEShopping.Models.ViewModels
                 Role = admin.Role,
             };
         }
-
+       
         public static List<AdminVM> Admin2VM(this IEnumerable<Admin> source)
         {
             if (source == null || source.Count() == 0)

@@ -49,7 +49,6 @@ namespace prjEShopping.Controllers
 
         private string NewAccountNumber()
         {
-            var db = new AppDbContext();
             List<string> adminNumbers = db.Admins.Select(a => a.AdminNumber).ToList();
 
             var date = DateTime.Now;
@@ -113,7 +112,8 @@ namespace prjEShopping.Controllers
             {
                 return HttpNotFound();
             }
-            return View(admin);
+            AdminVM model = AdminChange.Admin2VM(admin);
+            return View(model);
         }
 
         // POST: Admins/Edit/5
@@ -121,42 +121,16 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,DateOfHire,JobStatus,Role")] Admin admin)
+        public ActionResult Edit([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,JobStatus,DateOfHire")] AdminVM vm)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(admin).State = EntityState.Modified;
+            if (ModelState.IsValid==false)
+                return View(vm);
+
+                db.Entry(AdminChange.VM2AdminEdit(vm)).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(admin);
-        }
-
-        // GET: Admins/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Admin admin = db.Admins.Find(id);
-            if (admin == null)
-            {
-                return HttpNotFound();
-            }
-            return View(admin);
-        }
-
-        // POST: Admins/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Admin admin = db.Admins.Find(id);
-            db.Admins.Remove(admin);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
+
 
         protected override void Dispose(bool disposing)
         {
