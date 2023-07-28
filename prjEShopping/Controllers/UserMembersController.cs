@@ -136,6 +136,11 @@ namespace prjEShopping.Controllers
         {
             return View();
         }
+
+        public ActionResult UserEditPassword()
+        {
+            return View();
+        }
     }
 
 }

@@ -67,7 +67,7 @@ namespace prjEShopping.Controllers
         {
             shoppingList();
             return View(datas);
-        }
+        }       
 
         private void shoppingList()//秀UserShoppingCartVM的方法
         {
@@ -104,6 +104,7 @@ namespace prjEShopping.Controllers
                 SubTotal = (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
                 SellerId = (int)x.SellerId,
+                SellerName=db.Sellers.FirstOrDefault(y=>y.SellerId== x.SellerId).SellerName,
                 ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)//計算庫存可不可以買
             }).ToList();
 
@@ -332,13 +333,49 @@ namespace prjEShopping.Controllers
 
             return new EmptyResult();
         }
-
-       
-
         [Authorize]
-        public ActionResult UserOrderDetail()//訂單詳情頁面
-        {
-            return View();
+        public ActionResult UserCartCheckStockapi(int cartid)//按下去買單要在檢核一次現在的訂單量
+        {            
+            var db = new AppDbContext();
+            var cartDetails = db.ShoppingCartDetails.Where(x=>x.CartId== cartid).ToList();                                                  
+
+            foreach (var cartDetail in cartDetails)
+            {
+                int productId = (int)cartDetail.ProductId;
+                int cartQuantity=(int)cartDetail.Quantity;
+
+                var productStock=db.ProductStocks.Where(x=>x.ProductId== productId).FirstOrDefault();
+                                                    
+                if (productStock != null)
+                {
+                    int stockQuantity = (int)productStock.StockQuantity;
+                    int orderQuantity = (int)productStock.OrderQuantity;
+
+                    int availableQuantity = stockQuantity - orderQuantity;
+                    
+                    if(cartQuantity> availableQuantity)//如果購物車數量>可以購買數量
+                    {
+                        cartDetail.Quantity = 0;
+                        int newPurchaseQuantity = (int)(productStock.PurchaseQuantity - cartQuantity);
+                        productStock.PurchaseQuantity = newPurchaseQuantity;
+                        db.SaveChanges();
+                        return Content("stock_insufficient");
+                    }
+                }
+            }
+
+            //確定所有商品的購買數量都不為0
+            bool allQuantitiesNonZero = cartDetails.All(x => x.Quantity != 0);
+            if (!allQuantitiesNonZero)
+            {
+                return Content("quantity_zero");
+
+            }
+
+
+            return Content("success");
         }
+
+
     }
  }

@@ -20,13 +20,13 @@
                     <a href="#" class="text-blue fw-bold text-decoration-none fs-5">E起購</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#" class="text-blue fw-bold text-decoration-none fs-5">數位通訊</a>
+                    <a href="#" class="text-blue fw-bold text-decoration-none fs-5">@Model.CategoryName</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#" class="text-blue fw-bold text-decoration-none fs-5">遊戲主機</a>
+                    <a href="#" class="text-blue fw-bold text-decoration-none fs-5">@Model.SubcategoryName</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="#" class="text-blue fw-bold text-decoration-none fs-5">PlayStation 5 主機testtesttesttesttesttesttest</a>
+                    <a href="#" class="text-blue fw-bold text-decoration-none fs-5">@Model.ProductName</a>
                 </li>
             </ol>
         </nav>
@@ -37,19 +37,22 @@
     <div class="container bg-success rounded py-2">
         <div class="row">
             <div class="col-5">
-                <img src="~/img/@(Model.ProductImagePathOne)" alt="" class="img-fluid" />
+                <div class="text-center my-3">
+                    <img src="" alt="" class="img-fluidMY" id="mainimg" />
+                </div>
                 <div class="row">
                     <div class="col">
-                        <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid" />
+                        <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid thumb-img" data-target="#mainimg" />
                     </div>
                     <div class="col">
-                        <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid" />
+                        <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid thumb-img" data-target="#mainimg" />
                     </div>
                     <div class="col">
-                        <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid" />
+                        <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid thumb-img" data-target="#mainimg" />
                     </div>
                 </div>
             </div>
+
             <div class="col-7 pt-5">
                 <div class="row">
                     <div class="col-3 d-flex align-items-center">
@@ -71,8 +74,6 @@
                             <a href="#">
                                 <h5 class="text-danger fw-bold">17</h5>
                             </a><span class="ms-2 me-2">評價</span>
-                            <span>18</span>
-                            <span>已售出</span>
                         </div>
                     </div>
                 </div>
@@ -81,7 +82,7 @@
                         <span>價格：</span>
                     </div>
                     <div class="col-9">
-                        <span class="fs-1 fw-bold text-danger">$@string.Format("{0:n0}", Math.Round(Model.Price))</span>
+                        <span class="fs-1 fw-bold text-danger">@Math.Round(Model.Price).ToString("C0")</span>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -106,402 +107,405 @@
                             </div>
                             <span class="ms-2">還剩：</span>
                             <span>@(Model.ProductStock)</span>
-                            <span>件</span>                                 
+                            <span>件</span>
+                            <span class="ms-2">/</span>
+                            <span class="ms-2">已售出：</span>
+                            <span>@(Model.QuantitySold)</span>
                         </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row mt-5 flex-column flex-md-row">
-                <div class="col mb-3 mb-md-0">
-                    <button class="btn-outline-primary btn rounded-pill btn-lg add2cart" data-id="@(Model.ProductId)" data-stockqty="@(Model.ProductStock)">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        加入購物車
-                    </button>      
-                    
+                <div class="row mt-5 flex-column flex-md-row">
+                    <div class="col mb-3 mb-md-0">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg add2cart" data-id="@(Model.ProductId)" data-stockqty="@(Model.ProductStock)">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            加入購物車
+                        </button>
+
+                    </div>
+                    <div class="col mb-3 mb-md-0">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg directadd2cart" data-id="@(Model.ProductId)">
+                            <i class="fa-solid fa-wallet"></i>
+                            直接購買
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg">
+                            <i class="fas fa-heart custom-heart"></i>
+                            加入追蹤
+                        </button>
+                    </div>
                 </div>
-                <div class="col mb-3 mb-md-0">
-                    <button class="btn-outline-primary btn rounded-pill btn-lg">
-                        <i class="fa-solid fa-wallet"></i>
-                        直接購買
-                    </button>
-                </div>
-                <div class="col">
-                    <button class="btn-outline-primary btn rounded-pill btn-lg">
-                        <i class="fas fa-heart custom-heart"></i>
-                        加入追蹤
-                    </button>
-                </div>
+
+
             </div>
 
 
-        </div>
-
-
-    </div>
-</div>
-
-
-
-
-<!-- 商品規格&詳情 -->
-<div class="container bg-success rounded py-2 mt-3">
-    <div class="bg-warning p-3">
-        <span class="fs-4 fw-bold">商品規格</span>
-    </div>
-    <div class="ms-1 mt-1">
-        <div class="row">
-            <div class="col-sm-2 col-lg-1">
-                <span>分類</span>
-            </div>
-            <div class="col-sm-10 col-lg-11">
-                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="#" class="text-blue text-decoration-none">E起購</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" class="text-blue text-decoration-none">數位通訊</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" class="text-blue text-decoration-none">遊戲主機</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" class="text-blue text-decoration-none">PlayStation 5 主機testtesttesttesttesttesttest</a>
-                        </li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-2 col-lg-1">
-                <span>品牌</span>
-            </div>
-            <div class="col-sm-10 col-lg-11">
-                <span class="mb-3">Play Station</span>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-2 col-lg-1">
-                <span>型號</span>
-            </div>
-            <div class="col-sm-10 col-lg-11">
-                <span class="mb-3">CFI-1218A</span>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-2 col-lg-1">
-                <span>NCC 證號</span>
-            </div>
-            <div class="col-sm-10 col-lg-11">
-                <span class="mb-3">CCAB21LP0810T3</span>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-2 col-lg-1">
-                <span>保固期限</span>
-            </div>
-            <div class="col-sm-10 col-lg-11">
-                <span class="mb-3">1年內</span>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-2 col-lg-1">
-                <span>產地</span>
-            </div>
-            <div class="col-sm-10 col-lg-11">
-                <span class="mb-3">台灣</span>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-sm-2 col-lg-1">
-                <span>顏色</span>
-            </div>
-            <div class="col-sm-10 col-lg-11">
-                <span class="mb-3">白色</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-warning p-3">
-        <span class="fs-4 fw-bold">商品詳情</span>
-    </div>
-    <div class="mt-2 ms-2">
-        <span>@Model.ProductDescription</span>
-    </div>
-</div>
-
-
-<!-- 商品評價 -->
-<div class="container bg-success rounded py-2 mt-3">
-    <div class="bg-warning p-3 mb-3">
-        <span class="fs-4 fw-bold">商品評價</span>
-    </div>
-
-    <p>
-        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('allstar')" aria-expanded="false" aria-controls="collapseExample">
-            全部
-        </button>
-        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fivestar')" aria-expanded="false" aria-controls="collapseExample">
-            5星<span>(265)</span>
-        </button>
-        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fourstar')" aria-expanded="false" aria-controls="collapseExample">
-            4星<span>(265)</span>
-        </button>
-        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('threestar')" aria-expanded="false" aria-controls="collapseExample">
-            3星<span>(265)</span>
-        </button>
-        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('twostar')" aria-expanded="false" aria-controls="collapseExample">
-            2星<span>(265)</span>
-        </button>
-        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('onestar')" aria-expanded="false" aria-controls="collapseExample">
-            1星<span>(265)</span>
-        </button>
-    </p>
-
-    <!-- 全部內容 -->
-    <div class="collapse" id="allstar">
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是全部k*****3</div>
-                    <div>我是全部2022-08-17 09:17</div>
-                    <div>我是全部終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是全部k*****3</div>
-                    <div>我是全部2022-08-17 09:17</div>
-                    <div>我是全部終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是全部k*****3</div>
-                    <div>我是全部2022-08-17 09:17</div>
-                    <div>我是全部終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
         </div>
     </div>
 
 
-    <!-- 五星內容 -->
-    <div class="collapse" id="fivestar">
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
+
+
+    <!-- 商品規格&詳情 -->
+    <div class="container bg-success rounded py-2 mt-3">
+        <div class="bg-warning p-3">
+            <span class="fs-4 fw-bold">商品規格</span>
+        </div>
+        <div class="ms-1 mt-1">
+            <div class="row">
+                <div class="col-sm-2 col-lg-1">
+                    <span>分類</span>
                 </div>
-                <div class="col d-flex flex-column">
-                    <div>我是五星k*****3</div>
-                    <div>我是五星2022-08-17 09:17</div>
-                    <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                <div class="col-sm-10 col-lg-11">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-blue text-decoration-none">E起購</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-blue text-decoration-none">@Model.CategoryName</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-blue text-decoration-none">@Model.SubcategoryName</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#" class="text-blue text-decoration-none">@Model.ProductName</a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-lg-1">
+                    <span>品牌</span>
+                </div>
+                <div class="col-sm-10 col-lg-11">
+                    <span class="mb-3">@Model.BrandName</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-lg-1">
+                    <span>@Model.SpecificationNameOne</span>
+                </div>
+                <div class="col-sm-10 col-lg-11">
+                    <span class="mb-3">@Model.OptionNameOne</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-lg-1">
+                    <span>@Model.SpecificationNameTwo</span>
+                </div>
+                <div class="col-sm-10 col-lg-11">
+                    <span class="mb-3">@Model.OptionNameTwo</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-lg-1">
+                    <span>@Model.SpecificationNameThree</span>
+                </div>
+                <div class="col-sm-10 col-lg-11">
+                    <span class="mb-3">@Model.OptionNameThree</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-lg-1">
+                    <span>@Model.SpecificationNameFour</span>
+                </div>
+                <div class="col-sm-10 col-lg-11">
+                    <span class="mb-3">@Model.OptionNameFour</span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-2 col-lg-1">
+                    <span>@Model.SpecificationNameFive</span>
+                </div>
+                <div class="col-sm-10 col-lg-11">
+                    <span class="mb-3">@Model.OptionNameFive</span>
                 </div>
             </div>
         </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是五星k*****3</div>
-                    <div>我是五星2022-08-17 09:17</div>
-                    <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
+
+        <div class="bg-warning p-3">
+            <span class="fs-4 fw-bold">商品詳情</span>
         </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是五星k*****3</div>
-                    <div>我是五星2022-08-17 09:17</div>
-                    <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
+        <div class="mt-2 ms-2">
+            <span>@Model.ProductDescription</span>
         </div>
     </div>
 
 
-    <!-- 四星內容 -->
-    <div class="collapse" id="fourstar">
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
+    <!-- 商品評價 -->
+    <div class="container bg-success rounded py-2 mt-3">
+        <div class="bg-warning p-3 mb-3">
+            <span class="fs-4 fw-bold">商品評價</span>
+        </div>
+
+        <p>
+            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('allstar')" aria-expanded="false" aria-controls="collapseExample">
+                全部
+            </button>
+            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fivestar')" aria-expanded="false" aria-controls="collapseExample">
+                5星<span>(265)</span>
+            </button>
+            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fourstar')" aria-expanded="false" aria-controls="collapseExample">
+                4星<span>(265)</span>
+            </button>
+            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('threestar')" aria-expanded="false" aria-controls="collapseExample">
+                3星<span>(265)</span>
+            </button>
+            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('twostar')" aria-expanded="false" aria-controls="collapseExample">
+                2星<span>(265)</span>
+            </button>
+            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('onestar')" aria-expanded="false" aria-controls="collapseExample">
+                1星<span>(265)</span>
+            </button>
+        </p>
+
+        <!-- 全部內容 -->
+        <div class="collapse" id="allstar">
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是全部k*****3</div>
+                        <div>我是全部2022-08-17 09:17</div>
+                        <div>我是全部終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
                 </div>
-                <div class="col d-flex flex-column">
-                    <div>我是四星k*****3</div>
-                    <div>我是四星2022-08-17 09:17</div>
-                    <div>我是四星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是全部k*****3</div>
+                        <div>我是全部2022-08-17 09:17</div>
+                        <div>我是全部終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是全部k*****3</div>
+                        <div>我是全部2022-08-17 09:17</div>
+                        <div>我是全部終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
+
+
+        <!-- 五星內容 -->
+        <div class="collapse" id="fivestar">
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是五星k*****3</div>
+                        <div>我是五星2022-08-17 09:17</div>
+                        <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
                 </div>
-                <div class="col d-flex flex-column">
-                    <div>我是四星k*****3</div>
-                    <div>我是四星2022-08-17 09:17</div>
-                    <div>我是四星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是五星k*****3</div>
+                        <div>我是五星2022-08-17 09:17</div>
+                        <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是五星k*****3</div>
+                        <div>我是五星2022-08-17 09:17</div>
+                        <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
+
+
+        <!-- 四星內容 -->
+        <div class="collapse" id="fourstar">
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是四星k*****3</div>
+                        <div>我是四星2022-08-17 09:17</div>
+                        <div>我是四星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
                 </div>
-                <div class="col d-flex flex-column">
-                    <div>我是四星k*****3</div>
-                    <div>我是四星2022-08-17 09:17</div>
-                    <div>我是四星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是四星k*****3</div>
+                        <div>我是四星2022-08-17 09:17</div>
+                        <div>我是四星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是四星k*****3</div>
+                        <div>我是四星2022-08-17 09:17</div>
+                        <div>我是四星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 三星內容 -->
+        <div class="collapse" id="threestar">
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是三星k*****3</div>
+                        <div>我是三星2022-08-17 09:17</div>
+                        <div>我是三星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是三星k*****3</div>
+                        <div>我是三星2022-08-17 09:17</div>
+                        <div>我是三星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是三星k*****3</div>
+                        <div>我是三星2022-08-17 09:17</div>
+                        <div>我是三星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 兩星內容 -->
+        <div class="collapse" id="twostar">
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是兩星k*****3</div>
+                        <div>我是兩星2022-08-17 09:17</div>
+                        <div>我是兩星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是兩星k*****3</div>
+                        <div>我是兩星2022-08-17 09:17</div>
+                        <div>我是兩星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是兩星k*****3</div>
+                        <div>我是兩星2022-08-17 09:17</div>
+                        <div>我是兩星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 一星內容 -->
+        <div class="collapse" id="onestar">
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是一星k*****3</div>
+                        <div>我是一星2022-08-17 09:17</div>
+                        <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是一星k*****3</div>
+                        <div>我是一星2022-08-17 09:17</div>
+                        <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-body">
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="col">
+                        <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是一星k*****3</div>
+                        <div>我是一星2022-08-17 09:17</div>
+                        <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <!-- 三星內容 -->
-    <div class="collapse" id="threestar">
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是三星k*****3</div>
-                    <div>我是三星2022-08-17 09:17</div>
-                    <div>我是三星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是三星k*****3</div>
-                    <div>我是三星2022-08-17 09:17</div>
-                    <div>我是三星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是三星k*****3</div>
-                    <div>我是三星2022-08-17 09:17</div>
-                    <div>我是三星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- 兩星內容 -->
-    <div class="collapse" id="twostar">
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是兩星k*****3</div>
-                    <div>我是兩星2022-08-17 09:17</div>
-                    <div>我是兩星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是兩星k*****3</div>
-                    <div>我是兩星2022-08-17 09:17</div>
-                    <div>我是兩星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是兩星k*****3</div>
-                    <div>我是兩星2022-08-17 09:17</div>
-                    <div>我是兩星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- 一星內容 -->
-    <div class="collapse" id="onestar">
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是一星k*****3</div>
-                    <div>我是一星2022-08-17 09:17</div>
-                    <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是一星k*****3</div>
-                    <div>我是一星2022-08-17 09:17</div>
-                    <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-        <div class="card card-body">
-            <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                <div class="col">
-                    <img src="~/img/comment.jpeg" alt="">
-                </div>
-                <div class="col d-flex flex-column">
-                    <div>我是一星k*****3</div>
-                    <div>我是一星2022-08-17 09:17</div>
-                    <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 
 @*加入購物車跳出視窗*@
@@ -602,43 +606,77 @@
 
         //加入購物車UserCartController/UserAddCart是api
         $(document).ready(function () {
-            $(".add2cart").each(function () {
-                $(this).on("click", async function () {
-                    var self = $(this);
-                    var productId = self.attr("data-id");
+            function addToCart(productId, quantityValue, isDirectAdd) {
+               
+                //計算可購買量
+                var availableStock = parseInt(document.querySelector(".add2cart").getAttribute("data-stockqty"));     
+                
+                var cartqty = @ViewBag.TotalQuantity;
+                
+                var Productstock  = availableStock - quantityValue - cartqty;//庫存-現在數量-購物車數量
+                
+                if (Productstock >= 0) {
+                    //ajax送出request
+                    $.get("/UserCart/UserAddCartapi?ProductId=" + productId + "&Quantity=" + quantityValue)
+                        .done(function () {
+                            $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + productId)
+                                .done(function () {
+                                    if (isDirectAdd) {
+                                        window.location.href = "/UserCart/UserShoppingCart";
+                                    } else {
+                                        $("#addToCartModal").modal("show");//加入購物車成功
+                                        $("#confirmButtonadd").on('click', () => {
+                                            location.reload();
+                                        });
+                                    }
+                                });
+                        });                  
+                }
+                else {
+                    $("#stockCartModal").modal("show");//庫存不足
+                    $("#confirmButtonstock").on('click', () => {
+                        location.reload();
+                    });
+                }
+            }
 
-                    //計算可購買量
-                    var availableStock = self.attr("data-stockqty");
-                    availableStock = parseInt(availableStock);
-                    var cartqty = @ViewBag.TotalQuantity;
-                    //console.log(cartqty)
-                    //var Productstock = Math.max(0, availableStock - quantityValue);
+            $(".add2cart, .directadd2cart").each(function () {
+                $(this).on('click', function () {
+                    var productId = $(this).attr("data-id");
+                    var isDirectAdd = $(this).hasClass("directadd2cart");
 
-                    var Productstock  = availableStock - quantityValue - cartqty;//庫存-現在數量-購物車數量
-                    //console.log(Productstock)
-
-                    if (Productstock >= 0) {  
-                        //ajax送出request
-                        const result = await $.get("/UserCart/UserAddCartapi?ProductId=" + productId + "&Quantity=" + quantityValue);
-                        const result2 = await $.get("/UserCart/UserUpadateCartStockapi?ProductId=" + productId)
-                        
-                        $("#addToCartModal").modal("show");//加入購物車成功
-                        $("#confirmButtonadd").on('click',()=>{
-                            location.reload();
-                        }) 
-                    }
-                    else {
-                        
-                        $("#stockCartModal").modal("show");//庫存不足
-                        $("#confirmButtonstock").on('click', () => {
-                            location.reload();
-                        }) 
-                    }                    
+                    addToCart(productId, quantityValue, isDirectAdd)
                 })
             })
-        })      
+
+
+
+        })
+
+        //--------------------------------------------------------------------------------------
+        //點選圖片切換
+        $(document).ready(function () {
+
+            //點選縮圖時切換主圖片
+            $(".thumb-img").on('click', function () {
+                var targetImg = $(this).attr("src");
+                var mainImg = $($(this).data("target"));
+                mainImg.attr("src", targetImg);
+            });
+
+            //點選縮圖時有黃外框
+            $(".thumb-img").on('click', function () {
+                $(".thumb-img").removeClass("selected-thumbnail");
+                $(this).addClass("selected-thumbnail");
+            });
+
+            //一載入頁面同時第一張圖片有外框
+            var firstThumb = $(".thumb-img:first");
+            var mainImg = $(firstThumb.data("target"));
+            mainImg.attr("src", firstThumb.attr("src"));
+            firstThumb.addClass("selected-thumbnail")
+        })
 
     </script>
 
 }
-

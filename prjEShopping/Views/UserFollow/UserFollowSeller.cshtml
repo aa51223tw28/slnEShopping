@@ -1,0 +1,137 @@
+﻿
+@{
+    ViewBag.Title = "UserFollowSeller";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="bg-light">
+    <div class="container py-3">
+        <div class="row py-2 gx-5">
+            <div class="col-sm-auto col-md-3 bg-light">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <img src="~/img/comment.jpeg" alt="" class="img-fluid">
+                        <span class="fw-bold ms-3">John Doe</span>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                    <div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    我的帳戶
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="link-blue text-decoration-none fw-bold">個人檔案</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserMembers/UserEditPassword")" class="link-blue text-decoration-none fw-bold">修改密碼</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    我的焦點
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserOrder/UserOrderDetailAll")" class="link-blue text-decoration-none fw-bold">購買清單</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserCoupon/UserCouponList")" class="link-blue text-decoration-none fw-bold">優惠券</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowProduct")" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowSeller")" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                </div>
+            </div>
+
+            <!-- 右邊分頁區 -->
+            <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+                <p class="fs-4 mt-3 fw-bold">追蹤店家</p>
+                <hr>
+                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
+                    <div class="mb-3 col card p-2 bg-lightyellow me-3">
+                        <a href="#">
+                            <div class="card">
+                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                            </div>
+                        </a>
+                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
+                        <a href="#">
+                            <div class="card">
+                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                            </div>
+                        </a>
+                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
+                        <a href="#">
+                            <div class="card">
+                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                            </div>
+                        </a>
+                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
+                        <a href="#">
+                            <div class="card">
+                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                            </div>
+                        </a>
+                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
+                        <a href="#">
+                            <div class="card">
+                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                            </div>
+                        </a>
+                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
+                        <a href="#">
+                            <div class="card">
+                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                            </div>
+                        </a>
+                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
