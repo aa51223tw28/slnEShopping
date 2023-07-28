@@ -60,5 +60,6 @@ namespace prjEShopping.Models.ViewModels
        
         [DisplayName("商家圖片")]
         public string SellerImagePath { get; set; }
+        public HttpPostedFileBase photo { get; set; }
     }
 }
