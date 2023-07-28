@@ -41,8 +41,36 @@ namespace prjEShopping.Controllers
         // GET: Admins/Create
         public ActionResult Create()
         {
+            ViewBag.AdminNumber =NewAccountNumber();
             var admin =new Admin();
-            return View(admin);
+            AdminVM model = AdminChange.Admin2VM(admin);
+            return View(model);
+        }
+
+        private string NewAccountNumber()
+        {
+            var db = new AppDbContext();
+            List<string> adminNumbers = db.Admins.Select(a => a.AdminNumber).ToList();
+
+            var date = DateTime.Now;
+            string year = date.Year.ToString().Substring(2, 2);
+            string month = date.Month.ToString().PadLeft(2, '0');
+
+            int count = 1;
+            string adminNumber = GenerateAdminNumber(year, month,count);
+
+            while (adminNumbers.Contains(adminNumber))
+            {
+                count++;
+                adminNumber = GenerateAdminNumber(year, month, count);
+            }
+
+            return adminNumber;
+        }
+
+        private string GenerateAdminNumber(string year, string month,int count)
+        {
+            return $"A{year}{month}{count.ToString().PadLeft(2, '0')}";
         }
 
         // POST: Admins/Create
@@ -50,16 +78,27 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,DateOfHire,JobStatus,Role")] Admin admin)
+        public ActionResult Create([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,DateOfHire,JobStatus,Role")] AdminVM vm)
         {
-            if (ModelState.IsValid)
-            {
-                db.Admins.Add(admin);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            SameAccount(vm);
 
-            return View(admin);
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            db.Admins.Add(AdminChange.VM2Admin(vm));
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //相同帳號驗證方法
+        private void SameAccount(AdminVM vm)
+        {
+            var data = db.Admins.FirstOrDefault(a => a.AdminAccount == vm.AdminAccount);
+            if (data != null)
+            {
+                ViewBag.AdminNumber = NewAccountNumber();
+                ModelState.AddModelError(string.Empty, "這個信箱已註冊，請用其他信箱進行申請帳號!");
+            }
         }
 
         // GET: Admins/Edit/5
