@@ -19,28 +19,44 @@ namespace prjEShopping.Controllers
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
-                        
-            var orderIdList = db.Orders.Where(x => x.UserId == userid).Select(x => x.OrderId).ToList(); 
-            var shipmentsForOrder=db.Shipments.Where(x=> orderIdList.Contains((int)x.OrderId)).ToList();
-                      
-            
+
+            var orderIdList = db.Orders.Where(x => x.UserId == userid).Select(x => x.OrderId).ToList();
+            var shipmentsForOrder = db.Shipments.Where(x => orderIdList.Contains((int)x.OrderId)).ToList();
+
             List<UserOrderAllVM> datas = new List<UserOrderAllVM>();
             foreach (var item in shipmentsForOrder)
             {
-                // 先找到該 OrderId 下的所有 ProductId
-                var productIds = db.OrderDetails
-                                   .Where(x => x.OrderId == item.OrderId)
-                                   .Select(x => x.ProductId)
-                                   .Distinct()
-                                   .ToList();
 
-                // 使用 GroupBy 和 Sum 來計算每個 SellerId 的商品數量總和
-                int totalQuantity = (int)productIds.Sum(productId => db.OrderDetails
-                                                                    .Where(x => x.OrderId == item.OrderId && x.ProductId == productId)
-                                                                    .Sum(x => x.Quantity));
+                //---計算該筆OrderId所買的商品ProductId該SellerId的合計Quantity
+                var orderDetailIds = db.OrderDetails
+                                        .Where(x => x.OrderId == item.OrderId)
+                                        .Select(x => x.OrderDetailId)
+                                        .ToList();
 
-                // 根據 ProductId 找到對應的 SellerId
-                var sellerId = db.Products.FirstOrDefault(p => p.ProductId == productIds.FirstOrDefault())?.SellerId;
+                var productQuantities = db.OrderDetails
+                                          .Where(x => orderDetailIds.Contains(x.OrderDetailId))
+                                          .Select(x => new { x.ProductId, x.Quantity })
+                                          .ToList();
+
+                var sellerQuantities = new Dictionary<int, int>();//這個字典的鍵 (Key) 是賣家的 ID (SellerId)，值 (Value) 是該賣家的合計數量。
+
+                foreach (var productQuantity in productQuantities)
+                {
+                    int productId = (int)productQuantity.ProductId;
+                    int quantity = (int)productQuantity.Quantity;
+
+                    int sellerId = db.Products.FirstOrDefault(x => x.ProductId == productId)?.SellerId ?? 0;
+
+                    if (sellerQuantities.ContainsKey(sellerId))
+                    {
+                        sellerQuantities[sellerId] += quantity;
+                    }
+                    else
+                    {
+                        sellerQuantities[sellerId] = quantity;
+                    }
+                }
+                //---計算該筆OrderId所買的商品ProductId該SellerId的合計Quantity
 
 
                 var data = new UserOrderAllVM
@@ -52,16 +68,18 @@ namespace prjEShopping.Controllers
                     ShipmentNumber = item.ShipmentNumber,
                     SellerId = (int)item.SellerId,
                     SellerName = db.Sellers.FirstOrDefault(x => x.SellerId == item.SellerId).SellerName,
-                    
-                    Quantity = totalQuantity,
-                    SellerImagePath = db.Sellers.FirstOrDefault(x=>x.SellerId== item.SellerId).SellerImagePath,
+                    Quantity = sellerQuantities.ContainsKey((int)item.SellerId) ? sellerQuantities[(int)item.SellerId] : 0,
+                    SellerImagePath = db.Sellers.FirstOrDefault(x => x.SellerId == item.SellerId).SellerImagePath,
                     ShipmentStatusId = (int)item.ShipmentStatusId,
+                    ShipmentStatus = db.ShipmentStatusDetails.FirstOrDefault(x => x.ShipmentStatusId == item.ShipmentStatusId).ShipmentStatus,
                 };
+
                 datas.Add(data);
             }
-            return View(datas);
-        }
 
+            return View(datas);
+
+        }
 
         [Authorize]
         public ActionResult UserOrderDetail()//訂單詳細頁面

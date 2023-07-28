@@ -18,5 +18,6 @@ namespace prjEShopping.Models.ViewModels
         public string SellerImagePath { get; set; }
         public decimal PriceBySeller { get; set; }
         public int ShipmentStatusId { get; set; }
+        public string ShipmentStatus { get; set; }
     }
 }
