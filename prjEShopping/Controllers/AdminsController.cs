@@ -34,7 +34,8 @@ namespace prjEShopping.Controllers
             {
                 return HttpNotFound();
             }
-            return View(admin);
+            AdminVM model = AdminChange.Admin2VM(admin);
+            return View(model);
         }
 
         // GET: Admins/Create

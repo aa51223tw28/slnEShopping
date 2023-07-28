@@ -1,106 +1,104 @@
-﻿@model prjEShopping.Models.EFModels.Admin
+﻿@model prjEShopping.Models.ViewModels.AdminVM
+
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
+<div class="col-9 bg-secondary overflow-auto">
+    <div>
+        <h4>員工詳細資料</h4>
+        <hr />
+        <table class="table table-primary table-bordered" style="width:400px">
+            <tr>
+                <th style="width:100px">項目</th>
+                <th style="width:100px">內容</th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AdminNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AdminNumber)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PermissionsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PermissionsId)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Title)
+                </td>
+            </tr>
 
-<div>
-    <h4>Admin</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AdminNumber)
-        </dt>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AdminName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AdminName)
+                </td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.AdminNumber)
-        </dd>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AdminAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AdminAccount)
+                </td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PermissionsId)
-        </dt>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AdminPassword)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AdminPassword)
+                </td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.PermissionsId)
-        </dd>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Phone)
+                </td>
+            </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AdminAccount)
-        </dt>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.DateOfHire)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DateOfHire)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.JobStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.JobStatus)
+                </td>
+            </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.AdminAccount)
-        </dd>
+        </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AdminPassword)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AdminPassword)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AdminPasswordSalt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AdminPasswordSalt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AdminName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AdminName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfHire)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateOfHire)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.JobStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.JobStatus)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
-
-    </dl>
+        <p>
+            @Html.ActionLink("修改", "Edit", new { id = Model.AdminId }, new {@class= "btn btn-primary" })
+            @Html.ActionLink("回主頁", "Index", null, new { @class = "btn btn-info" })
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AdminId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
