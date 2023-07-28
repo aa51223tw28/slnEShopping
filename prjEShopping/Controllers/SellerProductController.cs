@@ -20,8 +20,9 @@ namespace prjEShopping.Controllers
         // GET: SellerProduct
         public ActionResult SellerProductList()
         {
+            int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
-            var products = db.Products.Where(x => x.SellerId == 1).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            var products = db.Products.Where(x => x.SellerId == sellerid).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductID = x.ProductId,
                 ProductName = x.ProductName,
@@ -94,6 +95,7 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult ProductEdit(SellerProductCreateVM vm) 
         {
+            int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
             var product = db.Products.FirstOrDefault(x => x.ProductId == vm.ProductID);
 
@@ -112,7 +114,7 @@ namespace prjEShopping.Controllers
             var createstock = new ProductInventory()
             {
                 ProductId = vm.ProductID,
-                SellerId = 1,
+                SellerId = sellerid,
                 Quantity = vm.Quantity,
             };
             db.ProductInventories.Add(createstock);

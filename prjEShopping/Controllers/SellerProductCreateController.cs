@@ -10,6 +10,7 @@ namespace prjEShopping.Controllers
 {
     public class SellerProductCreateController : Controller
     {
+        
         // GET: SellerProduct
         public ActionResult Index()
         {
@@ -24,6 +25,7 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult ProductCreate(SellerProductCreateVM vm)
         {
+            int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
             var product = new Product()
             {  
@@ -32,7 +34,7 @@ namespace prjEShopping.Controllers
                 Price = vm.Price,
                 BrandId = (db.Brands.Where(x => x.BrandName == vm.BrandName).SingleOrDefault()).BrandId,
                 ProductStatusId = 2,
-                SellerId = 1,
+                SellerId = sellerid,
                 CategoryId = (db.ProductMainCategories.Where(x => x.CategoryName == vm.CategoryName).SingleOrDefault()).CategoryId,
                 SubcategoryId = (db.ProductSubCategories.Where(x => x.SubcategoryName == vm.SubcategoryName).SingleOrDefault()).SubcategoryId,
                 OptionIdOne = (db.ProductOptions.Where(x => x.OptionName == vm.OptionName0 && x.SpecificationId == (db.ProductSpecifications.Where(y => y.SpecificationName == vm.SpecificationName0 && y.SubcategoryId == (db.ProductSubCategories.Where(z => z.SubcategoryName == vm.SubcategoryName).FirstOrDefault().SubcategoryId)).FirstOrDefault()).SpecificationId).SingleOrDefault().OptionId).ToString(),
@@ -40,10 +42,25 @@ namespace prjEShopping.Controllers
                 OptionIdThree = (db.ProductOptions.Where(x => x.OptionName == vm.OptionName2 && x.SpecificationId == (db.ProductSpecifications.Where(y => y.SpecificationName == vm.SpecificationName2 && y.SubcategoryId == (db.ProductSubCategories.Where(z => z.SubcategoryName == vm.SubcategoryName).FirstOrDefault().SubcategoryId)).FirstOrDefault()).SpecificationId).SingleOrDefault().OptionId).ToString(),
                 OptionIdFour = (db.ProductOptions.Where(x => x.OptionName == vm.OptionName3 && x.SpecificationId == (db.ProductSpecifications.Where(y => y.SpecificationName == vm.SpecificationName3 && y.SubcategoryId == (db.ProductSubCategories.Where(z => z.SubcategoryName == vm.SubcategoryName).FirstOrDefault().SubcategoryId)).FirstOrDefault()).SpecificationId).SingleOrDefault().OptionId).ToString(),
                 OptionIdFive = (db.ProductOptions.Where(x => x.OptionName == vm.OptionName4 && x.SpecificationId == (db.ProductSpecifications.Where(y => y.SpecificationName == vm.SpecificationName4 && y.SubcategoryId == (db.ProductSubCategories.Where(z => z.SubcategoryName == vm.SubcategoryName).FirstOrDefault().SubcategoryId)).FirstOrDefault()).SpecificationId).SingleOrDefault().OptionId).ToString(),
-        };
+            };
                 db.Products.Add(product);
                 db.SaveChanges();
 
+            if (vm.Quantity > 0 && vm.Quantity != null)
+            {
+                var stock = db.ProductStocks.FirstOrDefault(x => x.ProductId == vm.ProductID);
+                stock.StockQuantity = stock.StockQuantity + vm.Quantity;
+                db.SaveChanges();
+
+                var createstock = new ProductInventory()
+                {
+                    ProductId = vm.ProductID,
+                    SellerId = sellerid,
+                    Quantity = vm.Quantity,
+                };
+                db.ProductInventories.Add(createstock);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index", "SellerMain");
         }
     }
