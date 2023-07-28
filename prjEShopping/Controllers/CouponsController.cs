@@ -25,7 +25,6 @@ namespace prjEShopping.Controllers
         //優惠券列表分頁專用
         public ActionResult Index(int page = 1, int pageSize = 10)
         {
-            // 連資料庫
             //todo 分類篩選頁面異常未排除
             using (db)
             {
@@ -89,7 +88,6 @@ namespace prjEShopping.Controllers
         // GET: Coupons/Create
 
         //todo 建立欄位商家專屬優惠券未連結商家資料庫
-        //todo 優惠折扣內容選取欄位未變更 (選取免運 條件變成免運 選取打折 95折 9折 5折 或輸入數字+折字 選取抵扣 抵300 抵500 或填寫數字等)
 
         // GET: Coupons/All
         public ActionResult CouponsAll(int page = 1, int pageSize = 10)
@@ -365,32 +363,6 @@ namespace prjEShopping.Controllers
             }
             return View(coupon);
         }
-
-        //    // GET: Coupons/Delete/5
-        //    public ActionResult Delete(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-        //        Coupon coupon = db.Coupons.Find(id);
-        //        if (coupon == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //        return View(coupon);
-        //    }
-
-        //    // POST: Coupons/Delete/5
-        //    [HttpPost, ActionName("Delete")]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult DeleteConfirmed(int id)
-        //    {
-        //        Coupon coupon = db.Coupons.Find(id);
-        //        db.Coupons.Remove(coupon);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
 
         protected override void Dispose(bool disposing)
         {

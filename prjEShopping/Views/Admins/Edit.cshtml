@@ -51,7 +51,10 @@
     <div class="form-group">
         @Html.LabelFor(model => model.AdminPassword, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.AdminPassword, new { htmlAttributes = new { @class = "form-control" } })
+            <input type="password" class="form-control" readonly id="AdminPassword" value="@Html.DisplayFor(model=>model.AdminPassword)" />
+            <!--密碼變更另外做一個頁面進行驗證避免前端驗證跟麻煩-->
+            <button type="button" class="btn btn-primary my-2" id="passwordEdit">變更密碼</button>
+
             @Html.ValidationMessageFor(model => model.AdminPassword, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -107,13 +110,13 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="修改" class="btn btn-default" />
+            <input type="submit" value="修改" class="btn btn-primary my-2" />
         </div>
     </div>
 </div>
     }
     <div>
-        @Html.ActionLink("取消", "Index")
+        @Html.ActionLink("取消", "Index", null, new {@class= "btn btn-info my-2" })
     </div>
 </div>
 

@@ -122,7 +122,7 @@ namespace prjEShopping.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,JobStatus,DateOfHire")] AdminVM vm)
-        {
+        {//todo 密碼修改還沒做
             if (ModelState.IsValid==false)
                 return View(vm);
 

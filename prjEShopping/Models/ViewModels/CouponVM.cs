@@ -65,4 +65,5 @@ namespace prjEShopping.Models.ViewModels
         [StringLength(50)]
         public string EventStatus { get; set; }
     }
+
 }
