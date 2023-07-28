@@ -22,34 +22,39 @@ namespace prjEShopping.Controllers
                         
             var orderIdList = db.Orders.Where(x => x.UserId == userid).Select(x => x.OrderId).ToList(); 
             var shipmentsForOrder=db.Shipments.Where(x=> orderIdList.Contains((int)x.OrderId)).ToList();
-
-            // 使用 GroupBy 和 Sum 來計算每個 SellerId 的商品數量總和
-            var quantityBySeller = shipmentsForOrder.GroupBy(s => s.SellerId)
-                                                    .Select(g => new{
-                                                        SellerId = g.Key,
-                                                        TotalQuantity = g.Sum(s => db.OrderDetails.FirstOrDefault(od => od.OrderId == s.OrderId)?.Quantity ?? 0)
-                                                    }).ToList();
-
-            // 建立一個 Dictionary 來存放每個 SellerId 對應的商品數量總和
-            Dictionary<int, int> sellerQuantityMap = quantityBySeller.ToDictionary(x => x.SellerId, x => x.TotalQuantity);
-
-
-
+                      
+            
             List<UserOrderAllVM> datas = new List<UserOrderAllVM>();
             foreach (var item in shipmentsForOrder)
             {
-                
+                // 先找到該 OrderId 下的所有 ProductId
+                var productIds = db.OrderDetails
+                                   .Where(x => x.OrderId == item.OrderId)
+                                   .Select(x => x.ProductId)
+                                   .Distinct()
+                                   .ToList();
+
+                // 使用 GroupBy 和 Sum 來計算每個 SellerId 的商品數量總和
+                int totalQuantity = (int)productIds.Sum(productId => db.OrderDetails
+                                                                    .Where(x => x.OrderId == item.OrderId && x.ProductId == productId)
+                                                                    .Sum(x => x.Quantity));
+
+                // 根據 ProductId 找到對應的 SellerId
+                var sellerId = db.Products.FirstOrDefault(p => p.ProductId == productIds.FirstOrDefault())?.SellerId;
+
+
                 var data = new UserOrderAllVM
                 {
                     UserId = userid,
                     OrderId = (int)item.OrderId,
                     OrderNumber = db.Orders.FirstOrDefault(x => x.OrderId == item.OrderId).OrderNumber,
-                    ShipmentId= item.ShipmentId,
-                    ShipmentNumber=item.ShipmentNumber,
-                    SellerId= (int)item.SellerId,
-                    SellerName= db.Sellers.FirstOrDefault(x => x.SellerId == item.SellerId).SellerName,
-                    Quantity=totalQuantity,
-                    SellerImagePath= db.Sellers.FirstOrDefault(x=>x.SellerId== item.SellerId).SellerImagePath,
+                    ShipmentId = item.ShipmentId,
+                    ShipmentNumber = item.ShipmentNumber,
+                    SellerId = (int)item.SellerId,
+                    SellerName = db.Sellers.FirstOrDefault(x => x.SellerId == item.SellerId).SellerName,
+                    
+                    Quantity = totalQuantity,
+                    SellerImagePath = db.Sellers.FirstOrDefault(x=>x.SellerId== item.SellerId).SellerImagePath,
                     ShipmentStatusId = (int)item.ShipmentStatusId,
                 };
                 datas.Add(data);
