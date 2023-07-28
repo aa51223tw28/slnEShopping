@@ -67,10 +67,9 @@
                         <span class="d-none d-md-inline">管理權限設定</span><span class="d-sm-inline d-md-none ">管</span>
                     </a>
                     <ul class="dropdown-menu bg-info " aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item btn1" href="#tab101">員工一覽</a></li>
-                        <li><a class="dropdown-item btn1" href="#tab102">新增員工</a></li>
-                        <li><a class="dropdown-item btn1" href="#tab103">管理員資料修改</a></li>
-                        <li><a class="dropdown-item btn1" href="#tab104">員工資料修改</a></li>
+                        <li>@Html.ActionLink("員工一覽", "Index", "Admins",null, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("新增員工", "Create", "Admins",null, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("資料修改", "Edit", "Admins", new {id="1"}, new { @class = "nav-link" })</li>
                         <li><a class="dropdown-item btn1" href="#tab105">權限設置</a></li>
                     </ul>
 
@@ -79,7 +78,7 @@
                     </a>
                     <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="platform2.html">員工一覽</a></li>
-                        <li><a class="dropdown-item" href="platform2.html">員工資料修改</a></li>
+                        <li><a class="dropdown-item" href="platform2.html">資料修改</a></li>
                     </ul>
 
                     <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
