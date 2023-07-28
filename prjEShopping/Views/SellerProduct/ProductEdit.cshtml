@@ -1,0 +1,153 @@
+﻿@model prjEShopping.Models.ViewModels.SellerProductCreateVM
+@{
+    ViewBag.Title = "ProductEdit";
+    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
+}
+
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+    <p class="fs-4 mt-3 fw-bold text-center text-primary">修改商品</p>
+    <hr>
+    <form method="post" enctype="multipart/form-data" action="ProductEdit">
+        <div class="row container">
+
+            <div class="col-sm-6 col-xl-6">
+                <input type="hidden" value="@Model.ProductID" name="ProductID" />
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">主分類：</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="CategoryName">@Model.CategoryName</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">小分類：</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="SubcategoryName">@Model.SubcategoryName</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">@Model.SpecificationName0</span><span> :</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="OptionName0">@Model.OptionName0</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">@Model.SpecificationName1</span><span> :</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="OptionName1">@Model.OptionName1</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">@Model.SpecificationName2</span><span> :</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="OptionName2">@Model.OptionName2</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">@Model.SpecificationName3</span><span> :</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="OptionName3">@Model.OptionName3</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">@Model.SpecificationName4</span><span> :</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="OptionName4">@Model.OptionName4</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">品牌：</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fw-bold text-primary" name="BrandName">@Model.BrandName</span>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">商品名稱：</span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="ProductName" value="@Model.ProductName" readonly>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">商品描述：</span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="ProductDescription" value="@Model.ProductDescription">
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">單價：</span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="Price" value="@Model.Price">
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fw-bold text-primary">數量：</span>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" name="Quantity">
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex col-sm-6 col-xl-6 ">
+            <div class="d-flex flex-column align-items-start  ms-2">
+                <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid align-items-start" name="ProductImagePathOne" width="130">
+                <div class="btn btn-secondary mt-2">選擇圖片</div>
+            </div>
+            <div class="d-flex flex-column align-items-start  ms-2 " >
+                <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid align-items-start" width="130" name="ProductImagePathTwo">
+                <div class="btn btn-secondary mt-2">選擇圖片</div>
+            </div>
+            <div class="d-flex flex-column align-items-start  ms-2 " >
+                <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid align-items-start" width="130" name="ProductImagePathThree">
+                <div class="btn btn-secondary mt-2">選擇圖片</div>
+            </div>
+        </div>
+        <div class="container">
+            <input type="submit" class="btn btn-secondary mt-2 align-items-center" value="儲存" id="btnsubmit" />
+        </div>
+    </form>
+</div>
+
