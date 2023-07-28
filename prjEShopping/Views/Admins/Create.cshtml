@@ -49,7 +49,14 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AdminPassword, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.AdminPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    <input type="password" id="AdminPassword" name="AdminPassword" class="form-control" aria-describedby="passwordHelpBlock">
+                    <label for="inputPassword2" class="form-label">密碼確認</label>
+                    <input type="password" id="Passwordcheck" class="form-control">
+                    <div id="passwordMatchMessage" class="form-text d-none text-danger">
+                        兩次輸入的密碼不一致。
+                    </div>
+                    <div id="passwordError" class="form-text d-none text-danger">
+                    </div>
                     @Html.ValidationMessageFor(model => model.AdminPassword, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -57,7 +64,16 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    <input class="form-control" list="TitleOptions" id="Title" name="Title" required />
+                    <datalist id="TitleOptions">
+                        <option value="資訊經理">
+                        <option value="資訊組長">
+                        <option value="資訊專員">
+                        <option value="行銷經理">
+                        <option value="行銷專員">
+                        <option value="客服經理">
+                        <option value="客服專員">
+                    </datalist>
                     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -107,7 +123,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="新增" class="btn btn-primary my-2" />
+                    <input type="submit" id="submitAdd" value="新增" class="btn btn-primary my-2" />
                 </div>
             </div>      
     }
@@ -117,8 +133,32 @@
     </div>
 </div>
 @section Scripts{
-    <script>     
-    </script>
+
+<script>
+    $(document).ready(function () {
+        $('#Passwordcheck, #AdminPassword').on('input', function () {
+            var password = $("#AdminPassword").val();
+            var confirmPassword = $("#Passwordcheck").val();
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;
+
+            if (password != confirmPassword) {
+                $("#passwordMatchMessage").removeClass('d-none');
+                $("#passwordError").addClass('d-none');
+                $("#submitAdd").prop("disabled", true);
+            }
+            else if (!regex.test(password)) {
+                $("#passwordMatchMessage").addClass('d-none');
+                $('#passwordError').removeClass('d-none').text('密碼必須為8~16個字符，並包含至少一個大寫字母，一個小寫字母，和一個數字。');
+                $("#submitAdd").prop("disabled", true);
+            }
+            else {
+                $("#passwordMatchMessage").addClass('d-none');
+                $('#passwordError').addClass('d-none').text('');
+                $("#submitAdd").prop("disabled", false);
+            }
+        });
+    });
+</script>
 }
 
 @section Styles{

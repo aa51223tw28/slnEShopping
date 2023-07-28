@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Security;
 using System.Web;
+using static System.Web.Razor.Parser.SyntaxConstants;
 
 namespace prjEShopping.Models.ViewModels
 {
@@ -21,7 +22,32 @@ namespace prjEShopping.Models.ViewModels
         [Required]
         public int? PermissionsId { get; set; }
 
-        [DisplayName("帳號")]
+        //如沒有要做資料庫外部關聯 可以這樣簡單做
+        public string PermissionsName
+        {
+            get
+            {
+                switch (PermissionsId)
+                {
+                    case 1:
+                        return "總管理員";
+                    case 2:
+                        return "管理員";
+                    case 3:
+                        return "平台管理";
+                    case 4:
+                        return "會員管理";
+                    case 5:
+                        return "行銷管理";
+                    case 6:
+                        return "客服管理";
+                    default:
+                        return "未知";
+                }
+            }
+        }
+
+    [DisplayName("帳號")]
         [StringLength(50)]
         [Required]
         public string AdminAccount { get; set; }
