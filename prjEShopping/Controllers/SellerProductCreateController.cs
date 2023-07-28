@@ -26,7 +26,7 @@ namespace prjEShopping.Controllers
         {
             var db = new AppDbContext();
             var product = new Product()
-            {
+            {  
                 ProductName = vm.ProductName,
                 ProductDescription = vm.ProductDescription,
                 Price = vm.Price,
@@ -40,9 +40,9 @@ namespace prjEShopping.Controllers
                 OptionIdThree = (db.ProductOptions.Where(x => x.OptionName == vm.OptionName2 && x.SpecificationId == (db.ProductSpecifications.Where(y => y.SpecificationName == vm.SpecificationName2 && y.SubcategoryId == (db.ProductSubCategories.Where(z => z.SubcategoryName == vm.SubcategoryName).FirstOrDefault().SubcategoryId)).FirstOrDefault()).SpecificationId).SingleOrDefault().OptionId).ToString(),
                 OptionIdFour = (db.ProductOptions.Where(x => x.OptionName == vm.OptionName3 && x.SpecificationId == (db.ProductSpecifications.Where(y => y.SpecificationName == vm.SpecificationName3 && y.SubcategoryId == (db.ProductSubCategories.Where(z => z.SubcategoryName == vm.SubcategoryName).FirstOrDefault().SubcategoryId)).FirstOrDefault()).SpecificationId).SingleOrDefault().OptionId).ToString(),
                 OptionIdFive = (db.ProductOptions.Where(x => x.OptionName == vm.OptionName4 && x.SpecificationId == (db.ProductSpecifications.Where(y => y.SpecificationName == vm.SpecificationName4 && y.SubcategoryId == (db.ProductSubCategories.Where(z => z.SubcategoryName == vm.SubcategoryName).FirstOrDefault().SubcategoryId)).FirstOrDefault()).SpecificationId).SingleOrDefault().OptionId).ToString(),
-            };
-            db.Products.Add(product);
-            db.SaveChanges();
+        };
+                db.Products.Add(product);
+                db.SaveChanges();
 
             return RedirectToAction("Index", "SellerMain");
         }
