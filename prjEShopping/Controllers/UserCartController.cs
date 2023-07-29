@@ -142,6 +142,35 @@ namespace prjEShopping.Controllers
             return View(datas);
         }
 
+
+        //[Authorize]
+        //[HttpPost]
+        //public ActionResult UserCheckout(UserShipmentDetailVM vm)不能用偷雞摸狗法
+        //{
+        //    var customerAccount = User.Identity.Name;
+        //    var db = new AppDbContext();
+        //    var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+        //    var shipmentNumber = db.Shipments.Where(x => x.OrderId == 15).Select(x => x.ShipmentNumber).ToList();
+        //    foreach (var item in shipmentNumber)
+        //    {
+        //        var shipmentDetail = new ShipmentDetail()
+        //        {
+        //            ShipmentNumber = item,
+        //            PaymentMethodId = db.PaymentMethods.FirstOrDefault(x => x.PaymentMethodName == vm.PaymentMethodName).PaymentMethodId,
+        //            ShippingMethodId = db.ShippingMethods.FirstOrDefault(x => x.ShippingMethodName == vm.ShippingMethodName).ShippingMethodId,
+        //            Receiver = vm.Receiver,
+        //            ReceiverAddress = vm.ReceiverAddress,
+        //        };
+        //        db.ShipmentDetails.Add(shipmentDetail);
+        //        db.SaveChanges();
+        //    }
+
+        //    return RedirectToAction("UserOrderDetailAll", "UserOrder");
+        //}
+
+        
+
         [Authorize]       
         public ActionResult UserCheckoutapi()//寫進資料庫
         {
@@ -228,6 +257,8 @@ namespace prjEShopping.Controllers
             }
             db.SaveChanges ();
 
+           
+
             //清空購物車--給一台新車
             var shoppingcart = new ShoppingCart()
             {
@@ -258,6 +289,7 @@ namespace prjEShopping.Controllers
             return new EmptyResult();
 
         }
+
 
         [Authorize]
         public ActionResult UserDeleteCartapi(int ProductId)//刪除購物車商品的api
