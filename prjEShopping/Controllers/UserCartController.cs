@@ -94,7 +94,7 @@ namespace prjEShopping.Controllers
 
             datas = data.Select(x => new UserShoppingCartVM
             {
-                CartId = (int)x.CartId,
+                CartId =(int) x.CartId,
                 UserId = userid,
                 CartDetailId = x.CartDetailId,
                 ProductId = (int)x.ProductId,
@@ -110,6 +110,7 @@ namespace prjEShopping.Controllers
 
             //總金額
             ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
+            
         }
 
         public int calculateProductStock(int productId,int quantity)//計算庫存的方法

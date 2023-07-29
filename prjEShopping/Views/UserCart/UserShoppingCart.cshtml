@@ -145,7 +145,7 @@
 </div>
 
 
-@*去買單跳出視窗是否有商品*@
+@*是否要刪除商品*@
 <div class="modal" id="deleteCartModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -297,29 +297,34 @@
         $(document).ready(function () {
             $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
-                    var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
+                    if (@ViewBag.TotalPrice == 0) {
+                        $("#checkCartModal").modal("show");
+
+                    } else {
+                        var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
 
 
-                    //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
-                    //確定購物車所選取的商品數量不為0才可以去買單
-                    const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
+                        //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
+                        //確定購物車所選取的商品數量不為0才可以去買單
+                        const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
 
-                    if (result === "success") {
-                        window.location.href = "/UserCart/UserCheckout";
-                    }
-                    else if (result === "stock_insufficient")//庫存不夠
-                    {
-                        $("#stockCartcheckModal").modal("show");
-                        $("#confirmButtonstockcheck").on('click', function () {
-                            location.reload();
-                        });
-                    }
-                    else if (result === "quantity_zero")//購物車中商品有數量為0
-                    {
-                        $("#quaCartcheckModal").modal("show");
-                        $("#confirmButtonquacheck").on('click', function () {
-                            location.reload();
-                        });
+                        if (result === "success") {
+                            window.location.href = "/UserCart/UserCheckout";
+                        }
+                        else if (result === "stock_insufficient")//庫存不夠
+                        {
+                            $("#stockCartcheckModal").modal("show");
+                            $("#confirmButtonstockcheck").on('click', function () {
+                                location.reload();
+                            });
+                        }
+                        else if (result === "quantity_zero")//購物車中商品有數量為0
+                        {
+                            $("#quaCartcheckModal").modal("show");
+                            $("#confirmButtonquacheck").on('click', function () {
+                                location.reload();
+                            });
+                        }
                     }
                 })
             })
