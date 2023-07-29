@@ -1,4 +1,4 @@
-﻿
+﻿@model prjEShopping.Models.ViewModels.UserOrderAllVM
 @{
     ViewBag.Title = "UserOrderDetail";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -69,14 +69,14 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <p class="fs-4 mt-3 fw-bold">訂單詳情</p>
                 </div>
-                     
+
 
                 <div class="card mb-3">
                     <div class="row g-0 bg-lightyellow">
                         <div class="col">
                             <div class="card-body d-flex align-items-center">
                                 <span class="fs-5">訂單編號：</span>
-                                <span class="fs-5">20230707U01001</span>
+                                <span class="fs-5">@Model.OrderNumber</span>
                                 <button type="button" class="btn btn-blue ms-2">再買一次</button>
                             </div>
                         </div>
@@ -189,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
 </div>

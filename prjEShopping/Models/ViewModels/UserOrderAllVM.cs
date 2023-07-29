@@ -15,9 +15,14 @@ namespace prjEShopping.Models.ViewModels
         public int SellerId { get; set; }
         public string SellerName { get; set; }               
         public string SellerImagePath { get; set; }
-        public int Quantity { get; set; }       
+        public int Quantity { get; set; }       //這數量為分賣家加總的數量
         public decimal PriceBySeller { get; set; }
         public int ShipmentStatusId { get; set; }
         public string ShipmentStatus { get; set; }
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int QuantityByProduct { get; set; }//一張訂單有購買的數量
+        public decimal CurrentPrice { get; set; }
+        public decimal SubTotal { get; set; }
     }
 }

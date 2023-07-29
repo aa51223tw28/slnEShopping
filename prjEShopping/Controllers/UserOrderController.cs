@@ -11,7 +11,7 @@ namespace prjEShopping.Controllers
     public class UserOrderController : Controller
     {
         // GET: UserOrder
-
+        //這個很像productlist singleproductlist要傳productid
         [Authorize]
         public ActionResult UserOrderDetailAll()//訂單總覽頁面
         {
@@ -84,9 +84,28 @@ namespace prjEShopping.Controllers
         }
 
         [Authorize]
-        public ActionResult UserOrderDetail()//訂單詳細頁面
+        public ActionResult UserOrderDetail(int orderId)//訂單詳細頁面
         {
-            return View();
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            
+
+            
+            var data =db.OrderDetails.Where(x=>x.OrderId== orderId).OrderBy(x=>x.OrderDetailId)
+                                        .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new UserOrderAllVM
+                                        {
+                                            OrderId=orderId,
+                                            OrderNumber=db.Orders.FirstOrDefault(o=>o.OrderId== orderId).OrderNumber,
+                                            SellerId
+                                            SellerName
+                                            ProductId
+                                            ProductName
+                                            QuantityByProduct
+                                        }).FirstOrDefault();
+            
+            return View(data);
         }
 
 
