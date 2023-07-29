@@ -289,6 +289,34 @@ namespace prjEShopping.Controllers
             return new EmptyResult();
 
         }
+        [HttpPost]
+        [Authorize]
+        public ActionResult UserCheckoutDataapi(string shippingMethod, string paymentMethod, string receiverValue, string receiverAddressValue)//運送付款資訊的api
+        {
+
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var orderId = db.Orders.Where(x => x.UserId == userid).OrderByDescending(x => x.OrderId).Select(x => x.OrderId).FirstOrDefault();
+            var shipmentNumber = db.Shipments.Where(x => x.OrderId == orderId).Select(x => x.ShipmentNumber).ToList();
+           
+            
+            foreach (var item in shipmentNumber)
+            {
+                var shipmentDetail = new ShipmentDetail()
+                {
+                    ShipmentNumber = item,
+                    PaymentMethodId = db.PaymentMethods.FirstOrDefault(x=>x.PaymentMethodName== paymentMethod).PaymentMethodId,
+                    ShippingMethodId = db.ShippingMethods.FirstOrDefault(x=>x.ShippingMethodName== shippingMethod).ShippingMethodId,
+                    Receiver = receiverValue,
+                    ReceiverAddress = receiverAddressValue,
+                };
+                db.ShipmentDetails.Add(shipmentDetail);
+                db.SaveChanges();
+            }
+
+            return new EmptyResult();
+        }
 
 
         [Authorize]

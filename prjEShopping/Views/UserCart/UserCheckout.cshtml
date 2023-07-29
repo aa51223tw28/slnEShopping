@@ -172,18 +172,18 @@
 
 
 
-        <form method="post" enctype="multipart/form-data" action="UserCheckout">
+        @*<form method="post" enctype="multipart/form-data" action="UserCheckout">*@
             <!-- 運送方式 -->
             <div class="row bg-lightyellow rounded py-3 mb-3">
                 <div class="col-2 d-flex align-items-center justify-content-center">
                     <span class="fw-bold">運送方式</span>
                 </div>
                 <div class="col-4 d-flex flex-column">
-                    <select id="shippingMethod" class="form-select mb-3" name="ShippingMethodName">
+                    <select id="shippingMethod" class="form-select mb-3" @*name="ShippingMethodName"*@>
                     </select>
 
-                    <input class="form-control mb-3" type="text" placeholder="請填入收件者" id="receiver" name="Receiver">
-                    <input class="form-control" type="text" placeholder="請填入收件地址" id="receiverAddress" name="ReceiverAddress">
+                    <input class="form-control mb-3" type="text" placeholder="請填入收件者" id="receiver" @*name="Receiver"*@>
+                    <input class="form-control" type="text" placeholder="請填入收件地址" id="receiverAddress" @*name="ReceiverAddress"*@>
                 </div>
                 <div class="col-6 d-flex align-items-center">
                     <div class="btn btn-light border border-3" id="btnReceiver">DemoReceiver</div>
@@ -199,7 +199,7 @@
                     <span class="fw-bold">付款方式</span>
                 </div>
                 <div class="col-4 d-flex align-items-center">
-                    <select id="paymentMethod" class="form-select" name="PaymentMethodName">
+                    <select id="paymentMethod" class="form-select" @*name="PaymentMethodName"*@>
                     </select>
                 </div>
                 <div class="col-6 d-flex align-items-center">
@@ -234,9 +234,9 @@
                         <span></span>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-lg add2order" type="submit">下訂單</button>
+                <button class="btn btn-secondary btn-lg add2order" @*type="submit"*@>下訂單</button>
             </div>
-        </form>
+        @*</form>*@
     </div>
 </div>
 
@@ -269,6 +269,17 @@
                 $(this).on('click', async function () {
                     const result = await $.get("/UserCart/UserCheckoutapi");
 
+                    var shippingMethod = document.getElementById("shippingMethod").value;
+                    var paymentMethod = document.getElementById("paymentMethod").value;
+                    var receiverValue = $("#receiver").val();
+                    var receiverAddressValue = $("#receiverAddress").val();
+             
+                    const result2 = await $.post("/UserCart/UserCheckoutDataapi", {
+                        shippingMethod: shippingMethod,
+                        paymentMethod: paymentMethod,
+                        receiverValue: receiverValue,
+                        receiverAddressValue: receiverAddressValue
+                    });
 
                     $("#add2orderModal").modal("show");//modal-購買完成
 
