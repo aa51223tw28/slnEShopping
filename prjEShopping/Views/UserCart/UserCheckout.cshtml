@@ -174,42 +174,13 @@
             <div class="col-2 d-flex align-items-center justify-content-center">
                 <span class="fw-bold">運送方式</span>
             </div>
-            <div class="col-6 d-flex flex-column">
-                <span>7-ELEVEN</span>
-                <span>XX門市</span>
-                <span>台北市大安區復興南路一段390號</span>
-
-                <span>王大明</span>
-                <span>09XXXXXXXX</span>
-
+            <div class="col-4 d-flex flex-column">
+                <select id="shippingMethod" class="form-select mb-3">
+                </select>            
+                
+                <input class="form-control" type="text" placeholder="請填入收件者">
             </div>
-            <div class="col-4 d-flex align-items-center">
-
-                <!-- 變更視窗 -->
-                <button type="button" class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#shipping">
-                    變更
-                </button>
-                <div class="modal fade" id="shipping" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">變更運送資訊</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body d-flex flex-column">
-                                <input type="text" placeholder="請輸入寄送門市" class="mb-3"><!-- 待改還未用選擇地圖功能 -->
-                                <input type="text" placeholder="請輸入收件人姓名" class="mb-3">
-                                <input type="text" placeholder="請輸入收件人手機">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-warning" data-bs-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary">好</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+            <div class="col-6 d-flex align-items-center">
             </div>
 
 
@@ -221,10 +192,12 @@
             <div class="col-2 d-flex align-items-center justify-content-center">
                 <span class="fw-bold">付款方式</span>
             </div>
-            <div class="col-6 d-flex align-items-center">
-                <span>信用卡</span>
-            </div>
             <div class="col-4 d-flex align-items-center">
+                <select id="paymentMethod" class="form-select">
+                    
+                </select>
+            </div>
+            <div class="col-6 d-flex align-items-center">
             </div>
         </div>
 
@@ -299,8 +272,38 @@
             });
         });
 
+        //呼叫運送方式的api
+        document.addEventListener("DOMContentLoaded", async function () {            
+            const response = await fetch("/UserCart/getShippingMethodName");
+            
+            const data = await response.json();
+           
+            var shippingMethodSelect = document.getElementById("shippingMethod");            
 
+            data.forEach(function (value) {
+                var option = document.createElement("option")
+                option.value = value;
+                option.text = value;
+                shippingMethodSelect.appendChild(option);
+            })
+        })
 
+        //呼叫顯示付款方式的api
+        document.addEventListener("DOMContentLoaded", async function () {
+            const response = await fetch("/UserCart/getPaymentMethodName");            
+
+            const data = await response.json();          
+
+            var paymentMethodSelect = document.getElementById("paymentMethod");           
+
+            data.forEach(function (value) {
+                var option = document.createElement("option")
+                option.value = value;
+                option.text = value;
+                paymentMethodSelect.appendChild(option);
+            })
+          
+        })
 
     </script>
 

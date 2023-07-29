@@ -378,5 +378,20 @@ namespace prjEShopping.Controllers
         }
 
 
+        [Authorize]
+        public ActionResult getPaymentMethodName()
+        {
+            var db = new AppDbContext();
+            var paymentMethodNames = db.PaymentMethods.Select(x => x.PaymentMethodName).Distinct();
+            return Json(paymentMethodNames, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult getShippingMethodName()
+        {
+            var db = new AppDbContext();
+            var shippingMethodNames = db.ShippingMethods.Select(x => x.ShippingMethodName).Distinct();
+            return Json(shippingMethodNames, JsonRequestBehavior.AllowGet);
+        }
     }
  }
