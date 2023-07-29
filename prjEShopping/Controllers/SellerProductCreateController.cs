@@ -1,4 +1,5 @@
-﻿using prjEShopping.Models.EFModels;
+﻿using prjEShopping.Models.DTOs;
+using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -48,13 +49,22 @@ namespace prjEShopping.Controllers
 
             if (vm.Quantity > 0 && vm.Quantity != null)
             {
-                var stock = db.ProductStocks.FirstOrDefault(x => x.ProductId == vm.ProductID);
-                stock.StockQuantity = stock.StockQuantity + vm.Quantity;
+                int productid = db.Products.FirstOrDefault(x => x.ProductName == vm.ProductName && x.SellerId == sellerid).ProductId;
+
+                var stock = new ProductStock()
+                {
+                    ProductId = productid,
+                    PurchaseQuantity = 0,
+                    OrderQuantity = 0,
+                    QuantitySold = 0,
+                    StockQuantity = vm.Quantity,
+                };
+                db.ProductStocks.Add(stock);
                 db.SaveChanges();
 
                 var createstock = new ProductInventory()
                 {
-                    ProductId = vm.ProductID,
+                    ProductId = productid,
                     SellerId = sellerid,
                     Quantity = vm.Quantity,
                 };
