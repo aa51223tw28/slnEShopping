@@ -2,6 +2,7 @@
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -98,13 +99,18 @@ namespace prjEShopping.Controllers
                                         {
                                             OrderId=orderId,
                                             OrderNumber=db.Orders.FirstOrDefault(o=>o.OrderId== orderId).OrderNumber,
-                                            SellerId
-                                            SellerName
-                                            ProductId
-                                            ProductName
-                                            QuantityByProduct
-                                        }).FirstOrDefault();
-            
+                                            SellerId=(int)y.SellerId,
+                                            SellerName=db.Sellers.FirstOrDefault(s=>s.SellerId== y.SellerId).SellerName,
+                                            ProductImagePathOne=y.ProductImagePathOne,
+                                            ProductId =y.ProductId,
+                                            ProductName=y.ProductName,
+                                            QuantityByProduct= (int)x.Quantity,
+                                            CurrentPrice= (int)x.CurrentPrice,
+                                            SubTotal= (decimal)((decimal)(x.Quantity)*(x.CurrentPrice))
+                                        }).ToList();
+
+            // 計算總金額
+            ViewBag.TotalPrice = data.Sum(x => x.SubTotal);           
             return View(data);
         }
 

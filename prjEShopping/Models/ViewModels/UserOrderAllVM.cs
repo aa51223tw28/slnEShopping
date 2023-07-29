@@ -24,5 +24,6 @@ namespace prjEShopping.Models.ViewModels
         public int QuantityByProduct { get; set; }//一張訂單有購買的數量
         public decimal CurrentPrice { get; set; }
         public decimal SubTotal { get; set; }
+        public string ProductImagePathOne { get; set; }
     }
 }
