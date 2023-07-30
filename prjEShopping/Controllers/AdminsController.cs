@@ -21,7 +21,22 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Value != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            {
+                return RedirectToAction("Login");
+            }
+
+            if(authCookie.Values["permissionsId"] != "1")
+                return RedirectToAction("Indexem");
+
+            var model = db.Admins.Admin2VM();
+            return View(model);
+        }
+
+        public ActionResult Indexem()
+        {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
             {
                 return RedirectToAction("Login");
             }
@@ -31,7 +46,7 @@ namespace prjEShopping.Controllers
 
         //登入設置
         public ActionResult Login()
-        {          
+        {
             return View();
         }
 
@@ -51,11 +66,17 @@ namespace prjEShopping.Controllers
                 if (isVerified)
                 {
                     HttpCookie authCookie = new HttpCookie("AdminLogin");
-                    authCookie.Value = "AdminLogin";
+                    authCookie.Values["status"] = "AdminLogin";
+                    authCookie.Values["userId"] = account.AdminId.ToString(); // 將用戶ID存儲在Cookie中
+                    authCookie.Values["permissionsId"] = account.PermissionsId.ToString();
                     authCookie.Expires = DateTime.Now.AddHours(1); // 設置過期時間
                     Response.Cookies.Add(authCookie);
 
+                    if (authCookie.Values["permissionsId"]=="1")
                     return RedirectToAction("Index");
+
+                    return RedirectToAction("Indexem");
+
                 }
             }
 
@@ -79,6 +100,12 @@ namespace prjEShopping.Controllers
         // GET: Admins/Details/5
         public ActionResult Details(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Value != "AdminLogin")
+            {
+                return RedirectToAction("Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -95,6 +122,12 @@ namespace prjEShopping.Controllers
         // GET: Admins/Create
         public ActionResult Create()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Value != "AdminLogin")
+            {
+                return RedirectToAction("Login");
+            }
+
             ViewBag.AdminNumber =NewAccountNumber();
             var admin =new Admin();
             AdminVM model = AdminChange.Admin2VM(admin);
@@ -165,6 +198,12 @@ namespace prjEShopping.Controllers
         // GET: Admins/Edit/5
         public ActionResult Edit(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Value != "AdminLogin")
+            {
+                return RedirectToAction("Login");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

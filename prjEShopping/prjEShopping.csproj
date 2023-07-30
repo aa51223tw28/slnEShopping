@@ -328,6 +328,7 @@
     <Content Include="Views\UserCoupon\UsersCouponsOverdue.cshtml" />
     <Content Include="Views\Admins\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutAdminLogin.cshtml" />
+    <Content Include="Views\Admins\Indexem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

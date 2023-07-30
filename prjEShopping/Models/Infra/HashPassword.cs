@@ -8,6 +8,7 @@ using System.Text;
 
 namespace prjEShopping.Models.Infra
 {
+    //雜湊密碼的方法 跟解碼方法
     public class HashPassword
     {
         private readonly AppDbContext _db;
@@ -15,6 +16,8 @@ namespace prjEShopping.Models.Infra
         {
             _db = db;
         }
+
+        //生成隨機鹽~!
         private string CreatSalt()
         {
             byte[] salt = new byte[128 / 8]; // 16 bytes
@@ -25,6 +28,8 @@ namespace prjEShopping.Models.Infra
             return Convert.ToBase64String(salt);
         }
 
+
+        //密碼+鹽 組成雜湊密碼
         public string CreatHashPassword(string password, out string salt)
         {
             salt = CreatSalt();
@@ -36,6 +41,7 @@ namespace prjEShopping.Models.Infra
             }
         }
 
+        //解碼用
         public static bool VerifyPassword(string password, string storedSalt, string storedHash)
         {
             using (var hashAlgorithm = SHA256.Create())
