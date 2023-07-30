@@ -18,7 +18,7 @@ namespace prjEShopping.Models.EFModels
         [StringLength(50)]
         public string AdminAccount { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string AdminPassword { get; set; }
 
         [StringLength(100)]

@@ -99,7 +99,7 @@ namespace prjEShopping.Models.ViewModels
         public string AdminAccount { get; set; }
 
         [DisplayName("密碼")]
-        [StringLength(50)]
+        [StringLength(100)]
         [Required]
         public string AdminPassword { get; set; }
     }

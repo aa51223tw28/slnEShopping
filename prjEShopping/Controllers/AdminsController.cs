@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using prjEShopping.Models.EFModels;
+using prjEShopping.Models.Infra;
 using prjEShopping.Models.ViewModels;
 
 namespace prjEShopping.Controllers
@@ -131,6 +132,14 @@ namespace prjEShopping.Controllers
 
             if (!ModelState.IsValid)
                 return View(vm);
+
+            HashPassword hashPassword = new HashPassword(db); // 假設 _db 是你的資料庫上下文
+            string salt;
+            string hash = hashPassword.CreatHashPassword(vm.AdminPassword, out salt);
+
+            // 更新 ViewModel 中的密碼和鹽字段
+            vm.AdminPassword = hash;
+            vm.AdminPasswordSalt = salt;
 
             db.Admins.Add(AdminChange.VM2Admin(vm));
             db.SaveChanges();
