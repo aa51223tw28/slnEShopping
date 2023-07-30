@@ -159,12 +159,23 @@
                         <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                             <div class="d-flex flex-wrap">
                                 @Html.Action("UsersCouponsList", "UserCoupon")
-
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nouse" role="tabpanel" aria-labelledby="nouse-tab">nouse</div>
-                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">finish</div>
+                    <div class="tab-pane fade" id="nouse" role="tabpanel" aria-labelledby="nouse-tab">
+                        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                            <div class="d-flex flex-wrap">
+                                @Html.Action("UsersCouponsUsed", "UserCoupon")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">
+                        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                            <div class="d-flex flex-wrap">
+                                @Html.Action("UsersCouponsOverdue", "UserCoupon")
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 

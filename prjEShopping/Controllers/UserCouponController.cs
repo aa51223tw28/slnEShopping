@@ -124,5 +124,73 @@ namespace prjEShopping.Controllers
 
             return View(model);
         }
+
+        //已使用優惠券列表
+        public ActionResult UsersCouponsUsed()
+        {
+            var customerAccount = User.Identity.Name;
+            //找userid
+            int userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var usersCouponIds = db.UsersCoupons.Where(uc => uc.UserId == userId && uc.CouponStatus == "已使用").Select(uc => uc.CouponId);
+
+            var model = db.Coupons
+                          .Where(c => usersCouponIds.Contains(c.CouponId))
+                          .Select(c => new CouponVM
+                          {
+                              CouponId = c.CouponId,
+                              SellerId = c.SellerId,
+                              CouponNumber = c.CouponNumber,
+                              CouponName = c.CouponName,
+                              CouponDetails = c.CouponDetails,
+                              Quantity = c.Quantity,
+                              ReceivedQuantity = c.ReceivedQuantity,
+                              CouponTerms = c.CouponTerms,
+                              CouponType = c.CouponType,
+                              Discount = c.Discount,
+                              Storewide = c.Storewide,
+                              StartTime = c.StartTime,
+                              ClaimDeadline = c.ClaimDeadline,
+                              EndTime = c.EndTime,
+                              EventStatus = c.EventStatus
+                          })
+                          .ToList();
+
+            return View(model);
+        }
+
+        //已逾期優惠券列表
+        public ActionResult UsersCouponsOverdue()
+        {
+            var customerAccount = User.Identity.Name;
+            //找userid
+            int userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var usersCouponIds = db.UsersCoupons.Where(uc => uc.UserId == userId && uc.CouponStatus == "可使用").Select(uc => uc.CouponId);
+
+            var model = db.Coupons
+                          .Where(c => usersCouponIds.Contains(c.CouponId) && c.EndTime < DateTime.Now)
+                          .Select(c => new CouponVM
+                          {
+                              CouponId = c.CouponId,
+                              SellerId = c.SellerId,
+                              CouponNumber = c.CouponNumber,
+                              CouponName = c.CouponName,
+                              CouponDetails = c.CouponDetails,
+                              Quantity = c.Quantity,
+                              ReceivedQuantity = c.ReceivedQuantity,
+                              CouponTerms = c.CouponTerms,
+                              CouponType = c.CouponType,
+                              Discount = c.Discount,
+                              Storewide = c.Storewide,
+                              StartTime = c.StartTime,
+                              ClaimDeadline = c.ClaimDeadline,
+                              EndTime = c.EndTime,
+                              EventStatus = c.EventStatus
+                          })
+                          .ToList();
+
+            return View(model);
+        }
     }
 }

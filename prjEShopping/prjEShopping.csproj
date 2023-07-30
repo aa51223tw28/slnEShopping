@@ -323,6 +323,8 @@
     <Content Include="Views\UserFollow\UserFollowProduct.cshtml" />
     <Content Include="Views\UserOrder\UserOrderDetail.cshtml" />
     <Content Include="Views\UserCoupon\UsersCouponsList.cshtml" />
+    <Content Include="Views\UserCoupon\UsersCouponsUsed.cshtml" />
+    <Content Include="Views\UserCoupon\UsersCouponsOverdue.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
