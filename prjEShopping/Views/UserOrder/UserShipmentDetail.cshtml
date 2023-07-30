@@ -131,17 +131,17 @@
                         <!-- 出貨單號1 -->
                         <div class="row g-0">
                             <div class="col-md-2">
-                                <img src="~/img/hot1.jpg" class="img-fluid rounded-start p-2" alt="...">
+                                <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start p-2" alt="...">
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body">
-                                    <p style="margin: 0;">@item.ProductId</p>
+                                    <p style="margin: 0;">@item.ProductName</p>
                                     <p style="margin: 0;" class="text-muted fs-6">X @item.Quantity</p>
                                 </div>
                             </div>
                             <div class="col-md-3 d-flex align-items-center justify-content-center">
                                 <div class="card-body">
-                                    <h5 class="card-title">$19,999</h5>
+                                    <h5 class="card-title">@Math.Round(item.SubTotal).ToString("C0")</h5>
                                 </div>
                             </div>
 
