@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
     <title>@ViewBag.Title</title>
     <link href="~/Content/all.css" rel="stylesheet" type="text/css" />
     @RenderSection("Styles", required: false)
@@ -30,9 +31,17 @@
                     <a class="navbar-brand" href="#">平台管理主頁面</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                    </button>                
+                    </button>
                     <div>
-                       <span>請登入員工帳號</span>
+
+                        @if (@ViewBag.AdminName != null)
+                        {
+                            <span>歡迎! @ViewBag.AdminName</span>
+                        }
+                        else
+                        {
+                            <span>請登入帳號</span>
+                        }
                     </div>
                 </div>
             </nav>
@@ -143,5 +152,5 @@
     @RenderSection("Scripts", required: false)
 
 </body>
-</html >
+</html>
 

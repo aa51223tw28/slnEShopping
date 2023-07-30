@@ -28,6 +28,8 @@ namespace prjEShopping.Controllers
             }
 
             var model = db.Admins.Admin2VM();
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
             return View(model);
         }
 
@@ -38,7 +40,9 @@ namespace prjEShopping.Controllers
             {
                 return RedirectToAction("Login");
             }
-            var model = db.Admins.Admin2VM().FirstOrDefault(a => a.AdminId == Convert.ToInt32(authCookie.Values["userId"]));
+            var model = db.Admins.Admin2VM().FirstOrDefault(a => a.AdminId == Convert.ToInt32(authCookie.Values["userId"]));        
+                string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+                ViewBag.AdminName = decodedName;           
             return View(model);
         }
 
@@ -67,6 +71,8 @@ namespace prjEShopping.Controllers
                     authCookie.Values["status"] = "AdminLogin";
                     authCookie.Values["userId"] = account.AdminId.ToString(); // 將用戶ID存儲在Cookie中
                     authCookie.Values["permissionsId"] = account.PermissionsId.ToString();
+                    string encodedName = HttpUtility.UrlEncode(account.AdminName);
+                    authCookie.Values["userName"] = encodedName;
                     authCookie.Expires = DateTime.Now.AddHours(1); // 設置過期時間
                     Response.Cookies.Add(authCookie);
                 
@@ -115,6 +121,8 @@ namespace prjEShopping.Controllers
                 return HttpNotFound();
             }
             AdminVM model = AdminChange.Admin2VM(admin);
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
             return View(model);
         }
 
@@ -133,6 +141,8 @@ namespace prjEShopping.Controllers
             ViewBag.AdminNumber =NewAccountNumber();
             var admin =new Admin();
             AdminVM model = AdminChange.Admin2VM(admin);
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
             return View(model);
         }
 
@@ -220,6 +230,8 @@ namespace prjEShopping.Controllers
                 return HttpNotFound();
             }
             AdminVM model = AdminChange.Admin2VM(admin);
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
             return View(model);
         }
 
@@ -266,7 +278,8 @@ namespace prjEShopping.Controllers
             {
                 UserId =userId
             };
-
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
             return View(model);
         }
 

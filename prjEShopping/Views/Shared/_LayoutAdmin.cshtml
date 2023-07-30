@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
     <title>@ViewBag.Title</title>
     <link href="~/Content/all.css" rel="stylesheet" type="text/css" />
     @RenderSection("Styles", required: false)
@@ -55,7 +56,7 @@
                         </ul>
                     </div>
                     <div>
-                        <a href="@Url.Action("Logout", "Admins")" class="btn btn-primary">登出</a>
+                        <span>歡迎，@ViewBag.AdminName </span>   <a href="@Url.Action("Logout", "Admins")" class="btn btn-primary">登出</a>
                     </div>
                 </div>
             </nav>
