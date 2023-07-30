@@ -92,11 +92,11 @@ namespace prjEShopping.Controllers
         }
 
         //已領取優惠券列表
-        public ActionResult UsersCouponsList(int? userId)
+        public ActionResult UsersCouponsList()
         {
             var customerAccount = User.Identity.Name;
             //找userid
-            userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            int userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
 
             var usersCouponIds = db.UsersCoupons.Where(uc => uc.UserId == userId && uc.CouponStatus == "可使用").Select(uc => uc.CouponId);
 
