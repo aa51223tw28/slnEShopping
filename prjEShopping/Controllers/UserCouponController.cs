@@ -14,12 +14,12 @@ namespace prjEShopping.Controllers
         private AppDbContext db = new AppDbContext();
 
         [Authorize]
-        public ActionResult UserCouponList(int? userId)
+        public ActionResult UserCouponList()
         {
             //思綺版本
             var customerAccount = User.Identity.Name;
             //找userid
-            userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            int userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
 
             var _coupons = db.Coupons
                 .Where(x => x.StartTime < DateTime.Now && x.EndTime > DateTime.Now && x.Quantity - x.ReceivedQuantity > 0)
@@ -55,7 +55,6 @@ namespace prjEShopping.Controllers
                     EventStatus = c.EventStatus
                 })
                 .ToList();
-            ViewBag.UserId =userId ;
             return View(model);
         }
 
@@ -85,10 +84,45 @@ namespace prjEShopping.Controllers
                 }
                 db.UsersCoupons.Add(usersCoupon);
                 db.SaveChanges();
-                return RedirectToAction("UserCouponList", new { userId });
+                //todo 重連會出現Id
+                return RedirectToAction("UserCouponList");
             }
 
             return View(usersCoupon);
+        }
+
+        //已領取優惠券列表
+        public ActionResult UsersCouponsList(int? userId)
+        {
+            var customerAccount = User.Identity.Name;
+            //找userid
+            userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var usersCouponIds = db.UsersCoupons.Where(uc => uc.UserId == userId && uc.CouponStatus == "可使用").Select(uc => uc.CouponId);
+
+            var model = db.Coupons
+                          .Where(c => usersCouponIds.Contains(c.CouponId) && c.EndTime > DateTime.Now)
+                          .Select(c => new CouponVM
+                          {
+                              CouponId = c.CouponId,
+                              SellerId = c.SellerId,
+                              CouponNumber = c.CouponNumber,
+                              CouponName = c.CouponName,
+                              CouponDetails = c.CouponDetails,
+                              Quantity = c.Quantity,
+                              ReceivedQuantity = c.ReceivedQuantity,
+                              CouponTerms = c.CouponTerms,
+                              CouponType = c.CouponType,
+                              Discount = c.Discount,
+                              Storewide = c.Storewide,
+                              StartTime = c.StartTime,
+                              ClaimDeadline = c.ClaimDeadline,
+                              EndTime = c.EndTime,
+                              EventStatus = c.EventStatus
+                          })
+                          .ToList();
+
+            return View(model);
         }
     }
 }
