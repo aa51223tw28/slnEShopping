@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
-    
+
 }
 
 <div class="bg-light">
@@ -69,7 +69,7 @@
             <!-- 右邊分頁區 -->
             <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
                 <div class="d-flex align-items-center justify-content-between">
-                    <p class="fs-4 mt-3 fw-bold">出貨狀態</p>                   
+                    <p class="fs-4 mt-3 fw-bold">出貨狀態</p>
                 </div>
 
                 <hr style="margin: 0;">
@@ -80,6 +80,7 @@
                             <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">準備中</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("HH:mm:ss")</span>
                         </div>
                     }
                     else if (Model.FirstOrDefault().ArrivalTimeDate == DateTime.MinValue)
@@ -88,11 +89,13 @@
                             <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">準備中</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">已出貨</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("HH:mm:ss")</span>
                         </div>
                     }
                     else if (Model.FirstOrDefault().PickDate == DateTime.MinValue)
@@ -101,18 +104,24 @@
                             <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">準備中</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">已出貨</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">待收貨</span>
                             <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("HH:mm:ss")</span>
                         </div>
-                        <button class="btn btn-light border border-3">Demo已領取</button>
+                        <div class="col-2">
+                            <button class="btn btn-light border border-3" data-shipmentid="@Model.FirstOrDefault().ShipmentId" id="DemoPick">Demo已領取</button>
+                        </div>
+
                     }
                     else if (Model.FirstOrDefault().CompletionDate == DateTime.MinValue)
                     {
@@ -120,21 +129,25 @@
                             <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">準備中</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">已出貨</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">待收貨</span>
                             <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/package128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">已領取</span>
                             <span class="text-muted">@Model.FirstOrDefault().PickDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().PickDate.ToString("HH:mm:ss")</span>
                         </div>
                     }
                     else
@@ -143,26 +156,31 @@
                             <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">準備中</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">已出貨</span>
                             <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">待收貨</span>
                             <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/package128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">已領取</span>
                             <span class="text-muted">@Model.FirstOrDefault().PickDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().PickDate.ToString("HH:mm:ss")</span>
                         </div>
                         <div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/completed128px.png" alt="" style="max-width: 80px;">
                             <span class="fs-5">已完成</span>
                             <span class="text-muted">@Model.FirstOrDefault().CompletionDate.ToString("yyyy-MM-dd")</span>
+                            <span class="text-muted">@Model.FirstOrDefault().CompletionDate.ToString("HH:mm:ss")</span>
                         </div>
 
                         //-----------------------等評價做好加判斷
@@ -226,3 +244,20 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+
+        //demo已領取
+        $(document).ready(function () {
+            $("#DemoPick").each(function () {
+                $(this).on('click', async function () {
+                    var shipmentid = $(this).attr("data-shipmentid")
+                    //console.log(shipmentid)
+                    const result = await $.get("/UserOrder/UserShipmentDemoPickapi?shipmentid=" + shipmentid)
+                })
+            })
+        })
+       
+    </script>
+
+}

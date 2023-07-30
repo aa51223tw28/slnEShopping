@@ -162,5 +162,20 @@ namespace prjEShopping.Controllers
 
         }
 
+
+
+        [Authorize]
+        public ActionResult UserShipmentDemoPickapi(int shipmentid)//demo 領貨api
+        {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+
+
+            return new EmptyResult();
+
+        }
+
     }
 }
