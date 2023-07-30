@@ -364,22 +364,52 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function () {
-            $("#btnAll").each(function () {
-                $(this).on('click', async function () {
-                    $(this).css({ "background-color": "#0D47A1","color":"white" })
-                })
-            })
-        })
 
 
-
-         // 按下按鈕 "最熱銷"
-        $(document).ready(function() {           
+        $(document).ready(function() {
             var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
-           
+            $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })
+
+            //按下全部
+            $("#btnAll").each(function () {
+            $(this).on('click', async function () {
+                $(this).css({ "background-color": "#0D47A1", "color": "white" })
+                $("#btnHot,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
+
+                products.sort(function (a, b) {
+                    return a.ProductId - b.ProductId;
+                });
+
+                var container = $("#productContainer");
+                container.empty();
+
+                $.each(products, function (index, item) {
+                    var productCard = `
+                        <div class="col">
+                            <div class="card w-100">
+                                <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
+                                <div class="card-body">
+                                    <p class="card-title">${item.ProductName}</p>
+                                    <p class="card-text text-danger fw-bold">${Math.round(item.Price).toLocaleString()}</p>
+                                    <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(productCard);
+                });
+            }); // 此處添加缺少的大括號
+        });
+
+
+
+
+            // 按下按鈕 "最熱銷"
             $("#btnHot").click(function () {
-                $(this).css({ "background-color": "#0D47A1","color":"white" })
+                $(this).css({ "background-color": "#0D47A1", "color": "white" })
+                $("#btnAll,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
+
+
                 // 將商品按照 QuantitySold 屬性由高到低排序
                 products.sort(function(a, b) {
                     return b.QuantitySold - a.QuantitySold;//如果回傳值為正數,由高到低
