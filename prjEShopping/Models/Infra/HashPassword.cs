@@ -42,7 +42,7 @@ namespace prjEShopping.Models.Infra
             {
                 var passwordBytes = Encoding.UTF8.GetBytes(password + storedSalt);
                 var hash = hashAlgorithm.ComputeHash(passwordBytes);
-                var hashString = Convert.ToBase64String(hash);
+                var hashString = BitConverter.ToString(hash).Replace("-", "").ToLower();
                 return hashString == storedHash;
             }
         }

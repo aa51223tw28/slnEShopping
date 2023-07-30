@@ -15,7 +15,8 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.AdminId)
-    <input type="text" id="DateOfHire" name="DateOfHire" value="@Html.DisplayFor(model => model.DateOfHire)" hidden/>
+    <input type="text" id="DateOfHire" name="DateOfHire" value="@Html.DisplayFor(model => model.DateOfHire)" hidden />
+    <input type="text" id="AdminPasswordSalt" name="AdminPasswordSalt" value="@Html.DisplayFor(model => model.AdminPasswordSalt)" hidden />
     <div class="form-group">
         @Html.LabelFor(model => model.AdminNumber, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

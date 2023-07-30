@@ -42,13 +42,18 @@ namespace prjEShopping.Controllers
 
             if (account != null)
             {
-                var password = db.Admins.Where(a => a.AdminAccount == vm.AdminAccount).Select(p => p.AdminPassword).FirstOrDefault();
-                if (vm.AdminPassword == password)
+                string storedHash = account.AdminPassword; // 從數據庫中取得已存儲的雜湊
+                string storedSalt = account.AdminPasswordSalt; // 從數據庫中取得已存儲的鹽
+
+                // 使用存儲的鹽和使用者提供的密碼來生成雜湊
+                bool isVerified = HashPassword.VerifyPassword(vm.AdminPassword, storedSalt, storedHash);
+
+                if (isVerified)
                 {
-                        HttpCookie authCookie = new HttpCookie("AdminLogin");
-                        authCookie.Value = "AdminLogin";
-                        authCookie.Expires = DateTime.Now.AddHours(1); // 设置过期时间
-                        Response.Cookies.Add(authCookie);
+                    HttpCookie authCookie = new HttpCookie("AdminLogin");
+                    authCookie.Value = "AdminLogin";
+                    authCookie.Expires = DateTime.Now.AddHours(1); // 設置過期時間
+                    Response.Cookies.Add(authCookie);
 
                     return RedirectToAction("Index");
                 }
