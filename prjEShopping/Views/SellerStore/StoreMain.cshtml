@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<prjEShopping.Models.EFModels.Product>
 @{
     ViewBag.Title = "StoreMain";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -543,136 +543,22 @@
                 </div>
                 <!-- 商品開始 -->
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2">
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
+                    @{
+                        foreach( var item in Model)
+                        { 
+                        <div class="col">
+                            <div class="card w-100">
+                                <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</h5>
+                                    <p class="card-text text-danger fw-bold">@(item.Price)</p>
+                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <a href="#" class="btn btn-secondary">了解更多...</a>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                       }
+                    
                 </div>
                 <!-- 商品結束 -->
                 <!-- 分頁標籤 -->

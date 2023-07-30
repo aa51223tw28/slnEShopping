@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,11 @@ namespace prjEShopping.Controllers
     public class SellerStoreController : Controller
     {
         // GET: SellerStore
-        public ActionResult StoreMain(int id)
+        public ActionResult StoreMain()
         {
-            return View();
+            var db = new AppDbContext();
+            var products = db.Products.Where(x => x.SellerId == 1).ToList();
+            return View(products);
         }
     }
 }
