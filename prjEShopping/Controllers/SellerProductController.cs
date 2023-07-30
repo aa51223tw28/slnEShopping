@@ -93,17 +93,38 @@ namespace prjEShopping.Controllers
             return View(datashow);
         }
         [HttpPost]
-        public ActionResult ProductEdit(SellerProductCreateVM vm) 
+        public ActionResult ProductEdit(SellerProductCreateVM vm, HttpPostedFileBase photo1, HttpPostedFileBase photo2, HttpPostedFileBase photo3) 
         {
             int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
             var product = db.Products.FirstOrDefault(x => x.ProductId == vm.ProductID);
 
+            if (vm.photo1 != null)
+            {
+                string filename1 = Guid.NewGuid().ToString() + ".jpg";
+                string imagePath = Server.MapPath("~/img/" + filename1);
+                vm.photo1.SaveAs(imagePath);
+                product.ProductImagePathOne = filename1;
+            }
+
+            if (vm.photo2 != null)
+            {
+                string filename2 = Guid.NewGuid().ToString() + ".jpg";
+                string imagePath = Server.MapPath("~/img/" + filename2);
+                vm.photo1.SaveAs(imagePath);
+                product.ProductImagePathTwo = filename2;
+            }
+
+            if (vm.photo3 != null)
+            {
+                string filename3 = Guid.NewGuid().ToString() + ".jpg";
+                string imagePath = Server.MapPath("~/img/" + filename3);
+                vm.photo1.SaveAs(imagePath);
+                product.ProductImagePathThree = filename3;
+            }
                 product.ProductDescription = vm.ProductDescription;
                 product.Price = vm.Price;
-                product.ProductImagePathOne = vm.ProductImagePathOne;
-                product.ProductImagePathTwo = vm.ProductImagePathTwo;
-                product.ProductImagePathThree = vm.ProductImagePathThree;
+                
                 db.SaveChanges();
             if(vm.Quantity > 0 && vm.Quantity != null)
             { 
