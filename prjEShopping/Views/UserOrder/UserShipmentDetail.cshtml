@@ -74,36 +74,104 @@
 
                 <hr style="margin: 0;">
                 <div class="row my-3">
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">準備中</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已出貨</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">待收貨</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/package128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已領取</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/completed128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已完成</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-items-center">
-                        <img src="~/img/feedback128px.png" alt="" style="max-width: 80px;">
-                        <span class="fs-5">已評價</span>
-                        <span class="text-muted">20230709</span>
-                    </div>
+                    @if (Model.FirstOrDefault().ShipDate == DateTime.MinValue)
+                    {
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">準備中</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                    }
+                    else if (Model.FirstOrDefault().ArrivalTimeDate == DateTime.MinValue)
+                    {
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">準備中</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已出貨</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                    }
+                    else if (Model.FirstOrDefault().PickDate == DateTime.MinValue)
+                    {
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">準備中</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已出貨</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">待收貨</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <button class="btn btn-light border border-3">Demo已領取</button>
+                    }
+                    else if (Model.FirstOrDefault().CompletionDate == DateTime.MinValue)
+                    {
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">準備中</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已出貨</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">待收貨</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/package128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已領取</span>
+                            <span class="text-muted">@Model.FirstOrDefault().PickDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/list128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">準備中</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipmentDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/delivery128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已出貨</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ShipDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/dropshipping128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">待收貨</span>
+                            <span class="text-muted">@Model.FirstOrDefault().ArrivalTimeDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/package128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已領取</span>
+                            <span class="text-muted">@Model.FirstOrDefault().PickDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/completed128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已完成</span>
+                            <span class="text-muted">@Model.FirstOrDefault().CompletionDate.ToString("yyyy-MM-dd")</span>
+                        </div>
+
+                        //-----------------------等評價做好加判斷
+                        <div class="col-2 d-flex flex-column align-items-center">
+                            <img src="~/img/feedback128px.png" alt="" style="max-width: 80px;">
+                            <span class="fs-5">已評價</span>
+                            <span class="text-muted">等評價做了補時間</span>
+                        </div>
+                    }
                 </div>
 
 

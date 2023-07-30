@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Web.Mvc;
 
@@ -120,15 +121,16 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
 
+            var shipment = db.Shipments.FirstOrDefault(x => x.ShipmentId == shipmentId);
             var orderidlist = db.Shipments.Where(x => x.ShipmentId == shipmentId).Select(x => x.OrderId).ToList();
             var productidlist = db.OrderDetails.Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
-                                                    {
-                                                        orderid=x.OrderId,
-                                                        productId = x.ProductId,
-                                                        sellerid=y.SellerId,
-                                                        quantity=x.Quantity,
-                                                        currentprice=x.CurrentPrice,
-                                                    }).Where(x => orderidlist.Contains(x.orderid)&&x.sellerid== sellerid).ToList();
+            {
+                orderid = x.OrderId,
+                productId = x.ProductId,
+                sellerid = y.SellerId,
+                quantity = x.Quantity,
+                currentprice = x.CurrentPrice,                
+            }).Where(x => orderidlist.Contains(x.orderid)&&x.sellerid== sellerid).ToList();
 
 
             List<UserOrderAllVM> datas = new List<UserOrderAllVM>();
@@ -147,6 +149,11 @@ namespace prjEShopping.Controllers
                     CurrentPrice=(decimal) item.currentprice,
                     SubTotal= (decimal)((decimal)(item.quantity)*(item.currentprice)),
                     ProductImagePathOne= db.Products.FirstOrDefault(x=>x.ProductId == item.productId).ProductImagePathOne,
+                    ShipmentDate = shipment?.ShipmentDate ?? DateTime.MinValue,
+                    ShipDate = shipment?.ShipDate ?? DateTime.MinValue,
+                    ArrivalTimeDate = shipment?.ArrivalTimeDate ?? DateTime.MinValue,
+                    PickDate = shipment?.PickDate ?? DateTime.MinValue,
+                    CompletionDate = shipment?.CompletionDate ?? DateTime.MinValue,
                 };
                 datas.Add(data);
             }

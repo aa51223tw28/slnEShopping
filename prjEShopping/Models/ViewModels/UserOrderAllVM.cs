@@ -25,5 +25,13 @@ namespace prjEShopping.Models.ViewModels
         public decimal CurrentPrice { get; set; }
         public decimal SubTotal { get; set; }
         public string ProductImagePathOne { get; set; }
+
+        //各種出貨時間        
+        public DateTime ShipmentDate { get; set; }//準備中
+        public DateTime ShipDate { get; set; }//已出貨
+        public DateTime ArrivalTimeDate { get; set; }//待收貨
+        public DateTime PickDate { get; set; }//已領取
+        public DateTime CompletionDate { get; set; }//已完成   
+
     }
 }
