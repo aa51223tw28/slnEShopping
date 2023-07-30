@@ -365,14 +365,13 @@
 @section Scripts{
     <script>
 
-
+        //篩選條件-全部 最熱銷 價格高到低 低到高
         $(document).ready(function() {
             var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
-            $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })
+            $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })//預設樣式被點選
 
             //按下全部
-            $("#btnAll").each(function () {
-            $(this).on('click', async function () {
+            $("#btnAll").on('click', async function () {
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnHot,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
@@ -380,42 +379,50 @@
                     return a.ProductId - b.ProductId;
                 });
 
-                var container = $("#productContainer");
-                container.empty();
-
-                $.each(products, function (index, item) {
-                    var productCard = `
-                        <div class="col">
-                            <div class="card w-100">
-                                <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
-                                <div class="card-body">
-                                    <p class="card-title">${item.ProductName}</p>
-                                    <p class="card-text text-danger fw-bold">${Math.round(item.Price).toLocaleString()}</p>
-                                    <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    container.append(productCard);
-                });
-            }); // 此處添加缺少的大括號
-        });
-
-
-
+                updateProductContainer();
+            });
 
             // 按下按鈕 "最熱銷"
             $("#btnHot").click(function () {
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnAll,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-
                 // 將商品按照 QuantitySold 屬性由高到低排序
                 products.sort(function(a, b) {
                     return b.QuantitySold - a.QuantitySold;//如果回傳值為正數,由高到低
                 });
 
-                // 重新生成商品迴圈內容
+                updateProductContainer();
+            });
+
+            //按下價格高到低
+            $("#btnPriceHight").click(function () {
+                $(this).css({ "background-color": "#0D47A1", "color": "white" })
+                $("#btnAll,#btnHot,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
+
+                // 將商品按照 Price 屬性由高到低排序
+                products.sort(function(a, b) {
+                    return b.Price - a.Price;
+                });
+
+                updateProductContainer();
+            });
+
+            // 按下價格低到高
+            $("#btnPriceLow").click(function () {
+                $(this).css({ "background-color": "#0D47A1", "color": "white" })
+                $("#btnAll,#btnHot,#btnPriceHight").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
+
+                // 將商品按照 Price 屬性由低到高排序
+                products.sort(function(a, b) {
+                    return a.Price - b.Price;
+                });
+
+                updateProductContainer();
+            });
+
+            // 重新生成商品迴圈內容的函式
+            function updateProductContainer() {
                 var container = $("#productContainer");
                 container.empty();
 
@@ -434,11 +441,8 @@
                     `;
                     container.append(productCard);
                 });
-            });
+            }
         });
-
-
-
 
     </script>
 
