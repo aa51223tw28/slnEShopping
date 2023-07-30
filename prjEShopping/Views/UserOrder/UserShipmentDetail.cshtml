@@ -254,6 +254,7 @@
                     var shipmentid = $(this).attr("data-shipmentid")
                     //console.log(shipmentid)
                     const result = await $.get("/UserOrder/UserShipmentDemoPickapi?shipmentid=" + shipmentid)
+                    location.reload();
                 })
             })
         })

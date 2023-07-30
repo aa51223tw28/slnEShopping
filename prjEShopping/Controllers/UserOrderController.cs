@@ -171,10 +171,13 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
 
-
+            var date= DateTime.Now;
+            var pickdata=db.Shipments.FirstOrDefault(x=>x.ShipmentId== shipmentid);
+            pickdata.PickDate = date;
+            pickdata.ShipmentStatusId = 4;
+            db.SaveChanges();
 
             return new EmptyResult();
-
         }
 
     }
