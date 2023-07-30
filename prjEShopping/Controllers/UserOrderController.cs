@@ -92,8 +92,6 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             
-
-            
             var data =db.OrderDetails.Where(x=>x.OrderId== orderId).OrderBy(x=>x.OrderDetailId)
                                         .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new UserOrderAllVM
                                         {
@@ -116,29 +114,33 @@ namespace prjEShopping.Controllers
 
 
         [Authorize]
-        public ActionResult UserShipmentDetail()//出貨單單詳情頁面
+        public ActionResult UserShipmentDetail(int shipmentId,int orderid)//出貨單單詳情頁面
         {
             var customerAccount = User.Identity.Name;
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
-            var orderid = db.Orders.Where(x => x.UserId == userid).OrderByDescending(x => x.OrderId).Select(x => x.OrderId).FirstOrDefault();
+            
+            var orderidlist=db.Shipments.Where(x=>x.ShipmentId== shipmentId).Select(x=>x.OrderId).ToList();
+            var productidlist = db.OrderDetails.Where(x => orderidlist.Contains(x.OrderId)).ToList();
 
-            var orderNumber = db.Orders.Where(x => x.OrderId == orderid).Select(x => x.OrderNumber).FirstOrDefault();
+            
 
-
-            var data = db.OrderDetails.Where(x => x.OrderId == orderid).OrderBy(x => x.OrderDetailId)
-                .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+            List<UserOrderAllVM> datas = new List<UserOrderAllVM>();
+            foreach (var item in productidlist)
+            {
+                var data = new UserOrderAllVM
                 {
-                    ProductName = y.ProductName,
-                    Quantity = x.Quantity,
-                    CurrentSubTotal = (x.CurrentPrice) * (x.Quantity),
-                    ProductImagePathOne = y.ProductImagePathOne,
-                    OrderNumber = orderNumber,
+                    OrderId = (int)item.OrderId,
+                    OrderNumber = db.Orders.FirstOrDefault(x => x.OrderId == item.OrderId).OrderNumber,
+                    ShipmentId= shipmentId,
+                    ShipmentNumber =db.Shipments.FirstOrDefault(x=>x.ShipmentId== shipmentId).ShipmentNumber ,
+                    ProductId = (int)item.ProductId,
+                };
+                datas.Add(data);
+            }          
 
-                }).ToList();
-
-            return View();
+            return View(datas);
         }
 
     }

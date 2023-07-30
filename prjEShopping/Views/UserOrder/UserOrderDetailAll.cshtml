@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="card-body d-flex flex-column">
-                                            <a href="@Url.Content("~/UserOrder/UserShipmentDetail")" class="btn btn-secondary mb-2">出貨狀態</a>
+                                            <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,orderid=item.OrderId})" class="btn btn-secondary mb-2">出貨狀態</a>
                                             <button type="button" class="btn btn-secondary mb-2">聊聊</button>
                                             <button type="button" class="btn btn-secondary">查看賣場</button>
                                         </div>
