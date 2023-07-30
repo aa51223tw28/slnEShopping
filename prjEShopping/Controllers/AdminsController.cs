@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 
@@ -18,8 +19,55 @@ namespace prjEShopping.Controllers
         // GET: Admins
         public ActionResult Index()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Value != "AdminLogin")
+            {
+                return RedirectToAction("Login");
+            }
             var model = db.Admins.Admin2VM();
             return View(model);
+        }
+
+        //登入設置
+        public ActionResult Login()
+        {          
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(AdminLoginVM vm)
+        {
+            var account = db.Admins.FirstOrDefault(a => a.AdminAccount == vm.AdminAccount);
+
+            if (account != null)
+            {
+                var password = db.Admins.Where(a => a.AdminAccount == vm.AdminAccount).Select(p => p.AdminPassword).FirstOrDefault();
+                if (vm.AdminPassword == password)
+                {
+                        HttpCookie authCookie = new HttpCookie("AdminLogin");
+                        authCookie.Value = "AdminLogin";
+                        authCookie.Expires = DateTime.Now.AddHours(1); // 设置过期时间
+                        Response.Cookies.Add(authCookie);
+
+                    return RedirectToAction("Index");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "帳號或密碼錯誤，請輸入正確數據!");
+            return View("Login");
+        }
+
+
+        //登出設置
+        public ActionResult Logout()
+        {
+            if (Request.Cookies["AdminLogin"] != null)
+            {
+                var c = new HttpCookie("AdminLogin");
+                c.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(c);
+            }
+            return RedirectToAction("Login");
         }
 
         // GET: Admins/Details/5
