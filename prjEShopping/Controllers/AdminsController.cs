@@ -127,6 +127,9 @@ namespace prjEShopping.Controllers
                 return RedirectToAction("Login");
             }
 
+            if (authCookie.Values["permissionsId"] != "1")
+                return RedirectToAction("Indexem");
+
             ViewBag.AdminNumber =NewAccountNumber();
             var admin =new Admin();
             AdminVM model = AdminChange.Admin2VM(admin);
