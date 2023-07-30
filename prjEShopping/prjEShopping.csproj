@@ -174,11 +174,13 @@
     <Compile Include="Controllers\SellerProductCreateController.cs" />
     <Compile Include="Controllers\SellerProductCreateApiController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
+    <Compile Include="Controllers\SellerReplyController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserCouponController.cs" />
+    <Compile Include="Controllers\UserFeedbackController.cs" />
     <Compile Include="Controllers\UserFollowController.cs" />
     <Compile Include="Controllers\UserMembersController.cs" />
     <Compile Include="Controllers\UserOrderController.cs" />
@@ -238,6 +240,7 @@
     <Compile Include="Models\ViewModels\SellerProductListVM.cs" />
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
     <Compile Include="Models\ViewModels\UserCheckoutVM.cs" />
+    <Compile Include="Models\ViewModels\UserFeedbackVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
@@ -322,6 +325,7 @@
     <Content Include="Views\UserFollow\UserFollowSeller.cshtml" />
     <Content Include="Views\UserFollow\UserFollowProduct.cshtml" />
     <Content Include="Views\UserOrder\UserOrderDetail.cshtml" />
+    <Content Include="Views\UserFeedback\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -333,7 +337,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
     <Folder Include="Models\DAOs\" />
+    <Folder Include="Views\SellerFeedback\" />
     <Folder Include="Views\SellerProductCreateApi\" />
+    <Folder Include="Views\SellerReply\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

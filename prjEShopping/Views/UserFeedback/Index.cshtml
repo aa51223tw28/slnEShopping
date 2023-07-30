@@ -1,0 +1,32 @@
+﻿@model prjEShopping.Models.ViewModels.UserFeedbackVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+@Html.ActionLink("Link Text", "Index", "UserFeedback", new { sellerId = 123 }, null)
+<div class="container">
+    <div class="row">
+        <h2 class="text-info">買家留言</h2>
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th>編號</th>
+                    <th>評分</th>
+                    <th>留言內容</th>
+                    <th>留言時間</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var feedback in Model.Comments)
+                {
+                    <tr>
+                        <td>@feedback.RatingId</td>
+                        <td>@feedback.StarRating</td>
+                        <td>@feedback.RatingText</td>
+                        <td>@feedback.PostTime</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
