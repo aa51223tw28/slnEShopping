@@ -329,6 +329,7 @@
     <Content Include="Views\Admins\Login.cshtml" />
     <Content Include="Views\Shared\_LayoutAdminLogin.cshtml" />
     <Content Include="Views\Admins\Indexem.cshtml" />
+    <Content Include="Views\Admins\PasswordChange.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

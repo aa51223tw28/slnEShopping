@@ -18,7 +18,7 @@ namespace prjEShopping.Models.Infra
         }
 
         //生成隨機鹽~!
-        private string CreatSalt()
+        private string CreateSalt()
         {
             byte[] salt = new byte[128 / 8]; // 16 bytes
             using (var rng = RandomNumberGenerator.Create())
@@ -30,9 +30,9 @@ namespace prjEShopping.Models.Infra
 
 
         //密碼+鹽 組成雜湊密碼
-        public string CreatHashPassword(string password, out string salt)
+        public string CreateHashPassword(string password, out string salt)
         {
-            salt = CreatSalt();
+            salt = CreateSalt();
             using (var hashAlgorithm = SHA256.Create())
             {
                 var passwordBytes = Encoding.UTF8.GetBytes(password + salt);

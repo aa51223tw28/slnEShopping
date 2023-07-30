@@ -6,16 +6,20 @@
 }
 
 <div class="col-9 bg-secondary overflow-auto">
+    @{
+        var authCookie = Request.Cookies["AdminLogin"];
+        var permissionsId = authCookie?.Values["permissionsId"];
+        var canSeeTableA = permissionsId == "1";
+    }
     <h2 class="text-primary">員工一覽</h2>
-    <p>
-        @Html.ActionLink("新增員工", "Create", null, new { @class = "btn btn-primary" })
-    </p>
+    @if (canSeeTableA)
+    {
+        <p>
+            @Html.ActionLink("新增員工", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+    }
     <table class="table table-primary table-bordered" style="width:960px">
-        @{
-            var authCookie = Request.Cookies["AdminLogin"];
-            var permissionsId = authCookie?.Values["permissionsId"];
-            var canSeeTableA = permissionsId == "1";
-        }
+
         <tr class="table-info">
             <th style="width:100px">
                 @Html.DisplayNameFor(model => model.AdminNumber)

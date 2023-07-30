@@ -175,7 +175,7 @@ namespace prjEShopping.Controllers
 
             HashPassword hashPassword = new HashPassword(db); // 假設 _db 是你的資料庫上下文
             string salt;
-            string hash = hashPassword.CreatHashPassword(vm.AdminPassword, out salt);
+            string hash = hashPassword.CreateHashPassword(vm.AdminPassword, out salt);
 
             // 更新 ViewModel 中的密碼和鹽字段
             vm.AdminPassword = hash;
@@ -238,6 +238,76 @@ namespace prjEShopping.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult PasswordChange(int? id)
+        {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            {
+                return RedirectToAction("Login");
+            }
+
+            if (authCookie.Values["permissionsId"] != "1")
+            {
+                id = Convert.ToInt32(authCookie.Values["userId"]);
+            }
+
+            int userId = (int)id;
+
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.UserName = db.Admins.Where(a => a.AdminId == userId).Select(n => n.AdminName).FirstOrDefault();
+            }
+
+            PasswordChangeVM model = new PasswordChangeVM
+            {
+                UserId =userId
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult PasswordChange(PasswordChangeVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            var userId = vm.UserId;
+            var account = db.Admins.FirstOrDefault(a => a.AdminId == userId);
+
+            if (account != null)
+            {
+                string storedHash = account.AdminPassword;
+                string storedSalt = account.AdminPasswordSalt;
+
+                bool isVerified = HashPassword.VerifyPassword(vm.OldPassword, storedSalt, storedHash);
+
+                if (!isVerified)
+                {
+                    ModelState.AddModelError("OldPassword", "舊密碼不正確");
+                    return View(vm);
+                }
+
+                HashPassword hashPassword = new HashPassword(db);
+                string newSalt;
+                string newHash = hashPassword.CreateHashPassword(vm.NewPassword, out newSalt);
+
+                account.AdminPassword = newHash;
+                account.AdminPasswordSalt = newSalt;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Edit", new {id=userId});
+            }
+
+            return View(vm);
+        }
 
         protected override void Dispose(bool disposing)
         {

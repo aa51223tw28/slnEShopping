@@ -54,7 +54,8 @@
         <div class="col-md-10">
             <input type="password" class="form-control" hidden readonly id="AdminPassword" name="AdminPassword" value="@Html.DisplayFor(model=>model.AdminPassword)" />
             <!--密碼變更另外做一個頁面進行驗證避免前端驗證跟麻煩-->
-            <button type="button" class="btn btn-primary my-2" id="passwordEdit">變更密碼</button>
+            @*<button type="button" class="btn btn-primary my-2" id="passwordEdit">變更密碼</button>*@
+            <a href="@Url.Action("PasswordChange", "Admins", new { id = Model.AdminId })" class="btn btn-primary my-2" id="passwordEdit">變更密碼</a>
 
             @Html.ValidationMessageFor(model => model.AdminPassword, "", new { @class = "text-danger" })
         </div>
