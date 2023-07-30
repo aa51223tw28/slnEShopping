@@ -1,7 +1,107 @@
-﻿
+﻿@model prjEShopping.Models.ViewModels.AdminVM
+
 @{
     ViewBag.Title = "Indexem";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Indexep 測試頁面</h2>
+<div class="col-9 bg-secondary overflow-auto">
+    <div>
+        <h2 class="text-primary">員工詳細資料</h2>
+        <hr />
+        <table class="table table-primary table-bordered" style="width:400px">
+            <tr class="table table-info">
+                <th style="width:100px">項目</th>
+                <th style="width:100px">內容</th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AdminNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AdminNumber)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.PermissionsId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.PermissionsName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Title)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AdminName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AdminName)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.AdminAccount)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AdminAccount)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Phone)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.DateOfHire)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DateOfHire)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.JobStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.JobStatus)
+                </td>
+            </tr>
+
+        </table>
+
+        <p>
+            @Html.ActionLink("修改", "Edit",null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("回主頁", "Index", null, new { @class = "btn btn-info" })
+        </p>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}
+
+@section Styles{
+}
+
+
+
+
 

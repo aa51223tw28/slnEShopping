@@ -4,14 +4,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-@*可以新增篩選跟分頁*@
+
 <div class="col-9 bg-secondary overflow-auto">
     <h2 class="text-primary">員工一覽</h2>
     <p>
         @Html.ActionLink("新增員工", "Create", null, new { @class = "btn btn-primary" })
     </p>
     <table class="table table-primary table-bordered" style="width:960px">
-        @*沒salt Role 跟Id*@
+        @{
+            var authCookie = Request.Cookies["AdminLogin"];
+            var permissionsId = authCookie?.Values["permissionsId"];
+            var canSeeTableA = permissionsId == "1";
+        }
         <tr class="table-info">
             <th style="width:100px">
                 @Html.DisplayNameFor(model => model.AdminNumber)
@@ -31,9 +35,12 @@
             <th style="width:80px">
                 @Html.DisplayNameFor(model => model.JobStatus)
             </th>
-            <th style="width:50px">
-                功能
-            </th>
+            @if (canSeeTableA)
+            {
+                <th style="width:50px">
+                    功能
+                </th>
+            }
         </tr>
 
         @foreach (var item in Model)
@@ -57,10 +64,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.JobStatus)
                 </td>
-                <td>
-                    @Html.ActionLink("修改", "Edit", new { id = item.AdminId }, new { @class = "btn btn-secondary" })
-                </td>
-
+                @if (canSeeTableA)
+                {
+                    <td>
+                        @Html.ActionLink("修改", "Edit", new { id = item.AdminId }, new { @class = "btn btn-secondary" })
+                    </td>
+                }
             </tr>
         }
     </table>
@@ -68,13 +77,13 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function ($) {
-            $(".clickable-row").click(function () {
-                window.location = $(this).data("href");
+            $(document).ready(function ($) {
+                $(".clickable-row").click(function () {
+                    window.location = $(this).data("href");
+                });
             });
-        });
     </script>
 }
 
 @section Styles{
-    }
+}

@@ -6,7 +6,7 @@
 }
 
 <div class="col-9 bg-secondary overflow-auto">
-    <h2 class="text-primary">員工一覽</h2>
+    <h2 class="text-primary">資料修改</h2>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -52,7 +52,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.AdminPassword, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="password" class="form-control" readonly id="AdminPassword" name="AdminPassword" value="@Html.DisplayFor(model=>model.AdminPassword)" />
+            <input type="password" class="form-control" hidden readonly id="AdminPassword" name="AdminPassword" value="@Html.DisplayFor(model=>model.AdminPassword)" />
             <!--密碼變更另外做一個頁面進行驗證避免前端驗證跟麻煩-->
             <button type="button" class="btn btn-primary my-2" id="passwordEdit">變更密碼</button>
 

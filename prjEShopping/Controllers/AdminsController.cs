@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -26,9 +27,6 @@ namespace prjEShopping.Controllers
                 return RedirectToAction("Login");
             }
 
-            if(authCookie.Values["permissionsId"] != "1")
-                return RedirectToAction("Indexem");
-
             var model = db.Admins.Admin2VM();
             return View(model);
         }
@@ -40,7 +38,7 @@ namespace prjEShopping.Controllers
             {
                 return RedirectToAction("Login");
             }
-            var model = db.Admins.Admin2VM();
+            var model = db.Admins.Admin2VM().FirstOrDefault(a => a.AdminId == Convert.ToInt32(authCookie.Values["userId"]));
             return View(model);
         }
 
@@ -71,11 +69,9 @@ namespace prjEShopping.Controllers
                     authCookie.Values["permissionsId"] = account.PermissionsId.ToString();
                     authCookie.Expires = DateTime.Now.AddHours(1); // 設置過期時間
                     Response.Cookies.Add(authCookie);
-
-                    if (authCookie.Values["permissionsId"]=="1")
+                
                     return RedirectToAction("Index");
 
-                    return RedirectToAction("Indexem");
 
                 }
             }
@@ -101,10 +97,13 @@ namespace prjEShopping.Controllers
         public ActionResult Details(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Value != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
             {
                 return RedirectToAction("Login");
             }
+
+            if (authCookie.Values["userId"] !="1")
+                return RedirectToAction("Indexem");
 
             if (id == null)
             {
@@ -123,7 +122,7 @@ namespace prjEShopping.Controllers
         public ActionResult Create()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Value != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
             {
                 return RedirectToAction("Login");
             }
@@ -199,15 +198,19 @@ namespace prjEShopping.Controllers
         public ActionResult Edit(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Value != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
             {
                 return RedirectToAction("Login");
             }
 
+            if (authCookie.Values["userId"] != "1") 
+                 id = Convert.ToInt32(authCookie.Values["userId"]);
+ 
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Admin admin = db.Admins.Find(id);
             if (admin == null)
             {
