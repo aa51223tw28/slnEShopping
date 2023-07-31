@@ -31,7 +31,7 @@ namespace prjEShopping.Controllers
         public ActionResult Create(Seller s, HttpPostedFileBase photo)
         {
             var db = new AppDbContext();
-
+            
             // 檢查是否有相同的帳號已經存在於資料庫中
             var newAccount = db.Sellers.FirstOrDefault(x => x.SellerAccount == s.SellerAccount);
             if (newAccount != null)
@@ -114,8 +114,16 @@ namespace prjEShopping.Controllers
             db.Sellers.Add(s);
             db.SaveChanges();
             TempData["Success"] = "您已註冊成功！";
-            
-            return View("~/Views/SellerMain/Index.cshtml");
+            // 假設註冊成功後，取得賣家的 ID 和商店名稱
+            int sellerId = s.SellerId; // 這裡假設取得了賣家的 ID
+            string storeName = s.StoreName; // 假設取得了商店名稱
+
+            // 將賣家的 ID 和商店名稱存入 Session 中，方便在 SellerMain 頁面使用
+            Session["SellerId"] = sellerId;
+            Session["StoreName"] = storeName;
+
+            // 註冊成功後，直接導向到 SellerMain 頁面，並將賣家的 ID 傳遞過去
+            return RedirectToAction("Index", "SellerMain", new { id = sellerId });
         }
     }
 }
