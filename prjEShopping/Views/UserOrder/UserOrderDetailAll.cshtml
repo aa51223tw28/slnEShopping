@@ -77,16 +77,22 @@
                     </li>
 
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link text-primary fw-bold" id="noship-tab" data-bs-toggle="tab" data-bs-target="#noship" type="button" role="tab" aria-controls="noship" aria-selected="false">待出貨</button>
+                        <button class="nav-link text-primary fw-bold" id="noship-tab" data-bs-toggle="tab" data-bs-target="#noship" type="button" role="tab" aria-controls="noship" aria-selected="false">準備中</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link text-primary fw-bold" id="ship-tab" data-bs-toggle="tab" data-bs-target="#ship" type="button" role="tab" aria-controls="ship" aria-selected="false">已出貨</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link text-primary fw-bold" id="noaccept-tab" data-bs-toggle="tab" data-bs-target="#noaccept" type="button" role="tab" aria-controls="noaccept" aria-selected="false">待收貨</button>
                     </li>
                     <li class="nav-item" role="presentation">
+                        <button class="nav-link text-primary fw-bold" id="accept-tab" data-bs-toggle="tab" data-bs-target="#accept" type="button" role="tab" aria-controls="accept" aria-selected="false">已領取</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
                         <button class="nav-link text-primary fw-bold" id="finish-tab" data-bs-toggle="tab" data-bs-target="#finish" type="button" role="tab" aria-controls="finish" aria-selected="false">已完成</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link text-primary fw-bold" id="return-tab" data-bs-toggle="tab" data-bs-target="#return" type="button" role="tab" aria-controls="return" aria-selected="false">退貨</button>
+                        <button class="nav-link text-primary fw-bold" id="return-tab" data-bs-toggle="tab" data-bs-target="#return" type="button" role="tab" aria-controls="return" aria-selected="false">已取消</button>
                     </li>
                 </ul>
 
@@ -94,186 +100,597 @@
 
 
                 @*切換分頁區*@
-                <div class="tab-content" id="myTabContent">
+            <div class="tab-content" id="myTabContent">
 
-                    <!-- 全部 -->
-                    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <!-- 全部 -->
+                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
 
-                        <div class="card mb-3 py-3">
-                            <div class="row g-0">
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">訂單編號</span>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">說明</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">價格</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">狀態</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">更多</span>
-                                </div>
+                    <div class="card mb-3 py-3">
+                        <div class="row g-0">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">訂單編號</span>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">說明</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">價格</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">狀態</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">更多</span>
                             </div>
                         </div>
+                    </div>
 
-                        @{
-                            //依照訂單ID分組
-                            var productByOrder = Model.GroupBy(item => item.OrderId);
-                        }
+                    @{
+                        //依照訂單ID分組
+                        var productByOrderAll = Model.GroupBy(item => item.OrderId);
+                    }
 
-                        @foreach (var orderGroup in productByOrder)
+                    @foreach (var orderGroup in productByOrderAll)
+                    {
+                        <div class="card mb-3">
+                            <div class="row g-0 border-bottom border-dark">
+                                <div class="d-flex align-items-center my-3">
+                                    <span class="ms-3">訂單編號：@orderGroup.FirstOrDefault().OrderNumber</span>
+                                    <a href="@Url.Action("UserOrderDetail", "UserOrder", new {orderId=@orderGroup.FirstOrDefault().OrderId})" class="btn btn-outline-blue ms-3">訂單詳情</a>
+                                </div>
+                            </div>
+
+                            @foreach (var item in orderGroup)
+                            {
+                                <div class="row g-0">
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                        <span>出貨單號：</span>
+                                        <span class="text-break">@item.ShipmentNumber</span>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                        <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@item.SellerName</h5>
+                                            <div class="d-flex">
+                                                <p style="margin: 0;">共：</p>
+                                                <p style="margin: 0;" class="text-danger">@item.Quantity</p>
+                                                <p style="margin: 0;">件商品</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                        <div class="card-body">
+                                            <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                        <span>@item.ShipmentStatus</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="card-body d-flex flex-column">
+                                            <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                            <button type="button" class="btn btn-secondary mb-2">聊聊</button>
+                                            <button type="button" class="btn btn-secondary">查看賣場</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+
+
+                @*noship待出貨*@
+                <div class="tab-pane fade" id="noship" role="tabpanel" aria-labelledby="noship-tab">
+                    <div class="card mb-3 py-3">
+                        <div class="row g-0">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">訂單編號</span>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">商品</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">價格</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">狀態</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">更多</span>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        //依照訂單ID分組
+                        var productByOrderNoShip = Model.GroupBy(item => item.OrderId);
+                    }
+
+                    @foreach (var orderGroup in productByOrderNoShip)
+                    {
+                        if (orderGroup.Any(item => item.ShipmentStatusId == 1))
                         {
                             <div class="card mb-3">
                                 <div class="row g-0 border-bottom border-dark">
                                     <div class="d-flex align-items-center my-3">
                                         <span class="ms-3">訂單編號：@orderGroup.FirstOrDefault().OrderNumber</span>
-                                        <a href="@Url.Content("~/UserOrder/UserOrderDetail")" class="btn btn-outline-blue ms-3">訂單詳情</a>
+                                        <a href="@Url.Action("UserOrderDetail", "UserOrder", new {orderId=@orderGroup.FirstOrDefault().OrderId})" class="btn btn-outline-blue ms-3">訂單詳情</a>
                                     </div>
                                 </div>
 
                                 @foreach (var item in orderGroup)
                                 {
-                                    <div class="row g-0">
-                                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                            <span>@item.ShipmentNumber</span>
-                                        </div>
-                                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                            <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
-                                        </div>
-                                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                            <div class="card-body">
-                                                <h5 class="card-title">@item.SellerName</h5>
-                                                <div class="d-flex">
-                                                    <p style="margin: 0;">共：</p>
-                                                    <p style="margin: 0;" class="text-danger">@item.Quantity</p>
-                                                    <p style="margin: 0;">件商品</p>
-                                                </div>
+                                    if (item.ShipmentStatusId == 1)
+                                    {
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                                <span>出貨單號：</span>
+                                                <span class="text-break">@item.ShipmentNumber</span>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.SellerName</h5>
+                                                    <div class="d-flex">
+                                                        <p style="margin: 0;">共：</p>
+                                                        <p style="margin: 0;" class="text-danger">@item.Quantity</p>
+                                                        <p style="margin: 0;">件商品</p>
+                                                    </div>
 
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <span>@item.ShipmentStatus</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="card-body d-flex flex-column">
+                                                    <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                                    <button type="button" class="btn btn-secondary mb-2">聊聊</button>
+                                                    <button type="button" class="btn btn-secondary">查看賣場</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                            <div class="card-body">
-                                                <span>一張訂單編號中一個賣家的總價</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                            <span>已完成</span>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <div class="card-body d-flex flex-column">
-                                                <a href="@Url.Content("~/UserOrder/UserShipmentDetail")" class="btn btn-secondary mb-2">出貨狀態</a>
-                                                <button type="button" class="btn btn-secondary mb-2">聊聊</button>
-                                                <button type="button" class="btn btn-secondary">查看賣場</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
                                 }
                             </div>
                         }
-                    </div>
-
-
-                    @*noship*@
-                    <div class="tab-pane fade" id="noship" role="tabpanel" aria-labelledby="noship-tab">
-                        <div class="card mb-3 py-3">
-                            <div class="row g-0">
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">訂單編號</span>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">商品</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">價格</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">狀態</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">更多</span>
-                                </div>
-                            </div>
-                        </div>
-                        noship
-                    </div>
-
-                    @*noaccept*@
-                    <div class="tab-pane fade" id="noaccept" role="tabpanel" aria-labelledby="noaccept-tab">
-                        <div class="card mb-3 py-3">
-                            <div class="row g-0">
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">訂單編號</span>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">商品</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">價格</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">狀態</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">更多</span>
-                                </div>
-                            </div>
-                        </div>
-                        noaccept
-                    </div>
-
-
-                    @*finish*@
-                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">
-                        <div class="card mb-3 py-3">
-                            <div class="row g-0">
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">訂單編號</span>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">商品</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">價格</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">狀態</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">更多</span>
-                                </div>
-                            </div>
-                        </div>
-                        finish
-                    </div>
-
-                    @*return*@
-                    <div class="tab-pane fade" id="return" role="tabpanel" aria-labelledby="return-tab">
-                        <div class="card mb-3 py-3">
-                            <div class="row g-0">
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">訂單編號</span>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">商品</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">價格</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">狀態</span>
-                                </div>
-                                <div class="col-md-2 d-flex align-items-center justify-content-center">
-                                    <span class="fw-bold">更多</span>
-                                </div>
-                            </div>
-                        </div>
-                        return
-                    </div>
-
+                    }
                 </div>
+
+
+
+                @*ship已出貨*@
+                <div class="tab-pane fade" id="ship" role="tabpanel" aria-labelledby="ship-tab">
+                    <div class="card mb-3 py-3">
+                        <div class="row g-0">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">訂單編號</span>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">商品</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">價格</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">狀態</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">更多</span>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        //依照訂單ID分組
+                        var productByOrderShip = Model.GroupBy(item => item.OrderId);
+                    }
+
+                    @foreach (var orderGroup in productByOrderShip)
+                    {
+                        if (orderGroup.Any(item => item.ShipmentStatusId == 2))
+                        {
+                            <div class="card mb-3">
+                                <div class="row g-0 border-bottom border-dark">
+                                    <div class="d-flex align-items-center my-3">
+                                        <span class="ms-3">訂單編號：@orderGroup.FirstOrDefault().OrderNumber</span>
+                                        <a href="@Url.Action("UserOrderDetail", "UserOrder", new {orderId=@orderGroup.FirstOrDefault().OrderId})" class="btn btn-outline-blue ms-3">訂單詳情</a>
+                                    </div>
+                                </div>
+
+                                @foreach (var item in orderGroup)
+                                {
+                                    if (item.ShipmentStatusId == 2)
+                                    {
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                                <span>出貨單號：</span>
+                                                <span class="text-break">@item.ShipmentNumber</span>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.SellerName</h5>
+                                                    <div class="d-flex">
+                                                        <p style="margin: 0;">共：</p>
+                                                        <p style="margin: 0;" class="text-danger">@item.Quantity</p>
+                                                        <p style="margin: 0;">件商品</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <span>@item.ShipmentStatus</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="card-body d-flex flex-column">
+                                                    <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                                    <button type="button" class="btn btn-secondary mb-2">聊聊</button>
+                                                    <button type="button" class="btn btn-secondary">查看賣場</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+
+                @*noaccept待收貨*@
+                <div class="tab-pane fade" id="noaccept" role="tabpanel" aria-labelledby="noaccept-tab">
+                    <div class="card mb-3 py-3">
+                        <div class="row g-0">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">訂單編號</span>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">商品</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">價格</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">狀態</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">更多</span>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        //依照訂單ID分組
+                        var productByOrderNoAccept = Model.GroupBy(item => item.OrderId);
+                    }
+
+                    @foreach (var orderGroup in productByOrderNoAccept)
+                    {
+                        if (orderGroup.Any(item => item.ShipmentStatusId == 3))
+                        {
+                            <div class="card mb-3">
+                                <div class="row g-0 border-bottom border-dark">
+                                    <div class="d-flex align-items-center my-3">
+                                        <span class="ms-3">訂單編號：@orderGroup.FirstOrDefault().OrderNumber</span>
+                                        <a href="@Url.Action("UserOrderDetail", "UserOrder", new {orderId=@orderGroup.FirstOrDefault().OrderId})" class="btn btn-outline-blue ms-3">訂單詳情</a>
+                                    </div>
+                                </div>
+
+                                @foreach (var item in orderGroup)
+                                {
+                                    if (item.ShipmentStatusId == 3)
+                                    {
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                                <span>出貨單號：</span>
+                                                <span class="text-break">@item.ShipmentNumber</span>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.SellerName</h5>
+                                                    <div class="d-flex">
+                                                        <p style="margin: 0;">共：</p>
+                                                        <p style="margin: 0;" class="text-danger">@item.Quantity</p>
+                                                        <p style="margin: 0;">件商品</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <span>@item.ShipmentStatus</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="card-body d-flex flex-column">
+                                                    <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                                    <button type="button" class="btn btn-secondary mb-2">聊聊</button>
+                                                    <button type="button" class="btn btn-secondary">查看賣場</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+
+                @*noaccept待收貨*@
+                <div class="tab-pane fade" id="accept" role="tabpanel" aria-labelledby="accept-tab">
+                    <div class="card mb-3 py-3">
+                        <div class="row g-0">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">訂單編號</span>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">商品</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">價格</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">狀態</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">更多</span>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        //依照訂單ID分組
+                        var productByOrderAccept = Model.GroupBy(item => item.OrderId);
+                    }
+
+                    @foreach (var orderGroup in productByOrderAccept)
+                    {
+                        if (orderGroup.Any(item => item.ShipmentStatusId == 4))
+                        {
+                            <div class="card mb-3">
+                                <div class="row g-0 border-bottom border-dark">
+                                    <div class="d-flex align-items-center my-3">
+                                        <span class="ms-3">訂單編號：@orderGroup.FirstOrDefault().OrderNumber</span>
+                                        <a href="@Url.Action("UserOrderDetail", "UserOrder", new {orderId=@orderGroup.FirstOrDefault().OrderId})" class="btn btn-outline-blue ms-3">訂單詳情</a>
+                                    </div>
+                                </div>
+
+                                @foreach (var item in orderGroup)
+                                {
+                                    if (item.ShipmentStatusId == 4)
+                                    {
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                                <span>出貨單號：</span>
+                                                <span class="text-break">@item.ShipmentNumber</span>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.SellerName</h5>
+                                                    <div class="d-flex">
+                                                        <p style="margin: 0;">共：</p>
+                                                        <p style="margin: 0;" class="text-danger">@item.Quantity</p>
+                                                        <p style="margin: 0;">件商品</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <span>@item.ShipmentStatus</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="card-body d-flex flex-column">
+                                                    <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                                    <button type="button" class="btn btn-secondary mb-2">聊聊</button>
+                                                    <button type="button" class="btn btn-secondary">查看賣場</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+
+
+                @*finish已完成*@
+                <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">
+                    <div class="card mb-3 py-3">
+                        <div class="row g-0">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">訂單編號</span>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">商品</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">價格</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">狀態</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">更多</span>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        //依照訂單ID分組
+                        var productByOrderFinish = Model.GroupBy(item => item.OrderId);
+                    }
+
+                    @foreach (var orderGroup in productByOrderFinish)
+                    {
+                        if (orderGroup.Any(item => item.ShipmentStatusId == 5))
+                        {
+                            <div class="card mb-3">
+                                <div class="row g-0 border-bottom border-dark">
+                                    <div class="d-flex align-items-center my-3">
+                                        <span class="ms-3">訂單編號：@orderGroup.FirstOrDefault().OrderNumber</span>
+                                        <a href="@Url.Action("UserOrderDetail", "UserOrder", new {orderId=@orderGroup.FirstOrDefault().OrderId})" class="btn btn-outline-blue ms-3">訂單詳情</a>
+                                    </div>
+                                </div>
+
+                                @foreach (var item in orderGroup)
+                                {
+                                    if (item.ShipmentStatusId == 5)
+                                    {
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                                <span>出貨單號：</span>
+                                                <span class="text-break">@item.ShipmentNumber</span>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.SellerName</h5>
+                                                    <div class="d-flex">
+                                                        <p style="margin: 0;">共：</p>
+                                                        <p style="margin: 0;" class="text-danger">@item.Quantity</p>
+                                                        <p style="margin: 0;">件商品</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <span>@item.ShipmentStatus</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="card-body d-flex flex-column">
+                                                    <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                                    <button type="button" class="btn btn-secondary mb-2">聊聊</button>
+                                                    <button type="button" class="btn btn-secondary">查看賣場</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+
+                @*return取消*@
+                <div class="tab-pane fade" id="return" role="tabpanel" aria-labelledby="return-tab">
+                    <div class="card mb-3 py-3">
+                        <div class="row g-0">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">訂單編號</span>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">商品</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">價格</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">狀態</span>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <span class="fw-bold">更多</span>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        //依照訂單ID分組
+                        var productByOrderReturn = Model.GroupBy(item => item.OrderId);
+                    }
+
+                    @foreach (var orderGroup in productByOrderReturn)
+                    {
+                        if (orderGroup.Any(item => item.ShipmentStatusId == 6))
+                        {
+                            <div class="card mb-3">
+                                <div class="row g-0 border-bottom border-dark">
+                                    <div class="d-flex align-items-center my-3">
+                                        <span class="ms-3">訂單編號：@orderGroup.FirstOrDefault().OrderNumber</span>
+                                        <a href="@Url.Action("UserOrderDetail", "UserOrder", new {orderId=@orderGroup.FirstOrDefault().OrderId})" class="btn btn-outline-blue ms-3">訂單詳情</a>
+                                    </div>
+                                </div>
+
+                                @foreach (var item in orderGroup)
+                                {
+                                    if (item.ShipmentStatusId ==6)
+                                    {
+                                        <div class="row g-0">
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center flex-column">
+                                                <span>出貨單號：</span>
+                                                <span class="text-break">@item.ShipmentNumber</span>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <img src="~/img/@item.SellerImagePath" class="img-fluid rounded-start p-2" alt="...">
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@item.SellerName</h5>
+                                                    <div class="d-flex">
+                                                        <p style="margin: 0;">共：</p>
+                                                        <p style="margin: 0;" class="text-danger">@item.Quantity</p>
+                                                        <p style="margin: 0;">件商品</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <div class="card-body">
+                                                    <span>@Math.Round(item.PriceBySeller).ToString("C0")</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                                <span>@item.ShipmentStatus</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="card-body d-flex flex-column">
+                                                    <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                                    <button type="button" class="btn btn-secondary mb-2">聊聊</button>
+                                                    <button type="button" class="btn btn-secondary">查看賣場</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
                 @*切換分頁區*@
             </div>
             <!-- 右邊分頁區 -->

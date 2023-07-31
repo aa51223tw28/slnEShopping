@@ -21,6 +21,7 @@ namespace prjEShopping.Models.ViewModels
 
         public string ProductImagePathOne { get; set; }
         public int ProductStock { get; set; }
+               
     }
 }
 

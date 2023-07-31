@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,13 @@ namespace prjEShopping.Controllers
         // GET: SellerMain
         public ActionResult Index()
         {
-            return View();
+            int id = (int)Session["SellerId"];
+            // 根據賣家的 ID 從資料庫中讀取賣家資料
+            var db = new AppDbContext();
+            var seller = db.Sellers.FirstOrDefault(x => x.SellerId == id);
+
+            // 將賣家資料傳遞給 SellerMain 頁面
+            return View(seller);
         }
     }
 }

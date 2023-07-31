@@ -41,7 +41,8 @@ namespace prjEShopping.Controllers
                         ProductName = item.ProductName,
                         Price = (decimal)item.Price,
                         ProductImagePathOne = item.ProductImagePathOne,
-                        ProductStock = stockQuantity - orderQuantity
+                        ProductStock = stockQuantity - orderQuantity,
+                        QuantitySold= (int)db.ProductStocks.FirstOrDefault(x => x.ProductId == item.ProductId).QuantitySold,
                     };
 
                     datas.Add(data);

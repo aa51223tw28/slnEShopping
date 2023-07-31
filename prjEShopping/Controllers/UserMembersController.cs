@@ -118,12 +118,8 @@ namespace prjEShopping.Controllers
             return (url, cookie);
         }
 
-        [Authorize]
-        public ActionResult Index()
-        {
-            var currentUserAccount = User.Identity.Name;
-            return View();
-        }
+
+        
 
         public ActionResult UserLogout()
         {

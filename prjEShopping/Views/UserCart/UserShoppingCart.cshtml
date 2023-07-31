@@ -30,68 +30,83 @@
             </div>
         </div>
 
+
         @{
             //依照賣家ID分組
             var productBySeller = Model.GroupBy(item => item.SellerId);
         }
-
-        @foreach (var sellerGroup in productBySeller)
+        @if (!productBySeller.Any())
         {
-            <div class="row bg-success rounded py-3 mb-3">
-                <div class="row mb-3">
-                    <div class="col-1 d-flex align-items-center">
-                        <input type="checkbox" class="form-check-input">
-                    </div>
-                    <div class="col-3 d-flex align-items-center">
-                        <span>@sellerGroup.FirstOrDefault().SellerName</span>
-                    </div>
-                    <div class="col-2 d-flex align-items-center">
-                        <button class="btn btn-blue">聊聊</button>
-                    </div>
+            <div class="row bg-success rounded mb-3" style="height:300px">
+                <div class="d-flex justify-content-center align-items-center">
+                    <i class="fs-3 fa-solid fa-cart-arrow-down" style="color: #8da291;"></i>
+                    <span class="fs-3 fw-bold text-info">購物車尚無商品，請先去主頁選購</span>
+                    <i class="fs-3 fa-solid fa-cart-arrow-down" style="color: #8da291;"></i>
                 </div>
-                @foreach (var item in sellerGroup)
-                {
-                    <div class="row">
-                        <div class="col-1">
+            </div>
+        }
+        else
+        {
+            foreach (var sellerGroup in productBySeller)
+            {
+                <div class="row bg-success rounded py-3 mb-3">
+                    <div class="row mb-3">
+                        <div class="col-1 d-flex align-items-center">
                             <input type="checkbox" class="form-check-input">
                         </div>
-                        <div class="col-3">
-                            <div class="mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <p class="card-text">@item.ProductName</p>
+                        <div class="col-3 d-flex align-items-center">
+                            <span>@sellerGroup.FirstOrDefault().SellerName</span>
+                        </div>
+                        <div class="col-2 d-flex align-items-center">
+                            <button class="btn btn-blue">聊聊</button>
+                        </div>
+                    </div>
+                    @foreach (var item in sellerGroup)
+                    {
+                        <div class="row">
+                            <div class="col-1">
+                                <input type="checkbox" class="form-check-input">
+                            </div>
+                            <div class="col-3">
+                                <div class="mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <p class="card-text">@item.ProductName</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <span>@Math.Round(item.Price).ToString("C0")</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <div class="input-group" style="width: 120px;">
-                                @*加減數量*@
-                                <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">-</button>
-                                <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
-                                <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
+                            <div class="col-2 d-flex align-items-center">
+                                <span>@Math.Round(item.Price).ToString("C0")</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <div class="input-group" style="width: 120px;">
+                                    @*加減數量*@
+                                    <button class="btn btn-outline-primary minusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">-</button>
+                                    <input type="text" class="form-control" id="quantityInput" readonly value="@item.Quantity">
+                                    <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
+                                <span hidden data-cartid="@item.CartId" id="cartid"></span>@*為了獲得購物車編號*@
                             </div>
                         </div>
-                        <div class="col-2 d-flex align-items-center">
-                            @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
-                            <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
-                            <span hidden data-cartid="@item.CartId" id="cartid"></span>@*為了獲得購物車編號*@
-                        </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
+            }
         }
+
+
 
 
 
@@ -145,7 +160,7 @@
 </div>
 
 
-@*去買單跳出視窗是否有商品*@
+@*是否要刪除商品*@
 <div class="modal" id="deleteCartModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -297,29 +312,34 @@
         $(document).ready(function () {
             $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
-                    var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
+                    if (@ViewBag.TotalPrice == 0) {
+                        $("#checkCartModal").modal("show");
+
+                    } else {
+                        var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
 
 
-                    //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
-                    //確定購物車所選取的商品數量不為0才可以去買單
-                    const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
+                        //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
+                        //確定購物車所選取的商品數量不為0才可以去買單
+                        const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
 
-                    if (result === "success") {
-                        window.location.href = "/UserCart/UserCheckout";
-                    }
-                    else if (result === "stock_insufficient")//庫存不夠
-                    {
-                        $("#stockCartcheckModal").modal("show");
-                        $("#confirmButtonstockcheck").on('click', function () {
-                            location.reload();
-                        });
-                    }
-                    else if (result === "quantity_zero")//購物車中商品有數量為0
-                    {
-                        $("#quaCartcheckModal").modal("show");
-                        $("#confirmButtonquacheck").on('click', function () {
-                            location.reload();
-                        });
+                        if (result === "success") {
+                            window.location.href = "/UserCart/UserCheckout";
+                        }
+                        else if (result === "stock_insufficient")//庫存不夠
+                        {
+                            $("#stockCartcheckModal").modal("show");
+                            $("#confirmButtonstockcheck").on('click', function () {
+                                location.reload();
+                            });
+                        }
+                        else if (result === "quantity_zero")//購物車中商品有數量為0
+                        {
+                            $("#quaCartcheckModal").modal("show");
+                            $("#confirmButtonquacheck").on('click', function () {
+                                location.reload();
+                            });
+                        }
                     }
                 })
             })

@@ -94,7 +94,7 @@ namespace prjEShopping.Controllers
 
             datas = data.Select(x => new UserShoppingCartVM
             {
-                CartId = (int)x.CartId,
+                CartId =(int) x.CartId,
                 UserId = userid,
                 CartDetailId = x.CartDetailId,
                 ProductId = (int)x.ProductId,
@@ -110,6 +110,7 @@ namespace prjEShopping.Controllers
 
             //總金額
             ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
+            
         }
 
         public int calculateProductStock(int productId,int quantity)//計算庫存的方法
@@ -140,6 +141,35 @@ namespace prjEShopping.Controllers
             shoppingList();
             return View(datas);
         }
+
+
+        //[Authorize]
+        //[HttpPost]
+        //public ActionResult UserCheckout(UserShipmentDetailVM vm)不能用偷雞摸狗法
+        //{
+        //    var customerAccount = User.Identity.Name;
+        //    var db = new AppDbContext();
+        //    var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+        //    var shipmentNumber = db.Shipments.Where(x => x.OrderId == 15).Select(x => x.ShipmentNumber).ToList();
+        //    foreach (var item in shipmentNumber)
+        //    {
+        //        var shipmentDetail = new ShipmentDetail()
+        //        {
+        //            ShipmentNumber = item,
+        //            PaymentMethodId = db.PaymentMethods.FirstOrDefault(x => x.PaymentMethodName == vm.PaymentMethodName).PaymentMethodId,
+        //            ShippingMethodId = db.ShippingMethods.FirstOrDefault(x => x.ShippingMethodName == vm.ShippingMethodName).ShippingMethodId,
+        //            Receiver = vm.Receiver,
+        //            ReceiverAddress = vm.ReceiverAddress,
+        //        };
+        //        db.ShipmentDetails.Add(shipmentDetail);
+        //        db.SaveChanges();
+        //    }
+
+        //    return RedirectToAction("UserOrderDetailAll", "UserOrder");
+        //}
+
+        
 
         [Authorize]       
         public ActionResult UserCheckoutapi()//寫進資料庫
@@ -227,6 +257,8 @@ namespace prjEShopping.Controllers
             }
             db.SaveChanges ();
 
+           
+
             //清空購物車--給一台新車
             var shoppingcart = new ShoppingCart()
             {
@@ -257,6 +289,35 @@ namespace prjEShopping.Controllers
             return new EmptyResult();
 
         }
+        [HttpPost]
+        [Authorize]
+        public ActionResult UserCheckoutDataapi(string shippingMethod, string paymentMethod, string receiverValue, string receiverAddressValue)//運送付款資訊的api
+        {
+
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var orderId = db.Orders.Where(x => x.UserId == userid).OrderByDescending(x => x.OrderId).Select(x => x.OrderId).FirstOrDefault();
+            var shipmentNumber = db.Shipments.Where(x => x.OrderId == orderId).Select(x => x.ShipmentNumber).ToList();
+           
+            
+            foreach (var item in shipmentNumber)
+            {
+                var shipmentDetail = new ShipmentDetail()
+                {
+                    ShipmentNumber = item,
+                    PaymentMethodId = db.PaymentMethods.FirstOrDefault(x=>x.PaymentMethodName== paymentMethod).PaymentMethodId,
+                    ShippingMethodId = db.ShippingMethods.FirstOrDefault(x=>x.ShippingMethodName== shippingMethod).ShippingMethodId,
+                    Receiver = receiverValue,
+                    ReceiverAddress = receiverAddressValue,
+                };
+                db.ShipmentDetails.Add(shipmentDetail);
+                db.SaveChanges();
+            }
+
+            return new EmptyResult();
+        }
+
 
         [Authorize]
         public ActionResult UserDeleteCartapi(int ProductId)//刪除購物車商品的api
@@ -377,5 +438,20 @@ namespace prjEShopping.Controllers
         }
 
 
+        [Authorize]
+        public ActionResult getPaymentMethodName()
+        {
+            var db = new AppDbContext();
+            var paymentMethodNames = db.PaymentMethods.Select(x => x.PaymentMethodName).Distinct();
+            return Json(paymentMethodNames, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult getShippingMethodName()
+        {
+            var db = new AppDbContext();
+            var shippingMethodNames = db.ShippingMethods.Select(x => x.ShippingMethodName).Distinct();
+            return Json(shippingMethodNames, JsonRequestBehavior.AllowGet);
+        }
     }
  }

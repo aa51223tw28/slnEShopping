@@ -1,0 +1,586 @@
+﻿@model IEnumerable<prjEShopping.Models.EFModels.Product>
+@{
+    ViewBag.Title = "StoreMain";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="bg-light">
+
+    <!-- 左邊篩選器 -->
+    <div class="container py-3">
+        <div class="container mt-3 bg-success rounded pb-3">
+            <div class="row">
+                <div class="col-3 ">
+                    <div class="row">
+                        <img src="~/img/sony180px.png" class="mt-2 mb-2">
+                    </div>
+                    <div class="row">
+                        <h3 class="text-center">全國電子</h3>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center">
+                            <span>商品：</span>
+                        </div>
+                        <div class="col-9">
+                            <span class="fs-4 fw-bold text-danger">298個</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center">
+                            <span>評價 :</span>
+                        </div>
+                        <div class="col-9">
+                            <span class="fs-4 fw-bold text-danger">3.9顆星(500評價)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center">
+                            <span>關注中 :</span>
+                        </div>
+                        <div class="col-9">
+                            <span class="fs-4 fw-bold text-danger">0</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center">
+                            <span>聊聊表現 :</span>
+                        </div>
+                        <div class="col-9">
+                            <span class="fs-4 fw-bold text-danger">50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="col-3 d-flex align-items-center">
+                        <span>賣場介紹 :</span>
+                    </div>
+                    <div class="col-9">
+                        <span class="fs-4 fw-bold">
+                            建立一個簡短而清楚的賣場介紹，賣場介紹可以包含您的品牌故事、獨特之處等資訊以吸引買家到您的賣場。
+
+                            ※請注意：顯示紅字警示「很抱歉，您的訊息包含敏感性字眼」時需請您檢查並重新編輯內容。
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-3 bg-success rounded pb-3">
+            <div class="d-flex justify-content-between">
+                <h2 class="pt-3 ps-2 fw-bold fs-3 text">折價券專區</h2>
+            </div>
+            <div class="bg-white border-1 d-flex flex-wrap">
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3 bg-success rounded pb-3">
+            <h2 class="pt-3 ps-2 fw-bold fs-3 text">推薦商品</h2>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/product15.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/product15.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/product15.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/product15.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/product15.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="container mt-3 bg-success rounded pb-3">
+            <h2 class="pt-3 ps-2 fw-bold fs-3 text">熱賣商品</h2>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">PlayStation 5 主機</h5>
+                            <p class="card-text text-danger fw-bold">$17,880</p>
+                            <a href="#" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row py-2">
+            <div class="col-3 d-flex flex-column">
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-bars"></i><span class="ms-2">所有分類</span>
+                </div>
+                <div class="fs-5">
+                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">3C資訊</a>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        筆電
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        桌機
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        螢幕
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        鍵盤
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        滑鼠
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        儲存硬碟
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        耳機
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        音響
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        藍芽穿戴
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        印表機
+                    </label>
+                </div>
+                <div class="fs-5">
+                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">數位通訊</a>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        手機
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        平板
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        相機
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        遊戲主機
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        光碟片
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        充電線
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        轉接頭
+                    </label>
+                </div>
+                <div class="fs-5">
+                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">生活家電</a>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        冰箱
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        洗衣機
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        乾衣機
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        電風扇
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        冷氣
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        烤箱
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        微波爐
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        電子鍋
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        吸塵器
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        電動牙刷
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        電鬍刀
+                    </label>
+                </div>
+                <hr>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-bars"></i><span class="ms-2">品牌</span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌2
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌3
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌4
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌5
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌6
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌7
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌8
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌9
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        品牌10
+                    </label>
+                </div>
+                <hr>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-bars"></i><span class="ms-2">價格範圍</span>
+                </div>
+                <div class="d-flex">
+                    <input type="text" class="form-control" placeholder="$最小值" aria-label="Username"
+                           aria-describedby="basic-addon1">
+                    <span class="pt-3">―――</span>
+                    <input type="text" class="form-control" placeholder="$最大值" aria-label="Username"
+                           aria-describedby="basic-addon1">
+                </div>
+                <div class="btn btn-secondary mt-2">套用</div>
+                <hr>
+                <div class="d-flex align-items-center">
+                    <i class="fa-solid fa-bars"></i><span class="ms-2">評價</span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                   style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                                                                                                                                                                  style="color: #ffe180;"></i>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                   style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                  style="color: #ffe180;"></i>或以上
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                   style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                    style="color: #ffe180;"></i>或以上
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                   style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                      style="color: #ffe180;"></i>或以上
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label">
+                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                   style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                      style="color: #ffe180;"></i>或以上
+                    </label>
+                </div>
+                <hr>
+                <div class="btn btn-secondary mt-2">清除全部</div>
+
+
+
+
+
+            </div>
+
+            <!-- 右邊內容 -->
+            <div class="col-9">
+                <div class="bg-warning p-3">
+                    <span class="me-3">篩選</span>
+                    <button type="button" class="btn btn-secondary me-3 mb-1">最熱銷</button>
+                    <button type="button" class="btn btn-secondary me-3 mb-1">價格：高到低</button>
+                    <button type="button" class="btn btn-secondary mb-1">價格：低到高</button>
+                </div>
+                <!-- 商品開始 -->
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2">
+                    @{
+                        foreach( var item in Model)
+                        { 
+                        <div class="col">
+                            <div class="card w-100">
+                                <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</h5>
+                                    <p class="card-text text-danger fw-bold">@(item.Price)</p>
+                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                       }
+                    
+                </div>
+                <!-- 商品結束 -->
+                <!-- 分頁標籤 -->
+                <nav aria-label="Page navigation example ">
+                    <ul class="pagination justify-content-center mt-3">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
