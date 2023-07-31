@@ -10,8 +10,9 @@ namespace prjEShopping.Controllers
     public class SellerMainController : Controller
     {
         // GET: SellerMain
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
+            int id = (int)Session["SellerId"];
             // 根據賣家的 ID 從資料庫中讀取賣家資料
             var db = new AppDbContext();
             var seller = db.Sellers.FirstOrDefault(x => x.SellerId == id);
