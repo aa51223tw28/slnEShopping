@@ -114,7 +114,7 @@ namespace prjEShopping.Controllers
                 return View();
 
             var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
-            EmailVerifyUrl.SendEmailUrl(AdminAccount, urlHelper);
+            EmailVerifyUrl.SendEmailUrl(AdminAccount, urlHelper, "EmailVerify", "Admins");
 
             //正確寄信
             //錯誤紅字提示

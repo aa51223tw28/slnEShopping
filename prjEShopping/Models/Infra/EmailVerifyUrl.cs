@@ -11,7 +11,7 @@ namespace prjEShopping.Models.Infra
 {
     public static class EmailVerifyUrl
     {
-        public static void SendEmailUrl(string email, UrlHelper urlHelper)
+        public static void SendEmailUrl(string email, UrlHelper urlHelper , string action, string controllers)
         {
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
             {
@@ -21,7 +21,7 @@ namespace prjEShopping.Models.Infra
             };
 
             //html前置
-            string body = CreateUrl(urlHelper);
+            string body = CreateUrl(urlHelper, action, controllers);
             string htmlBody = $"<html><body><h1>驗證確認</h1><h3>EShopping 驗證連結，<a href=\"{body}\">請點選驗證</a></h3></body></html>";
             AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlBody, null, "text/html");
 
@@ -36,10 +36,10 @@ namespace prjEShopping.Models.Infra
             smtpClient.Send(mailMessage);
         }
 
-        public static string CreateUrl(UrlHelper urlHelper)
+        public static string CreateUrl(UrlHelper urlHelper,string action,string controllers)
         {
             string token = Guid.NewGuid().ToString();
-            string verificationUrl = urlHelper.Action("VEmail", "Admintest", new { token }, urlHelper.RequestContext.HttpContext.Request.Url.Scheme);
+            string verificationUrl = urlHelper.Action(action, controllers, new { token }, urlHelper.RequestContext.HttpContext.Request.Url.Scheme);
             return verificationUrl;
         }
     }
