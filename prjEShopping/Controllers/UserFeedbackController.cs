@@ -24,7 +24,7 @@ namespace prjEShopping.Controllers
             {
                 UserId = model.UserId,
                 ProductId = model.ProductId,
-                StarRating = model.StarRating.ToString(),
+                //StarRating = model.StarRating.ToString(),
                 RatingText = model.RatingText,
                 PostTime = DateTime.Now
             };

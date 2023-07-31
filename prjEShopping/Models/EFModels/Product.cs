@@ -52,5 +52,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string OptionIdFive { get; set; }
+
+        [StringLength(50)]
+        public string Promote { get; set; }
     }
 }

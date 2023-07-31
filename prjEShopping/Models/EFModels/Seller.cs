@@ -19,7 +19,7 @@ namespace prjEShopping.Models.EFModels
         [StringLength(50)]
         public string SellerAccount { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string SellerPassword { get; set; }
 
         [StringLength(100)]
@@ -53,5 +53,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string Role { get; set; }
+
+        [StringLength(100)]
+        public string EmailCheck { get; set; }
     }
 }

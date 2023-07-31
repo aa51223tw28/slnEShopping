@@ -40,5 +40,10 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string Role { get; set; }
+
+        public int? AccessRightId { get; set; }
+
+        [StringLength(100)]
+        public string EmailCheck { get; set; }
     }
 }

@@ -227,6 +227,8 @@
     <Compile Include="Models\EFModels\SliderAD.cs" />
     <Compile Include="Models\EFModels\Support.cs" />
     <Compile Include="Models\EFModels\SupportReplay.cs" />
+    <Compile Include="Models\EFModels\TrackProduct.cs" />
+    <Compile Include="Models\EFModels\TrackSeller.cs" />
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
     <Compile Include="Models\Infra\EFRepositories\AdminRepository.cs" />
