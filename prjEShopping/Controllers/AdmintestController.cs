@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,6 +20,60 @@ namespace prjEShopping.Controllers
 {
     public class AdmintestController : Controller
     {
+        [HttpGet]
+        public ActionResult SendEmail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SendEmail(string email)
+        {
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("Eshopping17go@gmail.com", "ayakelsjzapfbtil"),
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network
+            };
+
+            //圖片前置
+            string htmlBody = "<html><body><h1>測試郵件</h1><img src=\"cid:MyImage\" /></body></html>";
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlBody, null, "text/html");
+            // 嵌入圖片
+            LinkedResource linkedImage = new LinkedResource("~/img/Etest.jpg");
+            linkedImage.ContentId = "MyImage";
+            htmlView.LinkedResources.Add(linkedImage);
+         
+            string body =CreateUrl();
+
+            MailMessage mailMessage = new MailMessage
+            {
+                From = new MailAddress("Eshopping17go@gmail.com"),
+                Subject = "EShopping帳號驗證郵件",
+                Body ="EShopping 驗證連結，請點選驗證"+body,
+            };
+
+            mailMessage.AlternateViews.Add(htmlView);
+            mailMessage.To.Add(email);
+            smtpClient.Send(mailMessage);
+            mailMessage.IsBodyHtml = true;
+
+            ViewBag.Message = "郵件已發送!";
+            return View();
+        }
+
+        public ActionResult VEmail(string token)
+        {
+                return View();
+        }
+
+            public string CreateUrl()
+            {
+                string token = Guid.NewGuid().ToString();
+                string verificationUrl = Url.Action("VEmail", "Admintest", new { token }, Request.Url.Scheme);
+                return verificationUrl;
+            }
+
         // GET: Admin
         public ActionResult List()
         {

@@ -334,6 +334,8 @@
     <Content Include="Views\Admins\Indexem.cshtml" />
     <Content Include="Views\Admins\PasswordChange.cshtml" />
     <Content Include="Views\SellerStore\StoreMain.cshtml" />
+    <Content Include="Views\Admintest\SendEmail.cshtml" />
+    <Content Include="Views\Admintest\VEmail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
