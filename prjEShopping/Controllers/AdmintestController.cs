@@ -29,6 +29,14 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult SendEmail(string email)
         {
+            SendEmailUrl(email);
+
+            ViewBag.Message = "郵件已發送!";
+            return View();
+        }
+
+        private void SendEmailUrl(string email)
+        {
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
             {
                 Credentials = new NetworkCredential("Eshopping17go@gmail.com", "ayakelsjzapfbtil"),
@@ -46,7 +54,7 @@ namespace prjEShopping.Controllers
             //LinkedResource linkedImage = new LinkedResource(path);
             //linkedImage.ContentId = "MyImage";
             //htmlView.LinkedResources.Add(linkedImage);
-         
+
 
             MailMessage mailMessage = new MailMessage
             {
@@ -57,9 +65,6 @@ namespace prjEShopping.Controllers
             mailMessage.AlternateViews.Add(htmlView);
             mailMessage.To.Add(email);
             smtpClient.Send(mailMessage);
-
-            ViewBag.Message = "郵件已發送!";
-            return View();
         }
 
         public ActionResult VEmail(string token)

@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "PWForgot";
+    Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
+}
+
+<div class="col-6 bg-secondary overflow-auto" style="height:500px">
+    <div class="mt-5 px-5 py-5 border border-primary border-3 rounded-3">
+        <h2>忘記密碼</h2>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <form method="post">
+            <label>請輸入帳號信箱</label>
+            <input type="text" class="form-control" id="AdminAccount" name="AdminAccount" required />
+            <input type="submit" id="login" value="登入" class="btn btn-primary my-2" />
+        </form>
+    </div>
+</div>
+

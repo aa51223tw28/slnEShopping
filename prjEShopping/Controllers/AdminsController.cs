@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using prjEShopping.Models.EFModels;
@@ -98,6 +99,51 @@ namespace prjEShopping.Controllers
             }
             return RedirectToAction("Login");
         }
+
+        public ActionResult PWForgot()
+        {//輸入帳號信箱
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PWForgot(string AdminAccount)
+        {
+           var account= db.Admins.FirstOrDefault(a => a.AdminAccount == AdminAccount);
+
+            if(account==null)
+                return View();
+
+            var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
+            EmailVerifyUrl.SendEmailUrl(AdminAccount, urlHelper);
+
+            //正確寄信
+            //錯誤紅字提示
+            return View();
+        }
+
+        public ActionResult EmailVerify()
+        { //驗證信頁面 驗證token
+          //正確 資料庫身分轉已驗證
+          //轉正確頁面
+          //錯誤 轉錯誤頁面
+            return View();
+        }
+
+        public ActionResult EmailVT()
+        { //驗證正確頁面
+          //首頁連結
+          //5秒自動跳轉
+            return View();
+        }
+
+        public ActionResult EmailVF()
+        { //驗證錯誤頁面
+          //跳回登入頁面
+          //這頁可以不做 (?)
+            return View();
+        }
+
+
 
         // GET: Admins/Details/5
         public ActionResult Details(int? id)
