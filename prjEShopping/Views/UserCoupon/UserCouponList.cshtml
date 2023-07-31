@@ -127,7 +127,11 @@
                                                 @Html.DisplayFor(modelItem => item.Storewide)
                                                 @if (item.CouponType == "折價券")
                                                 {
-                                                    <text>@Html.DisplayFor(modelItem => item.Discount)折</text>
+                                                    double discount;
+                                                    if (Double.TryParse(item.Discount, out discount))
+                                                    {
+                                                        <text>@(discount / 10)折</text>
+                                                    }
                                                 }
                                                 else if (item.CouponType == "抵用券")
                                                 {

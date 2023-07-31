@@ -36,27 +36,27 @@ namespace prjEShopping.Controllers
                 DeliveryMethod = SmtpDeliveryMethod.Network
             };
 
-            //圖片前置
-            string htmlBody = "<html><body><h1>測試郵件</h1><img src=\"cid:MyImage\" /></body></html>";
+            //html前置
+            string body = CreateUrl();
+            string htmlBody = $"<html><body><h1>驗證確認</h1><h3>EShopping 驗證連結，<a href=\"{body}\">請點選驗證</a></h3></body></html>";
+            //string htmlBody = $"<html><body><h1>測試郵件</h1><img src=\"cid:MyImage\" width=\"200\" /><p>EShopping 驗證連結，<a href=\"{body}\">請點選驗證</a></p></body></html>";
             AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlBody, null, "text/html");
-            // 嵌入圖片
-            LinkedResource linkedImage = new LinkedResource("~/img/Etest.jpg");
-            linkedImage.ContentId = "MyImage";
-            htmlView.LinkedResources.Add(linkedImage);
+            //// 嵌入圖片
+            //string path = Server.MapPath("~/img/Etest.jpg");
+            //LinkedResource linkedImage = new LinkedResource(path);
+            //linkedImage.ContentId = "MyImage";
+            //htmlView.LinkedResources.Add(linkedImage);
          
-            string body =CreateUrl();
 
             MailMessage mailMessage = new MailMessage
             {
                 From = new MailAddress("Eshopping17go@gmail.com"),
                 Subject = "EShopping帳號驗證郵件",
-                Body ="EShopping 驗證連結，請點選驗證"+body,
             };
-
+            mailMessage.IsBodyHtml = true;
             mailMessage.AlternateViews.Add(htmlView);
             mailMessage.To.Add(email);
             smtpClient.Send(mailMessage);
-            mailMessage.IsBodyHtml = true;
 
             ViewBag.Message = "郵件已發送!";
             return View();
