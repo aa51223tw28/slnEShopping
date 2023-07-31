@@ -23,5 +23,19 @@ namespace prjEShopping.Controllers
             var products = db.Products.Where(x => x.SellerId == 1).ToList();
             return View(products);
         }
+
+        public ActionResult getTop5Product() 
+        {
+            var db = new AppDbContext();
+            var products = db.Products.Where(x => x.SellerId == 1).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new 
+                        {
+                            x.ProductId,
+                            x.ProductImagePathOne,
+                            x.ProductName,
+                            PriceWithCurrency = "NT$" + ((int)x.Price).ToString(),
+                            y.QuantitySold,
+                        } ).OrderByDescending(x => x.QuantitySold).Take(5);
+            return Json(products, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -20,49 +20,46 @@
                 </div>
                 <div class="col-4">
                     <div class="row">
-                        <div class="col-3 d-flex align-items-center">
-                            <span>商品：</span>
+                        <div class="col-4 d-flex align-items-center">
+                            <span class="fs-4 fw-bold">商品：</span>
                         </div>
-                        <div class="col-9">
+                        <div class="col-8">
                             <span class="fs-4 fw-bold text-danger">@Model.Count()個
                             </span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3 d-flex align-items-center">
-                            <span>評價 :</span>
+                        <div class="col-4 d-flex align-items-center">
+                            <span class="fs-4 fw-bold">評價 :</span>
                         </div>
-                        <div class="col-9">
-                            <span class="fs-4 fw-bold text-danger">@ViewBag.AvgRating</span><span class="fs-4 fw-bold text-danger mx-2">顆星</span><span class="fs-4 fw-bold text-danger">(</span><span class="fs-4 fw-bold text-danger">@ViewBag.RatingCount</span><span class="fs-4 fw-bold text-danger">)個評價</span>
+                        <div class="col-8">
+                            <span class="fs-4 fw-bold text-danger">@ViewBag.AvgRating</span><span class="fs-4 fw-bold text-danger mx-2">顆星</span><span class="fs-4 fw-bold text-danger">(</span><span class="fs-4 fw-bold text-danger">@ViewBag.RatingCount</span><span class="fs-4 fw-bold text-danger">個評價)</span>
 </div>
                     </div>
                     <div class="row">
-                        <div class="col-3 d-flex align-items-center">
-                            <span>關注中 :</span>
+                        <div class="col-4 d-flex align-items-center">
+                            <span class="fs-4 fw-bold">關注中 :</span>
                         </div>
-                        <div class="col-9">
+                        <div class="col-8">
                             <span class="fs-4 fw-bold text-danger">@ViewBag.CollectedCount</span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3 d-flex align-items-center">
-                            <span>聊聊表現 :</span>
+                        <div class="col-4 d-flex align-items-center">
+                            <span class="fs-4 fw-bold">聊聊表現 :</span>
                         </div>
-                        <div class="col-9">
+                        <div class="col-8">
                             <span class="fs-4 fw-bold text-danger">50%</span>
                         </div>
                     </div>
                 </div>
                 <div class="col-5">
-                    <div class="col-3 d-flex align-items-center">
-                        <span>賣場介紹 :</span>
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fs-4 fw-bold">賣場介紹 :</span>
                     </div>
-                    <div class="col-9">
+                    <div class="col-8">
                         <span class="fs-4 fw-bold">
-                            建立一個簡短而清楚的賣場介紹，賣場介紹可以包含您的品牌故事、獨特之處等資訊以吸引買家到您的賣場。
-
-                            ※請注意：顯示紅字警示「很抱歉，您的訊息包含敏感性字眼」時需請您檢查並重新編輯內容。
-
+                            @ViewBag.StoreIntro
                         </span>
                     </div>
                 </div>
@@ -165,9 +162,9 @@
 
 
         </div>
-        <div class="container mt-3 bg-success rounded pb-3">
+        <div class="container mt-3 bg-success rounded pb-3" >
             <h2 class="pt-3 ps-2 fw-bold fs-3 text">熱賣商品</h2>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="Top5">
                 <div class="col">
                     <div class="card w-100">
                         <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
@@ -178,46 +175,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
 
 
@@ -585,4 +543,39 @@
         </div>
     </div>
 </div>
+@section Scripts
+    { 
+        <script>
+            const selTop5 = document.querySelector('#Top5');
 
+            function LoadTop5()
+            {
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', '@Url.Content("~/SellerStore/getTop5Product")');
+                xhr.send();
+
+                xhr.addEventListener('load', () => {
+                    const datas = JSON.parse(xhr.responseText);
+                    console.log(datas)
+                    var products = datas.map(product => {
+                        return (`<div class="col">
+                            <div class="card w-100">
+                                <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
+                                    <div class="card-body">
+                                        <input type="hidden" value="${product.ProductId}">
+                                        <h5 class="card-title">${product.ProductName}</h5>
+                                        <p class="card-text text-danger fw-bold">${product.PriceWithCurrency}</p>
+                                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                                    </div>
+                            </div>
+                        </div>`)
+                    }) 
+                    selTop5.innerHTML = products.join("");
+                })
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                LoadTop5();
+            });
+        </script>
+    }
