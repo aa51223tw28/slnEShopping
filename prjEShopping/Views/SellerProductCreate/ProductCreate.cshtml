@@ -197,9 +197,10 @@
                 {
                     const optionnameElement = document.querySelector(`#optionname${i}`);
                     const optionname = optionnameElement.getAttribute('value');
+                    const subcatorynames = selsubcategories.options[selsubcategories.selectedIndex].value;
                     
                     const xhr = new XMLHttpRequest();
-                    xhr.open('GET', `@Url.Content("~/SellerProductCreateApi/getOptionValues?specificationname=")${encodeURIComponent(optionname)}`);
+                    xhr.open('GET', `@Url.Content("~/SellerProductCreateApi/getOptionValues?specificationname=")${encodeURIComponent(optionname)}&subcategoryname=${encodeURIComponent(subcatorynames)}`);
                     xhr.send();
 
 
