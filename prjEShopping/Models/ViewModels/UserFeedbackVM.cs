@@ -1,6 +1,7 @@
 ﻿using prjEShopping.Models.EFModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,14 +9,21 @@ namespace prjEShopping.Models.ViewModels
 {
     public class UserFeedbackVM
     {
-        // 賣家資訊
-        public int SellerId { get; set; }
-        public string SellerName { get; set; }
+        public int RatingId { get; set; }
 
-        // 評分清單
-        public List<Rating> Ratings { get; set; }
+        public int? ProductId { get; set; }
 
-        // 留言清單
-        public List<Rating> Comments { get; set; }
+        public int? UserId { get; set; }
+
+        [StringLength(50)]
+        public string StarRating { get; set; }
+
+        [StringLength(4000)]
+        public string RatingText { get; set; }
+
+        public DateTime? PostTime { get; set; }
+
+        [StringLength(50)]
+        public string RatingStatus { get; set; }
     }
 }
