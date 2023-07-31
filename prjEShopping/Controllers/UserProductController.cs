@@ -43,6 +43,7 @@ namespace prjEShopping.Controllers
                         ProductImagePathOne = item.ProductImagePathOne,
                         ProductStock = stockQuantity - orderQuantity,
                         QuantitySold= (int)db.ProductStocks.FirstOrDefault(x => x.ProductId == item.ProductId).QuantitySold,
+                        SubcategoryId= (int)products.FirstOrDefault(x=>x.ProductId== item.ProductId).SubcategoryId,
                     };
 
                     datas.Add(data);

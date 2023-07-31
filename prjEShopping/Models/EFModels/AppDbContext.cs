@@ -44,6 +44,8 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<SliderAD> SliderADs { get; set; }
         public virtual DbSet<SupportReplay> SupportReplaies { get; set; }
         public virtual DbSet<Support> Supports { get; set; }
+        public virtual DbSet<TrackProduct> TrackProducts { get; set; }
+        public virtual DbSet<TrackSeller> TrackSellers { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UsersCoupon> UsersCoupons { get; set; }
 
