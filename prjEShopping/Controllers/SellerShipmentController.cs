@@ -20,10 +20,11 @@ namespace prjEShopping.Controllers
 
         public ActionResult ShipmentList()
         {
+            int sellerid = (int)Session["SellerId"];
             List<SellerShipmentVM> datashow;
             AppDbContext db = new AppDbContext();
 
-            var data = db.Shipments.Where(x => x.SellerId == 1)
+            var data = db.Shipments.Where(x => x.SellerId == sellerid)
                                     .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
                                     {
                                         ShipmentStatus = y.ShipmentStatus,
@@ -42,6 +43,7 @@ namespace prjEShopping.Controllers
 
         public ActionResult ShipmentDetail(string ShipNum, string Shiptatus)
         {
+            int sellerid = (int)Session["SellerId"];
             //寄件明細
             var db = new AppDbContext();
             var data = db.ShipmentDetails.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
@@ -68,7 +70,7 @@ namespace prjEShopping.Controllers
             ViewBag.username = username;
 
             //購買內容
-            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == 1), x => x.ProductId, y => y.ProductId, (x, y) => new
+            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == sellerid), x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductId = y.ProductId,
                 ProductName = y.ProductName,
@@ -101,11 +103,12 @@ namespace prjEShopping.Controllers
 
         public ActionResult Cancle(string ShipNum)
         {
+            int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
 
             var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 
-            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == 1), x => x.ProductId, y => y.ProductId, (x, y) => new
+            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == sellerid), x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductId = y.ProductId,
                 ChageQty = x.Quantity,
@@ -145,11 +148,12 @@ namespace prjEShopping.Controllers
 
         public ActionResult ToShip(string ShipNum)
         {
+            int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
 
             var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 
-            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == 1), x => x.ProductId, y => y.ProductId, (x, y) => new
+            var products = db.OrderDetails.Where(x => x.OrderId == userorderid.OrderId).Join(db.Products.Where(y => y.SellerId == sellerid), x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductId = y.ProductId,
                 ChageQty = x.Quantity,

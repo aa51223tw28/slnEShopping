@@ -175,6 +175,7 @@
     <Compile Include="Controllers\SellerProductCreateApiController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
+    <Compile Include="Controllers\SellerStoreController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
@@ -320,6 +321,7 @@
     <Content Include="Views\UserFollow\UserFollowSeller.cshtml" />
     <Content Include="Views\UserFollow\UserFollowProduct.cshtml" />
     <Content Include="Views\UserOrder\UserOrderDetail.cshtml" />
+    <Content Include="Views\SellerStore\StoreMain.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

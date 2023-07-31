@@ -62,7 +62,7 @@
                         <span class="fw-bold text-primary">商品描述：</span>
                     </div>
                     <div class="col-4">
-                        <textarea name="ProductDescription"></textarea>
+                        <input type="text" name="ProductDescription">
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -185,7 +185,7 @@
             });
                  setTimeout(() => {
                      LoadOptionValue();
-                 }, 200);
+                 }, 500);
 
             }
 
@@ -197,9 +197,10 @@
                 {
                     const optionnameElement = document.querySelector(`#optionname${i}`);
                     const optionname = optionnameElement.getAttribute('value');
+                    const subcatorynames = selsubcategories.options[selsubcategories.selectedIndex].value;
                     
                     const xhr = new XMLHttpRequest();
-                    xhr.open('GET', `@Url.Content("~/SellerProductCreateApi/getOptionValues?specificationname=")${encodeURIComponent(optionname)}`);
+                    xhr.open('GET', `@Url.Content("~/SellerProductCreateApi/getOptionValues?specificationname=")${encodeURIComponent(optionname)}&subcategoryname=${encodeURIComponent(subcatorynames)}`);
                     xhr.send();
 
 
@@ -243,7 +244,7 @@
             LoadOptionNames();
             setTimeout(() => {
                 LoadOptionValue();
-            }, 200);
+            }, 500);
         })
 
         
