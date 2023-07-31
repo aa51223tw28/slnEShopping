@@ -1,4 +1,5 @@
-﻿using prjEShopping.Models.EFModels;
+﻿using prjEShopping.Models.DTOs;
+using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,13 @@ namespace prjEShopping.Controllers
 
         public ActionResult Index()
         {
-            UserFeedbackVM model = new UserFeedbackVM();
-            return View(model);
+            var productDto = new UserProductIndexDto();
+            var feedbackVm = new UserFeedbackVM();
+
+            ViewData["ProductDto"] = productDto;
+            ViewData["FeedbackVm"] = feedbackVm;
+
+            return View();
         }
         [HttpPost]
         public ActionResult SubmitComment(UserFeedbackVM model)
