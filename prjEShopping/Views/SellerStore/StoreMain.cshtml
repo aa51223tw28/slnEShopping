@@ -12,10 +12,10 @@
             <div class="row">
                 <div class="col-3 ">
                     <div class="row">
-                        <img src="~/img/sony180px.png" class="mt-2 mb-2">
+                        <img src="~/img/@ViewBag.StoreImage" class="mt-2 mb-2">
                     </div>
                     <div class="row">
-                        <h3 class="text-center">全國電子</h3>
+                        <h3 class="text-center">@ViewBag.Storename</h3>
                     </div>
                 </div>
                 <div class="col-4">
@@ -24,7 +24,8 @@
                             <span>商品：</span>
                         </div>
                         <div class="col-9">
-                            <span class="fs-4 fw-bold text-danger">298個</span>
+                            <span class="fs-4 fw-bold text-danger">@Model.Count()個
+                            </span>
                         </div>
                     </div>
                     <div class="row">
@@ -32,15 +33,15 @@
                             <span>評價 :</span>
                         </div>
                         <div class="col-9">
-                            <span class="fs-4 fw-bold text-danger">3.9顆星(500評價)</span>
-                        </div>
+                            <span class="fs-4 fw-bold text-danger">@ViewBag.AvgRating</span><span class="fs-4 fw-bold text-danger mx-2">顆星</span><span class="fs-4 fw-bold text-danger">(</span><span class="fs-4 fw-bold text-danger">@ViewBag.RatingCount</span><span class="fs-4 fw-bold text-danger">)個評價</span>
+</div>
                     </div>
                     <div class="row">
                         <div class="col-3 d-flex align-items-center">
                             <span>關注中 :</span>
                         </div>
                         <div class="col-9">
-                            <span class="fs-4 fw-bold text-danger">0</span>
+                            <span class="fs-4 fw-bold text-danger">@ViewBag.CollectedCount</span>
                         </div>
                     </div>
                     <div class="row">
@@ -537,9 +538,10 @@
             <div class="col-9">
                 <div class="bg-warning p-3">
                     <span class="me-3">篩選</span>
-                    <button type="button" class="btn btn-secondary me-3 mb-1">最熱銷</button>
-                    <button type="button" class="btn btn-secondary me-3 mb-1">價格：高到低</button>
-                    <button type="button" class="btn btn-secondary mb-1">價格：低到高</button>
+                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
+                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
+                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
+                    <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
                 </div>
                 <!-- 商品開始 -->
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2">
@@ -550,8 +552,8 @@
                             <div class="card w-100">
                                 <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</h5>
-                                    <p class="card-text text-danger fw-bold">@(item.Price)</p>
+                                    <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
+                                    <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>
                                     <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>
