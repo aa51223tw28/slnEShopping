@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.CouponVM>
+
 @{
     ViewBag.Title = "UserCouponList";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -96,76 +97,85 @@
 
                     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                         <div class="d-flex flex-wrap">
-                            <div class="d-flex me-5 coupon-item mb-5">
-                                <img src="~/img/coupon.png" alt="">
-                                <div class="d-flex flex-column p-2 bg-info">
-                                    <span>Apple折價券</span>
-                                    <span>Apple全館打85折</span>
-                                    <span>20230701-20230731</span>
-                                    <div class="d-flex">
-                                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                            @*<div class="d-flex me-5 coupon-item mb-5">
+                                    <img src="~/img/coupon.png" alt="">
+                                    <div class="d-flex flex-column p-2 bg-info">
+                                        <span>Apple折價券</span>
+                                        <span>Apple全館打85折</span>
+                                        <span>20230701-20230731</span>
+                                        <div class="d-flex">
+                                            <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                                            <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                        </div>
                                     </div>
+                                </div>*@
+                            @if (!Model.Any())
+                            {
+                                <div class="alert alert-info">
+                                    目前暫無可領取優惠券。
                                 </div>
-                            </div>
-                            <div class="d-flex me-5 coupon-item mb-5">
-                                <img src="~/img/coupon.png" alt="">
-                                <div class="d-flex flex-column p-2 bg-info">
-                                    <span>Apple折價券</span>
-                                    <span>Apple全館打85折</span>
-                                    <span>20230701-20230731</span>
-                                    <div class="d-flex">
-                                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                            }
+                            else
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <div class="d-flex me-5 coupon-item mb-5">
+                                        <img src="~/img/coupon.png" alt="">
+                                        <div class="d-flex flex-column p-2 bg-info">
+                                            <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
+                                            <span>
+                                                @Html.DisplayFor(modelItem => item.Storewide)
+                                                @if (item.CouponType == "折價券")
+                                                {
+                                                    <text>@Html.DisplayFor(modelItem => item.Discount)折</text>
+                                                }
+                                                else if (item.CouponType == "抵用券")
+                                                {
+                                                    <text>@Html.DisplayFor(modelItem => item.Discount)元</text>
+                                                }
+                                                else if (item.CouponType == "免運券")
+                                                {
+                                                    <text>免運</text>
+                                                }
+                                            </span>
+                                            <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
+                                            <div class="d-flex">
+                                                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                                                @using (Html.BeginForm("UserCouponList", "UserCoupon", FormMethod.Post))
+                                                {
+                                                    <input type="hidden" name="couponId" value="@item.CouponId" />
+                                                    <button type="submit" class="btn btn-secondary ms-3">領取</button>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="d-flex me-5 coupon-item mb-5">
-                                <img src="~/img/coupon.png" alt="">
-                                <div class="d-flex flex-column p-2 bg-info">
-                                    <span>Apple折價券</span>
-                                    <span>Apple全館打85折</span>
-                                    <span>20230701-20230731</span>
-                                    <div class="d-flex">
-                                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex me-5 coupon-item mb-5">
-                                <img src="~/img/coupon.png" alt="">
-                                <div class="d-flex flex-column p-2 bg-info">
-                                    <span>Apple折價券</span>
-                                    <span>Apple全館打85折</span>
-                                    <span>20230701-20230731</span>
-                                    <div class="d-flex">
-                                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex me-5 coupon-item mb-5">
-                                <img src="~/img/coupon.png" alt="">
-                                <div class="d-flex flex-column p-2 bg-info">
-                                    <span>Apple折價券</span>
-                                    <span>Apple全館打85折</span>
-                                    <span>20230701-20230731</span>
-                                    <div class="d-flex">
-                                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                                    </div>
-                                </div>
-                            </div>
-
+                                }
+                            }
                         </div>
                     </div>
 
 
-
-
-                    <div class="tab-pane fade" id="use" role="tabpanel" aria-labelledby="use-tab">use</div>
-                    <div class="tab-pane fade" id="nouse" role="tabpanel" aria-labelledby="nouse-tab">nouse</div>
-                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">finish</div>
+                    <div class="tab-pane fade" id="use" role="tabpanel" aria-labelledby="use-tab">
+                        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                            <div class="d-flex flex-wrap">
+                                @Html.Action("UsersCouponsList", "UserCoupon")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nouse" role="tabpanel" aria-labelledby="nouse-tab">
+                        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                            <div class="d-flex flex-wrap">
+                                @Html.Action("UsersCouponsUsed", "UserCoupon")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish-tab">
+                        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                            <div class="d-flex flex-wrap">
+                                @Html.Action("UsersCouponsOverdue", "UserCoupon")
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 

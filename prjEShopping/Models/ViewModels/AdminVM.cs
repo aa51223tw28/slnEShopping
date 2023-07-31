@@ -53,7 +53,7 @@ namespace prjEShopping.Models.ViewModels
         public string AdminAccount { get; set; }
 
         [DisplayName("密碼")]
-        [StringLength(50)]
+        [StringLength(100)]
         [Required]
         public string AdminPassword { get; set; }
 
@@ -99,9 +99,24 @@ namespace prjEShopping.Models.ViewModels
         public string AdminAccount { get; set; }
 
         [DisplayName("密碼")]
-        [StringLength(50)]
+        [StringLength(100)]
         [Required]
         public string AdminPassword { get; set; }
+    }
+
+    public class PasswordChangeVM
+    {
+        public int UserId { get; set; }
+        [Required]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$", ErrorMessage = "密碼必須包括至少一個大寫字母、一個小寫字母和一個數字，且至少8個字符，最多16個字符。")]
+        public string NewPassword { get; set; }
+
+        [Required]
+        [Compare("NewPassword", ErrorMessage = "密碼不匹配。")]
+        public string ConfirmNewPassword { get; set; }
     }
 
 

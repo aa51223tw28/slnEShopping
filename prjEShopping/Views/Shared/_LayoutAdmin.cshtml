@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
     <title>@ViewBag.Title</title>
     <link href="~/Content/all.css" rel="stylesheet" type="text/css" />
     @RenderSection("Styles", required: false)
@@ -55,100 +56,133 @@
                         </ul>
                     </div>
                     <div>
-                        <span class="btn btn-primary">登入</span><span class="d-none" id="loginName">歡迎!</span>
+                        <span>歡迎，@ViewBag.AdminName </span>   <a href="@Url.Action("Logout", "Admins")" class="btn btn-primary">登出</a>
                     </div>
                 </div>
             </nav>
         </div>
+        @{
+            var authCookie = Request.Cookies["AdminLogin"];
+            var permissionsId = authCookie?.Values["permissionsId"];
+            var userId = authCookie?.Values["userId"];
+
+            var canSeeTableA = permissionsId == "1";
+            var canSeeTableB = permissionsId != "1";
+            var canSeeTableC = permissionsId == "1" || permissionsId == "2" || permissionsId == "4" || permissionsId == "6";
+            var canSeeTableD = permissionsId == "1" || permissionsId == "2" || permissionsId == "4" || permissionsId == "5" || permissionsId == "6";
+            var canSeeTableE = permissionsId == "1" || permissionsId == "2" || permissionsId == "3" ;
+            var canSeeTableF = permissionsId == "1" || permissionsId == "2" || permissionsId == "3" || permissionsId == "5";
+            var canSeeTableG = permissionsId == "1" || permissionsId == "2" || permissionsId == "5" ;
+            var canSeeTableH = permissionsId == "1" || permissionsId == "2" || permissionsId == "6" ;
+        }
         <div class="row border border-primary">
             <div class="col-3 green bg-secondary  ">
                 <div class="dropdown ">
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">管理權限設定</span><span class="d-sm-inline d-md-none ">管</span>
-                    </a>
-                    <ul class="dropdown-menu bg-info " aria-labelledby="dropdownMenuLink">
-                        <li>@Html.ActionLink("員工一覽", "Index", "Admins",null, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("新增員工", "Create", "Admins",null, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("資料修改", "Edit", "Admins", new {id="1"}, new { @class = "nav-link" })</li>
-                        <li><a class="dropdown-item btn1" href="#tab105">權限設置</a></li>
-                    </ul>
+                    @if (canSeeTableA)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">管理權限設定</span><span class="d-sm-inline d-md-none ">管</span>
+                        </a>
+                        <ul class="dropdown-menu bg-info " aria-labelledby="dropdownMenuLink">
+                            <li>@Html.ActionLink("員工一覽", "Index", "Admins", null, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("新增員工", "Create", "Admins", null, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("資料修改", "Edit", "Admins", new {id=userId}, new { @class = "nav-link" })</li>
+                            <li><a class="dropdown-item btn1" href="#tab105">權限設置</a></li>
+                        </ul>
+                    }
+                    @if (canSeeTableB)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">員工資料設定</span><span class="d-sm-inline d-md-none ">員</span>
+                        </a>
+                        <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+                            <li>@Html.ActionLink("員工一覽", "Index", "Admins", null, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("詳細資料", "Indexem", "Admins", null, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("變更密碼", "PasswordChange", "Admins", null, new { @class = "nav-link" })</li>
+                        </ul>
+                    }
 
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">員工資料設定</span><span class="d-sm-inline d-md-none ">員</span>
-                    </a>
-                    <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="platform2.html">員工一覽</a></li>
-                        <li><a class="dropdown-item" href="platform2.html">資料修改</a></li>
-                    </ul>
+                    @if (canSeeTableC)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">買家管理設定</span><span class="d-sm-inline d-md-none ">買</span>
 
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">買家管理設定</span><span class="d-sm-inline d-md-none ">買</span>
+                        </a>
+                        <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">買家資料查詢</a></li>
+                            <li><a class="dropdown-item" href="#">買家權限設置</a></li>
+                            <li><a class="dropdown-item" href="#">購物車資料查詢</a></li>
+                            <li><a class="dropdown-item" href="#">訂單資料查詢</a></li>
+                        </ul>
+                    }
+                    @if (canSeeTableD)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">商家管理設定</span><span class="d-sm-inline d-md-none ">商</span>
 
-                    </a>
-                    <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">買家資料查詢</a></li>
-                        <li><a class="dropdown-item" href="#">買家權限設置</a></li>
-                        <li><a class="dropdown-item" href="#">購物車資料查詢</a></li>
-                        <li><a class="dropdown-item" href="#">訂單資料查詢</a></li>
-                    </ul>
+                        </a>
+                        <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">商家申請審核</a></li>
+                            <li><a class="dropdown-item" href="#">商家查詢權限設置</a></li>
+                            <li><a class="dropdown-item" href="#">廣告方案設置</a></li>
+                            <li><a class="dropdown-item" href="#">商家優惠方案設置</a></li>
+                            <li><a class="dropdown-item" href="#">商品分類設定</a></li>
+                            <li><a class="dropdown-item" href="#">商品上架審核</a></li>
+                            <li><a class="dropdown-item" href="#">商品資料查詢</a></li>
+                            <li><a class="dropdown-item" href="#">出貨單資料查詢</a></li>
+                        </ul>
+                    }
+                    @if (canSeeTableE)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">平台管理設定</span><span class="d-sm-inline d-md-none ">平</span>
+                        </a>
+                        <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">平台公告設置</a></li>
+                            <li><a class="dropdown-item" href="#">輪播頁面設置</a></li>
+                            <li><a class="dropdown-item" href="#">活動欄位設置</a></li>
+                            <li><a class="dropdown-item" href="#">促銷欄位設置</a></li>
+                            <li><a class="dropdown-item" href="#">限時欄位設置</a></li>
+                        </ul>
+                    }
+                    @if (canSeeTableF)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">廣告優惠設定</span><span class="d-sm-inline d-md-none ">廣</span>
+                        </a>
+                        <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">商家廣告設置</a></li>
+                            <li><a class="dropdown-item" href="#">站內折扣設置</a></li>
+                            @*<li><a class="dropdown-item" href="@Url.Action("Index", "Coupons", new { id = 123 })">優惠券設置</a></li>*@
+                            <li>@Html.ActionLink("優惠券設置", "Index", "Coupons", new { area = "" }, new { @class = "nav-link" })</li>
+                        </ul>
+                    }
+                    @if (canSeeTableG)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">數據中心</span><span class="d-sm-inline d-md-none ">數</span>
 
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">商家管理設定</span><span class="d-sm-inline d-md-none ">商</span>
-
-                    </a>
-                    <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">商家申請審核</a></li>
-                        <li><a class="dropdown-item" href="#">商家查詢權限設置</a></li>
-                        <li><a class="dropdown-item" href="#">廣告方案設置</a></li>
-                        <li><a class="dropdown-item" href="#">商家優惠方案設置</a></li>
-                        <li><a class="dropdown-item" href="#">商品分類設定</a></li>
-                        <li><a class="dropdown-item" href="#">商品上架審核</a></li>
-                        <li><a class="dropdown-item" href="#">商品資料查詢</a></li>
-                        <li><a class="dropdown-item" href="#">出貨單資料查詢</a></li>
-                    </ul>
-
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">平台管理設定</span><span class="d-sm-inline d-md-none ">平</span>
-                    </a>
-                    <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">平台公告設置</a></li>
-                        <li><a class="dropdown-item" href="#">輪播頁面設置</a></li>
-                        <li><a class="dropdown-item" href="#">活動欄位設置</a></li>
-                        <li><a class="dropdown-item" href="#">促銷欄位設置</a></li>
-                        <li><a class="dropdown-item" href="#">限時欄位設置</a></li>
-                    </ul>
-
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">廣告優惠設定</span><span class="d-sm-inline d-md-none ">廣</span>
-                    </a>
-                    <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">商家廣告設置</a></li>
-                        <li><a class="dropdown-item" href="#">站內折扣設置</a></li>
-                        @*<li><a class="dropdown-item" href="@Url.Action("Index", "Coupons", new { id = 123 })">優惠券設置</a></li>*@
-                        <li>@Html.ActionLink("優惠券設置", "Index", "Coupons", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
-
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">數據中心</span><span class="d-sm-inline d-md-none ">數</span>
-
-                    </a>
-                    <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">數據中心首頁</a></li>
-                        <li><a class="dropdown-item" href="#">會員數據統計</a></li>
-                        <li><a class="dropdown-item" href="#">商家數據統計</a></li>
-                        <li><a class="dropdown-item" href="#">商品數據統計</a></li>
-                        <li><a class="dropdown-item" href="#">平台數據統計</a></li>
-                    </ul>
-
-                    <a class="btn btn-primary dropdown-toggle d-block mt-2 mb-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-md-inline">客服中心</span><span class="d-sm-inline d-md-none ">客</span>
-                    </a>
-                    <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">客服管理區</a></li>
-                        <li><a class="dropdown-item" href="#">站內檢舉</a></li>
-                        <li><a class="dropdown-item" href="#">即時訊息</a></li>
-                    </ul>
-                </div>
+                        </a>
+                        <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">數據中心首頁</a></li>
+                            <li><a class="dropdown-item" href="#">會員數據統計</a></li>
+                            <li><a class="dropdown-item" href="#">商家數據統計</a></li>
+                            <li><a class="dropdown-item" href="#">商品數據統計</a></li>
+                            <li><a class="dropdown-item" href="#">平台數據統計</a></li>
+                        </ul>
+                    }
+                    @if (canSeeTableH)
+                    {
+                        <a class="btn btn-primary dropdown-toggle d-block mt-2 mb-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="d-none d-md-inline">客服中心</span><span class="d-sm-inline d-md-none ">客</span>
+                        </a>
+                        <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">客服管理區</a></li>
+                            <li><a class="dropdown-item" href="#">站內檢舉</a></li>
+                            <li><a class="dropdown-item" href="#">即時訊息</a></li>
+                        </ul>
+                    }
+                    </div>
             </div>
             <!-- <div class="col-9 bg-secondary "> col-9 分頁必要! -->
             @RenderBody()

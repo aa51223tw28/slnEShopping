@@ -6,7 +6,7 @@
 }
 
 <div class="col-9 bg-secondary overflow-auto">
-    <h2 class="text-primary">員工一覽</h2>
+    <h2 class="text-primary">資料修改</h2>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -15,7 +15,8 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.AdminId)
-    <input type="text" id="DateOfHire" name="DateOfHire" value="@Html.DisplayFor(model => model.DateOfHire)" hidden/>
+    <input type="text" id="DateOfHire" name="DateOfHire" value="@Html.DisplayFor(model => model.DateOfHire)" hidden />
+    <input type="text" id="AdminPasswordSalt" name="AdminPasswordSalt" value="@Html.DisplayFor(model => model.AdminPasswordSalt)" hidden />
     <div class="form-group">
         @Html.LabelFor(model => model.AdminNumber, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -51,9 +52,10 @@
     <div class="form-group">
         @Html.LabelFor(model => model.AdminPassword, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="password" class="form-control" readonly id="AdminPassword" name="AdminPassword" value="@Html.DisplayFor(model=>model.AdminPassword)" />
+            <input type="password" class="form-control" hidden readonly id="AdminPassword" name="AdminPassword" value="@Html.DisplayFor(model=>model.AdminPassword)" />
             <!--密碼變更另外做一個頁面進行驗證避免前端驗證跟麻煩-->
-            <button type="button" class="btn btn-primary my-2" id="passwordEdit">變更密碼</button>
+            @*<button type="button" class="btn btn-primary my-2" id="passwordEdit">變更密碼</button>*@
+            <a href="@Url.Action("PasswordChange", "Admins", new { id = Model.AdminId })" class="btn btn-primary my-2" id="passwordEdit">變更密碼</a>
 
             @Html.ValidationMessageFor(model => model.AdminPassword, "", new { @class = "text-danger" })
         </div>

@@ -1,8 +1,7 @@
 ﻿@model prjEShopping.Models.ViewModels.AdminVM
 
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Indexem";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -58,15 +57,6 @@
                 </td>
             </tr>
 
-            @*<tr>
-                <td>
-                    @Html.DisplayNameFor(model => model.AdminPassword)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.AdminPassword)
-                </td>
-            </tr>*@
-
             <tr>
                 <td>
                     @Html.DisplayNameFor(model => model.Phone)
@@ -96,9 +86,21 @@
         </table>
 
         <p>
-            @Html.ActionLink("修改", "Edit", new { id = Model.AdminId }, new {@class= "btn btn-primary" })
             @Html.ActionLink("回主頁", "Index", null, new { @class = "btn btn-info" })
         </p>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}
+
+@section Styles{
+}
+
+
+
+
 

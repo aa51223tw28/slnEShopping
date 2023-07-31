@@ -227,6 +227,7 @@
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
     <Compile Include="Models\Infra\EFRepositories\AdminRepository.cs" />
+    <Compile Include="Models\Infra\HashPassword.cs" />
     <Compile Include="Models\Infra\SellerResult.cs" />
     <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
     <Compile Include="Models\Infra\UserResult.cs" />
@@ -321,6 +322,13 @@
     <Content Include="Views\UserFollow\UserFollowSeller.cshtml" />
     <Content Include="Views\UserFollow\UserFollowProduct.cshtml" />
     <Content Include="Views\UserOrder\UserOrderDetail.cshtml" />
+    <Content Include="Views\UserCoupon\UsersCouponsList.cshtml" />
+    <Content Include="Views\UserCoupon\UsersCouponsUsed.cshtml" />
+    <Content Include="Views\UserCoupon\UsersCouponsOverdue.cshtml" />
+    <Content Include="Views\Admins\Login.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdminLogin.cshtml" />
+    <Content Include="Views\Admins\Indexem.cshtml" />
+    <Content Include="Views\Admins\PasswordChange.cshtml" />
     <Content Include="Views\SellerStore\StoreMain.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

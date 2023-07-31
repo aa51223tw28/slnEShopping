@@ -1,0 +1,41 @@
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.CouponVM>
+
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        目前尚未使用任何優惠券。
+    </div>
+}
+else
+{
+    foreach (var item in Model)
+    {
+        <div class="d-flex me-5 coupon-item mb-5">
+            <img src="~/img/coupon.png" alt="">
+            <div class="d-flex flex-column p-2 bg-info">
+                <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
+                <span>
+                    @Html.DisplayFor(modelItem => item.Storewide)
+                    @if (item.CouponType == "折價券")
+                    {
+                        <text>@Html.DisplayFor(modelItem => item.Discount)折</text>
+                    }
+                    else if (item.CouponType == "抵用券")
+                    {
+                        <text>@Html.DisplayFor(modelItem => item.Discount)元</text>
+                    }
+                    else if (item.CouponType == "免運券")
+                    {
+                        <text>免運</text>
+                    }
+                </span>
+                <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
+                <div class="d-flex">
+                    <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                    <button type="button" class="btn btn-info ms-3">已使用</button>
+                </div>
+            </div>
+        </div>
+    }
+}
