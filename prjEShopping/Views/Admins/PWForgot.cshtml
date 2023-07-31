@@ -12,8 +12,13 @@
         <form method="post">
             <label>請輸入帳號信箱</label>
             <input type="text" class="form-control" id="AdminAccount" name="AdminAccount" required />
-            <input type="submit" id="login" value="登入" class="btn btn-primary my-2" />
+            <input type="submit" id="SendEmail" value="送出" class="btn btn-primary my-2" />
+            <a href="@Url.Action("Login", "Admins")" class="btn btn-danger my-2">取消</a>
         </form>
+        @if (ViewBag.Message != null)
+        {
+            <p class="text-danger">@ViewBag.Message</p>
+        }
     </div>
 </div>
 

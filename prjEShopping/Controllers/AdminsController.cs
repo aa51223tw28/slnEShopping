@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -110,38 +111,75 @@ namespace prjEShopping.Controllers
         {
            var account= db.Admins.FirstOrDefault(a => a.AdminAccount == AdminAccount);
 
-            if(account==null)
+            if (account == null)
+            {
+                ModelState.AddModelError("", "帳號不存在或無效。");
                 return View();
+            }
 
             var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
             EmailVerifyUrl.SendEmailUrl(AdminAccount, urlHelper, "EmailVerify", "Admins");
 
-            //正確寄信
-            //錯誤紅字提示
+            ViewBag.Message = "郵件已發送，請檢查您的信箱！";
+
             return View();
         }
 
-        public ActionResult EmailVerify()
-        { //驗證信頁面 驗證token
-          //正確 資料庫身分轉已驗證
-          //轉正確頁面
-          //錯誤 轉錯誤頁面
+        public ActionResult EmailVerify(string token)
+        {   // 在此查找資料庫中與此token相匹配的帳戶
+            var account = db.Admins.FirstOrDefault(a => a.EmailCheck == token);
+
+            if (account != null)
+            {
+                // 轉到成功頁面
+                return RedirectToAction("EmailVT", new { account = account.AdminAccount });
+            }
+            else
+            {
+                // 如果未找到匹配的帳戶，轉到錯誤頁面
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult EmailVT(string account)
+        { 
+            ViewBag.Account = account;
             return View();
         }
 
-        public ActionResult EmailVT()
-        { //驗證正確頁面
-          //首頁連結
-          //5秒自動跳轉
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EmailVT(string Account, string newPassword)
+        {
+            var Admin = db.Admins.FirstOrDefault(a => a.AdminAccount == Account);
+
+            if (Admin != null)
+            {
+                HashPassword hashPassword = new HashPassword(db); // 假設 _db 是你的資料庫上下文
+                string salt;
+                string hash = hashPassword.CreateHashPassword(newPassword, out salt);
+
+                // 如果找到了相匹配的帳戶，更新帳戶狀態
+                Admin.AccessRightId = 2; //將身份設為"已驗證"
+                Admin.EmailCheck = null; //清空token
+                Admin.AdminPassword = hash;
+                Admin.AdminPasswordSalt = salt;
+                db.SaveChanges();
+
+                ViewBag.SuccessMessage = "儲存成功！即將在三秒後跳轉到登入頁面...";
+                return View();
+            }
+
+            ViewBag.ErrorMessage = "存取失敗，請重新操作。";
             return View();
         }
 
-        public ActionResult EmailVF()
-        { //驗證錯誤頁面
-          //跳回登入頁面
-          //這頁可以不做 (?)
-            return View();
-        }
+        //public ActionResult EmailVF()
+        //{ //驗證錯誤頁面
+        //  //跳回登入頁面
+        //  //這頁可以不做 (?)
+        //    return View();
+        //}
 
 
 

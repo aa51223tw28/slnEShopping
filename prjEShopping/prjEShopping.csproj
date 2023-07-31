@@ -341,6 +341,7 @@
     <Content Include="Views\Admintest\SendEmail.cshtml" />
     <Content Include="Views\Admintest\VEmail.cshtml" />
     <Content Include="Views\Admins\PWForgot.cshtml" />
+    <Content Include="Views\Admins\EmailVT.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
