@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "發送郵件";
+}
+
+<h2>發送郵件</h2>
+
+<form method="post">
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required />
+    <button type="submit">確認</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div>@ViewBag.Message</div>
+}
