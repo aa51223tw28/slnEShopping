@@ -24,8 +24,8 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
-            {
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            {               
                 return RedirectToAction("Login");
             }
 
@@ -38,8 +38,8 @@ namespace prjEShopping.Controllers
         public ActionResult Indexem()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
-            {
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            {                
                 return RedirectToAction("Login");
             }
             var model = db.Admins.Admin2VM().FirstOrDefault(a => a.AdminId == Convert.ToInt32(authCookie.Values["userId"]));        
@@ -51,6 +51,20 @@ namespace prjEShopping.Controllers
         //登入設置
         public ActionResult Login()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie != null && authCookie.Values["status"] == "AdminLogin" &&authCookie.Values["AccessRightId"] == "2")
+            {
+                return RedirectToAction("Index");
+            }
+            else if (authCookie != null && authCookie.Values["AccessRightId"] != "2")
+            {
+                // 添加錯誤提示
+                ModelState.AddModelError("", "帳號不存在或無效。");
+
+                // 清除cookie
+                authCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(authCookie);
+            }
             return View();
         }
 
@@ -71,6 +85,7 @@ namespace prjEShopping.Controllers
                 {
                     HttpCookie authCookie = new HttpCookie("AdminLogin");
                     authCookie.Values["status"] = "AdminLogin";
+                    authCookie.Values["AccessRightId"] = account.AccessRightId.ToString(); //權限=2才開通
                     authCookie.Values["userId"] = account.AdminId.ToString(); // 將用戶ID存儲在Cookie中
                     authCookie.Values["permissionsId"] = account.PermissionsId.ToString();
                     string encodedName = HttpUtility.UrlEncode(account.AdminName);
@@ -187,7 +202,7 @@ namespace prjEShopping.Controllers
         public ActionResult Details(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }
@@ -214,7 +229,7 @@ namespace prjEShopping.Controllers
         public ActionResult Create()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }
@@ -295,7 +310,7 @@ namespace prjEShopping.Controllers
         public ActionResult Edit(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }
@@ -337,7 +352,7 @@ namespace prjEShopping.Controllers
         public ActionResult PasswordChange(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }
