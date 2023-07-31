@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Details</h2>
+<div class="container">
+
+    <table class="table">
+        <thead>
+            @*@Html.ActionLink("新增", "Create", "Category", null, new { @class = "btn btn-primary btn-default pull-right" })*@
+            <tr>
+                <th>大頭照</th>
+                <th>會員暱稱</th>
+                <th>留言內容</th>
+                <th>留言日期</th>
+                <th>評分</th>
+                <th class="text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pd in Model.RatingStatus) /*使用foreach把所有商品列成表格元素*/
+            {
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td class="text-center">
+                        @using (Html.BeginForm("DeleteComments", "Product", FormMethod.Post, new { onsubmit = "return runScript();" }))
+                        {
+                            <input type="submit" value="刪除" class="btn btn-danger btn-default" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @*@Html.PagedListPager((IPagedList)this.Model, page => Url.Action("Comments", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)*@
+    @Html.ActionLink("回上一頁", "Index")
+</div>
+
+@section scripts
+{
+    <script>
+        function runScript() {
+            if (confirm("你確定要刪除嗎？")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+}

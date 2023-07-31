@@ -4,40 +4,126 @@
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
 
-
-<div id="d-hw1">
-    <div id="imgs">
-        <img id="img1" class="i" src="img/star.gif" />
-        <img id="img2" class="i" src="img/star.gif" />
-        <img id="img3" class="i" src="img/star.gif" />
-        <img id="img4" class="i" src="img/star.gif" />
-        <img id="img5" class="i" src="img/star.gif" />
-    </div>
-    <p style="text-align: center;">打分中...0</p>
-</div>
 @using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post))
 {
+    <div id="starContainer">
+        @for (int i = 1; i <= 5; i++)
+        {
+            <img class="star" src="@Url.Content("~/img/star.gif")" data-value="@i" />
+        }
+    </div>
+
+    <p id="selectedRatingText">請評分：</p>
+
+    @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
+    @Html.HiddenFor(model => model.RatingText) <!-- 新增隱藏字段，用於存儲RatingText -->
     <div class="form-group">
-        @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label" })
-        @Html.TextAreaFor(model => model.Comments, new { @class = "form-control", rows = 4 })
+        @Html.LabelFor(model => model.RatingText, htmlAttributes: new { @class = "control-label" })
+        @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
     </div>
     <button type="submit" class="btn btn-primary">提交評分留言</button>
 }
 <body>
-    <script src="../js/jquery-3.7.0.min.js"></script>
+    <div class="container">
+        <h2>評分系統</h2>
+        <img id="a" class="i" src="images/star.gif" />
+        <img id="b" class="i" src="images/star.gif" />
+        <img id="c" class="i" src="images/star.gif" />
+        <img id="d" class="i" src="images/star.gif" />
+        <img id="e" class="i" src="images/star.gif" />
+        <p>請評分</p>
+        <input type="button" class="reset" value='重新評分' />
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>    
     <script>
-        $(".i").mouseleave(function () {
-            $(".i").prop("src", "img/star.gif");
-            $("p").text("");
-        });
-        $(".i").mouseenter(function () {
-            $(this).prop("src", "img/chngstar.gif").prevAll().prop("src", "img/chngstar.gif").end().nextAll().prop("src", "img/star.gif");
-            var starCount = $(this).prevAll().length + 1;
-            $("p").text("打分中......." + starCount + "顆星");
-        });
-        $(".i").click(function () {
-            var starCount = $(this).prevAll().length + 1;
-            $("p").text("你選擇了" + starCount + "顆星");
-        });
+
+        var countStars = 0
+        var hasClicked = false
+
+        function into(e) {
+            if (!hasClicked) {
+                $(e.currentTarget)
+                    .prevAll("img")
+                    .prop("src", "~/img/chngstar.gif")
+                    .end()
+                    .prop("src", "~/img/chngstar.gif");
+
+                countStars = $("img").index(e.currentTarget) + 1;
+
+                $("p").text("評分中..." + countStars + "星");
+            }
+        }
+        let out = (e) => {
+            if (!hasClicked) {
+                $(e.currentTarget)
+                    .prevAll("img")
+                    .prop("src", "~/img/star.gif")
+                    .end()
+                    .prop("src", "~/img/star.gif");
+
+                $("p").text("請評分");
+            }
+        }
+
+        $("img").hover(into, out)
+
+        $("img").click(function (e) {
+
+            hasClicked = true
+
+            $(e.currentTarget)
+                .prevAll()
+                .prop("src", "~/img/chngstar.gif")
+                .end()
+                .prop("src", "~/img/chngstar.gif")
+                .nextAll()
+                .prop("src", "~/img/star.gif");
+
+            countStars = $("img").index(e.currentTarget) + 1;
+
+            $("p").text("你給" + countStars + "顆星");
+        })
+
+        $(".reset").click(function () {
+            countStars = 0
+            hasClicked = false
+
+            $("img").prop("src", "~/img/star.gif")
+
+            $("p").text("請評分");
+        })
+    </script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+$(document).ready(function () {
+    var selectedRating = 0;
+
+    $(".star").mouseleave(function () {
+        $(".star").attr("src", "@Url.Content("~/img/star.gif")");
+        $("#starCountText").text("");
+    });
+
+    $(".star").mouseenter(function () {
+        var value = $(this).data("value");
+        $(".star").attr("src", "@Url.Content("~/img/star.gif")");
+        $(".star").slice(0, value).attr("src", "@Url.Content("~/img/chngstar.gif")");
+        var starCount = $(this).prevAll().length + 1;
+        $("#starCountText").text("打分中......." + starCount + "顆星");
+    });
+
+    $(".star").click(function () {
+        var value = $(this).data("value");
+        selectedRating = value;
+        $(".star").removeClass("selected");
+        $(this).addClass("selected");
+        $("#selectedRatingText").text("您的評分：" + selectedRating + "顆星");
+
+        // 存儲選中的星星數量到隱藏字段
+        $("#starRating").val(selectedRating);
+    });
+});
     </script>
 </body>
