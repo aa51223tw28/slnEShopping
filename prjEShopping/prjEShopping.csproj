@@ -345,11 +345,9 @@
     <Content Include="Views\Admintest\VEmail.cshtml" />
     <Content Include="Views\Admins\PWForgot.cshtml" />
     <Content Include="Views\Admins\EmailVT.cshtml" />
-    <Content Include="Views\ADPoints\Create.cshtml" />
-    <Content Include="Views\ADPoints\Delete.cshtml" />
+    <Content Include="Views\ADPoints\BuyPoints.cshtml" />
     <Content Include="Views\ADPoints\Details.cshtml" />
-    <Content Include="Views\ADPoints\Edit.cshtml" />
-    <Content Include="Views\ADPoints\Index.cshtml" />
+    <Content Include="Views\ADPoints\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
