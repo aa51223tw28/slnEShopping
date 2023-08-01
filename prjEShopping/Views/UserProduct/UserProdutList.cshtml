@@ -18,10 +18,10 @@
                         <i class="fa-solid fa-bars"></i>
                         <span class="ms-2">所有分類</span>
                     </div>
-                    <button class="btn btn-secondary mt-2" id="isSelected">搜尋分類</button>
+                    <button class="btn btn-secondary mt-2" id="isSelected">搜尋</button>
                 </div>
                 <div class="fs-5">
-                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">3C資訊</a>
+                    <i class="fa-solid fa-caret-down"></i><span class="text-blue fw-bold">3C資訊</span>
                 </div>
 
                 <div class="form-check">
@@ -85,7 +85,7 @@
                     </label>
                 </div>
                 <div class="fs-5">
-                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">數位通訊</a>
+                    <i class="fa-solid fa-caret-down"></i><span class="text-blue fw-bold">數位通訊</span>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="isSubcategorySelected201">
@@ -130,7 +130,7 @@
                     </label>
                 </div>
                 <div class="fs-5">
-                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">生活家電</a>
+                    <i class="fa-solid fa-caret-down"></i><span class="text-blue fw-bold">生活家電</span>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="isSubcategorySelected301">
@@ -235,16 +235,17 @@
                 }
 
 
+
                 <hr>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">價格範圍</span>
                 </div>
                 <div class="d-flex">
-                    <input type="text" class="form-control" placeholder="$最小值" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" placeholder="NT$最小值" aria-label="Username" aria-describedby="basic-addon1" id="pricelow">
                     <span class="pt-3">―――</span>
-                    <input type="text" class="form-control" placeholder="$最大值" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" placeholder="NT$最大值" aria-label="Username" aria-describedby="basic-addon1" id="pricehigh">
                 </div>
-                <div class="btn btn-secondary mt-2">套用</div>
+                
                 <hr>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">評價</span>
@@ -364,7 +365,7 @@
 
 
             //定義所有品牌編碼
-            var BrandIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+            var brandIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
             function filterSelected() {
                 var selectedSubcategories = [];
@@ -377,37 +378,37 @@
                     }
                 });
 
-                //循環被選的品牌
-                BrandIds.forEach(function (BrandId) {
-                    if ($("#isBrandSelected" + BrandId).prop("checked")) {
-                        selectedBrands.push(BrandId);
+                // 循環通過所有可能的品牌編碼
+                brandIds.forEach(function (brandId) {
+                    if ($("#isBrandSelected" + brandId).prop("checked")) {
+                        selectedBrands.push(brandId);
                     }
-                })
+                });
 
-                // 如果沒有選中任何 SubcategoryId，則返回所有產品
+                var minPrice = parseFloat($("#pricelow").val()); 
+                var maxPrice = parseFloat($("#pricehigh").val());
+
+                // 如果沒有選中任何 SubcategoryId 和品牌，則返回所有產品
                 if (selectedSubcategories.length === 0 && selectedBrands.length === 0) {
                     return products;
-                } else if (selectedSubcategories.length !== 0 || selectedBrands.length !== 0) {
-                    return products.filter(function (product) {
-                        return selectedSubcategories.includes(product.SubcategoryId) ||selectedBrands.includes(product.BrandId);
-                    });
-                } else if (selectedSubcategories.length === 0 || selectedBrands.length !== 0) {
-                    return products.filter(function (product) {
-                        return selectedBrands.includes(product.BrandId);
-                    });
-                } else if (selectedSubcategories.length !== 0 || selectedBrands.length === 0) {
-                    return products.filter(function (product) {
-                        return selectedSubcategories.includes(product.SubcategoryId);
-                    });
                 }
 
-               
+                // 篩選符合條件的產品
+                return products.filter(function (product) {
+                    var subcategoryMatch = selectedSubcategories.length === 0 || selectedSubcategories.includes(product.SubcategoryId);
+                    var brandMatch = selectedBrands.length === 0 || selectedBrands.includes(product.BrandId);
+                    var priceMatch = isNaN(minPrice) || isNaN(maxPrice) || (product.Price >= minPrice && product.Price <= maxPrice);
+                    return subcategoryMatch && brandMatch && priceMatch;//自動將所有情形排列組合只選分類 只選品牌 都選
+                });
+
             }
 
 
+           
+            //按下搜尋
             $("#isSelected").on('click', function () {
                 products = @Html.Raw(Json.Encode(Model));
-                products = filterSelected();
+                products = filterSelected();               
                 updateProductContainer();
             });
 
@@ -475,22 +476,27 @@
                 var container = $("#productContainer");
                 container.empty();
 
-                $.each(products, function(index, item) {
-                    var productCard = `
-                        <div class="col">
-                            <div class="card w-100">
-                                <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
-                                <div class="card-body">
-                                    <p class="card-title">${item.ProductName}</p>
-                                    <span class="card-text text-danger fw-bold">NT$${Math.round(item.Price).toLocaleString()}</span>
-                                    <p style="font-size: 8px;" class="card-text mb-1">已售出：${item.QuantitySold}</p>
-                                    <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
+                if (products.length === 0) {
+                    var noProductMessage = `<div class="col text-center">本篩選下無符合商品</div>`;
+                    container.append(noProductMessage);
+                } else {
+                    $.each(products, function(index, item) {
+                        var productCard = `
+                            <div class="col">
+                                <div class="card w-100">
+                                    <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
+                                    <div class="card-body">
+                                        <p class="card-title">${item.ProductName}</p>
+                                        <span class="card-text text-danger fw-bold">NT$${Math.round(item.Price).toLocaleString()}</span>
+                                        <p style="font-size: 8px;" class="card-text mb-1">已售出：${item.QuantitySold}</p>
+                                        <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                    container.append(productCard);
-                });
+                        `;
+                        container.append(productCard);
+                    });
+                }
             }
         });
 

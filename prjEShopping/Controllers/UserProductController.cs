@@ -44,7 +44,7 @@ namespace prjEShopping.Controllers
                         ProductStock = stockQuantity - orderQuantity,
                         QuantitySold= (int)db.ProductStocks.FirstOrDefault(x => x.ProductId == item.ProductId).QuantitySold,
                         SubcategoryId= (int)products.FirstOrDefault(x=>x.ProductId== item.ProductId).SubcategoryId,
-                        //BrandId=(int)item.BrandId,
+                        BrandId=(int)item.BrandId,
                         //BrandName=db.Brands.FirstOrDefault(x=>x.BrandId== item.BrandId).BrandName,
                     };
 
