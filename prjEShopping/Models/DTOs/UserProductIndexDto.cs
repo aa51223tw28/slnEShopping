@@ -20,6 +20,7 @@ namespace prjEShopping.Models.DTOs
 
 
         //一堆規格        
+        public int BrandId { get; set; }
         public string BrandName { get; set; }
 
         public string SpecificationNameOne { get; set; }

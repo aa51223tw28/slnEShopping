@@ -17,7 +17,7 @@
                     <div>
                         <i class="fa-solid fa-bars"></i>
                         <span class="ms-2">所有分類</span>
-                    </div>                    
+                    </div>
                     <button class="btn btn-secondary mt-2" id="isSelected">搜尋分類</button>
                 </div>
                 <div class="fs-5">
@@ -202,66 +202,39 @@
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">品牌</span>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌1
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌2
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌3
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌4
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌5
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌6
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌7
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌8
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌9
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="">
-                    <label class="form-check-label">
-                        品牌10
-                    </label>
-                </div>
+
+                @*也是品牌傳過來一堆products裡面的BrandName在前端移除重複*@
+                @*@{
+                    var uniqueBrandNames = new HashSet<string>();
+                }
+
+                @foreach (var item in Model)
+                {
+                    if (!uniqueBrandNames.Contains(item.BrandName))
+                    {
+                        uniqueBrandNames.Add(item.BrandName);
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="isBrand@(item.BrandId)">
+                            <label class="form-check-label">
+                                @item.BrandName
+                            </label>
+                        </div>
+                    }
+                }*@             
+
+
+                @*用ViewBag直接將table傳過來item.出table的欄位*@
+                @foreach (var item in ViewBag.Brand)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="isBrand@(item.BrandId)">
+                        <label class="form-check-label">
+                            @item.BrandName
+                        </label>
+                    </div>
+                }
+
+
                 <hr>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">價格範圍</span>
@@ -306,8 +279,7 @@
                         <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i>或以上
                     </label>
                 </div>
-                <hr>
-                <div class="btn btn-secondary mt-2">清除全部</div>
+
 
 
 
@@ -317,12 +289,17 @@
 
             <!-- 右邊內容 -->
             <div class="col-9">
-                <div class="bg-warning p-3">
-                    <span class="me-3">篩選</span>
-                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
-                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
-                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
-                    <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
+                <div class="bg-warning p-3 d-flex justify-content-between">
+                    <div>
+                        <span class="me-3">篩選</span>
+                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
+                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
+                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
+                        <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
+                    </div>
+                   <div>
+                       <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnDelete">清除篩選</button>
+                   </div>                   
                 </div>
                 <!-- 商品開始 -->
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
@@ -334,7 +311,10 @@
                                 <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
                                     <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
-                                    <p class="card-text text-danger fw-bold">@Math.Round(item.Price).ToString("C0")</p>
+                                    
+                                    <span class="card-text text-danger fw-bold mb-1">@Math.Round(item.Price).ToString("C0")</span>
+                                    <p style="font-size: 8px;" class="card-text mb-1">已售出：@(item.QuantitySold)</p>
+                                                                   
                                     <a href="@Url.Action("UserSingleProduct", "UserProduct", new {productid=item.ProductId})" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>
@@ -410,11 +390,24 @@
                 updateProductContainer();
             });
 
+            //按下清除設定
+            $("#btnDelete").on('click', async function () {
+
+                location.reload();
+            });
+
 
             //按下全部
             $("#btnAll").on('click', async function () {
+                $(this).css({ "background-color": "#0D47A1", "color": "white" })
+                $("#btnHot,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-                location.reload();
+                products.sort(function (a, b) {
+                    return a.ProductId - b.ProductId;
+                });
+
+                updateProductContainer();
+
             });
 
             // 按下按鈕 "最熱銷"
@@ -468,7 +461,8 @@
                                 <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
                                     <p class="card-title">${item.ProductName}</p>
-                                    <p class="card-text text-danger fw-bold">${Math.round(item.Price).toLocaleString()}</p>
+                                    <span class="card-text text-danger fw-bold">NT$${Math.round(item.Price).toLocaleString()}</span>
+                                    <p style="font-size: 8px;" class="card-text mb-1">已售出：${item.QuantitySold}</p>
                                     <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>
