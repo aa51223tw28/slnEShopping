@@ -23,7 +23,14 @@
             </div>
             <div class="form-group">
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ADPoints, new { htmlAttributes = new { @class = "form-control" } })
+                    @*<div>*@
+                    <div class="input-group">
+                        <button type="button" id="decrease" onclick="changeValue(-500)" class="d-inline btn btn-info">-</button>
+                        <input type="number" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons"
+                               id="points" name="ADPoints" value="1000" min="1000" max="20000" readonly>
+                        <button type="button" increase" onclick="changeValue(500)" class="d-inline btn btn-info">+</button>
+                    </div>
+ 
                     @Html.ValidationMessageFor(model => model.ADPoints, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -68,3 +75,20 @@
         @Html.ActionLink("返回", "Index", null, new { @class = "btn btn-primary my-2" })
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        function changeValue(amount) {
+            var input = document.getElementById('points');
+            var newValue = parseInt(input.value) + amount;
+
+            // 賦予新值，並同時檢查是否在範圍內
+            if (newValue >= 1000 && newValue <= 20000) {
+                input.value = newValue;
+            }
+        }
+    </script>
+}
+
+@section Styles{
+}
