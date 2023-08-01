@@ -352,7 +352,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
     <Folder Include="Models\DAOs\" />
-    <Folder Include="Views\SellerFeedback\" />
     <Folder Include="Views\SellerProductCreateApi\" />
   </ItemGroup>
   <ItemGroup>

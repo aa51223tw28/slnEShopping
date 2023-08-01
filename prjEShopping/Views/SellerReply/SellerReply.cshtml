@@ -38,3 +38,68 @@
         }
     </table>
 </div>
+<div class="modal" tabindex="-1" role="dialog" id="replyModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                回覆成功
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstock">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="emptyReplyModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                請填寫回覆內容
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            // 綁定回覆按鈕的點擊事件
+            $('form[action="/SellerReply/AddReply"]').submit(function (event) {
+                event.preventDefault(); // 阻止表單提交，我們要使用 AJAX 來提交
+
+                // 取得回覆內容
+                var replyText = $(this).find('textarea[name="replyText"]').val();
+
+                // 檢查回覆是否為空值
+                if (replyText.trim() === '') {
+                    // 如果回覆為空值，顯示 Modal
+                    $('#emptyReplyModal').modal('show');
+                    return;
+                }
+
+                // 使用 AJAX 提交回覆表單
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function () {
+                        // 回覆成功後顯示 Modal
+                        $('#replyModal').modal('show');
+                    },
+                    error: function () {
+                        // 如果回覆失敗，你可以在這裡加入錯誤處理邏輯
+                        // 例如：顯示錯誤訊息或重新載入頁面等
+                    }
+                });
+            });
+        });
+    </script>
+}

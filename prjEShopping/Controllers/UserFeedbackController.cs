@@ -14,9 +14,13 @@ namespace prjEShopping.Controllers
 
         public ActionResult Index()
         {
+            
             var productDto = new UserProductIndexDto();
-            var feedbackVm = new UserFeedbackVM();
-
+            var feedbackVm = new UserFeedbackVM
+            {
+                ProductId = 1
+            };
+           
             ViewData["ProductDto"] = productDto;
             ViewData["FeedbackVm"] = feedbackVm;
 
@@ -32,10 +36,11 @@ namespace prjEShopping.Controllers
                 {
                     UserId = model.UserId,
                     ProductId = model.ProductId,
-                    StarRating = model.StarRating, // 直接将StarRating的值赋给数据库实体的StarRating属性
+                    StarRating = model.StarRating,
                     RatingText = model.RatingText,
                     PostTime = DateTime.Now
                 };
+
                 db.Ratings.Add(feedback);
                 db.SaveChanges();
 

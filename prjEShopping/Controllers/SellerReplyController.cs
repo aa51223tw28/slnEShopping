@@ -1,4 +1,5 @@
 ﻿using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace prjEShopping.Controllers
         // GET: SellerReply
         private readonly AppDbContext db = new AppDbContext();
 
-        
+
         public ActionResult SellerReply()
         {
             using (var db = new AppDbContext())
@@ -34,6 +35,27 @@ namespace prjEShopping.Controllers
                 // 将转换后的 UserFeedbackVM 数据传递给视图
                 return View(feedbacks);
             }
+        }
+        [HttpPost]
+        public ActionResult AddReply(int commentId, int starRating, string ratingText, string replyText)
+        {
+            // 在這裡將回覆資料儲存到 RatingReplaies 資料庫
+            // 建立 RatingReplaies 物件並填入資料
+            var ratingReply = new RatingReplay
+            {
+                RatingId = commentId,
+                ReplayText = replyText,
+                ReplayTime = DateTime.Now,
+                ReplayStatus = "公開" // 假設你想要新增回覆時預設為"Pending"
+            };
+
+            // 執行將 ratingReply 物件新增至 RatingReplaies 資料表的程式碼，這裡假設使用 Entity Framework
+            db.RatingReplaies.Add(ratingReply); // 將回覆資料加入資料庫
+            db.SaveChanges(); // 儲存變更
+            TempData["ReplySuccess"] = "回覆成功";
+            // 執行完儲存後，你可以將使用者重新導向到回覆頁面或是刷新當前頁面
+            // 這裡假設重新導向至回覆頁面
+            return RedirectToAction("SellerReply", "SellerReply");
         }
     }
 }

@@ -1,31 +1,117 @@
 ﻿@model prjEShopping.Models.ViewModels.UserFeedbackVM
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; ;
 }
+<div class="bg-light">
+    <div class="container py-3">
+        <div class="row py-2 gx-5">
+            <div class="col-sm-auto col-md-3 bg-light">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <img src="~/img/comment.jpeg" alt="" class="img-fluid">
+                        <span class="fw-bold ms-3">John Doe</span>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                    <div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    我的帳戶
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="6.index.html" class="link-blue text-decoration-none fw-bold">個人檔案</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="7.index.html" class="link-blue text-decoration-none fw-bold">修改密碼</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    我的焦點
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserOrder/UserOrderDetailAll")" class="link-blue text-decoration-none fw-bold">購買清單</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserCoupon/UserCouponList")" class="link-blue text-decoration-none fw-bold">優惠券</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowProduct")" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowSeller")" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                </div>
+            </div>
+            <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+                <!--讀取到的商品-->
+                <div>
+                    <p>商品ID: @Html.DisplayFor(model => model.ProductId)</p><!-- Display the product ID here -->
+                    <!-- Add other product details if available in UserFeedbackVM -->
+                </div>
 
-<div id="starContainer">
-    @for (int i = 1; i <= 5; i++)
-    {
-        <img class="star" src="@Url.Content("~/img/star.gif")" data-value="@i" />
-    }
+                <!--評分-->
+                <div id="starContainer">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <img class="star" src="@Url.Content("~/img/star.gif")" data-value="@i" />
+                    }
+                </div>
+
+                <p id="selectedRatingText">請評分：</p>
+                <input type="button" class="btn btn-primary reset" value="重新評分" style="float:right" />
+                <br />
+                @using (Html.BeginForm("SubmitComment", "UserFeedback", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
+                    @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
+                    <div class="form-group">
+                        @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary" style="float:right">提交評分留言</button>
+                }
+                <br />
+                <div class="modal" tabindex="-1" role="dialog" id="replyModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                評論完成
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstock">確定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
 </div>
-
-<p id="selectedRatingText">請評分：</p>
-<input type="button" class="btn btn-primary reset" value="重新評分" />
-@using (Html.BeginForm("SubmitComment", "UserFeedback", FormMethod.Post))
-{
-    @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
-    @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
-    <div class="form-group">
-        @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
-    </div>
-    <button type="submit" class="btn btn-primary">提交評分留言</button>
-}
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
     var countStars = 0;
     var hasClicked = false;
 
@@ -85,4 +171,38 @@
 
         $("#selectedRatingText").text("請評分");
     });
-</script>
+    $(document).ready(function () {
+        // ... (your existing JavaScript code)
+
+        // 修改表單的提交事件
+        $('form[action="/UserFeedback/SubmitComment"]').submit(function (event) {
+            event.preventDefault(); // 阻止表單提交，我們要使用 AJAX 來提交
+
+            // 取得評分和評論內容
+            var starRating = $("#starRating").val();
+            var ratingText = $("#RatingText").val();
+
+            // 檢查評分是否為空值
+            if (starRating.trim() === '') {
+                // 如果評分為空值，顯示 Modal
+                $('#emptyRatingModal').modal('show');
+                return;
+            }
+
+            // 使用 AJAX 提交評論表單
+            $.ajax({
+                url: $(this).attr('action'),
+                type: "POST",
+                data: $(this).serialize(),
+                success: function () {
+                    // 評論提交成功後顯示 Modal
+                    $('#replyModal').modal('show');
+                },
+                error: function () {
+                    // 如果評論提交失敗，你可以在這裡加入錯誤處理邏輯
+                    // 例如：顯示錯誤訊息或重新載入頁面等
+                }
+            });
+        });
+    });
+            </script>
