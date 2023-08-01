@@ -227,7 +227,7 @@
                 @foreach (var item in ViewBag.Brand)
                 {
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="isBrand@(item.BrandId)">
+                        <input class="form-check-input" type="checkbox" value="" id="isBrandSelected@(item.BrandId)">
                         <label class="form-check-label">
                             @item.BrandName
                         </label>
@@ -362,8 +362,13 @@
                 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311
             ];
 
-            function filterSelectedCategories() {
+
+            //定義所有品牌編碼
+            var BrandIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+            function filterSelected() {
                 var selectedSubcategories = [];
+                var selectedBrands = [];
 
                 // 循環通過所有可能的 SubcategoryId
                 subcategoryIds.forEach(function (subcategoryId) {
@@ -372,21 +377,37 @@
                     }
                 });
 
+                //循環被選的品牌
+                BrandIds.forEach(function (BrandId) {
+                    if ($("#isBrandSelected" + BrandId).prop("checked")) {
+                        selectedBrands.push(BrandId);
+                    }
+                })
+
                 // 如果沒有選中任何 SubcategoryId，則返回所有產品
-                if (selectedSubcategories.length === 0) {
+                if (selectedSubcategories.length === 0 && selectedBrands.length === 0) {
                     return products;
+                } else if (selectedSubcategories.length !== 0 || selectedBrands.length !== 0) {
+                    return products.filter(function (product) {
+                        return selectedSubcategories.includes(product.SubcategoryId) ||selectedBrands.includes(product.BrandId);
+                    });
+                } else if (selectedSubcategories.length === 0 || selectedBrands.length !== 0) {
+                    return products.filter(function (product) {
+                        return selectedBrands.includes(product.BrandId);
+                    });
+                } else if (selectedSubcategories.length !== 0 || selectedBrands.length === 0) {
+                    return products.filter(function (product) {
+                        return selectedSubcategories.includes(product.SubcategoryId);
+                    });
                 }
 
-                // 篩選那些 SubcategoryId 在選中列表中的產品
-                return products.filter(function (product) {
-                    return selectedSubcategories.includes(product.SubcategoryId); //product.SubcategoryId：看選取的id有多少都撈出來
-                });
+               
             }
 
 
             $("#isSelected").on('click', function () {
                 products = @Html.Raw(Json.Encode(Model));
-                products = filterSelectedCategories();
+                products = filterSelected();
                 updateProductContainer();
             });
 
