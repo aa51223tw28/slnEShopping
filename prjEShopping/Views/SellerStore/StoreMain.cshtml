@@ -24,34 +24,46 @@
                             <span class="fs-4 fw-bold">商品：</span>
                         </div>
                         <div class="col-8">
-                            <span class="fs-4 fw-bold text-danger">@Model.Count()個
-                            </span>
-                        </div>
+                            <span class="fs-4 fw-bold text-danger">
+                                @Model.Count()個
+                        </span>
                     </div>
-                    <div class="row">
-                        <div class="col-4 d-flex align-items-center">
-                            <span class="fs-4 fw-bold">評價 :</span>
-                        </div>
-                        <div class="col-8">
-                            <span class="fs-4 fw-bold text-danger">@ViewBag.AvgRating</span><span class="fs-4 fw-bold text-danger mx-2">顆星</span><span class="fs-4 fw-bold text-danger">(</span><span class="fs-4 fw-bold text-danger">@ViewBag.RatingCount</span><span class="fs-4 fw-bold text-danger">個評價)</span>
-</div>
+                </div>
+                <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fs-4 fw-bold">評價 :</span>
                     </div>
-                    <div class="row">
-                        <div class="col-4 d-flex align-items-center">
-                            <span class="fs-4 fw-bold">關注中 :</span>
-                        </div>
-                        <div class="col-8">
-                            <span class="fs-4 fw-bold text-danger">@ViewBag.CollectedCount</span>
-                        </div>
+                    <div class="col-8">
+                        <span class="fs-4 fw-bold text-danger">@ViewBag.AvgRating</span><span class="fs-4 fw-bold text-danger mx-2">顆星</span><span class="fs-4 fw-bold text-danger">(</span><span class="fs-4 fw-bold text-danger">@ViewBag.RatingCount</span><span class="fs-4 fw-bold text-danger">個評價)</span>
                     </div>
-                    <div class="row">
-                        <div class="col-4 d-flex align-items-center">
-                            <span class="fs-4 fw-bold">聊聊表現 :</span>
-                        </div>
-                        <div class="col-8">
-                            <span class="fs-4 fw-bold text-danger">50%</span>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fs-4 fw-bold">關注中 :</span>
                     </div>
+                    <div class="col-8">
+                        <span class="fs-4 fw-bold text-danger">@ViewBag.CollectedCount</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                        <span class="fs-4 fw-bold">聊聊表現 :</span>
+                    </div>
+                    <div class="col-8">
+                        <span class="fs-4 fw-bold text-danger">50%</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                        
+                    </div>
+                    <div class="col-8">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg mt-4">
+                        <i class="fas fa-heart custom-heart"></i>
+                        加入追蹤
+                        </button>
+                    </div>
+                </div>
                 </div>
                 <div class="col-5">
                     <div class="col-4 d-flex align-items-center">
@@ -185,248 +197,46 @@
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">所有分類</span>
                 </div>
-                <div class="fs-5">
-                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">3C資訊</a>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        筆電
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        桌機
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        螢幕
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        鍵盤
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        滑鼠
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        儲存硬碟
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        耳機
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        音響
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        藍芽穿戴
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        印表機
-                    </label>
-                </div>
-                <div class="fs-5">
-                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">數位通訊</a>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        手機
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        平板
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        相機
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        遊戲主機
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        光碟片
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        充電線
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        轉接頭
-                    </label>
-                </div>
-                <div class="fs-5">
-                    <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">生活家電</a>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        冰箱
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        洗衣機
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        乾衣機
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        電風扇
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        冷氣
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        烤箱
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        微波爐
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        電子鍋
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        吸塵器
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        電動牙刷
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        電鬍刀
-                    </label>
-                </div>
+                    @{ 
+                                var a = ViewBag.CategoriesGroupDetails as List<prjEShopping.Models.DTOs.SellerStoreGroupByCategoryIdDto>;
+                                var b = a.GroupBy(item => item.CategoryId);
+                                foreach (var itemCate in b)
+                                {
+                                    <div class="fs-5">
+                                        <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">@itemCate.FirstOrDefault().CategoryName</a>
+                                    </div>
+                                    var distinctSubcateNames = itemCate.Select(x => new{ x.SubcateName ,x.SubcategoryId} ).Distinct();
+                                    foreach ( var itemSub in distinctSubcateNames)
+                                    {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="@itemSub.SubcategoryId" id="@itemSub.SubcateName+@itemSub.SubcategoryId" >
+                                                <label class="form-check-label">
+                                                    @itemSub.SubcateName
+                                                </label>
+                                            </div>
+                                        }
+                                }
+                }
                 <hr>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">品牌</span>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌1
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌2
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌3
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌4
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌5
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌6
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌7
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌8
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌9
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        品牌10
-                    </label>
-                </div>
+                @{
+                        
+                        
+                        foreach (var item in ViewBag.Brands)
+                        {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="@item.BrandId">
+                                    <label class="form-check-label">
+                                        @item.BrandName
+                                    </label>
+                                </div>
+                    }    
+                    
+                    
+                    }
+                
                 <hr>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">價格範圍</span>
@@ -504,15 +314,15 @@
                 <!-- 商品開始 -->
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2">
                     @{
-                        foreach( var item in Model)
-                        { 
+                        foreach ( var item in Model)
+                        {
                         <div class="col">
                             <div class="card w-100">
                                 <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
                                     <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
-                                    <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
+                                    <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>                           
+                                    @Html.ActionLink("了解更多...", "UserSingleProduct", "UserProduct", new { productid = item.ProductId }, new { Class = "text-decoration-none btn btn-secondary mb-2" })
                                 </div>
                             </div>
                         </div>
@@ -545,7 +355,7 @@
 </div>
 @section Scripts
     { 
-        <script>
+    <script>
             const selTop5 = document.querySelector('#Top5');
 
             function LoadTop5()
@@ -556,7 +366,6 @@
 
                 xhr.addEventListener('load', () => {
                     const datas = JSON.parse(xhr.responseText);
-                    console.log(datas)
                     var products = datas.map(product => {
                         return (`<div class="col">
                             <div class="card w-100">
@@ -565,11 +374,11 @@
                                         <input type="hidden" value="${product.ProductId}">
                                         <h5 class="card-title">${product.ProductName}</h5>
                                         <p class="card-text text-danger fw-bold">${product.PriceWithCurrency}</p>
-                                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                                        <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${product.ProductId}"" class="btn btn-secondary">了解更多...</a><span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
                                     </div>
                             </div>
                         </div>`)
-                    }) 
+                    })
                     selTop5.innerHTML = products.join("");
                 })
             }
@@ -577,5 +386,5 @@
             document.addEventListener("DOMContentLoaded", function () {
                 LoadTop5();
             });
-        </script>
+    </script>
     }

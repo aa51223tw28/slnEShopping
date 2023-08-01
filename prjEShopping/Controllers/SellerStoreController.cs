@@ -1,4 +1,5 @@
-﻿using prjEShopping.Models.EFModels;
+﻿using prjEShopping.Models.DTOs;
+using prjEShopping.Models.EFModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,36 @@ namespace prjEShopping.Controllers
             ViewBag.CollectedCount = 0;
             ViewBag.StoreImage = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerImagePath;
             var products = db.Products.Where(x => x.SellerId == 1).ToList();
+
+            ViewBag.CategoriesGroupDetails = products.Join(db.ProductSubCategories, x => x.SubcategoryId, y => y.SubcategoryId, (x, y) => new
+            {
+                ProductId = x.ProductId,
+                CategoryId = x.CategoryId,
+                SubcategoryId = y.SubcategoryId,
+                SubcateName = y.SubcategoryName,
+            })
+                .Join(db.ProductMainCategories, x => x.CategoryId, y => y.CategoryId, (x, y) => new 
+                {
+                    SubcategoryId = x.SubcategoryId,
+                    SubcateName = x.SubcateName,
+                    CategoryId = y.CategoryId,
+                    CategoryName = y.CategoryName,
+                })
+                .Select(x => new SellerStoreGroupByCategoryIdDto
+                {
+                    SubcategoryId = (int)x.SubcategoryId,
+                    SubcateName = x.SubcateName,
+                    CategoryId = (int)x.CategoryId,
+                    CategoryName = x.CategoryName,
+                })
+                .ToList();
+
+            ViewBag.Brands = products.Select(x => new{ BrandId = x.BrandId } ).Distinct().Join(db.Brands, x => x.BrandId,y =>y.BrandId,(x,y)=> new  Brand
+            {
+                BrandId = y.BrandId,
+                BrandName = y.BrandName,
+            }).ToList();
+
             return View(products);
         }
 
@@ -34,7 +65,9 @@ namespace prjEShopping.Controllers
                             x.ProductName,
                             PriceWithCurrency = "NT$" + ((int)x.Price).ToString(),
                             y.QuantitySold,
+                            x.SubcategoryId,
                         } ).OrderByDescending(x => x.QuantitySold).Take(5);
+
             return Json(products, JsonRequestBehavior.AllowGet);
         }
     }
