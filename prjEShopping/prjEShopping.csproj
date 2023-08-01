@@ -231,6 +231,7 @@
     <Compile Include="Models\EFModels\TrackSeller.cs" />
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
+    <Compile Include="Models\Infra\AdminAuthenticationFilter.cs" />
     <Compile Include="Models\Infra\EFRepositories\AdminRepository.cs" />
     <Compile Include="Models\Infra\EmailVerifyUrl.cs" />
     <Compile Include="Models\Infra\HashPassword.cs" />

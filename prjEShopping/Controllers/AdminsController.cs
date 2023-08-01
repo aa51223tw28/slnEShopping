@@ -24,8 +24,8 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
-            {               
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "2")
+            {
                 return RedirectToAction("Login");
             }
 
@@ -207,7 +207,7 @@ namespace prjEShopping.Controllers
                 return RedirectToAction("Login");
             }
 
-            if (authCookie.Values["userId"] !="1")
+            if (authCookie.Values["permissionsId"] !="1")
                 return RedirectToAction("Indexem");
 
             if (id == null)
@@ -289,7 +289,7 @@ namespace prjEShopping.Controllers
             // 更新 ViewModel 中的密碼和鹽字段
             vm.AdminPassword = hash;
             vm.AdminPasswordSalt = salt;
-
+            vm.AccessRightId = 2;
             db.Admins.Add(AdminChange.VM2Admin(vm));
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -315,7 +315,7 @@ namespace prjEShopping.Controllers
                 return RedirectToAction("Login");
             }
 
-            if (authCookie.Values["userId"] != "1") 
+            if (authCookie.Values["permissionsId"] != "1") 
                  id = Convert.ToInt32(authCookie.Values["userId"]);
  
             if (id == null)
@@ -339,8 +339,8 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,JobStatus,DateOfHire")] AdminVM vm)
-        {//todo 密碼修改還沒做
+        public ActionResult Edit([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,JobStatus,DateOfHire,Role,AccessRightId")] AdminVM vm)
+        {
             if (ModelState.IsValid==false)
                 return View(vm);
 
