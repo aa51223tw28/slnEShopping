@@ -23,5 +23,6 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string RatingStatus { get; set; }
+
     }
 }

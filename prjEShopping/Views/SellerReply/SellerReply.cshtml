@@ -1,0 +1,40 @@
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.UserFeedbackVM>
+@{
+    ViewBag.Title = "SellerReply";
+    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
+}
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+
+    <table class="table">
+        <tr>
+            <th>評論ID</th>
+            <th>用戶ID</th>
+            <th>星級評分</th>
+            <th>評論內容</th>
+            <th>評論時間</th>
+            <th>賣家回覆</th>
+        </tr>
+        @foreach (var rating in Model)
+        {
+            <tr>
+                <td>@rating.RatingId</td>
+                <td>@rating.UserId</td>
+                <td>@rating.StarRating</td>
+                <td>@rating.RatingText</td>
+                <td>@rating.PostTime</td>
+                <td>
+                    @if (string.IsNullOrEmpty(rating.RatingStatus))
+                    {
+                        <form method="post" action="@Url.Action("AddReply", "SellerReply")">
+                            @Html.Hidden("commentId", rating.RatingId)
+                            <input type="hidden" name="starRating" value="@rating.StarRating" />
+                            <input type="hidden" name="ratingText" value="@rating.RatingText" />
+                            <textarea name="replyText" rows="2" cols="30"></textarea>
+                            <button type="submit" class="btn btn-primary">回覆</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

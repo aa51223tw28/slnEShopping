@@ -13,12 +13,11 @@
 
 <p id="selectedRatingText">請評分：</p>
 <input type="button" class="btn btn-primary reset" value="重新評分" />
-@using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post))
+@using (Html.BeginForm("SubmitComment", "UserFeedback", FormMethod.Post))
 {
     @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
-    @Html.HiddenFor(model => model.RatingText) <!-- 新增隱藏字段，用於存儲RatingText -->
+    @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
     <div class="form-group">
-        
         @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
     </div>
     <button type="submit" class="btn btn-primary">提交評分留言</button>
@@ -71,9 +70,11 @@
 
         countStars = $("img.star").index(e.currentTarget) + 1;
         $("#selectedRatingText").text("你給" + countStars + "顆星");
-
-        // 存儲選中的星星數量到隱藏字段
+        // 存儲選中的星星數量到隱藏字段 "starRating"
         $("#starRating").val(countStars);
+
+        // 存儲評論內容到隱藏字段 "ratingText"
+        $("#ratingText").val($("#RatingText").val());
     });
 
     $(".reset").click(function () {

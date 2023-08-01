@@ -25,22 +25,28 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult SubmitComment(UserFeedbackVM model)
         {
-            var db=new AppDbContext();
-            var feedback = new Rating
+            if (ModelState.IsValid)
             {
-                UserId = model.UserId,
-                ProductId = model.ProductId,
-                //StarRating = model.StarRating.ToString(),
-                RatingText = model.RatingText,
-                PostTime = DateTime.Now
-            };
-            db.Ratings.Add(feedback);
-            db.SaveChanges();
+                var db = new AppDbContext();
+                var feedback = new Rating
+                {
+                    UserId = model.UserId,
+                    ProductId = model.ProductId,
+                    StarRating = model.StarRating, // 直接将StarRating的值赋给数据库实体的StarRating属性
+                    RatingText = model.RatingText,
+                    PostTime = DateTime.Now
+                };
+                db.Ratings.Add(feedback);
+                db.SaveChanges();
 
-            // 跳轉到其他頁面或返回成功消息
-            return RedirectToAction("Index");
+                // 跳转到其他页面或返回成功消息
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // 如果模型验证失败，重新加载视图并显示验证错误信息
+                return View("Index", model);
+            }
         }
-       
     }
-
 }
