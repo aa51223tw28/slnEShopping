@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\AdmintestController.cs" />
+    <Compile Include="Controllers\ADPointsController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Models\Interface\IAdminRepository.cs" />
     <Compile Include="Models\Services\AdminService.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
+    <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
@@ -343,6 +345,11 @@
     <Content Include="Views\Admintest\VEmail.cshtml" />
     <Content Include="Views\Admins\PWForgot.cshtml" />
     <Content Include="Views\Admins\EmailVT.cshtml" />
+    <Content Include="Views\ADPoints\Create.cshtml" />
+    <Content Include="Views\ADPoints\Delete.cshtml" />
+    <Content Include="Views\ADPoints\Details.cshtml" />
+    <Content Include="Views\ADPoints\Edit.cshtml" />
+    <Content Include="Views\ADPoints\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
