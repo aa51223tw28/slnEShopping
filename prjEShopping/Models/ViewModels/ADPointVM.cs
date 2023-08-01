@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security;
 using System.Web;
 
 namespace prjEShopping.Models.ViewModels
@@ -27,10 +28,27 @@ namespace prjEShopping.Models.ViewModels
             [DisplayName("廣告點數")]
             public int? ADPoints { get; set; }
 
-            [DisplayName("廣告點數")]
+            [DisplayName("付款狀態")]
             [StringLength(50)]
             public string PaymentStatus { get; set; }
-       
+
+        public string PaymentStatusName
+        {
+            get
+            {
+                switch (PaymentStatus)
+                {
+                    case "1":
+                        return "已付款";
+                    case "2":
+                        return "待付款";
+                   
+                    default:
+                        return "待確認";
+                }
+            }
+        }
+
     }
 
     public static class ADPointChange

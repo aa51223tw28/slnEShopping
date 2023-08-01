@@ -25,6 +25,7 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult List(string search)
         {
+
             int sellerId;
             if (int.TryParse(search, out sellerId))
             {
@@ -34,12 +35,7 @@ namespace prjEShopping.Controllers
 
             else
             {
-                if (search != null)
-                {
-                    var model = db.ADPoints.Where(x => x.GUINumber == search).ADPoint2VM().ToList();
-                    return View(model);
-                }
-                return View("List");
+                return RedirectToAction("List");
             }
         }
 
