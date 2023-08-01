@@ -2,6 +2,7 @@
 using prjEShopping.Models.EFModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,12 +22,31 @@ namespace prjEShopping.Controllers
             ViewBag.StoreIntro = db.Sellers.FirstOrDefault(x => x.SellerId == 1).StoreIntro;
             ViewBag.CollectedCount = 0;
             ViewBag.StoreImage = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerImagePath;
-            var products = db.Products.Where(x => x.SellerId == 1).ToList();
-
-            ViewBag.CategoriesGroupDetails = products.Join(db.ProductSubCategories, x => x.SubcategoryId, y => y.SubcategoryId, (x, y) => new
+            var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductId = x.ProductId,
-                CategoryId = x.CategoryId,
+                ProductName = x.ProductName,
+                Price = x.Price,
+                ProductImagePathOne = x.ProductImagePathOne,
+                OrderQuantity = y.OrderQuantity,
+                StockQuantity = y.StockQuantity,
+                SubcategoryId = x.SubcategoryId,
+                BrandId = x.BrandId,
+            }).ToList()
+              .Where(x => x.StockQuantity - x.OrderQuantity > 0)
+              .Select(x => new Product{
+                  ProductId = x.ProductId,
+                  ProductName = x.ProductName,
+                  Price = x.Price,
+                  ProductImagePathOne = x.ProductImagePathOne,
+                  SubcategoryId = x.SubcategoryId,
+                  BrandId = x.BrandId,
+              }).ToList();
+
+            var CategoriesGroupDetails = products.Join(db.ProductSubCategories, x => x.SubcategoryId, y => y.SubcategoryId, (x, y) => new
+            {
+                ProductId = x.ProductId,
+                CategoryId = y.CategoryId,
                 SubcategoryId = y.SubcategoryId,
                 SubcateName = y.SubcategoryName,
             })
@@ -45,12 +65,16 @@ namespace prjEShopping.Controllers
                     CategoryName = x.CategoryName,
                 })
                 .ToList();
+            ViewBag.CategoriesGroupDetails = CategoriesGroupDetails;
+            ViewBag.SubcategoryIds = CategoriesGroupDetails.Select(x => x.SubcategoryId).Distinct().ToArray();
 
-            ViewBag.Brands = products.Select(x => new{ BrandId = x.BrandId } ).Distinct().Join(db.Brands, x => x.BrandId,y =>y.BrandId,(x,y)=> new  Brand
+            var Brands = products.Select(x => new{ BrandId = x.BrandId } ).Distinct().Join(db.Brands, x => x.BrandId,y =>y.BrandId,(x,y)=> new  Brand
             {
                 BrandId = y.BrandId,
                 BrandName = y.BrandName,
             }).ToList();
+            ViewBag.Brands = Brands;
+            ViewBag.BrandsIds = Brands.Select(x => x.BrandId).ToArray();
 
             return View(products);
         }

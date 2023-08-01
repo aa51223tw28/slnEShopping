@@ -176,26 +176,19 @@
         </div>
         <div class="container mt-3 bg-success rounded pb-3" >
             <h2 class="pt-3 ps-2 fw-bold fs-3 text">熱賣商品</h2>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="Top5">
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="Top5"> 
             </div>
 
 
         </div>
         <div class="row py-2">
             <div class="col-3 d-flex flex-column">
-                <div class="d-flex align-items-center">
-                    <i class="fa-solid fa-bars"></i><span class="ms-2">所有分類</span>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="fa-solid fa-bars"></i>
+                        <span class="ms-2">所有分類</span>
+                    </div>
+                    <button class="btn btn-secondary mt-2" id="isSelected">搜尋分類</button>
                 </div>
                     @{ 
                                 var a = ViewBag.CategoriesGroupDetails as List<prjEShopping.Models.DTOs.SellerStoreGroupByCategoryIdDto>;
@@ -209,7 +202,7 @@
                                     foreach ( var itemSub in distinctSubcateNames)
                                     {
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="@itemSub.SubcategoryId" id="@itemSub.SubcateName+@itemSub.SubcategoryId" >
+                                                <input class="form-check-input" type="checkbox" value="@itemSub.SubcategoryId" id="@itemSub.SubcategoryId" >
                                                 <label class="form-check-label">
                                                     @itemSub.SubcateName
                                                 </label>
@@ -222,19 +215,15 @@
                     <i class="fa-solid fa-bars"></i><span class="ms-2">品牌</span>
                 </div>
                 @{
-                        
-                        
                         foreach (var item in ViewBag.Brands)
                         {
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="@item.BrandId">
+                                    <input class="form-check-input" type="checkbox" value="@item.BrandId" id="@item.BrandId">
                                     <label class="form-check-label">
                                         @item.BrandName
                                     </label>
                                 </div>
-                    }    
-                    
-                    
+                        }    
                     }
                 
                 <hr>
@@ -312,7 +301,7 @@
                     <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
                 </div>
                 <!-- 商品開始 -->
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
                     @{
                         foreach ( var item in Model)
                         {
@@ -383,8 +372,62 @@
                 })
             }
 
+
+
             document.addEventListener("DOMContentLoaded", function () {
                 LoadTop5();
+
+                var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
+                $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })//預設樣式被點選
+
+                function filterSelectedCategories() {
+                    var selectedSubcategories = [];
+
+                    // 循環通過所有可能的 SubcategoryId
+                    var subcategoryIds = @Html.Raw(Json.Encode(ViewBag.SubcategoryIds));
+                    subcategoryIds.forEach(function (subcategoryId) {
+                        if ($("#" + subcategoryId).prop("checked")) {
+                            selectedSubcategories.push(subcategoryId);
+                        }
+                    });
+
+                    // 如果沒有選中任何 SubcategoryId，則返回所有產品
+                    if (selectedSubcategories.length === 0) {
+                        return products;
+                    }
+
+                    // 篩選那些 SubcategoryId 在選中列表中的產品
+                    return products.filter(function (product) {
+                        return selectedSubcategories.includes(product.SubcategoryId); //product.SubcategoryId：看選取的id有多少都撈出來
+                    });
+                }
+
+                $("#isSelected").on('click', function () {
+                products = @Html.Raw(Json.Encode(Model));
+                products = filterSelectedCategories();
+                updateProductContainer();
+                });
+
+                function updateProductContainer() {
+                var container = $("#productContainer");
+                container.empty();
+
+                $.each(products, function(index, item) {
+                    var productCard = `
+                        <div class="col">
+                            <div class="card w-100">
+                                <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
+                                <div class="card-body">
+                                    <p class="card-title">${item.ProductName}</p>
+                                    <p class="card-text text-danger fw-bold">${Math.round(item.Price).toLocaleString()}</p>
+                                    <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(productCard);
+                });
+                }
             });
     </script>
     }
