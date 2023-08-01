@@ -3,12 +3,31 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
-@if (TempData["Fail"] != null)
-{
-    <script>alert("@TempData["Fail"].ToString()")</script>
-}
 
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+    @if (TempData["Fail"] != null)
+    {
+        <div class="modal" tabindex="-1" role="dialog" id="registrationModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        註冊成功
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstock">確定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $("#registrationModal").modal("show");
+            });
+        </script>
+    }
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
     <hr>
     @using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
@@ -184,22 +203,6 @@
 
             }
         })
-                        //表單點擊送出
-                        //$("#submit").click(()=>{
-                        //    event.preventDefault()
-                        //    var xhr = new XMLHttpRequest();
-
-                        //    var formData = new FormData(document.formUpload);
-                        //    formData.append('file',input.files[0])
-
-                        //    xhr.open('POST', '/api/UploadProfilePhoto')
-                        //    xhr.send(formData)
-
-                        //    xhr.addEventListener('load',()=>{
-                        //       const result = xhr.responseText
-                        //       alert(result)
-                        //    })
-                        //})
     </script>
 }
 
