@@ -399,9 +399,10 @@
                 subcategoryIds.forEach(function (subcategoryId) {
                     if ($("#isSubcategorySelected" + subcategoryId).prop("checked")) {
                         selectedSubcategories.push(subcategoryId);
+                        //console.log(subcategoryId)
                     }
                 });
-
+                //console.log(selectedSubcategories)
                 // 循環通過所有可能的品牌編碼
                 brandIds.forEach(function (brandId) {
                     if ($("#isBrandSelected" + brandId).prop("checked")) {
@@ -469,6 +470,7 @@
                 });
 
                 updateProductContainer();
+                
             });
 
             //按下價格高到低
