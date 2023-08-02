@@ -232,10 +232,10 @@
                 </div>
                 <div class="d-flex">
                     <input type="text" class="form-control" placeholder="$最小值" aria-label="Username"
-                           aria-describedby="basic-addon1">
+                           aria-describedby="basic-addon1" id="pricelow">
                     <span class="pt-3">―――</span>
                     <input type="text" class="form-control" placeholder="$最大值" aria-label="Username"
-                           aria-describedby="basic-addon1">
+                           aria-describedby="basic-addon1" id="pricehigh">
                 </div>
                 <div class="btn btn-secondary mt-2">套用</div>
                 <hr>
@@ -399,14 +399,21 @@
                         }
                     });
 
+                    var minPrice = parseFloat($("#pricelow").val());
+                    var maxPrice = parseFloat($("#pricehigh").val());
+
+
                     // 如果沒有選中任何 SubcategoryId，則返回所有產品
-                    if (selectedSubcategories.length === 0) {
+                    if (selectedSubcategories.length === 0 && selectedBrands === 0) {
                         return products;
                     }
 
                     // 篩選那些 SubcategoryId 在選中列表中的產品
                     return products.filter(function (product) {
-                        return selectedSubcategories.includes(product.SubcategoryId); //product.SubcategoryId：看選取的id有多少都撈出來
+                        var subcategoryMatch = selectedSubcategories.length === 0 || selectedSubcategories.includes(products.subcategoryId);
+                        var brandMatch = selectedBrands === 0 || selectedBrands.includes(products.brandId);
+                        var priceMatch = isNaN(minPrice) || isNaN(maxPrice) || (product.Price >= minPrice && product.Price <= maxPrice) /*|| (product.Price >= minPrice && isNaN(maxPrice) || ( isNaN(minPrice) && product.Price <= maxPrice))*/;
+                        return subcategoryMatch && brandMatch && priceMatch; 
                     });
                 }
 
