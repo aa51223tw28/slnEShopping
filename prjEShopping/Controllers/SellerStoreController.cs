@@ -23,6 +23,8 @@ namespace prjEShopping.Controllers
             ViewBag.SellerId = 1;
             ViewBag.CollectedCount = 0;
             ViewBag.StoreImage = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerImagePath;
+            ViewBag.TrackSeller = db.TrackSellers.Any(x => x.SellerId == 1 && x.UserId == 1);
+
             var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductId = x.ProductId,
