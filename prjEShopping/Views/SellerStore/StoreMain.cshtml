@@ -380,14 +380,22 @@
                 var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
                 $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })//預設樣式被點選
 
-                function filterSelectedCategories() {
+                function filterSelected() {
                     var selectedSubcategories = [];
+                    var selectedBrands = [];
 
                     // 循環通過所有可能的 SubcategoryId
                     var subcategoryIds = @Html.Raw(Json.Encode(ViewBag.SubcategoryIds));
                     subcategoryIds.forEach(function (subcategoryId) {
                         if ($("#" + subcategoryId).prop("checked")) {
                             selectedSubcategories.push(subcategoryId);
+                        }
+                    });
+
+                    var brandIds = @Html.Raw(Json.Encode(ViewBag.BrandsIds));
+                    brandIds.forEach(function (brandId) {
+                        if ($("#" + brandId).prop("checked")) {
+                            selectedBrands.push(brandId);
                         }
                     });
 
@@ -404,7 +412,7 @@
 
                 $("#isSelected").on('click', function () {
                 products = @Html.Raw(Json.Encode(Model));
-                products = filterSelectedCategories();
+                products = filterSelected();
                 updateProductContainer();
                 });
 
@@ -419,7 +427,7 @@
                                 <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
                                     <p class="card-title">${item.ProductName}</p>
-                                    <p class="card-text text-danger fw-bold">${Math.round(item.Price).toLocaleString()}</p>
+                                    <p class="card-text text-danger fw-bold">NT$${Math.floor(item.Price).toLocaleString()}</p>
                                     <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>

@@ -382,7 +382,7 @@
                 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311
             ];
 
-            function filterSelected() {
+            function filterSelectedCategories() {
                 var selectedSubcategories = [];
 
                 // 循環通過所有可能的 SubcategoryId
@@ -406,7 +406,7 @@
 
             $("#isSelected").on('click', function () {
                 products = @Html.Raw(Json.Encode(Model));
-                products = filterSelected();
+                products = filterSelectedCategories();
                 updateProductContainer();
             });
 
