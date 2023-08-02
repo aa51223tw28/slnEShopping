@@ -20,6 +20,7 @@ namespace prjEShopping.Controllers
             ViewBag.AvgRating = ((double)(ViewBag.AllRatingStar)/ (ViewBag.RatingCount)).ToString("F1");
             ViewBag.Storename = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerName;
             ViewBag.StoreIntro = db.Sellers.FirstOrDefault(x => x.SellerId == 1).StoreIntro;
+            ViewBag.SellerId = 1;
             ViewBag.CollectedCount = 0;
             ViewBag.StoreImage = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerImagePath;
             var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
