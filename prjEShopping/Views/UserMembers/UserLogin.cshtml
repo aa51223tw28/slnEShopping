@@ -27,9 +27,9 @@
                     <div class="d-grid gap-2 mb-3">
                         <input type="submit" value="登入" class="btn btn-secondary mt-3"/>
                     </div>
-                    <a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>
+                    @*<a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>*@
                     <div class="d-flex justify-content-end gap-2">
-                        <div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>
+                        @*<div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>*@
                         <div class="btn btn-light border border-3" id="btnerror">demo錯誤帳密</div>
                         <div class="btn btn-light border border-3" id="btnerrorright">demo權限問題</div>
                     </div>
@@ -37,17 +37,17 @@
                         <div class="btn btn-light border border-3" id="btnUser1">User1</div>
                         <div class="btn btn-light border border-3" id="btnUser2">User2</div>
                     </div>
-                    <div class="d-flex justify-content-end gap-2 mt-3">
+                    @*<div class="d-flex justify-content-end gap-2 mt-3">
                         <div class="btn btn-light border border-3" id="btnSeller">Seller</div>
                         <div class="btn btn-light border border-3" id="btnAdmin">Admin</div>
 
-                    </div>
+                    </div>*@
                     <hr>
-                    <div class="row g-2 mb-3">
+                    @*<div class="row g-2 mb-3">
                         <div class="col-5 btn btn-info mt-3" type="submit">GOOGLE</div>
                         <div class="col-2"></div>
                         <div class="col-5 btn btn-info mt-3" type="submit">LINE</div>
-                    </div>
+                    </div>*@
                     <div class="mb-3">
                         <span>還沒註冊嗎？</span>
                         <a href="#" class="link-blue text-decoration-none fw-bold">註冊</a>
@@ -73,14 +73,14 @@
         const UserPassword = document.querySelector('#UserPassword')
 
         /*demo測試權限區*/
-        const btncorrect = document.querySelector('#btncorrect')
+        /*const btncorrect = document.querySelector('#btncorrect')*/
         const btnerror = document.querySelector('#btnerror')
         const btnerrorright = document.querySelector('#btnerrorright')
 
-        btncorrect.addEventListener('click', () => {
-            UserAccount.value = "Amy@gmail.com"
-            UserPassword.value = "1234"
-        })
+        //btncorrect.addEventListener('click', () => {
+        //    UserAccount.value = "Amy@gmail.com"
+        //    UserPassword.value = "1234"
+        //})
 
         btnerror.addEventListener('click', () => {
             UserAccount.value = "Amyerror@gmail.com"
@@ -95,8 +95,8 @@
         /*demo測試腳色區*/
         const btnUser1 = document.querySelector('#btnUser1')
         const btnUser2 = document.querySelector('#btnUser2')
-        const btnSeller = document.querySelector('#btnSeller')
-        const btnAdmin = document.querySelector('#btnAdmin')
+        //const btnSeller = document.querySelector('#btnSeller')
+        //const btnAdmin = document.querySelector('#btnAdmin')
 
         btnUser1.addEventListener('click', () => {
             UserAccount.value = "Amy@gmail.com"
@@ -107,14 +107,14 @@
             UserAccount.value = "Mary@yahoo.com"
             UserPassword.value = "1234"
         })
-        btnSeller.addEventListener('click', () => {
-            UserAccount.value = "Alex@gmail.com"
-            UserPassword.value = "1234"
-        })
-        btnAdmin.addEventListener('click', () => {
-            UserAccount.value = "James@gmail.com"
-            UserPassword.value = "1234"
-        })
+        //btnSeller.addEventListener('click', () => {
+        //    UserAccount.value = "Alex@gmail.com"
+        //    UserPassword.value = "1234"
+        //})
+        //btnAdmin.addEventListener('click', () => {
+        //    UserAccount.value = "James@gmail.com"
+        //    UserPassword.value = "1234"
+        //})
 
 
 
