@@ -14,11 +14,11 @@ namespace prjEShopping.Controllers
 
         public ActionResult Index()
         {
-            
+            int? userId = (int?)Session["UserId"];
             var productDto = new UserProductIndexDto();
             var feedbackVm = new UserFeedbackVM
             {
-                ProductId = 1
+                UserId = userId
             };
            
             ViewData["ProductDto"] = productDto;
