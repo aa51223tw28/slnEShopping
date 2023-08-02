@@ -51,7 +51,7 @@ namespace prjEShopping.Models.ViewModels
                 ADPoint = ad.ADPoint,
                 ADStartDate = ad.ADStartDate,
                 ADEndDate = ad.ADEndDate,
-                ADQuantity = ad.ADQuantity,
+                //ADQuantity = ad.ADQuantity,
                 ADImagePath = ad.ADImagePath,
                 ProductId = ad.ProductId,
             };
@@ -66,7 +66,7 @@ namespace prjEShopping.Models.ViewModels
                 ADPoint =vm.ADPoint,
                 ADStartDate = vm.ADStartDate,
                 ADEndDate = vm.ADEndDate,
-                ADQuantity = vm.ADQuantity,
+                //ADQuantity = vm.ADQuantity,
                 ADImagePath = vm.ADImagePath,
                 ProductId = vm.ProductId,
             };

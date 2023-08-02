@@ -208,8 +208,6 @@
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\Brand.cs" />
     <Compile Include="Models\EFModels\Coupon.cs" />
-    <Compile Include="Models\EFModels\FlashSaleAD.cs" />
-    <Compile Include="Models\EFModels\FullPageAD.cs" />
     <Compile Include="Models\EFModels\Order.cs" />
     <Compile Include="Models\EFModels\OrderDetail.cs" />
     <Compile Include="Models\EFModels\PaymentMethod.cs" />
@@ -225,13 +223,13 @@
     <Compile Include="Models\EFModels\Rating.cs" />
     <Compile Include="Models\EFModels\RatingReplay.cs" />
     <Compile Include="Models\EFModels\Seller.cs" />
+    <Compile Include="Models\EFModels\SellersAD.cs" />
     <Compile Include="Models\EFModels\Shipment.cs" />
     <Compile Include="Models\EFModels\ShipmentDetail.cs" />
     <Compile Include="Models\EFModels\ShipmentStatusDetail.cs" />
     <Compile Include="Models\EFModels\ShippingMethod.cs" />
     <Compile Include="Models\EFModels\ShoppingCart.cs" />
     <Compile Include="Models\EFModels\ShoppingCartDetail.cs" />
-    <Compile Include="Models\EFModels\SliderAD.cs" />
     <Compile Include="Models\EFModels\Support.cs" />
     <Compile Include="Models\EFModels\SupportReplay.cs" />
     <Compile Include="Models\EFModels\TrackProduct.cs" />
