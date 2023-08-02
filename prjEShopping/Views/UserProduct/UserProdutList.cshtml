@@ -205,22 +205,22 @@
 
                 @*也是品牌傳過來一堆products裡面的BrandName在前端移除重複*@
                 @*@{
-                    var uniqueBrandNames = new HashSet<string>();
-                }
-
-                @foreach (var item in Model)
-                {
-                    if (!uniqueBrandNames.Contains(item.BrandName))
-                    {
-                        uniqueBrandNames.Add(item.BrandName);
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="isBrand@(item.BrandId)">
-                            <label class="form-check-label">
-                                @item.BrandName
-                            </label>
-                        </div>
+                        var uniqueBrandNames = new HashSet<string>();
                     }
-                }*@             
+
+                    @foreach (var item in Model)
+                    {
+                        if (!uniqueBrandNames.Contains(item.BrandName))
+                        {
+                            uniqueBrandNames.Add(item.BrandName);
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="isBrand@(item.BrandId)">
+                                <label class="form-check-label">
+                                    @item.BrandName
+                                </label>
+                            </div>
+                        }
+                    }*@
 
 
                 @*用ViewBag直接將table傳過來item.出table的欄位*@
@@ -245,7 +245,7 @@
                     <span class="pt-3">―――</span>
                     <input type="text" class="form-control" placeholder="NT$最大值" aria-label="Username" aria-describedby="basic-addon1" id="pricehigh">
                 </div>
-                
+
                 <hr>
                 <div class="d-flex align-items-center">
                     <i class="fa-solid fa-bars"></i><span class="ms-2">評價</span>
@@ -290,18 +290,45 @@
 
             <!-- 右邊內容 -->
             <div class="col-9">
-                <div class="bg-warning p-3 d-flex justify-content-between">
-                    <div>
-                        <span class="me-3">篩選</span>
-                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
-                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
-                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
-                        <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
+                <div class="row">
+                    <div class="col-9">
+                        <div class="p-3 d-flex align-items-center gap-3">                    
+                            <span>篩選</span>
+                            <button type="button" class="btn btn-outline-blue" id="btnAll">全部</button>
+                            <button type="button" class="btn btn-outline-blue" id="btnHot">最熱銷</button>
+                            <button type="button" class="btn btn-outline-blue" id="btnPriceHight">價格：高到低</button>
+                            <button type="button" class="btn btn-outline-blue" id="btnPriceLow">價格：低到高</button>
+                            <button type="button" class="btn btn-outline-danger" id="btnDelete">清除篩選</button> 
+                        </div>
                     </div>
-                   <div>
-                       <button type="button" class="btn btn-outline-danger me-3 mb-1" id="btnDelete">清除篩選</button>
-                   </div>                   
+                    <div class="col-3">
+                         <span>頁碼：</span>
+                            <div class="d-flex" id="paginationContainer">
+                            <!-- 分頁標籤將動態生成並放入這裡 -->
+                                </div>
+
+                            <!-- 分頁標籤 -->
+                            @*<nav aria-label="Page navigation example ">
+                                <ul class="pagination justify-content-center mt-3">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>*@      
+                    </div>
+
                 </div>
+                
                 <!-- 商品開始 -->
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
 
@@ -312,10 +339,10 @@
                                 <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
                                     <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
-                                    
+
                                     <span class="card-text text-danger fw-bold mb-1">@Math.Round(item.Price).ToString("C0")</span>
                                     <p style="font-size: 8px;" class="card-text mb-1">已售出：@(item.QuantitySold)</p>
-                                                                   
+
                                     <a href="@Url.Action("UserSingleProduct", "UserProduct", new {productid=item.ProductId})" class="btn btn-secondary">了解更多...</a>
                                 </div>
                             </div>
@@ -323,24 +350,8 @@
                     }
                 </div>
                 <!-- 商品結束 -->
-                <!-- 分頁標籤 -->
-                <nav aria-label="Page navigation example ">
-                    <ul class="pagination justify-content-center mt-3">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                
+
             </div>
         </div>
     </div>
@@ -513,8 +524,66 @@
                     });
                 }
             }
+
+
+                       
+           // 動態生成分頁標籤
+            showPage(1);
+            
+            var paginationContainer = document.getElementById("paginationContainer");
+            var paginationHTML = "";
+            for (var i = 1; i <= totalPages; i++) {
+                paginationHTML += '<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="showPage(' + i + ')">' + i + '</a></li>';
+            }
+            paginationContainer.innerHTML = '<ul class="pagination" style="margin: 0;">' + paginationHTML + '</ul>';
+
+            
+
         });
 
     </script>
 
 }
+
+@section Scriptshead{
+    <script>
+
+        var products = @Html.Raw(Json.Encode(Model));
+        var pageSize = 10;
+        var totalPages = Math.ceil(products.length / pageSize);
+
+        function showPage(pageNumber) {
+
+            currentPage = pageNumber;
+            var startIndex = (pageNumber - 1) * pageSize;
+            var endIndex = startIndex + pageSize;
+            var currentPageProducts = products.slice(startIndex, endIndex);
+
+            var productContainer = document.getElementById("productContainer");
+            var productHTML = "";
+
+            currentPageProducts.forEach(function (item) {
+                productHTML +=`
+                <div class="col">
+                    <div class="card w-100">
+                        <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
+                        <div class="card-body">
+                            <p class="card-title">${item.ProductName}</p>
+                            <span class="card-text text-danger fw-bold">NT$${Math.round(item.Price).toLocaleString()}</span>
+                            <p style="font-size: 8px;" class="card-text mb-1">已售出：${item.QuantitySold}</p>
+                            <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+
+            productContainer.innerHTML = productHTML;
+
+           
+        }
+
+    </script>
+
+}
+
