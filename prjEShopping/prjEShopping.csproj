@@ -56,6 +56,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -178,6 +181,7 @@
     <Compile Include="Controllers\SellerProductCreateApiController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
     <Compile Include="Controllers\SellerReplyController.cs" />
+    <Compile Include="Controllers\SellersADController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerStoreController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
@@ -352,6 +356,7 @@
     <Content Include="Views\ADPoints\List.cshtml" />
     <Content Include="Views\ADProducts\Index.cshtml" />
     <Content Include="Views\ADProducts\CreateAD.cshtml" />
+    <Content Include="Views\SellersAD\List.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

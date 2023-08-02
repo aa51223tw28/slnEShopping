@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
 }
 
-<div class="col-6 bg-secondary overflow-auto" >
-    
+<div class="col-6 bg-secondary overflow-auto">
+
     <h2>新增廣告</h2>
 
     @using (Html.BeginForm())
@@ -17,9 +17,21 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
+                @Html.LabelFor(model => model.ADQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="ADQuantity" name="ADQuantity" class="form-control" required onchange="setDateBasedOnQuantity()">
+                        <option selected disabled>請選擇</option>
+                        <option value="1">進版全頁</option>
+                        <option value="2">限時廣告A欄</option>
+                        <option value="3">限時廣告B欄</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.ADQuantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
                 @Html.LabelFor(model => model.ADName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ADName, new { htmlAttributes = new { @class = "form-control" } })
+                    <input type="text" name="ADName" id="ADName" class="form-control" />
                     @Html.ValidationMessageFor(model => model.ADName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -27,7 +39,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ADPoint, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ADPoint, new { htmlAttributes = new { @class = "form-control" } })
+                    <input type="number" name="ADPoint" id="ADPoint" class="form-control" />
                     @Html.ValidationMessageFor(model => model.ADPoint, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -35,7 +47,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ADStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" />
+                    <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" readonly />
                     @Html.ValidationMessageFor(model => model.ADStartDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -49,16 +61,8 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.ADQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ADQuantity, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ADQuantity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="text" name="ADImagePath" id="ADImagePath" hidden/>
+                    <input type="text" name="ADImagePath" id="ADImagePath" hidden />
                     @Html.ValidationMessageFor(model => model.ADImagePath, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -79,7 +83,7 @@
     }
 
     <div>
-        @Html.ActionLink("取消", "Index", null, new {@class= "btn btn-danger my-2" })
+        @Html.ActionLink("取消", "Index", null, new { @class = "btn btn-danger my-2" })
     </div>
 
 </div>
@@ -87,7 +91,89 @@
 @section Scripts{
 
     <script>
+        $(document).ready(function () {
+            $("#ADQuantity").change(function () {
+                var selectedOption = $(this).val();
 
+                if (selectedOption == "1") {
+                    $("#ADName").val("全版廣告");
+                    $("#ADPoint").val(5000);
+                } else if (selectedOption == "2") {
+                    $("#ADName").val("限時廣告");
+                    $("#ADPoint").val(500);
+                }
+            });
+        });
+
+        var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON
+        var data = JSON.parse(jsonData);
+
+      function setDateBasedOnQuantity() {
+    var selectedQuantity = document.getElementById('ADQuantity').value;
+    var lastEndDate = null;
+
+    // 倒序遍历找到最后一个匹配的ADEndDate
+    for (var i = data.length - 1; i >= 0; i--) {
+        if (data[i].ADQuantity.toString() === selectedQuantity) {
+            lastEndDate = new Date(data[i].ADEndDate);
+            break; // 找到就退出循环
+        }
+    }
+
+    var adStartDateInput = document.getElementById('ADStartDate');
+
+    if (lastEndDate) {
+        lastEndDate.setDate(lastEndDate.getDate() + 1);
+        adStartDateInput.valueAsDate = lastEndDate;
+    } else {
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        adStartDateInput.valueAsDate = tomorrow;
+    }
+}
+
+        function setDateBasedOnQuantity() {
+            var selectedQuantity = document.getElementById('ADQuantity').value;
+            var lastEndDate = null;
+
+            // 倒序遍历找到最后一个匹配的ADEndDate
+            for (var i = data.length - 1; i >= 0; i--) {
+                if (data[i].ADQuantity.toString() === selectedQuantity) {
+                    lastEndDate = new Date(data[i].ADEndDate);
+                    break; // 找到就退出循环
+                }
+            }
+
+            var adStartDateInput = document.getElementById('ADStartDate');
+            var adEndDateInput = document.getElementById('ADEndDate'); // 假设你的结束日期输入框ID是'ADEndDate'
+
+            if (lastEndDate) {
+                lastEndDate.setDate(lastEndDate.getDate() + 1);
+                adStartDateInput.valueAsDate = lastEndDate;
+
+                // 根据ADQuantity设置ADEndDate
+                if (selectedQuantity === "1") {
+                    lastEndDate.setDate(lastEndDate.getDate() + 3);
+                } else {
+                    lastEndDate.setDate(lastEndDate.getDate() + 1);
+                }
+                adEndDateInput.valueAsDate = lastEndDate;
+                adEndDateInput.min = lastEndDate.toISOString().slice(0, 10);
+            } else {
+                var tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                adStartDateInput.valueAsDate = tomorrow;
+
+                if (selectedQuantity === "1") {
+                    tomorrow.setDate(tomorrow.getDate() + 3);
+                } else {
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                }
+                adEndDateInput.valueAsDate = tomorrow;  
+                adEndDateInput.min = tomorrow.toISOString().slice(0, 10); 
+            }           
+        }
+       
     </script>
 }
 
