@@ -1,0 +1,58 @@
+﻿@model prjEShopping.Models.EFModels.ADPoint
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ADPoint</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SellerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GUINumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GUINumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ADPoints)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ADPoints)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ADPointId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

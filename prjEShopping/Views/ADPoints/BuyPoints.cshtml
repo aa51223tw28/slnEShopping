@@ -1,0 +1,94 @@
+﻿@model prjEShopping.Models.ViewModels.ADPointVM
+@{
+    ViewBag.Title = "BuyPoints";
+    Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
+}
+
+<div class="col-6 bg-secondary overflow-auto">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>購買廣告點數</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="text" id="SellerId" name="SellerId" value="@Html.DisplayFor(model => model.SellerId)" hidden />
+                    <input type="text" id="PurchaseTime" name="PurchaseTime" value="@DateTime.Now" hidden />
+                    <input type="text" id="PaymentStatus" name="PaymentStatus" value="@Html.DisplayFor(model => model.PaymentStatus)" hidden />
+                    <input type="text" id="GUINumber" name="GUINumber" value="@Html.DisplayFor(model => model.GUINumber)" hidden />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @*<div>*@
+                    <div class="input-group">
+                        <button type="button" id="decrease" onclick="changeValue(-500)" class="d-inline btn btn-info">-</button>
+                        <input type="number" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons"
+                               id="points" name="ADPoints" value="1000" min="1000" max="20000" readonly>
+                        <button type="button" increase" onclick="changeValue(500)" class="d-inline btn btn-info">+</button>
+                    </div>
+ 
+                    @Html.ValidationMessageFor(model => model.ADPoints, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="購買" class="btn btn-primary my-2" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <h2>點數紀錄</h2>
+    <div class="text-primary fs-4"> 目前點數 <span class="text-danger">@ViewBag.SellerPoint</span> 點</div>
+    <table class="table">
+        <tr>
+            <th>
+                <p>購買時間</p>
+            </th>
+            <th>
+                <p>廣告點數</p>
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in ViewBag.List)
+        {
+            <tr>
+                <td>
+                    @item.PurchaseTime
+                </td>
+                <td>
+                    @item.ADPoints
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    <div>
+        @Html.ActionLink("返回", "Index", null, new { @class = "btn btn-primary my-2" })
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function changeValue(amount) {
+            var input = document.getElementById('points');
+            var newValue = parseInt(input.value) + amount;
+
+            // 賦予新值，並同時檢查是否在範圍內
+            if (newValue >= 1000 && newValue <= 20000) {
+                input.value = newValue;
+            }
+        }
+    </script>
+}
+
+@section Styles{
+}

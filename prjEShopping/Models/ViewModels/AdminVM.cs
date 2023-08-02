@@ -88,6 +88,8 @@ namespace prjEShopping.Models.ViewModels
         [StringLength(50)]
         public string Role { get; set; }
 
+        public int? AccessRightId { get; set; }
+
     }
 
     public class AdminLoginVM
@@ -138,6 +140,7 @@ namespace prjEShopping.Models.ViewModels
                 DateOfHire = vm.DateOfHire,
                 JobStatus = vm.JobStatus,
                 Role = vm.Role,
+                AccessRightId = vm.AccessRightId,
             };
         }
 
@@ -156,6 +159,8 @@ namespace prjEShopping.Models.ViewModels
                 Phone = vm.Phone,
                 DateOfHire = vm.DateOfHire,
                 JobStatus = vm.JobStatus,
+                Role = vm.Role,
+                AccessRightId = vm.AccessRightId,
             };
         }
 
@@ -175,6 +180,7 @@ namespace prjEShopping.Models.ViewModels
                 DateOfHire = admin.DateOfHire,
                 JobStatus = admin.JobStatus,
                 Role = admin.Role,
+                AccessRightId = admin.AccessRightId,
             };
         }
        

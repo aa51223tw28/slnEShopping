@@ -5,7 +5,9 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Principal;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using prjEShopping.Models.EFModels;
@@ -22,7 +24,7 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "2")
             {
                 return RedirectToAction("Login");
             }
@@ -36,8 +38,8 @@ namespace prjEShopping.Controllers
         public ActionResult Indexem()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
-            {
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            {                
                 return RedirectToAction("Login");
             }
             var model = db.Admins.Admin2VM().FirstOrDefault(a => a.AdminId == Convert.ToInt32(authCookie.Values["userId"]));        
@@ -49,6 +51,20 @@ namespace prjEShopping.Controllers
         //登入設置
         public ActionResult Login()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie != null && authCookie.Values["status"] == "AdminLogin" &&authCookie.Values["AccessRightId"] == "2")
+            {
+                return RedirectToAction("Index");
+            }
+            else if (authCookie != null && authCookie.Values["AccessRightId"] != "2")
+            {
+                // 添加錯誤提示
+                ModelState.AddModelError("", "帳號不存在或無效。");
+
+                // 清除cookie
+                authCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(authCookie);
+            }
             return View();
         }
 
@@ -69,6 +85,7 @@ namespace prjEShopping.Controllers
                 {
                     HttpCookie authCookie = new HttpCookie("AdminLogin");
                     authCookie.Values["status"] = "AdminLogin";
+                    authCookie.Values["AccessRightId"] = account.AccessRightId.ToString(); //權限=2才開通
                     authCookie.Values["userId"] = account.AdminId.ToString(); // 將用戶ID存儲在Cookie中
                     authCookie.Values["permissionsId"] = account.PermissionsId.ToString();
                     string encodedName = HttpUtility.UrlEncode(account.AdminName);
@@ -99,16 +116,98 @@ namespace prjEShopping.Controllers
             return RedirectToAction("Login");
         }
 
+        public ActionResult PWForgot()
+        {//輸入帳號信箱
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PWForgot(string AdminAccount)
+        {
+           var account= db.Admins.FirstOrDefault(a => a.AdminAccount == AdminAccount);
+
+            if (account == null)
+            {
+                ModelState.AddModelError("", "帳號不存在或無效。");
+                return View();
+            }
+
+            var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
+            EmailVerifyUrl.SendEmailUrl(AdminAccount, urlHelper, "EmailVerify", "Admins");
+
+            ViewBag.Message = "郵件已發送，請檢查您的信箱！";
+
+            return View();
+        }
+
+        public ActionResult EmailVerify(string token)
+        {   // 在此查找資料庫中與此token相匹配的帳戶
+            var account = db.Admins.FirstOrDefault(a => a.EmailCheck == token);
+
+            if (account != null)
+            {
+                // 轉到成功頁面
+                return RedirectToAction("EmailVT", new { account = account.AdminAccount });
+            }
+            else
+            {
+                // 如果未找到匹配的帳戶，轉到錯誤頁面
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult EmailVT(string account)
+        { 
+            ViewBag.Account = account;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EmailVT(string Account, string newPassword)
+        {
+            var Admin = db.Admins.FirstOrDefault(a => a.AdminAccount == Account);
+
+            if (Admin != null)
+            {
+                HashPassword hashPassword = new HashPassword(db); // 假設 _db 是你的資料庫上下文
+                string salt;
+                string hash = hashPassword.CreateHashPassword(newPassword, out salt);
+
+                // 如果找到了相匹配的帳戶，更新帳戶狀態
+                Admin.AccessRightId = 2; //將身份設為"已驗證"
+                Admin.EmailCheck = null; //清空token
+                Admin.AdminPassword = hash;
+                Admin.AdminPasswordSalt = salt;
+                db.SaveChanges();
+
+                ViewBag.SuccessMessage = "儲存成功！即將在三秒後跳轉到登入頁面...";
+                return View();
+            }
+
+            ViewBag.ErrorMessage = "存取失敗，請重新操作。";
+            return View();
+        }
+
+        //public ActionResult EmailVF()
+        //{ //驗證錯誤頁面
+        //  //跳回登入頁面
+        //  //這頁可以不做 (?)
+        //    return View();
+        //}
+
+
+
         // GET: Admins/Details/5
         public ActionResult Details(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }
 
-            if (authCookie.Values["userId"] !="1")
+            if (authCookie.Values["permissionsId"] !="1")
                 return RedirectToAction("Indexem");
 
             if (id == null)
@@ -130,7 +229,7 @@ namespace prjEShopping.Controllers
         public ActionResult Create()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }
@@ -190,7 +289,7 @@ namespace prjEShopping.Controllers
             // 更新 ViewModel 中的密碼和鹽字段
             vm.AdminPassword = hash;
             vm.AdminPasswordSalt = salt;
-
+            vm.AccessRightId = 2;
             db.Admins.Add(AdminChange.VM2Admin(vm));
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -211,12 +310,12 @@ namespace prjEShopping.Controllers
         public ActionResult Edit(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }
 
-            if (authCookie.Values["userId"] != "1") 
+            if (authCookie.Values["permissionsId"] != "1") 
                  id = Convert.ToInt32(authCookie.Values["userId"]);
  
             if (id == null)
@@ -240,8 +339,8 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,JobStatus,DateOfHire")] AdminVM vm)
-        {//todo 密碼修改還沒做
+        public ActionResult Edit([Bind(Include = "AdminId,AdminNumber,PermissionsId,AdminAccount,AdminPassword,AdminPasswordSalt,Title,AdminName,Phone,JobStatus,DateOfHire,Role,AccessRightId")] AdminVM vm)
+        {
             if (ModelState.IsValid==false)
                 return View(vm);
 
@@ -253,7 +352,7 @@ namespace prjEShopping.Controllers
         public ActionResult PasswordChange(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
             {
                 return RedirectToAction("Login");
             }

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.ADPointVM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
+}
+
+<div class="col-6 bg-secondary overflow-auto">
+    <h2>廣告點數購買紀錄</h2>
+    <form method="post">
+        <input type="text" id="search" name="search" />
+        <input type="submit" id="searchbtn" value="搜尋" class="btn btn-primary my-2" />
+    </form>
+    <table class="table table-primary">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SellerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GUINumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADPoints)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentStatus)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GUINumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentStatusName)
+                </td>              
+            </tr>
+        }
+
+    </table>
+</div>

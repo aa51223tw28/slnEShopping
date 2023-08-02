@@ -56,6 +56,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -168,6 +171,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\AdmintestController.cs" />
+    <Compile Include="Controllers\ADPointsController.cs" />
+    <Compile Include="Controllers\ADProductsController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="Controllers\SellerProductCreateApiController.cs" />
     <Compile Include="Controllers\SellerRegisterController.cs" />
     <Compile Include="Controllers\SellerReplyController.cs" />
+    <Compile Include="Controllers\SellersADController.cs" />
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerStoreController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
@@ -231,7 +237,9 @@
     <Compile Include="Models\EFModels\TrackSeller.cs" />
     <Compile Include="Models\EFModels\User.cs" />
     <Compile Include="Models\EFModels\UsersCoupon.cs" />
+    <Compile Include="Models\Infra\AdminAuthenticationFilter.cs" />
     <Compile Include="Models\Infra\EFRepositories\AdminRepository.cs" />
+    <Compile Include="Models\Infra\EmailVerifyUrl.cs" />
     <Compile Include="Models\Infra\HashPassword.cs" />
     <Compile Include="Models\Infra\SellerResult.cs" />
     <Compile Include="Models\Infra\UserHashUtilitiy.cs" />
@@ -239,6 +247,8 @@
     <Compile Include="Models\Interface\IAdminRepository.cs" />
     <Compile Include="Models\Services\AdminService.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
+    <Compile Include="Models\ViewModels\ADPointVM.cs" />
+    <Compile Include="Models\ViewModels\ADProductVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
@@ -340,6 +350,14 @@
     <Content Include="Views\SellerStore\StoreMain.cshtml" />
     <Content Include="Views\Admintest\SendEmail.cshtml" />
     <Content Include="Views\Admintest\VEmail.cshtml" />
+    <Content Include="Views\Admins\PWForgot.cshtml" />
+    <Content Include="Views\Admins\EmailVT.cshtml" />
+    <Content Include="Views\ADPoints\BuyPoints.cshtml" />
+    <Content Include="Views\ADPoints\Details.cshtml" />
+    <Content Include="Views\ADPoints\List.cshtml" />
+    <Content Include="Views\ADProducts\Index.cshtml" />
+    <Content Include="Views\ADProducts\CreateAD.cshtml" />
+    <Content Include="Views\SellersAD\List.cshtml" />
     <Content Include="Views\SellerReply\SellerReply.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
