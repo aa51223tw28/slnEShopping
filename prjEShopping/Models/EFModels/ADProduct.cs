@@ -19,11 +19,13 @@ namespace prjEShopping.Models.EFModels
 
         public DateTime? ADEndDate { get; set; }
 
-        public int? ADQuantity { get; set; }
+        public int? ADField { get; set; }
 
         [StringLength(50)]
         public string ADImagePath { get; set; }
 
         public int? ProductId { get; set; }
+
+        public int? Discount { get; set; }
     }
 }

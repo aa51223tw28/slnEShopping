@@ -18,8 +18,6 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<ADProduct> ADProducts { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
-        public virtual DbSet<FlashSaleAD> FlashSaleADs { get; set; }
-        public virtual DbSet<FullPageAD> FullPageADs { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
@@ -35,13 +33,13 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<RatingReplay> RatingReplaies { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<Seller> Sellers { get; set; }
+        public virtual DbSet<SellersAD> SellersADs { get; set; }
         public virtual DbSet<ShipmentDetail> ShipmentDetails { get; set; }
         public virtual DbSet<Shipment> Shipments { get; set; }
         public virtual DbSet<ShipmentStatusDetail> ShipmentStatusDetails { get; set; }
         public virtual DbSet<ShippingMethod> ShippingMethods { get; set; }
         public virtual DbSet<ShoppingCartDetail> ShoppingCartDetails { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
-        public virtual DbSet<SliderAD> SliderADs { get; set; }
         public virtual DbSet<SupportReplay> SupportReplaies { get; set; }
         public virtual DbSet<Support> Supports { get; set; }
         public virtual DbSet<TrackProduct> TrackProducts { get; set; }

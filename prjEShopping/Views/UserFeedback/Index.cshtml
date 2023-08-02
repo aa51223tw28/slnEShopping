@@ -1,129 +1,212 @@
 ﻿@model prjEShopping.Models.ViewModels.UserFeedbackVM
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml"; ;
 }
+<div class="bg-light">
+    <div class="container py-3">
+        <div class="row py-2 gx-5">
+            <div class="col-sm-auto col-md-3 bg-light">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <img src="~/img/comment.jpeg" alt="" class="img-fluid">
+                        <span class="fw-bold ms-3">John Doe</span>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                    <div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    我的帳戶
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="6.index.html" class="link-blue text-decoration-none fw-bold">個人檔案</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="7.index.html" class="link-blue text-decoration-none fw-bold">修改密碼</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    我的焦點
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserOrder/UserOrderDetailAll")" class="link-blue text-decoration-none fw-bold">購買清單</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserCoupon/UserCouponList")" class="link-blue text-decoration-none fw-bold">優惠券</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowProduct")" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowSeller")" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                </div>
+            </div>
+            <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+                <!--讀取到的商品-->
+                <div>
+                    <p>商品ID: @Html.DisplayFor(model => model.ProductId)</p>
+                    <p>商品名稱:</p><!-- Display the product ID here -->
+                    <!-- Add other product details if available in UserFeedbackVM -->
+                </div>
 
-@using (Html.BeginForm("SubmitComment", "Comment", FormMethod.Post))
-{
-    <div id="starContainer">
-        @for (int i = 1; i <= 5; i++)
-        {
-            <img class="star" src="@Url.Content("~/img/star.gif")" data-value="@i" />
-        }
-    </div>
+                <!--評分-->
+                <div id="starContainer">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <img class="star" src="@Url.Content("~/img/star.gif")" data-value="@i" />
+                    }
+                </div>
 
-    <p id="selectedRatingText">請評分：</p>
+                
+                <p id="selectedRatingText" style="font-size: 20px; font-weight: bold; color: #9F4D95;">請評分：<span style="color: #9F4D95; font-size: 24px;">@Html.DisplayFor(model => model.StarRating)</span>星</p>
 
-    @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
-    @Html.HiddenFor(model => model.RatingText) <!-- 新增隱藏字段，用於存儲RatingText -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.RatingText, htmlAttributes: new { @class = "control-label" })
-        @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
-    </div>
-    <button type="submit" class="btn btn-primary">提交評分留言</button>
-}
-<body>
-    <div class="container">
-        <h2>評分系統</h2>
-        <img id="a" class="i" src="images/star.gif" />
-        <img id="b" class="i" src="images/star.gif" />
-        <img id="c" class="i" src="images/star.gif" />
-        <img id="d" class="i" src="images/star.gif" />
-        <img id="e" class="i" src="images/star.gif" />
-        <p>請評分</p>
-        <input type="button" class="reset" value='重新評分' />
-    </div>
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>    
-    <script>
+                <input type="button" class="btn btn-primary reset" value="重新評分" style="float:right" />
+                <br />
+                @using (Html.BeginForm("SubmitComment", "UserFeedback", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
+                    @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
+                    <div class="form-group">
+                        @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary" style="float:right">提交評分留言</button>
+                }
+                <br />
+                <div class="modal" tabindex="-1" role="dialog" id="replyModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                評論完成
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstock">確定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+</div>
 
-        var countStars = 0
-        var hasClicked = false
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+    var countStars = 0;
+    var hasClicked = false;
 
-        function into(e) {
-            if (!hasClicked) {
-                $(e.currentTarget)
-                    .prevAll("img")
-                    .prop("src", "~/img/chngstar.gif")
-                    .end()
-                    .prop("src", "~/img/chngstar.gif");
-
-                countStars = $("img").index(e.currentTarget) + 1;
-
-                $("p").text("評分中..." + countStars + "星");
-            }
-        }
-        let out = (e) => {
-            if (!hasClicked) {
-                $(e.currentTarget)
-                    .prevAll("img")
-                    .prop("src", "~/img/star.gif")
-                    .end()
-                    .prop("src", "~/img/star.gif");
-
-                $("p").text("請評分");
-            }
-        }
-
-        $("img").hover(into, out)
-
-        $("img").click(function (e) {
-
-            hasClicked = true
-
+    function into(e) {
+        if (!hasClicked) {
             $(e.currentTarget)
-                .prevAll()
-                .prop("src", "~/img/chngstar.gif")
+                .prevAll("img")
+                .prop("src", "@Url.Content("~/img/chngstar.gif")")
                 .end()
-                .prop("src", "~/img/chngstar.gif")
-                .nextAll()
-                .prop("src", "~/img/star.gif");
+                .prop("src", "@Url.Content("~/img/chngstar.gif")");
 
-            countStars = $("img").index(e.currentTarget) + 1;
+            countStars = $("img.star").index(e.currentTarget) + 1;
 
-            $("p").text("你給" + countStars + "顆星");
-        })
+            $("#selectedRatingText").text("評分中..." + countStars + "星");
+        }
+    }
 
-        $(".reset").click(function () {
-            countStars = 0
-            hasClicked = false
+    let out = (e) => {
+        if (!hasClicked) {
+            $(e.currentTarget)
+                .prevAll("img")
+                .prop("src", "@Url.Content("~/img/star.gif")")
+                .end()
+                .prop("src", "@Url.Content("~/img/star.gif")");
 
-            $("img").prop("src", "~/img/star.gif")
+            $("#selectedRatingText").text("請評分");
+        }
+    }
 
-            $("p").text("請評分");
-        })
-    </script>
+    $("img.star").hover(into, out);
 
+    $("img.star").click(function (e) {
+        hasClicked = true;
 
+        $(e.currentTarget)
+            .prevAll()
+            .prop("src", "@Url.Content("~/img/chngstar.gif")")
+            .end()
+            .prop("src", "@Url.Content("~/img/chngstar.gif")")
+            .nextAll()
+            .prop("src", "@Url.Content("~/img/star.gif")");
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-$(document).ready(function () {
-    var selectedRating = 0;
+        countStars = $("img.star").index(e.currentTarget) + 1;
+        $("#selectedRatingText").text("您給" + countStars + "顆星");
+        // 存儲選中的星星數量到隱藏字段 "starRating"
+        $("#starRating").val(countStars);
 
-    $(".star").mouseleave(function () {
-        $(".star").attr("src", "@Url.Content("~/img/star.gif")");
-        $("#starCountText").text("");
+        // 存儲評論內容到隱藏字段 "ratingText"
+        $("#ratingText").val($("#RatingText").val());
     });
 
-    $(".star").mouseenter(function () {
-        var value = $(this).data("value");
-        $(".star").attr("src", "@Url.Content("~/img/star.gif")");
-        $(".star").slice(0, value).attr("src", "@Url.Content("~/img/chngstar.gif")");
-        var starCount = $(this).prevAll().length + 1;
-        $("#starCountText").text("打分中......." + starCount + "顆星");
-    });
+    $(".reset").click(function () {
+        countStars = 0;
+        hasClicked = false;
 
-    $(".star").click(function () {
-        var value = $(this).data("value");
-        selectedRating = value;
-        $(".star").removeClass("selected");
-        $(this).addClass("selected");
-        $("#selectedRatingText").text("您的評分：" + selectedRating + "顆星");
+        $("img.star").prop("src", "@Url.Content("~/img/star.gif")");
 
-        // 存儲選中的星星數量到隱藏字段
-        $("#starRating").val(selectedRating);
+        $("#selectedRatingText").text("請評分");
     });
-});
-    </script>
-</body>
+    $(document).ready(function () {
+        // ... (your existing JavaScript code)
+
+        // 修改表單的提交事件
+        $('form[action="/UserFeedback/SubmitComment"]').submit(function (event) {
+            event.preventDefault(); // 阻止表單提交，我們要使用 AJAX 來提交
+
+            // 取得評分和評論內容
+            var starRating = $("#starRating").val();
+            var ratingText = $("#RatingText").val();
+
+            // 檢查評分是否為空值
+            if (starRating.trim() === '') {
+                // 如果評分為空值，顯示 Modal
+                $('#emptyRatingModal').modal('show');
+                return;
+            }
+
+            // 使用 AJAX 提交評論表單
+            $.ajax({
+                url: $(this).attr('action'),
+                type: "POST",
+                data: $(this).serialize(),
+                success: function () {
+                    // 評論提交成功後顯示 Modal
+                    $('#replyModal').modal('show');
+                },
+                error: function () {
+                    // 如果評論提交失敗，你可以在這裡加入錯誤處理邏輯
+                    // 例如：顯示錯誤訊息或重新載入頁面等
+                }
+            });
+        });
+    });
+            </script>

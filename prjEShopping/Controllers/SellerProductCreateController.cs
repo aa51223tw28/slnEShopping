@@ -33,24 +33,24 @@ namespace prjEShopping.Controllers
             if (vm.photo1 != null)
             { 
                 string filename1 = Guid.NewGuid().ToString() + ".jpg";
-                string imagePath = Server.MapPath("~/img/" + filename1);
-                vm.photo1.SaveAs(imagePath);
+                string imagePath1 = Server.MapPath("~/img/" + filename1);
+                vm.photo1.SaveAs(imagePath1);
                 product.ProductImagePathOne = filename1;
             }
 
             if (vm.photo2 != null)
             {
                 string filename2 = Guid.NewGuid().ToString() + ".jpg";
-                string imagePath = Server.MapPath("~/img/" + filename2);
-                vm.photo1.SaveAs(imagePath);
+                string imagePath2 = Server.MapPath("~/img/" + filename2);
+                vm.photo1.SaveAs(imagePath2);
                 product.ProductImagePathTwo = filename2;
             }
 
             if (vm.photo3 != null)
             {
                 string filename3 = Guid.NewGuid().ToString() + ".jpg";
-                string imagePath = Server.MapPath("~/img/" + filename3);
-                vm.photo1.SaveAs(imagePath);
+                string imagePath3 = Server.MapPath("~/img/" + filename3);
+                vm.photo1.SaveAs(imagePath3);
                 product.ProductImagePathThree = filename3;
             }
 

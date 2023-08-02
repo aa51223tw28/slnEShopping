@@ -49,7 +49,7 @@ namespace prjEShopping.Controllers
             var data = db.ShipmentDetails.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
             ViewBag.Smethod = (db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault()).ShippingMethodName;
             ViewBag.Pmethod = (db.PaymentMethods.Where(x => x.PaymentMethodId == data.PaymentMethodId).FirstOrDefault()).PaymentMethodName;
-            ViewBag.Recriver = data.Receiver;
+            ViewBag.Receiver = data.Receiver;
             ViewBag.RAddress = data.ReceiverAddress;
             ViewBag.Fright = (int)db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault().Freight;
             ViewBag.ShipmentNumber = ShipNum;

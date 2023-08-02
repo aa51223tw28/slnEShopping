@@ -199,6 +199,7 @@
     </Compile>
     <Compile Include="Models\DTOs\AdminDto.cs" />
     <Compile Include="Models\DTOs\CouponDto.cs" />
+    <Compile Include="Models\DTOs\SellerStoreGroupByCategoryIdDto.cs" />
     <Compile Include="Models\DTOs\UserProductIndexDto.cs" />
     <Compile Include="Models\EFModels\AccessRight.cs" />
     <Compile Include="Models\EFModels\Admin.cs" />
@@ -207,8 +208,6 @@
     <Compile Include="Models\EFModels\AppDbContext.cs" />
     <Compile Include="Models\EFModels\Brand.cs" />
     <Compile Include="Models\EFModels\Coupon.cs" />
-    <Compile Include="Models\EFModels\FlashSaleAD.cs" />
-    <Compile Include="Models\EFModels\FullPageAD.cs" />
     <Compile Include="Models\EFModels\Order.cs" />
     <Compile Include="Models\EFModels\OrderDetail.cs" />
     <Compile Include="Models\EFModels\PaymentMethod.cs" />
@@ -224,13 +223,13 @@
     <Compile Include="Models\EFModels\Rating.cs" />
     <Compile Include="Models\EFModels\RatingReplay.cs" />
     <Compile Include="Models\EFModels\Seller.cs" />
+    <Compile Include="Models\EFModels\SellersAD.cs" />
     <Compile Include="Models\EFModels\Shipment.cs" />
     <Compile Include="Models\EFModels\ShipmentDetail.cs" />
     <Compile Include="Models\EFModels\ShipmentStatusDetail.cs" />
     <Compile Include="Models\EFModels\ShippingMethod.cs" />
     <Compile Include="Models\EFModels\ShoppingCart.cs" />
     <Compile Include="Models\EFModels\ShoppingCartDetail.cs" />
-    <Compile Include="Models\EFModels\SliderAD.cs" />
     <Compile Include="Models\EFModels\Support.cs" />
     <Compile Include="Models\EFModels\SupportReplay.cs" />
     <Compile Include="Models\EFModels\TrackProduct.cs" />
@@ -254,6 +253,7 @@
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductListVM.cs" />
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
+    <Compile Include="Models\ViewModels\SellerReplyVM.cs" />
     <Compile Include="Models\ViewModels\UserFeedbackVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
@@ -357,6 +357,7 @@
     <Content Include="Views\ADProducts\Index.cshtml" />
     <Content Include="Views\ADProducts\CreateAD.cshtml" />
     <Content Include="Views\SellersAD\List.cshtml" />
+    <Content Include="Views\SellerReply\SellerReply.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -368,9 +369,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="img\" />
     <Folder Include="Models\DAOs\" />
-    <Folder Include="Views\SellerFeedback\" />
     <Folder Include="Views\SellerProductCreateApi\" />
-    <Folder Include="Views\SellerReply\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -15,8 +15,7 @@ namespace prjEShopping.Models.ViewModels
 
         public int? UserId { get; set; }
 
-        [StringLength(50)]
-        public string StarRating { get; set; }
+        public int StarRating { get; set; }
 
         [StringLength(4000)]
         public string RatingText { get; set; }
