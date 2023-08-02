@@ -16,11 +16,18 @@ namespace prjEShopping.Controllers
 
         public ActionResult SellerReply()
         {
+            int currentSellerId = (int)Session["SellerId"];
             using (var db = new AppDbContext())
             {
                 // 获取 Rating 数据列表
-                var ratings = db.Ratings.ToList();
-
+                var productIds = db.Products
+            .Where(product => product.SellerId == currentSellerId)
+            .Select(product => product.ProductId)
+            .ToList();
+                // 取得 Rating 資料列表，並只選擇與目前賣家的ProductIds相關的留言
+                var ratings = db.Ratings
+                    .Where(rating => productIds.Contains((int)rating.ProductId))
+                    .ToList();
                 // 将 Rating 数据转换为 UserFeedbackVM 类型的列表
                 var feedbacks = ratings.Select(rating => new prjEShopping.Models.ViewModels.UserFeedbackVM
                 {
