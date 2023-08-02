@@ -401,19 +401,24 @@
 
                     var minPrice = parseFloat($("#pricelow").val());
                     var maxPrice = parseFloat($("#pricehigh").val());
-
-
+                    
+                    
                     // 如果沒有選中任何 SubcategoryId，則返回所有產品
-                    if (selectedSubcategories.length === 0 && selectedBrands === 0) {
+                    if (selectedSubcategories.length === 0 && selectedBrands.length === 0) {
                         return products;
                     }
-
+                    
+                    
                     // 篩選那些 SubcategoryId 在選中列表中的產品
                     return products.filter(function (product) {
-                        var subcategoryMatch = /*selectedSubcategories.length === 0 ||*/ selectedSubcategories.includes(products.SubcategoryId);
-                        var brandMatch = selectedBrands === 0 || selectedBrands.includes(products.BrandId);
-                        /*var priceMatch = isNaN(minPrice) || isNaN(maxPrice) || (product.Price >= minPrice && product.Price <= maxPrice) || (product.Price >= minPrice && isNaN(maxPrice) || ( isNaN(minPrice) && product.Price <= maxPrice));*/
-                        return subcategoryMatch/* && brandMatch && priceMatch*/; 
+                        var subcategoryMatch = selectedSubcategories.length === 0 || selectedSubcategories.includes(product.SubcategoryId);
+                        var brandMatch = selectedBrands.length === 0 || selectedBrands.includes(product.BrandId);
+                        var priceMatch = isNaN(minPrice) || isNaN(maxPrice) || (product.Price >= minPrice && product.Price <= maxPrice) || (product.Price >= minPrice && isNaN(maxPrice) || (isNaN(minPrice) && product.Price <= maxPrice));
+                        
+                        return subcategoryMatch && brandMatch && priceMatch; 
+                        console.log(product.Price);
+                        console.log(minPrice);
+                        
                     });
                 }
 
@@ -421,6 +426,7 @@
                     products = @Html.Raw(Json.Encode(Model));
                     products = filterSelected();
                     updateProductContainer();
+                   
                 });
 
                 function updateProductContainer() {
