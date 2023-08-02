@@ -292,23 +292,23 @@
             <div class="col-9">
                 <div class="row">
                     <div class="col-9">
-                        <div class="p-3 d-flex align-items-center gap-3">                    
+                        <div class="p-3 d-flex align-items-center gap-3">
                             <span>篩選</span>
                             <button type="button" class="btn btn-outline-blue" id="btnAll">全部</button>
                             <button type="button" class="btn btn-outline-blue" id="btnHot">最熱銷</button>
                             <button type="button" class="btn btn-outline-blue" id="btnPriceHight">價格：高到低</button>
                             <button type="button" class="btn btn-outline-blue" id="btnPriceLow">價格：低到高</button>
-                            <button type="button" class="btn btn-outline-danger" id="btnDelete">清除篩選</button> 
+                            <button type="button" class="btn btn-outline-danger" id="btnDelete">清除篩選</button>
                         </div>
                     </div>
                     <div class="col-3">
-                         <span>頁碼：</span>
-                            <div class="d-flex" id="paginationContainer">
+                        <span>頁碼：</span>
+                        <div class="d-flex" id="paginationContainer">
                             <!-- 分頁標籤將動態生成並放入這裡 -->
-                                </div>
+                        </div>
 
-                            <!-- 分頁標籤 -->
-                            @*<nav aria-label="Page navigation example ">
+                        <!-- 分頁標籤 -->
+                        @*<nav aria-label="Page navigation example ">
                                 <ul class="pagination justify-content-center mt-3">
                                     <li class="page-item">
                                         <a class="page-link" href="#" aria-label="Previous">
@@ -324,11 +324,11 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </nav>*@      
+                            </nav>*@
                     </div>
 
                 </div>
-                
+
                 <!-- 商品開始 -->
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
 
@@ -350,7 +350,7 @@
                     }
                 </div>
                 <!-- 商品結束 -->
-                
+
 
             </div>
         </div>
@@ -428,7 +428,7 @@
 
             }
 
-
+           
 
             //按下搜尋
             $("#isSelected").on('click', function () {
@@ -460,53 +460,12 @@
             });
 
 
-
-            var pageSize = 10;
-
-                function showPage(pageNumber) {
-
-                    var startIndex = (pageNumber - 1) * pageSize;
-                    var endIndex = startIndex + pageSize;
-                    var currentPageProducts = products.slice(startIndex, endIndex);
-
-                    var productContainer = document.getElementById("productContainer");
-                    var productHTML = "";
-
-                    currentPageProducts.forEach(function (item) {
-                        productHTML +=`
-                        <div class="col">
-                            <div class="card w-100">
-                                <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
-                                <div class="card-body">
-                                    <p class="card-title">${item.ProductName}</p>
-                                    <span class="card-text text-danger fw-bold">NT$${Math.round(item.Price).toLocaleString()}</span>
-                                    <p style="font-size: 8px;" class="card-text mb-1">已售出：${item.QuantitySold}</p>
-                                    <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-                    });
-
-                    productContainer.innerHTML = productHTML;
-                }
-
-
-
-
             // 按下按鈕 "最熱銷"
             $("#btnHot").click(function () {
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnAll,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
-
-                // 將商品按照 QuantitySold 屬性由高到低排序
-                products.sort(function(a, b) {
-                    return b.QuantitySold - a.QuantitySold;//如果回傳值為正數,由高到低
-                });
-
-                //updateProductContainer();
-
-                showPage(1)
+                currentSortType = "hot";
+                handlePageClick(1);
             });
 
             //按下價格高到低
@@ -566,15 +525,18 @@
 
 
            // 動態生成分頁標籤
-            showPage(1);
+            showPage(1, products);
+
+            var pageSize = 10;
+            var totalPages = Math.ceil(products.length / pageSize);
 
             var paginationContainer = document.getElementById("paginationContainer");
             var paginationHTML = "";
             for (var i = 1; i <= totalPages; i++) {
-                paginationHTML += '<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="showPage(' + i + ')">' + i + '</a></li>';
+                // 將每個 LI 元素的 onclick 事件改為使用匿名函式
+                paginationHTML += `<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="handlePageClick(${i})">${i}</a></li>`;
             }
-            paginationContainer.innerHTML = '<ul class="pagination" style="margin: 0;">' + paginationHTML + '</ul>';
-
+            paginationContainer.innerHTML = `<ul class="pagination" style="margin: 0;">${paginationHTML}</ul>`;
 
 
         });
@@ -583,24 +545,48 @@
 
 }
 
+
 @section Scriptshead{
     <script>
+        var currentSortType = ""; 
+        // 定義處理分頁點擊的函式
 
-        var products = @Html.Raw(Json.Encode(Model));
-        var pageSize = 10;
-        var totalPages = Math.ceil(products.length / pageSize);
+        function handlePageClick(pageNumber) {
 
-        function showPage(pageNumber) {
+            var products = @Html.Raw(Json.Encode(Model));
 
-            var startIndex = (pageNumber - 1) * pageSize;
-            var endIndex = startIndex + pageSize;
-            var currentPageProducts = products.slice(startIndex, endIndex);
+            if (currentSortType === "hot") {
+                products.sort(function (a, b) {
+                    return b.QuantitySold - a.QuantitySold; //由高到低排序
+                });
+            } else if (currentSortType === "price_high") {
+                products.sort(function (a, b) {
+                    return b.Price - a.Price; //由高到低排序
+                });
+            } else if (currentSortType === "price_low") {
+                products.sort(function (a, b) {
+                    return a.Price - b.Price; //由低到高排序
+                });
+            } else if (currentSortType == null) {
+                products = @Html.Raw(Json.Encode(Model));
+            }
 
-            var productContainer = document.getElementById("productContainer");
-            var productHTML = "";
+        showPage(pageNumber, products);
+        }
 
-            currentPageProducts.forEach(function (item) {
-                productHTML +=`
+
+        function showPage(pageNumber, sortedProducts) {
+
+                var pageSize = 10;
+                var startIndex = (pageNumber - 1) * pageSize;
+                var endIndex = startIndex + pageSize;
+                var currentPageProducts = sortedProducts.slice(startIndex, endIndex);
+
+                var productContainer = document.getElementById("productContainer");
+                var productHTML = "";
+
+                currentPageProducts.forEach(function (item) {
+                    productHTML += `
                 <div class="col">
                     <div class="card w-100">
                         <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
@@ -613,14 +599,10 @@
                     </div>
                 </div>
                 `;
-            });
+                });
 
-            productContainer.innerHTML = productHTML;
-
-           
-        }
-
+                productContainer.innerHTML = productHTML;
+            }
     </script>
 
 }
-

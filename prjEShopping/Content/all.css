@@ -11617,7 +11617,22 @@ textarea.form-control-lg {
     color: #dc3545;
     font-weight: bold;
 }
+.page-link {
+    position: relative;
+    display: block;
+    color: black;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid black;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
+    .page-link:hover {
+        z-index: 2;
+        background-color: #8DA291;
+        color: black;
+        border-color: black;
+    }
 /*# sourceMappingURL=all.css.map */
 
 /*點選圖片要有的樣式--以下三行UserSingleProduct用*/
