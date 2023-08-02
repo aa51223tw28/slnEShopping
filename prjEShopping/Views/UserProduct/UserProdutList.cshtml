@@ -451,11 +451,7 @@
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnHot,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-                products.sort(function (a, b) {
-                    return a.ProductId - b.ProductId;
-                });
-
-                updateProductContainer();
+                handlePageClick(1);
 
             });
 
@@ -473,12 +469,8 @@
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnAll,#btnHot,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-                // 將商品按照 Price 屬性由高到低排序
-                products.sort(function(a, b) {
-                    return b.Price - a.Price;
-                });
-
-                updateProductContainer();
+                currentSortType = "price_high";
+                handlePageClick(1);
             });
 
             // 按下價格低到高
@@ -486,12 +478,8 @@
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnAll,#btnHot,#btnPriceHight").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-                // 將商品按照 Price 屬性由低到高排序
-                products.sort(function(a, b) {
-                    return a.Price - b.Price;
-                });
-
-                updateProductContainer();
+                currentSortType = "price_low";
+                handlePageClick(1);
             });
 
             // 重新生成商品迴圈內容的函式
@@ -527,7 +515,7 @@
            // 動態生成分頁標籤
             showPage(1, products);
 
-            var pageSize = 10;
+            var pageSize = 20;
             var totalPages = Math.ceil(products.length / pageSize);
 
             var paginationContainer = document.getElementById("paginationContainer");
@@ -577,7 +565,7 @@
 
         function showPage(pageNumber, sortedProducts) {
 
-                var pageSize = 10;
+                var pageSize = 20;
                 var startIndex = (pageNumber - 1) * pageSize;
                 var endIndex = startIndex + pageSize;
                 var currentPageProducts = sortedProducts.slice(startIndex, endIndex);
