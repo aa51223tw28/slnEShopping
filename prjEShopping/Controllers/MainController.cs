@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,13 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult SearchSubcategoryIdapi(string subcategoryName)
+        {
+            var db = new AppDbContext();
+            var subcategoryId = db.ProductSubCategories.Where(x => x.SubcategoryName == subcategoryName).Select(x=>x.SubcategoryId).FirstOrDefault();
+            return Json(subcategoryId, JsonRequestBehavior.AllowGet);
         }
     }
 }

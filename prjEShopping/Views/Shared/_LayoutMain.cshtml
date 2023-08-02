@@ -81,8 +81,8 @@
                     </div>
                     <div class="col-5 col-md-6 col-lg-7 col-xl-9">
                         <div class="input-group mt-3 mb-4">
-                            <input class="form-control" type="search" @*placeholder="去購物"*@ aria-label="Search" style="height: 40px;">
-                            <button class="btn btn-secondary" type="submit" style="height: 40px;">搜尋</button>
+                            <input id="subcategoryInput" class="form-control" type="search" @*placeholder="去購物"*@ aria-label="Search" style="height: 40px;">
+                            <a id="searchLink" href="#" class="btn btn-secondary" style="height: 40px;" onclick="searchSubcategory()">搜尋</a>
                         </div>
                     </div>
                 </div>
@@ -213,6 +213,21 @@
             getTotalCount();
         });
 
+
+        //搜尋欄
+        async function searchSubcategory() {
+            var subcategoryName = document.getElementById('subcategoryInput').value;
+            //console.log(subcategoryName);
+            var link = document.getElementById('searchLink');
+
+            const response = await fetch(`/Main/SearchSubcategoryIdapi?subcategoryName=${encodeURIComponent(subcategoryName)}`);
+            const datas = await response.json();
+            //console.log(datas);
+            //link.href = '/UserProduct/UserProdutList?subcategory=' + datas;         
+            window.location.href = '/UserProduct/UserProdutList?subcategory=' + datas;            
+        }
+        
+        
     </script>
 
     @RenderSection("Scripts", required: false)@*引用js或jquery*@

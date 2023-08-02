@@ -366,15 +366,15 @@
             var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
             $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })//預設樣式被點選
 
-            //主頁直接點筆電篩選條件載入頁面如有categoryid
+            //主頁直接點筆電篩選條件載入頁面如有subcategoryid
             var urlParams = new URLSearchParams(window.location.search);//得當前網頁 URL 中的查詢參數部分
-            var categoryParam = urlParams.get('category');
-            if (categoryParam) {
-                var selectedCategoryId = parseInt(categoryParam)
+            var subcategoryParam = urlParams.get('subcategory');
+            if (subcategoryParam) {
+                var selectedsubcategoryId = parseInt(subcategoryParam)
                 products = products.filter(function (product) {
-                    return product.SubcategoryId === selectedCategoryId;
+                    return product.SubcategoryId === selectedsubcategoryId;
                 });
-                $("#isSubcategorySelected" + selectedCategoryId).prop("checked", true)
+                $("#isSubcategorySelected" + selectedsubcategoryId).prop("checked", true)
             }
             updateProductContainer();
 
@@ -414,17 +414,20 @@
                 var maxPrice = parseFloat($("#pricehigh").val());
 
                 // 如果沒有選中任何 SubcategoryId 和品牌，則返回所有產品
-                if (selectedSubcategories.length === 0 && selectedBrands.length === 0) {
+                if (selectedSubcategories.length === 0 && selectedBrands.length === 0 && isNaN(minPrice) && isNaN(maxPrice)) {
                     return products;
                 }
 
-                // 篩選符合條件的產品
+                // 篩選符合條件的產品               
                 return products.filter(function (product) {
                     var subcategoryMatch = selectedSubcategories.length === 0 || selectedSubcategories.includes(product.SubcategoryId);
                     var brandMatch = selectedBrands.length === 0 || selectedBrands.includes(product.BrandId);
-                    var priceMatch = isNaN(minPrice) || isNaN(maxPrice) || (product.Price >= minPrice && product.Price <= maxPrice);
-                    return subcategoryMatch && brandMatch && priceMatch;//自動將所有情形排列組合只選分類 只選品牌 都選
+                    var priceMatch = (isNaN(minPrice) && isNaN(maxPrice)) || (product.Price >= minPrice && product.Price <= maxPrice) || (product.Price >= minPrice && isNaN(maxPrice) || (isNaN(minPrice) && product.Price <= maxPrice));
+
+                    return subcategoryMatch && brandMatch && priceMatch;
+
                 });
+
 
             }
 
