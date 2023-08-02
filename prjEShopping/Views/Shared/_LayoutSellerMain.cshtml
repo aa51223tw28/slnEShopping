@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"> -->
     <link href="~/Content/Sall.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTu9iRABdNHHPp9S9hjHXWib4bpv60vQV5CqosCJnM6AN1KnZfcLk0fMlT8pT" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-D0mMQgeQmhoVOTL5vRssVv61K4WgYGz7ALaRUn5ILbcbdjfVqcb/kcPhepblGwVX" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-tmP1WXB9s2msLSe3Z5tA8cwNJVdC4b4+Xu0wrOgqLPzZS7DI2Y3J3aXXCe4jtODQ" crossorigin="anonymous"></script>
     <title>賣家主頁</title>
 </head>
 
@@ -79,7 +82,7 @@
                                             <a href="#" class="text-decoration-none">賣場布置</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="text-decoration-none">評價回覆</a>
+                                            @Html.ActionLink("評價回覆", "SellerReply", "SellerReply", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                     </ul>
                                 </div>
