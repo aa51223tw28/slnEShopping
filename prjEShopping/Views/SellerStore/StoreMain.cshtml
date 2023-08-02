@@ -404,7 +404,7 @@
                     
                     
                     // 如果沒有選中任何 SubcategoryId，則返回所有產品
-                    if (selectedSubcategories.length === 0 && selectedBrands.length === 0) {
+                    if (selectedSubcategories.length === 0 && selectedBrands.length === 0 && isNaN(minPrice) && isNaN(maxPrice)) {
                         return products;
                     }
                     
@@ -413,15 +413,17 @@
                     return products.filter(function (product) {
                         var subcategoryMatch = selectedSubcategories.length === 0 || selectedSubcategories.includes(product.SubcategoryId);
                         var brandMatch = selectedBrands.length === 0 || selectedBrands.includes(product.BrandId);
-                        var priceMatch = isNaN(minPrice) || isNaN(maxPrice) || (product.Price >= minPrice && product.Price <= maxPrice) || (product.Price >= minPrice && isNaN(maxPrice) || (isNaN(minPrice) && product.Price <= maxPrice));
+                        var priceMatch = (isNaN(minPrice) && isNaN(maxPrice)) || (product.Price >= minPrice && product.Price <= maxPrice) || (product.Price >= minPrice && isNaN(maxPrice) || (isNaN(minPrice) && product.Price <= maxPrice));
                         
                         return subcategoryMatch && brandMatch && priceMatch; 
-                        console.log(product.Price);
-                        console.log(minPrice);
                         
                     });
-                }
 
+                    console.log(product.Price);
+                    console.log(minPrice);
+                    console.log(subcategoryMatch);
+                }
+            
                 $("#isSelected").on('click', function () {
                     products = @Html.Raw(Json.Encode(Model));
                     products = filterSelected();
