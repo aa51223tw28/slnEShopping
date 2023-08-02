@@ -3,6 +3,16 @@
     ViewBag.Title = "StoreMain";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
+@section Styles
+    {
+    <style>
+        .btn-blue {
+            color: #fff;
+            background-color: #0D47A1;
+            border-color: #0D47A1;
+        }
+    </style>
+    }
 
 <div class="bg-light">
 
@@ -59,7 +69,7 @@
                         
                     </div>
                     <div class="col-8">
-                        <button class="btn-outline-primary btn rounded-pill btn-lg mt-4">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg mt-4" id="toggleBtn">
                         <i class="fas fa-heart custom-heart"></i>
                         加入追蹤
                         </button>
@@ -157,7 +167,7 @@
                         <i class="fa-solid fa-bars"></i>
                         <span class="ms-2">所有分類</span>
                     </div>
-                    <button class="btn btn-secondary mt-2" id="isSelected">搜尋分類</button>
+                    <button class="btn btn-secondary mt-2" id="isSelected">搜尋</button>
                 </div>
                     @{ 
                                 var a = ViewBag.CategoriesGroupDetails as List<prjEShopping.Models.DTOs.SellerStoreGroupByCategoryIdDto>;
@@ -273,11 +283,16 @@
                     @{
                         foreach ( var item in Model)
                         {
+                            string productName = item.ProductName;
+                            if (productName.Length > 25)
+                            {
+                                productName = productName.Substring(0, 25);
+                            }
                         <div class="col">
                             <div class="card w-100">
                                 <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
-                                    <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
+                                    <p class="card-title">@productName</p>
                                     <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>                           
                                     @Html.ActionLink("了解更多...", "UserSingleProduct", "UserProduct", new { productid = item.ProductId }, new { Class = "text-decoration-none btn btn-secondary mb-2" })
                                 </div>
@@ -329,7 +344,7 @@
                                 <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                     <div class="card-body">
                                         <input type="hidden" value="${product.ProductId}">
-                                        <h5 class="card-title">${product.ProductName}</h5>
+                                        <p class="card-title">${product.ProductName.substring(0, 25)}</p>
                                         <p class="card-text text-danger fw-bold">${product.PriceWithCurrency}</p>
                                         <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${product.ProductId}"" class="btn btn-secondary">了解更多...</a><span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
                                     </div>
@@ -405,7 +420,7 @@
                             <div class="card w-100">
                                 <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
-                                    <p class="card-title">${item.ProductName}</p>
+                                    <p class="card-title">${item.ProductName.substring(0, 25)}</p>
                                     <p class="card-text text-danger fw-bold">NT$${Math.floor(item.Price).toLocaleString()}</p>
                                     <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
                                 </div>
@@ -416,5 +431,18 @@
                 });
                 }
             });
+
+            const toggleBtn = document.getElementById("toggleBtn");
+
+            toggleBtn.addEventListener("click", function () {
+                if (this.classList.contains("active")) {
+                    this.textContent = "按鈕A"; // 切換回原始文字內容
+                    }
+                else {
+                this.textContent = "按鈕B"; // 切換到新的文字內容
+                }
+            this.classList.toggle("active");
+            });
+
     </script>
     }
