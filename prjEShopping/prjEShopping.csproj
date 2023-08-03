@@ -360,6 +360,8 @@
     <Content Include="Views\SellerReply\SellerReply.cshtml" />
     <Content Include="Views\SellersAD\CheckDetail.cshtml" />
     <Content Include="Views\SellersAD\ADList.cshtml" />
+    <Content Include="Views\SellersAD\ADDemo.cshtml" />
+    <Content Include="Views\SellersAD\ADDemo2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

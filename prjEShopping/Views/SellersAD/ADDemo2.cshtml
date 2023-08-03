@@ -1,0 +1,129 @@
+﻿@model IEnumerable<prjEShopping.Models.EFModels.Product>
+
+@{
+    ViewBag.Title = "ADDemo2";
+}
+
+<h2>ADDemo2</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SellerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductStatusId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductImagePathOne)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductImagePathTwo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductImagePathThree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubcategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptionIdOne)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptionIdTwo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptionIdThree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptionIdFour)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptionIdFive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Promote)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SellerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductStatusId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductImagePathOne)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductImagePathTwo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductImagePathThree)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SubcategoryId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OptionIdOne)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OptionIdTwo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OptionIdThree)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OptionIdFour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OptionIdFive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Promote)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+        </td>
+    </tr>
+}
+
+</table>

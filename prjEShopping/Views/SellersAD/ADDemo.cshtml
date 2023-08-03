@@ -1,0 +1,72 @@
+﻿@model IEnumerable<prjEShopping.Models.EFModels.Product>
+
+@{
+    ViewBag.Title = "ADDemo";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<style>
+    .border-colorful {
+        border: 3px solid;
+        border-image: linear-gradient(to right, red, yellow, green, blue, violet);
+        border-image-slice: 1;
+    }
+    .time-sale-banner {
+        position: absolute;
+        top: 10%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(255, 0, 0, 0.6); /* 红色背景，透明度60% */
+        color: white;
+        padding: 5px 0;
+    }
+</style>
+<h2>限時廣告DEMO</h2>
+
+<div class="container mt-3 bg-success rounded pb-3">
+    <h2 class="pt-3 ps-2 fw-bold fs-3 text">暢銷排行</h2>
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
+        @foreach (var item in Model)
+        {
+            var cardClass = ViewBag.PD.Contains(item.ProductId) ? "border-colorful border-5" : "";
+            double newprice = ViewBag.PD.Contains(item.ProductId) ? (double)item.Price * 0.5 : (double)item.Price;
+            var delprice = ViewBag.PD.Contains(item.ProductId) ? "" : "hidden";
+            <div class="col">
+                <div class="card w-100 @cardClass" style="position: relative;">
+                    <div class="time-sale-banner"@delprice id="countdownTimer"></div>
+                    <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProductName)</h5>
+                        <p class="card-text text-danger fw-bold"><del @delprice>@Math.Round((double)item.Price).ToString("C0")</del>@Math.Round(newprice).ToString("C0")</p>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+    <script>
+        function countdown(endTime, elementId) {
+            var x = setInterval(function () {
+                var now = new Date().getTime();
+                var distance = endTime - now;
+
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById(elementId).innerHTML = "限時特賣 " + hours + ":" + minutes + ":" + seconds;
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById(elementId).innerHTML = "特賣已結束";
+                }
+            }, 1000);
+        }
+
+        // 設置倒計時的結束時間
+        var endTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24小時後
+        countdown(endTime, "countdownTimer");
+    </script>

@@ -57,6 +57,18 @@ namespace prjEShopping.Controllers
                     };
                     db.SellersADs.Add(sellersad);
 
+                    var point = new ADPoint
+                    {
+                        SellerId = SellerId,
+                        ADPoints = -vm.ADPoint,
+                        GUINumber = db.Sellers.Where(x => x.SellerId == SellerId).FirstOrDefault().ToString(),
+                        PaymentStatus = "1",
+                        PurchaseTime = DateTime.Now,
+                    };
+                    db.ADPoints.Add(point);
+
+                    db.Sellers.Where(x => x.SellerId == SellerId).Select(s => s.ADPoints ==s.ADPoints-vm.ADPoint);
+
                     db.SaveChanges();
                     return RedirectToAction("List");
                 }
@@ -116,5 +128,20 @@ namespace prjEShopping.Controllers
 
             return View(model);
         }
+
+        public ActionResult ADDemo()
+        {
+            var model = db.Products.Where(x=>x.SellerId==1).ToList();
+            
+            var AD=db.SellersADs.Where(x=>x.SellerId==1).Select(x=>x.ADProductId).ToList() ;
+
+            var PD=db.ADProducts.Where(x => AD.Contains(x.ADProductId)).Select(x=>x.ProductId).ToList();
+
+            ViewBag.PD = PD;
+
+            return View(model);
+        }
+
+
     }
 }
