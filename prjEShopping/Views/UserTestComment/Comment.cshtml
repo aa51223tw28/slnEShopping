@@ -3,8 +3,39 @@
         ViewBag.Title = "Comment";
     }
 
-    <h2>Comment</h2>
-
+<div class="col-7 pt-5">
+    <div class="row">
+        <div class="col-3 d-flex align-items-center">
+            <span>品名：</span>
+        </div>
+        <div class="col-9">
+            <span class="fs-4 fw-bold">Apple電腦</span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-3 d-flex align-items-center">
+            <span>資訊：</span>
+        </div>
+        <div class="col-9">
+            <div class="d-flex">
+                <a href="#">
+                    <h5 class="text-danger fw-bold">@ViewBag.AverageStarRating.ToString("0.0")</h5>
+                </a><span class="ms-1 me-2">顆星</span>
+                <a href="#">
+                    <h5 class="text-danger fw-bold">@ViewBag.AllStarCount</h5>
+                </a><span class="ms-2 me-2">評價</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3 d-flex align-items-center">
+            <span>價格：</span>
+        </div>
+        <div class="col-9">
+            <span class="fs-1 fw-bold text-danger">1000</span>
+        </div>
+    </div>
+</div>
     <div class="container bg-success rounded py-2 mt-3">
         <div class="bg-warning p-3 mb-3">
             <span class="fs-4 fw-bold">商品評價</span>

@@ -20,13 +20,14 @@ namespace prjEShopping.Controllers
 
                 // 取得所有評分對應的回覆資料
                 var ratingIds = ratingsList.Select(r => r.RatingId);
-                Dictionary<int, string> sellerReplies = db.RatingReplaies
+                var sellerReplies = db.RatingReplaies
                     .Where(r => ratingIds.Contains(r.RatingId.Value))
-                    .ToDictionary(r => r.RatingId.Value, r => r.ReplayText);
-
+                    .GroupBy(r => r.RatingId.Value) // 按照 RatingId 分組
+                    .ToDictionary(g => g.Key, g => g.FirstOrDefault()?.ReplayText ?? string.Empty);
                 ViewBag.SellerReplies = sellerReplies;
-
-
+                // 計算評分平均星級數
+                double averageStarRating = (double)(ratingsList.Any() ? ratingsList.Average(r => r.StarRating) : 0);
+                ViewBag.AverageStarRating = averageStarRating;
                 // 將評分按星級分類
                 var allStarRatings = ratingsList;
                 var fiveStarRatings = ratingsList.Where(r => r.StarRating == 5).ToList();
