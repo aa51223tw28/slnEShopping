@@ -316,6 +316,25 @@ namespace prjEShopping.Controllers
             db.ShoppingCarts.Add(shoppingcart);
             db.SaveChanges ();
 
+            //將上一台車如果還有未結帳的東西放到新車中
+            var oldcartid= db.ShoppingCarts.Where(x=>x.UserId==userid).OrderByDescending(x=>x.CartId).Skip(1).Select(x=>x.CartId).FirstOrDefault();
+            var oldShoppingCartDetails=db.ShoppingCartDetails.Where(x=>x.CartId== oldcartid&&x.AddToOrder=="0").ToList();
+            
+            var newcartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+          
+            foreach (var item in oldShoppingCartDetails)
+            {
+                var newdata = new ShoppingCartDetail
+                {
+                    CartId= newcartid,
+                    ProductId= item.ProductId,
+                    Quantity= item.Quantity,
+                    AddToOrder = item.AddToOrder
+                };
+                db.ShoppingCartDetails.Add(newdata);            
+            }
+            db.SaveChanges();
+
 
             //修改table ProductsStocks中的OrderQuantity
             var listproductid=db.OrderDetails.Where(x=>x.OrderId== orderId).Select(x=>x.ProductId).ToList();
