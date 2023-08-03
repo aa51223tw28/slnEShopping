@@ -54,7 +54,7 @@
                         <span class="fs-4 fw-bold">關注中 :</span>
                     </div>
                     <div class="col-8">
-                        <span class="fs-4 fw-bold text-danger">@ViewBag.CollectedCount</span>
+                        <span class="fs-4 fw-bold text-danger" id="TrackCount">@ViewBag.TrackCount</span>
                     </div>
                 </div>
                 <div class="row">
@@ -143,30 +143,8 @@
         </div>
         <div class="container mt-3 bg-success rounded pb-3">
             <h2 class="pt-3 ps-2 fw-bold fs-3 text">推薦商品</h2>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="~/img/product15.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card w-100">
-                        <img src="~/img/product15.jpg" class="card-img-top px-4 pt-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">PlayStation 5 主機</h5>
-                            <p class="card-text text-danger fw-bold">$17,880</p>
-                            <a href="#" class="btn btn-secondary">了解更多...</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="prmoted">
             </div>
-
-
         </div>
         <div class="container mt-3 bg-success rounded pb-3" >
             <h2 class="pt-3 ps-2 fw-bold fs-3 text">熱賣商品</h2>
@@ -341,37 +319,63 @@
 @section Scripts
     { 
     <script>
-            const selTop5 = document.querySelector('#Top5');
+        const selpromote = document.querySelector('#prmoted');
+         const selTop5 = document.querySelector('#Top5');
 
-            function LoadTop5()
-            {
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', '@Url.Content("~/SellerStore/getTop5Product")');
-                xhr.send();
+         function LoadTop5()
+         {
+             const xhr = new XMLHttpRequest();
+             xhr.open('GET', '@Url.Content("~/SellerStore/getTop5Product")');
+             xhr.send();
 
-                xhr.addEventListener('load', () => {
-                    const datas = JSON.parse(xhr.responseText);
-                    var products = datas.map(product => {
-                        return (`<div class="col">
-                            <div class="card w-100">
-                                <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
-                                    <div class="card-body">
-                                        <input type="hidden" value="${product.ProductId}">
-                                        <p class="card-title">${product.ProductName.substring(0, 25)}</p>
-                                        <p class="card-text text-danger fw-bold">${product.PriceWithCurrency}</p>
-                                        <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${product.ProductId}"" class="btn btn-secondary">了解更多...</a><span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
-                                    </div>
-                            </div>
-                        </div>`)
-                    })
-                    selTop5.innerHTML = products.join("");
-                })
-            }
+             xhr.addEventListener('load', () => {
+                 const datas = JSON.parse(xhr.responseText);
+                 let Top5products = datas.map(product => {
+                     return (`<div class="col">
+                         <div class="card w-100">
+                             <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
+                                 <div class="card-body">
+                                     <input type="hidden" value="${product.ProductId}">
+                                     <p class="card-title">${product.ProductName.substring(0, 25)}</p>
+                                     <p class="card-text text-danger fw-bold">${product.PriceWithCurrency}</p>
+                                     <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${product.ProductId}"" class="btn btn-secondary">了解更多...</a><span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
+                                 </div>
+                         </div>
+                     </div>`)
+                 })
+                 selTop5.innerHTML = Top5products.join("");
+             })
+         }
 
+        function LoadPromoted()
+        {
+            const xhr = new XMLHttpRequest();
+             xhr.open('GET', '@Url.Content("~/SellerStore/getPromoted")');
+             xhr.send();
+
+             xhr.addEventListener('load', () => {
+                 const datas = JSON.parse(xhr.responseText);
+                 let Promotedproducts = datas.map(product => {
+                     return (`<div class="col">
+                         <div class="card w-100">
+                             <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
+                                 <div class="card-body">
+                                     <input type="hidden" value="${product.ProductId}">
+                                     <p class="card-title">${product.ProductName.substring(0, 25)}</p>
+                                     <p class="card-text text-danger fw-bold">${product.PriceWithCurrency}</p>
+                                     <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${product.ProductId}"" class="btn btn-secondary">了解更多...</a><span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
+                                 </div>
+                         </div>
+                     </div>`)
+                 })
+                 selpromote.innerHTML = Promotedproducts.join("");
+             })
+        }
 
 
         $(document).ready( function () {
-                LoadTop5();
+            LoadTop5();
+            LoadPromoted();
 
                 var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
                 $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })//預設樣式被點選
@@ -447,6 +451,7 @@
 
         var trackBtn = document.getElementById("track-btn");
         var trackBtnContent = document.getElementById("track-btn-content");
+        var trackNumber = document.getElementById("TrackCount"); 
 
         var isTracked = @Html.Raw(Json.Encode(ViewBag.TrackSeller));
 
@@ -467,11 +472,13 @@
             {
                 if (isTracked) {
                     trackBtnContent.innerText = "加入關注";
+                    trackNumber.innerText = parseInt(trackNumber.innerText - 1);
                     trackBtn.classList.remove("btn-blue");
                     trackBtn.classList.add("btn-outline-primary");
                 }
                 else {
                     trackBtnContent.innerText = " 關 注 中";
+                    trackNumber.innerText = parseInt(trackNumber.innerText + 1);
                     trackBtn.classList.remove("btn-outline-primary");
                     trackBtn.classList.add("btn-blue");
                 }
