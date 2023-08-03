@@ -99,7 +99,22 @@ namespace prjEShopping.Controllers
             {
                 return Json(new { success = false, message = "文件上傳失敗" });
             }
-        
+        }
+
+        public ActionResult ADList()
+        {
+            var sellerId = 1;
+
+            var sellerAdProductIds = db.SellersADs
+                           .Where(x => x.SellerId == sellerId)
+                           .Select(x => x.ADProductId)
+                           .ToList();
+
+            var model = db.ADProducts
+                               .Where(x => sellerAdProductIds.Contains(x.ADProductId))
+                               .ADProduct2VM();
+
+            return View(model);
         }
     }
 }
