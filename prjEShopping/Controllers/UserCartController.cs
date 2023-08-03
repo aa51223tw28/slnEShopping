@@ -473,5 +473,30 @@ namespace prjEShopping.Controllers
             db.SaveChanges();
             return new EmptyResult();
         }
+
+
+        [Authorize]
+        public ActionResult checkedBuyOneProductsapi(int productId)//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
+        {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            //0是沒勾 1是有勾
+            var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid&&x.ProductId== productId).FirstOrDefault();
+            if (shoppingdetails.AddToOrder == null|| shoppingdetails.AddToOrder=="0")
+            {
+                shoppingdetails.AddToOrder = "1";
+            }
+            else
+            {
+                shoppingdetails.AddToOrder = "0";
+            }
+                       
+
+            db.SaveChanges();
+            return new EmptyResult();
+        }
     }
  }

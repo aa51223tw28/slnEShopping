@@ -52,7 +52,7 @@
                 <div class="row bg-success rounded py-3 mb-3">
                     <div class="row mb-3">
                         <div class="col-1 d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input sellercheckbox" id="seller@(sellerGroup.FirstOrDefault().SellerId)">
+                            <input type="checkbox" class="form-check-input sellercheckbox">
                         </div>
                         <div class="col-3 d-flex align-items-center">
                             <span>@sellerGroup.FirstOrDefault().SellerName</span>
@@ -65,7 +65,7 @@
                     {
                         <div class="row">
                             <div class="col-1">
-                                <input type="checkbox" class="form-check-input productcheckbox" id="product@(item.ProductId)">
+                                <input type="checkbox" class="form-check-input productcheckbox" data-id="@item.ProductId">
                             </div>
                             <div class="col-3">
                                 <div class="mb-3" style="max-width: 540px;">
@@ -375,6 +375,17 @@
                 productCheckboxes.forEach(productCheckbox => {
                     productCheckbox.checked = this.checked;
                 })
+            })
+
+
+        })
+
+        //勾選商品
+        productCheckboxes.forEach(productCheckbox => {
+            productCheckbox.addEventListener('change', async function () {
+                var productId = $(this).attr("data-id");
+                //console.log(productId)
+                const result = await $.get("/UserCart/checkedBuyOneProductsapi?productId=" + productId);//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
             })
         })
 
