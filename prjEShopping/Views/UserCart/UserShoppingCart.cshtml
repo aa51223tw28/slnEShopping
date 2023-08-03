@@ -52,7 +52,7 @@
                 <div class="row bg-success rounded py-3 mb-3">
                     <div class="row mb-3">
                         <div class="col-1 d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input sellercheckbox">
+                            <input type="checkbox" class="form-check-input sellercheckbox" data-sellerid="@sellerGroup.FirstOrDefault().SellerId">
                         </div>
                         <div class="col-3 d-flex align-items-center">
                             <span>@sellerGroup.FirstOrDefault().SellerName</span>
@@ -369,14 +369,18 @@
 
         //勾選商家其商品也被勾選
         sellerCheckboxes.forEach(sellertCheckbox => {
-            sellertCheckbox.addEventListener('change', function () {
+            sellertCheckbox.addEventListener('change', async function () {
                 const productGroup = this.closest('.row.bg-success.rounded.py-3.mb-3') 
                 const productCheckboxes = productGroup.querySelectorAll('.productcheckbox');
                 productCheckboxes.forEach(productCheckbox => {
                     productCheckbox.checked = this.checked;
                 })
-            })
 
+                var sellerId = $(this).attr("data-sellerid");
+                //console.log(sellerId)
+                const result = await $.get("/UserCart/checkedBuyOneSellerapi?sellerId=" + sellerId);//勾選整家店要去尋覽每件商品
+            })
+            
 
         })
 
@@ -385,7 +389,7 @@
             productCheckbox.addEventListener('change', async function () {
                 var productId = $(this).attr("data-id");
                 //console.log(productId)
-                const result = await $.get("/UserCart/checkedBuyOneProductsapi?productId=" + productId);//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
+                const result = await $.get("/UserCart/checkedBuyOneProductapi?productId=" + productId);//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
             })
         })
 

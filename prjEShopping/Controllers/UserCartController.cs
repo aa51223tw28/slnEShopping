@@ -467,8 +467,9 @@ namespace prjEShopping.Controllers
             var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid).ToList();
             foreach (var item in shoppingdetails)
             {
-                item.AddToOrder = "1";
+                item.AddToOrder = "1";               
             }
+
 
             db.SaveChanges();
             return new EmptyResult();
@@ -476,7 +477,7 @@ namespace prjEShopping.Controllers
 
 
         [Authorize]
-        public ActionResult checkedBuyOneProductsapi(int productId)//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
+        public ActionResult checkedBuyOneProductapi(int productId)//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
         {
             var customerAccount = User.Identity.Name;
             var db = new AppDbContext();
@@ -485,18 +486,50 @@ namespace prjEShopping.Controllers
 
             //0是沒勾 1是有勾
             var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid&&x.ProductId== productId).FirstOrDefault();
-            if (shoppingdetails.AddToOrder == null|| shoppingdetails.AddToOrder=="0")
-            {
-                shoppingdetails.AddToOrder = "1";
-            }
-            else
+            if (shoppingdetails.AddToOrder == "1")
             {
                 shoppingdetails.AddToOrder = "0";
             }
-                       
+            else
+            {
+                shoppingdetails.AddToOrder = "1";
+            }
+
 
             db.SaveChanges();
             return new EmptyResult();
         }
+
+        [Authorize]
+        public ActionResult checkedBuyOneSellerapi(int sellerId)
+        {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            var productids=db.Products.Where(x=>x.SellerId== sellerId).Select(x=>x.ProductId).ToList();
+
+            var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid && productids.Contains((int)x.ProductId));
+            
+            
+            foreach (var item in shoppingdetails)
+            {
+                if (item.AddToOrder == "1")
+                {
+                    item.AddToOrder = "0";
+                }
+                else
+                {
+                    item.AddToOrder = "1";
+                }
+            }
+
+            db.SaveChanges();
+            return new EmptyResult();
+        }
+
+
+
     }
- }
+}
