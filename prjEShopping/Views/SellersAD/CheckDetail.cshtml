@@ -16,7 +16,7 @@
                     <th>內容</th>
                 </tr>
                 <tr>
-                    <td> @Html.DisplayNameFor(model => model.ADName)</td>
+                    <td>@Html.DisplayNameFor(model => model.ADName)</td>
                     <td>@Html.DisplayFor(model => model.ADName)</td>
                 </tr>
                 <tr>
@@ -34,9 +34,10 @@
                 <input type="text" id="ProductId" name="ProductId" hidden />
                 <input type="text" id="Discount" name="Discount" hidden />
                 <div class="form-control">
-                    <lable>@Html.DisplayNameFor(model => model.ADImagePath):</lable>
-                    <input type="text" id="ADImagePath" name="ADImagePath" />
-                    <button type="button" class="btn btn-secondary">上傳</button>
+                    <label>@Html.DisplayNameFor(model => model.ADImagePath):</label>
+                    <input type="file" id="ADImage" accept=".jpg, .jpeg, .png" />
+                    <button type="button" id="uploadButton" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">上傳</button>
+                    <input type="text" id="ADImagePath" name="ADImagePath" hidden />
                 </div>
             }
 
@@ -76,6 +77,52 @@
 
     <script>
 
+        document.getElementById('uploadButton').addEventListener('click', async function () {
+            var fileInput = document.getElementById('ADImage');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('ADImage', file);
+
+            // 清除先前的消息
+            var uploadStatus = document.getElementById('uploadStatus');
+            if (uploadStatus) {
+                uploadStatus.remove();
+            }
+
+            try {
+                var response = await fetch('/SellersAD/UploadImage', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                var data = await response.json();
+
+                if (data.success) { 
+                    document.getElementById('ADImagePath').value = data.path;
+                   
+                    var successMessage = document.createElement('span');
+                    successMessage.id = 'uploadStatus';
+                    successMessage.style.color = 'green';
+                    successMessage.textContent = '已上傳成功';
+                    document.getElementById('ADImage').parentNode.appendChild(successMessage);
+                } else {
+                 
+                    var errorMessage = document.createElement('span');
+                    errorMessage.id = 'uploadStatus';
+                    errorMessage.style.color = 'red';
+                    errorMessage.textContent = data.message; 
+                    document.getElementById('ADImage').parentNode.appendChild(errorMessage);
+                }
+            } catch (error) {
+                console.error('上傳錯誤', error);
+           
+                var errorMessage = document.createElement('span');
+                errorMessage.id = 'uploadStatus';
+                errorMessage.style.color = 'red';
+                errorMessage.textContent = '上傳格式錯誤或失敗';
+                document.getElementById('ADImage').parentNode.appendChild(errorMessage);
+            }
+        });
         
     </script>
 }

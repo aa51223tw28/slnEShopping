@@ -2,6 +2,7 @@
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -40,7 +41,7 @@ namespace prjEShopping.Controllers
 
         [HttpPost]
         public ActionResult CheckDetail(ADProductVM vm, int SellerId)
-        {
+        { //todo 上傳圖檔
 
             if (ModelState.IsValid)
             {
@@ -70,5 +71,35 @@ namespace prjEShopping.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult UploadImage(HttpPostedFileBase ADImage)
+        {
+            if (ADImage != null && ADImage.ContentLength > 0)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(ADImage.FileName);
+                string extension = Path.GetExtension(ADImage.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string pathToSave = Path.Combine(Server.MapPath("~/img/"), fileName);
+
+                // 檢查目錄是否存在
+                var directory = Path.GetDirectoryName(pathToSave);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                ADImage.SaveAs(pathToSave);
+
+                // 如果你想通過URL訪問圖像，可能還需要返回相對路徑
+                string relativePath = "/img/" + fileName;
+
+                return Json(new { success = true, path = relativePath });
+            }
+            else
+            {
+                return Json(new { success = false, message = "文件上傳失敗" });
+            }
+        
+        }
     }
 }
