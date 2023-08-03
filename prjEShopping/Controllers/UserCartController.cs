@@ -77,6 +77,15 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
+
+            // 將 AddToOrder 的值為 null 的資料更新為 "0"
+            var shoppingCartDetailsToUpdate = db.ShoppingCartDetails.Where(x => x.CartId == cartid).ToList();
+            foreach (var item in shoppingCartDetailsToUpdate)
+            {
+                item.AddToOrder = "0";
+            }
+            db.SaveChanges();
+
             var data = db.ShoppingCartDetails.Where(x => x.CartId == cartid).OrderBy(x => x.CartDetailId)
                                 .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
                                 {
@@ -109,8 +118,7 @@ namespace prjEShopping.Controllers
             }).ToList();
 
             //總金額
-            ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
-            
+            //ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);            
         }
 
         public int calculateProductStock(int productId,int quantity)//計算庫存的方法
@@ -529,7 +537,38 @@ namespace prjEShopping.Controllers
             return new EmptyResult();
         }
 
+        [Authorize]
+        public ActionResult GetTotalcheckedCount()
+        {
+            var customerAccount = User.Identity.Name;
 
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+            int totalcheckedCount = db.ShoppingCartDetails.Count(x => x.CartId == cartid && x.AddToOrder == "1");
+
+            return Json(totalcheckedCount, JsonRequestBehavior.AllowGet);           
+        }
+
+        public ActionResult GetTotalcheckedPrice()
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+            
+            
+            var datatotal = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                 .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                 {
+                                     Quantity = x.Quantity,
+                                     Price = y.Price,
+                                     SubTotal = (x.Quantity) * (y.Price),
+                                 }).ToList();
+            var totalPrice = datatotal.Sum(x => x.SubTotal);
+            return Json(totalPrice, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

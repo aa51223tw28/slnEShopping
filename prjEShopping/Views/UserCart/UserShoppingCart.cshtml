@@ -120,17 +120,18 @@
                 <div class="col-3 d-flex align-items-center">
                     <span>全選</span>
                     <span class="text-danger fw-bold">(</span>
-                    <span class="text-danger fw-bold @*totalItemCount*@"></span>
+                    <span class="text-danger fw-bold totalItemcheckedCount"></span>
                     <span class="text-danger fw-bold">)</span>
                 </div>
 
                 <div class="col-4 d-flex align-items-center">
                     <span>總金額(</span>
-                    <span class="text-danger fw-bold @*totalItemCount*@"></span>
+                    <span class="text-danger fw-bold totalItemcheckedCount"></span>
                     <span>個商品)：</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold fs-4"> @Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
+                    <span class="text-danger fw-bold fs-4">NT$</span>
+                    <span class="text-danger fw-bold fs-4 totalItemcheckedPrice">0</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
                     @*<a id="checkoutLink" href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>*@
@@ -312,10 +313,10 @@
         $(document).ready(function () {
             $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
-                    if (@ViewBag.TotalPrice == 0) {
+                    @*if (@ViewBag.TotalPrice == 0) {
                         $("#checkCartModal").modal("show");
 
-                    } else {
+                    } else {*@
                         var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
 
 
@@ -340,7 +341,7 @@
                                 location.reload();
                             });
                         }
-                    }
+                    
                 })
             })
         })
@@ -364,7 +365,8 @@
             })
             
             const result = await $.get("/UserCart/checkedBuyAllProductsapi");//全選 編輯ShoppingCartDetails的AddToOrder=1
-            
+            getTotalcheckedCount();
+            getTotalcheckedPrice();
         })
 
         //勾選商家其商品也被勾選
@@ -379,9 +381,9 @@
                 var sellerId = $(this).attr("data-sellerid");
                 //console.log(sellerId)
                 const result = await $.get("/UserCart/checkedBuyOneSellerapi?sellerId=" + sellerId);//勾選整家店要去尋覽每件商品
+                getTotalcheckedCount();
+                getTotalcheckedPrice();
             })
-            
-
         })
 
         //勾選商品
@@ -390,10 +392,40 @@
                 var productId = $(this).attr("data-id");
                 //console.log(productId)
                 const result = await $.get("/UserCart/checkedBuyOneProductapi?productId=" + productId);//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
+
+                 // 檢查是否有商品沒有勾選，如果有，取消全選的勾選
+                const isAnyProductUnchecked = Array.from(productCheckboxes).some(productCheckbox => !productCheckbox.checked)
+                allproductcheckbox.checked = !isAnyProductUnchecked;
+                getTotalcheckedCount();
+                getTotalcheckedPrice();
             })
         })
 
 
+        //呼叫選取商品數量api
+        const totalItemcheckedCount = document.querySelectorAll('.totalItemcheckedCount')
+        const totalItemcheckedPrice = document.querySelector('.totalItemcheckedPrice')
+
+        async function getTotalcheckedCount() {
+            const response = await fetch('/UserCart/GetTotalcheckedCount');
+
+            const num = await response.json();
+            totalItemcheckedCount.forEach(element => {
+                element.textContent = num;
+            });
+        }
+
+        async function getTotalcheckedPrice() {
+            const response = await fetch('/UserCart/GetTotalcheckedPrice');
+            const price = await response.json();
+            
+            const formattedPrice = price.toLocaleString();
+
+            totalItemcheckedPrice.textContent = formattedPrice;
+        }
+
+        getTotalcheckedCount();
+        getTotalcheckedPrice();
     </script>
 }
 
