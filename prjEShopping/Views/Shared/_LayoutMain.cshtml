@@ -170,7 +170,7 @@
 
 
     @*這兩行只是為了下方js,要hidden*@
-    <a class="checkoutLink" hidden></a>
+    @*<a class="checkoutLink" hidden></a>*@
     <a class="confirmButton" hidden></a>
 
     <script src="https://kit.fontawesome.com/df26c5ac19.js" crossorigin="anonymous"></script>
@@ -189,18 +189,18 @@
 
 
             //要結合到UserShoppingCart.cshtml//判斷數量是否0,0無法結帳(上方html寫了兩個btn的hidden)
-            const checkoutLink = document.querySelector('.checkoutLink');
-            if (num == 0) {
-                checkoutLink.addEventListener('click', (event) => {
-                    //alert('購物車中沒有商品,無法前往結帳。');
-                    $("#checkCartModal").modal("show");
-                    event.preventDefault();
-                });
-            } else {
-                checkoutLink.removeEventListener('click', (event) => {
-                    event.preventDefault();
-                })
-            }
+            //const checkoutLink = document.querySelector('.checkoutLink');
+            //if (num == 0) {
+            //    checkoutLink.addEventListener('click', (event) => {
+            //        //alert('購物車中沒有商品,無法前往結帳。');
+            //        $("#checkCartModal").modal("show");
+            //        event.preventDefault();
+            //    });
+            //} else {
+            //    checkoutLink.removeEventListener('click', (event) => {
+            //        event.preventDefault();
+            //    })
+            //}
         }
         getTotalCount();
 

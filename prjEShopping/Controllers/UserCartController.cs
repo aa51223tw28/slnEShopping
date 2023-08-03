@@ -453,5 +453,25 @@ namespace prjEShopping.Controllers
             var shippingMethodNames = db.ShippingMethods.Select(x => x.ShippingMethodName).Distinct();
             return Json(shippingMethodNames, JsonRequestBehavior.AllowGet);
         }
+
+
+        [Authorize]
+        public ActionResult checkedBuyAllProductsapi()//全選 編輯ShoppingCartDetails的AddToOrder=1
+        {
+            var customerAccount = User.Identity.Name;
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            //0是沒勾 1是有勾
+            var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid).ToList();
+            foreach (var item in shoppingdetails)
+            {
+                item.AddToOrder = "1";
+            }
+
+            db.SaveChanges();
+            return new EmptyResult();
+        }
     }
  }
