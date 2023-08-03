@@ -11,7 +11,7 @@
         <p class="text-primary fs-3 fw-bold">購物車</p>
         <div class="row bg-success rounded py-3 mb-3">
             <div class="col-1">
-                <input type="checkbox" class="form-check-input">
+                @*<input type="checkbox" class="form-check-input">*@
             </div>
             <div class="col-3">
                 <span>商品</span>
@@ -52,7 +52,7 @@
                 <div class="row bg-success rounded py-3 mb-3">
                     <div class="row mb-3">
                         <div class="col-1 d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input">
+                            <input type="checkbox" class="form-check-input sellercheckbox" id="seller@(sellerGroup.FirstOrDefault().SellerId)">
                         </div>
                         <div class="col-3 d-flex align-items-center">
                             <span>@sellerGroup.FirstOrDefault().SellerName</span>
@@ -65,7 +65,7 @@
                     {
                         <div class="row">
                             <div class="col-1">
-                                <input type="checkbox" class="form-check-input">
+                                <input type="checkbox" class="form-check-input productcheckbox" id="product@(item.ProductId)">
                             </div>
                             <div class="col-3">
                                 <div class="mb-3" style="max-width: 540px;">
@@ -115,7 +115,7 @@
         <div class="row bg-success rounded py-3">
             <div class="row mb-3">
                 <div class="col-1 d-flex align-items-center">
-                    <input type="checkbox" class="form-check-input">
+                    <input type="checkbox" class="form-check-input allproductcheckbox">
                 </div>
                 <div class="col-3 d-flex align-items-center">
                     <span>全選</span>
@@ -341,6 +341,35 @@
                             });
                         }
                     }
+                })
+            })
+        })
+
+
+        //勾選
+        const sellerCheckboxes = document.querySelectorAll(".sellercheckbox");    
+        const productCheckboxes = document.querySelectorAll(".productcheckbox");
+        const allproductcheckbox = document.querySelector(".allproductcheckbox");
+
+        //勾選全部
+        allproductcheckbox.addEventListener('change', function () {
+            
+            sellerCheckboxes.forEach(sellerCheckbox => {
+                sellerCheckbox.checked = this.checked
+            })
+
+            productCheckboxes.forEach(productCheckbox => {
+                productCheckbox.checked = this.checked
+            })
+        })
+
+        //勾選商家其商品也被勾選
+        sellerCheckboxes.forEach(sellertCheckbox => {
+            sellertCheckbox.addEventListener('change', function () {
+                const productGroup = this.closest('.row.bg-success.rounded.py-3.mb-3') 
+                const productCheckboxes = productGroup.querySelectorAll('.productcheckbox');
+                productCheckboxes.forEach(productCheckbox => {
+                    productCheckbox.checked = this.checked;
                 })
             })
         })
