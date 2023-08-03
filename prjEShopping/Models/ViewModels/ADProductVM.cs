@@ -32,6 +32,30 @@ namespace prjEShopping.Models.ViewModels
         [DisplayName("廣告欄位")]
         public int? ADField { get; set; }
 
+        public string ADFieldName
+        {
+            get
+            {
+                switch (ADField)
+                {
+                    case 1:
+                        return "進版廣告";
+                    case 2:
+                        return "限時廣告A欄";
+                    case 3:
+                        return "限時廣告B欄";
+                    case 4:
+                        return "限時廣告C欄";
+                    case 5:
+                        return "限時廣告D欄";
+                    case 6:
+                        return "限時廣告E欄";
+                    default:
+                        return "待確認";
+                }
+            }
+        }
+
         [DisplayName("廣告圖片")]
         [StringLength(50)]
         public string ADImagePath { get; set; }
@@ -86,6 +110,14 @@ namespace prjEShopping.Models.ViewModels
             }
 
             return source.Select(s => ADProduct2VM(s)).ToList();
+        }
+
+        public static void UpdateAdProduct(ADProduct adp, ADProductVM vm)
+        {
+            adp.ADImagePath = vm.ADImagePath;
+            adp.ProductId = vm.ProductId;
+            adp.Discount = vm.Discount;
+            // ... 繼續設置其他屬性
         }
     }
 }
