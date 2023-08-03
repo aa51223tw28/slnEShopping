@@ -76,9 +76,8 @@ namespace prjEShopping.Controllers
             var sellerToUpdate = db.Sellers.FirstOrDefault(x => x.SellerId == vm.SellerId);
             if (sellerToUpdate != null)
             {
-                sellerToUpdate.ADPoints += vm.ADPoints;
-                db.Entry(sellerToUpdate).State = EntityState.Modified; // 表明该实体的状态已被修改
-
+                sellerToUpdate.ADPoints = sellerToUpdate.ADPoints+vm.ADPoints;
+                db.Entry(sellerToUpdate).State = EntityState.Modified; 
                 db.ADPoints.Add(ADPointChange.VM2ADPoint(vm));
                 db.SaveChanges();
                 return RedirectToAction("BuyPoints");

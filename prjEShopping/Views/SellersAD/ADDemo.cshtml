@@ -29,6 +29,7 @@
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
         @foreach (var item in Model)
         {
+            var start = @ViewBag.PD.ADStartDate;
             var cardClass = ViewBag.PD.Contains(item.ProductId) ? "border-colorful border-5" : "";
             double newprice = ViewBag.PD.Contains(item.ProductId) ? (double)item.Price * 0.5 : (double)item.Price;
             var delprice = ViewBag.PD.Contains(item.ProductId) ? "" : "hidden";
@@ -47,10 +48,11 @@
     </div>
 </div>
 
-    <script>
+<script>
+        var start = @ViewBag.PD.ADStartDate;
         function countdown(endTime, elementId) {
             var x = setInterval(function () {
-                var now = new Date().getTime();
+                var now = start;
                 var distance = endTime - now;
 
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -69,4 +71,4 @@
         // 設置倒計時的結束時間
         var endTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24小時後
         countdown(endTime, "countdownTimer");
-    </script>
+</script>

@@ -40,9 +40,8 @@ namespace prjEShopping.Models.ViewModels
                 {
                     case "1":
                         return "已付款";
-                    case "2":
-                        return "待付款";
-                   
+                    case "0":
+                        return "已扣點";                   
                     default:
                         return "待確認";
                 }

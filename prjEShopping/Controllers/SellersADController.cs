@@ -2,6 +2,7 @@
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -46,6 +47,9 @@ namespace prjEShopping.Controllers
             if (ModelState.IsValid)
             {
                 var ad=db.ADProducts.Where(x=>x.ADProductId==vm.ADProductId).FirstOrDefault();
+                if (db.SellersADs.Where(x => x.ADProductId == vm.ADProductId).FirstOrDefault() != null)
+                    return RedirectToAction("ADList");
+
                 if (ad != null)
                 {
                     ADProductChange.UpdateAdProduct(ad, vm);
@@ -60,16 +64,19 @@ namespace prjEShopping.Controllers
                     var point = new ADPoint
                     {
                         SellerId = SellerId,
-                        ADPoints = -vm.ADPoint,
-                        GUINumber = db.Sellers.Where(x => x.SellerId == SellerId).FirstOrDefault().ToString(),
-                        PaymentStatus = "1",
+                        ADPoints =-(int)vm.ADPoint,
+                        GUINumber = db.Sellers.Where(x => x.SellerId == SellerId).Select(x=>x.GUINumber).FirstOrDefault(),
+                        PaymentStatus = "0",
                         PurchaseTime = DateTime.Now,
                     };
                     db.ADPoints.Add(point);
 
-                    db.Sellers.Where(x => x.SellerId == SellerId).Select(s => s.ADPoints ==s.ADPoints-vm.ADPoint);
+                    var sellerToUpdate = db.Sellers.FirstOrDefault(x => x.SellerId == SellerId);
 
-                    db.SaveChanges();
+                        sellerToUpdate.ADPoints -= vm.ADPoint;
+                        db.Entry(sellerToUpdate).State = EntityState.Modified; // 表明该实体的状态已被修改
+
+                        db.SaveChanges();
                     return RedirectToAction("List");
                 }
                 ViewBag.Products = db.Products.Where(s => s.SellerId == SellerId).ToList();
