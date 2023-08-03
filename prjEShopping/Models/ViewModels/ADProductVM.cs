@@ -30,7 +30,7 @@ namespace prjEShopping.Models.ViewModels
         public DateTime? ADEndDate { get; set; }
 
         [DisplayName("廣告欄位")]
-        public int? ADQuantity { get; set; }
+        public int? ADField { get; set; }
 
         [DisplayName("廣告圖片")]
         [StringLength(50)]
@@ -38,6 +38,9 @@ namespace prjEShopping.Models.ViewModels
 
         [DisplayName("商品ID")]
         public int? ProductId { get; set; }
+
+        [DisplayName("折扣")]
+        public int? Discount { get; set; }
     }
 
     public static class ADProductChange
@@ -51,9 +54,10 @@ namespace prjEShopping.Models.ViewModels
                 ADPoint = ad.ADPoint,
                 ADStartDate = ad.ADStartDate,
                 ADEndDate = ad.ADEndDate,
-                //ADQuantity = ad.ADQuantity,
+                ADField = ad.ADField,
                 ADImagePath = ad.ADImagePath,
                 ProductId = ad.ProductId,
+                Discount=ad.Discount,
             };
         }
 
@@ -66,9 +70,10 @@ namespace prjEShopping.Models.ViewModels
                 ADPoint =vm.ADPoint,
                 ADStartDate = vm.ADStartDate,
                 ADEndDate = vm.ADEndDate,
-                //ADQuantity = vm.ADQuantity,
+                ADField = vm.ADField,
                 ADImagePath = vm.ADImagePath,
                 ProductId = vm.ProductId,
+                Discount = vm.Discount,
             };
         }
 
