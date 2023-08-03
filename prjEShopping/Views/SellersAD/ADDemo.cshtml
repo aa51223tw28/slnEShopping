@@ -29,7 +29,7 @@
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3">
         @foreach (var item in Model)
         {
-            var start = @ViewBag.PD.ADStartDate;
+
             var cardClass = ViewBag.PD.Contains(item.ProductId) ? "border-colorful border-5" : "";
             double newprice = ViewBag.PD.Contains(item.ProductId) ? (double)item.Price * 0.5 : (double)item.Price;
             var delprice = ViewBag.PD.Contains(item.ProductId) ? "" : "hidden";
@@ -49,7 +49,7 @@
 </div>
 
 <script>
-        var start = @ViewBag.PD.ADStartDate;
+        v
         function countdown(endTime, elementId) {
             var x = setInterval(function () {
                 var now = start;
