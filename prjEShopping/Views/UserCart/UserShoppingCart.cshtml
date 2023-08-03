@@ -151,7 +151,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                購物車中沒有商品，無法前往結帳。
+                購物車中沒有勾選要買的商品或尚未將商品加入購物車，無法前往結帳。
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
@@ -313,13 +313,15 @@
         $(document).ready(function () {
             $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
-                    @*if (@ViewBag.TotalPrice == 0) {
+
+                    const totalPrice = parseFloat(totalItemcheckedPrice.textContent.replace(",", "")); // 移除千分位符號並轉換為數字
+
+                    if (totalPrice == 0) {
                         $("#checkCartModal").modal("show");
 
-                    } else {*@
+                    } else {
+
                         var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
-
-
                         //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
                         //確定購物車所選取的商品數量不為0才可以去買單
                         const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
@@ -341,7 +343,7 @@
                                 location.reload();
                             });
                         }
-                    
+                    }
                 })
             })
         })

@@ -146,10 +146,51 @@ namespace prjEShopping.Controllers
         [Authorize]
         public ActionResult UserCheckout()//結帳頁面
         {
-            shoppingList();
+            checkoutList();
             return View(datas);
         }
+        private void checkoutList()//秀UserShoppingCartVM的方法
+        {
+            var customerAccount = User.Identity.Name;
 
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+
+            var data = db.ShoppingCartDetails.Where(x => x.CartId == cartid&&x.AddToOrder=="1").OrderBy(x => x.CartDetailId)
+                                .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                {
+                                    CartId = x.CartId,
+                                    UserId = userid,
+                                    CartDetailId = x.CartDetailId,
+                                    ProductId = x.ProductId,
+                                    ProductName = y.ProductName,
+                                    Quantity = x.Quantity,
+                                    Price = y.Price,
+                                    SubTotal = (x.Quantity) * (y.Price),
+                                    ProductImagePathOne = y.ProductImagePathOne,
+                                    SellerId = y.SellerId
+                                }).ToList();
+
+            datas = data.Select(x => new UserShoppingCartVM
+            {
+                CartId = (int)x.CartId,
+                UserId = userid,
+                CartDetailId = x.CartDetailId,
+                ProductId = (int)x.ProductId,
+                ProductName = x.ProductName,
+                Quantity = (int)x.Quantity,
+                Price = (decimal)x.Price,
+                SubTotal = (decimal)x.SubTotal,
+                ProductImagePathOne = x.ProductImagePathOne,
+                SellerId = (int)x.SellerId,
+                SellerName = db.Sellers.FirstOrDefault(y => y.SellerId == x.SellerId).SellerName,
+                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)//計算庫存可不可以買
+            }).ToList();
+
+                    
+        }
 
         //[Authorize]
         //[HttpPost]
@@ -177,7 +218,7 @@ namespace prjEShopping.Controllers
         //    return RedirectToAction("UserOrderDetailAll", "UserOrder");
         //}
 
-        
+
 
         [Authorize]       
         public ActionResult UserCheckoutapi()//寫進資料庫
@@ -214,7 +255,7 @@ namespace prjEShopping.Controllers
 
 
             //在OrderDetails的table新增訂單資料
-            var shoppingdatas =db.ShoppingCartDetails.Where(x=>x.CartId== cartid).ToList();
+            var shoppingdatas =db.ShoppingCartDetails.Where(x=>x.CartId== cartid && x.AddToOrder == "1").ToList();
             var orderId=db.Orders.Where(x=>x.UserId== userid).OrderByDescending(x=>x.OrderId).Select(x=>x.OrderId).FirstOrDefault();
 
             foreach (var item in shoppingdatas)
