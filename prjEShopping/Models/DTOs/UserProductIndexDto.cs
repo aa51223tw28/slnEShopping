@@ -39,5 +39,8 @@ namespace prjEShopping.Models.DTOs
         public string CategoryName { get; set; }
         public int SubcategoryId { get; set; }//為了篩選小分類
         public string SubcategoryName { get; set; }
+
+        //public int StarRating { get; set; }
+        //public string Comment { get; set; }
     }
 }

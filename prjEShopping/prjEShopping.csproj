@@ -250,6 +250,7 @@
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
+    <Compile Include="Models\ViewModels\RatingVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductListVM.cs" />
