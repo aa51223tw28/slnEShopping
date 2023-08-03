@@ -447,24 +447,39 @@
 
         var trackBtn = document.getElementById("track-btn");
         var trackBtnContent = document.getElementById("track-btn-content");
-        // 设置初始状态
+
         var isTracked = @Html.Raw(Json.Encode(ViewBag.TrackSeller));
 
 
         trackBtn.addEventListener("click", function () {
+            //先讓按鈕失效避免短時間重複按壓
+            trackBtn.disabled = true;
+            trackBtnContent.disabled = true;
+            //待接2種id
+            const userid = 1;
+            const sellid = 1;
 
-            if (isTracked) {
-                trackBtnContent.innerText = "加入關注";
-                trackBtn.classList.remove("btn-blue");
-                trackBtn.classList.add("btn-outline-primary");
-            } else {
-                trackBtnContent.innerText = " 關 注 中";
-                trackBtn.classList.remove("btn-outline-primary");
-                trackBtn.classList.add("btn-blue");
-            }
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `@Url.Content("~/SellerMain/SaveOrClearFavorite?sellerid=")${userid}&userid=${sellid}`);
+            xhr.send()
 
-
-            isTracked = !isTracked;
+            xhr.addEventListener('load', () =>
+            {
+                if (isTracked) {
+                    trackBtnContent.innerText = "加入關注";
+                    trackBtn.classList.remove("btn-blue");
+                    trackBtn.classList.add("btn-outline-primary");
+                }
+                else {
+                    trackBtnContent.innerText = " 關 注 中";
+                    trackBtn.classList.remove("btn-outline-primary");
+                    trackBtn.classList.add("btn-blue");
+                }
+                //變更有無關注狀態，並將按鈕狀態復原
+                isTracked = !isTracked;
+                trackBtn.disabled = false;
+                trackBtnContent.disabled = false;
+            })
         });
 
     </script>
