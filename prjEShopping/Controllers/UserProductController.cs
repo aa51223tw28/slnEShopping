@@ -161,5 +161,45 @@ namespace prjEShopping.Controllers
             }            
             return View(datas);
         }
+
+
+
+        [Authorize]
+        public ActionResult TrackProductapi(int productId)//在商品頁面追蹤什麼商品
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            
+            var trackproductId=db.TrackProducts.FirstOrDefault(x=>x.ProductId == productId);
+
+            if (trackproductId == null)
+            {
+                var data = new TrackProduct()
+                {
+                    UserId = userid,
+                    ProductId = productId,
+                };
+                db.TrackProducts.Add(data);
+                db.SaveChanges();
+                return Content("TrackProduct");
+            }
+            else
+            {
+                var trackProductIdToDelete = trackproductId.TrackProductId;
+                var trackProductToDelete = db.TrackProducts.FirstOrDefault(x => x.TrackProductId == trackProductIdToDelete&&x.ProductId== productId);
+                if (trackProductToDelete != null)
+                {
+                    db.TrackProducts.Remove(trackProductToDelete);
+                    db.SaveChanges();
+                }
+                return Content("noTrackProduct");
+            }
+
+
+            
+        }
+
     }
 }

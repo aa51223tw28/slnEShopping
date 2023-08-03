@@ -630,5 +630,6 @@ namespace prjEShopping.Controllers
             return Json(totalPrice, JsonRequestBehavior.AllowGet);
         }
 
+
     }
 }
