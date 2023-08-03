@@ -48,7 +48,90 @@
                 </div>
             </div>
         }
-
+        <!-- 五星內容 -->
+        <div class="collapse" id="fivestar">
+            <div class="card card-body">
+                @foreach (var rating in ViewBag.FiveStarRatings)
+                {
+                    <!-- 顯示評分星星 -->
+                    <div>評分：@rating.StarRating</div>
+                    <!-- 顯示評論內容 -->
+                    <div>評論：@rating.RatingText</div>
+                    <div>評論時間：@rating.PostTime</div>
+                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- 四星內容 -->
+        <div class="collapse" id="allstar">
+            <div class="card card-body">
+                @foreach (var rating in ViewBag.FourStarRatings)
+                {
+                    <!-- 顯示評分星星 -->
+                    <div>評分：@rating.StarRating</div>
+                    <!-- 顯示評論內容 -->
+                    <div>評論：@rating.RatingText</div>
+                    <div>評論時間：@rating.PostTime</div>
+                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- 三星內容 -->
+        <div class="collapse" id="allstar">
+            <div class="card card-body">
+                @foreach (var rating in ViewBag.ThreeStarRatings)
+                {<!-- 顯示評分星星 -->
+                    <div>評分：@rating.StarRating</div>
+                    <!-- 顯示評論內容 -->
+                    <div>評論：@rating.RatingText</div>
+                    <div>評論時間：@rating.PostTime</div>
+                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- 兩星內容 -->
+        <div class="collapse" id="allstar">
+            <div class="card card-body">
+                @foreach (var rating in ViewBag.TwoStarRatings)
+                {
+                    <!-- 顯示評分星星 -->
+                    <div>評分：@rating.StarRating</div>
+                    <!-- 顯示評論內容 -->
+                    <div>評論：@rating.RatingText</div>
+                    <div>評論時間：@rating.PostTime</div>
+                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    }
+                }
+            </div>
+        </div>
+        <!-- 一星內容 -->
+        <div class="collapse" id="allstar">
+            <div class="card card-body">
+                @foreach (var rating in ViewBag.OneStarRatings)
+                {
+                    <!-- 顯示評分星星 -->
+                    <div>評分：@rating.StarRating</div>
+                    <!-- 顯示評論內容 -->
+                    <div>評論：@rating.RatingText</div>
+                    <div>評論時間：@rating.PostTime</div>
+                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    }
+                }
+            </div>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 

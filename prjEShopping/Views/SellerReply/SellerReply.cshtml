@@ -86,6 +86,9 @@
                     return;
                 }
 
+                var $submitButton = $(this).find('button[type="submit"]');
+                var $textarea = $(this).find('textarea[name="replyText"]');
+
                 // 使用 AJAX 提交回覆表單
                 $.ajax({
                     url: $(this).attr('action'),
@@ -94,6 +97,15 @@
                     success: function () {
                         // 回覆成功後顯示 Modal
                         $('#replyModal').modal('show');
+
+                        // 將回覆按鈕的文字變更為 "回覆完成"
+                        $submitButton.text('回覆完成');
+
+                        // 使用 prop 方法將回覆按鈕設置為禁用狀態，使其無法再被點擊
+                        $submitButton.prop('disabled', true);
+
+                        // 使用 prop 方法將 textarea 設置為只讀狀態，使其無法再被修改
+                        $textarea.prop('readonly', true);
                     },
                     error: function () {
                         // 如果回覆失敗，你可以在這裡加入錯誤處理邏輯
