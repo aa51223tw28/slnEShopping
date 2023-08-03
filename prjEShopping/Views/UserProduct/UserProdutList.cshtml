@@ -443,7 +443,7 @@
             //按下清除設定
             $("#btnDelete").on('click', async function () {
                 var urlParams = new URLSearchParams(window.location.search);
-                urlParams.delete('category');
+                urlParams.delete('subcategory');
                 var updatedQueryString = urlParams.toString();
                 window.location.href = window.location.pathname + '?' + updatedQueryString;
             });
