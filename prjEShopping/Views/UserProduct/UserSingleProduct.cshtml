@@ -713,23 +713,35 @@
 
         //追蹤商品
         $(document).ready(function () {
+            async function updateTrackButtonColor(productId) {
+                const result = await $.get("/UserProduct/starTrackProductapi?productId=" + productId);//一進入頁面判斷有無追蹤的api
+
+                if (result === "TrackProduct") {
+                    $("#trackProduct").css("background-color", "#FFE180");
+                } else if (result === "noTrackProduct") {
+                    $("#trackProduct").css("background-color", "");
+                }
+            }
+
             $("#trackProduct").each(function () {
-                $(this).on('click', async function () {
-                    var productId = $(this).attr("data-id");
-                    console.log(productId)
-                    const result = await $.get("/UserProduct/TrackProductapi?productId=" + productId)
-                    if (result === "TrackProduct") {
-                        $("#track").modal("show");
-                        $(this).css("background-color", "#FFE180");
-                    }
-                    else if (result === "noTrackProduct")
-                    {
-                        $("#notrack").modal("show");
-                        $(this).css("background-color", "#fff");
-                    }
-                })
-            })
-        })
+                var productId = $(this).attr("data-id");
+                updateTrackButtonColor(productId);
+            });
+
+            $("#trackProduct").on('click', async function () {
+                var productId = $(this).attr("data-id");
+                //console.log(productId);
+                const result = await $.get("/UserProduct/TrackProductapi?productId=" + productId);
+
+                if (result === "TrackProduct") {
+                    $("#track").modal("show");
+                    $(this).css("background-color", "#FFE180");
+                } else if (result === "noTrackProduct") {
+                    $("#notrack").modal("show");
+                    $(this).css("background-color", "");
+                }
+            });
+        });
 
     </script>
 

@@ -172,7 +172,7 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             
-            var trackproductId=db.TrackProducts.FirstOrDefault(x=>x.ProductId == productId);
+            var trackproductId=db.TrackProducts.FirstOrDefault(x=>x.ProductId == productId && x.UserId == userid);
 
             if (trackproductId == null)
             {
@@ -196,9 +196,27 @@ namespace prjEShopping.Controllers
                 }
                 return Content("noTrackProduct");
             }
+        }
 
 
-            
+        [Authorize]
+        public ActionResult starTrackProductapi(int productId)//一進入頁面判斷有無追蹤的api
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var trackproductId = db.TrackProducts.FirstOrDefault(x => x.ProductId == productId&&x.UserId== userid);
+
+            if (trackproductId == null)
+            {               
+                return Content("noTrackProduct");
+            }
+            else
+            {                
+                return Content("TrackProduct");
+            }
         }
 
     }
