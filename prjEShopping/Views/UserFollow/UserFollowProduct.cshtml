@@ -1,4 +1,4 @@
-﻿
+﻿@model List<prjEShopping.Models.ViewModels.UserFollowProductVM>
 @{
     ViewBag.Title = "UserFollowProduct";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -68,100 +68,26 @@
                 <p class="fs-4 mt-3 fw-bold">追蹤商品</p>
                 <hr>
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2">
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <div class="d-flex">
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
-                                    <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <div class="d-flex">
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
-                                    <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                    @foreach (var item in Model)
+                    {
+                        <div class="col">
+                            <div class="card w-100">
+                                <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="card-img-top px-4 pt-4" alt="...">
+                                <div class="card-body">
+                                    <p class="card-title">@item.ProductName</p>
+                                    <p class="card-text text-danger fw-bold">@Math.Round(item.Price).ToString("C0")</p>
+                                    <div class="d-flex">
+                                        <a href="@Url.Action("UserSingleProduct", "UserProduct", new { productid = item.ProductId })" class="btn btn-secondary">了解更多...</a>
+                                        <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <div class="d-flex">
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
-                                    <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <div class="d-flex">
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
-                                    <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <div class="d-flex">
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
-                                    <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <div class="d-flex">
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
-                                    <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card w-100">
-                            <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">PlayStation 5 主機</h5>
-                                <p class="card-text text-danger fw-bold">$17,880</p>
-                                <div class="d-flex">
-                                    <a href="2.index.html" class="btn btn-secondary">了解更多...</a>
-                                    <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
+
                 </div>
-
             </div>
         </div>
     </div>
