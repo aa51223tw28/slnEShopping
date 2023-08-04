@@ -44,7 +44,7 @@
                                 
                                     @Html.DisplayFor(modelItem => item.ProductStatusName)
                                     @{
-                                        if (item.Promote != null)
+                                        if (item.Promote < 6)
                                         {
                                             <label class="text-secondary fw-bold mx-2 ">推薦中</label>
                                         }
@@ -61,7 +61,7 @@
                                 @{
                                     if (item.ProductStatusName == "販售中")
                                     {
-                                        if (item.Promote != null)
+                                        if (item.Promote < 6)
                                         {
                                             @Html.ActionLink("取消推薦", "clearPromote", "SellerProduct", new { id = item.ProductID },
                                             new { onclick = "return confirm('確定要取消推薦?')", Class = "btn btn-secondary " })@:|

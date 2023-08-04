@@ -41,7 +41,7 @@ namespace prjEShopping.Controllers
                 StockQuantity = x.StockQuantity,
                 OrderQuantity = x.OrderQuantity,
                 ProductStatusName = (db.ProductStatusDetails.Where(y => y.ProductStatusId == x.ProductStatusId).FirstOrDefault().ProductStatusName).ToString(),
-                //Promote = x.Promote,
+                Promote = (int)x.Promote,
             }).ToList();
 
             return View(products);
@@ -193,28 +193,28 @@ namespace prjEShopping.Controllers
  
         }
 
-        public ActionResult setPromote(int id)
+        public ActionResult setPromote(int? id)
         {
             var db = new AppDbContext();
-            var countInPromote = db.Products.Where(x => x.Promote != null).Count();
+            var countInPromote = db.Products.Where(x => x.Promote < 6).Count();
             if (countInPromote < 5)
             {
                 var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-                //addToPromote = (countInPromote + 1).ToString();
+                addToPromote = countInPromote + 1;
             }
             else 
             {
-                //var deleteFirstPrmote = db.Products.FirstOrDefault(x => x.Promote == 1.ToString());
-                //db.Products.Remove(deleteFirstPrmote);
+                var deleteFirstPrmote = db.Products.FirstOrDefault(x => x.Promote == 1);
+                db.Products.Remove(deleteFirstPrmote);
 
-                var leftPromotes = db.Products.Where(x => x.Promote != null).ToList();
+                var leftPromotes = db.Products.Where(x => x.Promote < 6).ToList();
                  foreach (var item in leftPromotes) 
                 {
-                    //item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
+                    item.Promote = item.Promote - 1;
                 }
 
                 var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-                //addToPromote = 5.ToString();
+                addToPromote = 5;
             }
             db.SaveChanges();
 
@@ -231,15 +231,15 @@ namespace prjEShopping.Controllers
         {
             var db = new AppDbContext();
             var clearPrmote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-            //var movePrmotes = db.Products.Where(x => Int32.Parse(x.Promote) > Int32.Parse(clearPrmote)).ToList();
+            var movePrmotes = db.Products.Where(x => x.Promote > clearPrmote);
 
             clearPrmote = null;
 
-            //foreach (var item in movePrmotes)
-            //{
-            //    item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
-            //}
-            //db.SaveChanges();
+            foreach (var item in movePrmotes)
+            {
+                item.Promote = item.Promote - 1;
+            }
+            db.SaveChanges();
         }
     }
 }

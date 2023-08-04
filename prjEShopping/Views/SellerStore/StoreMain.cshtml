@@ -465,7 +465,7 @@
             const sellid = 1;
 
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `@Url.Content("~/SellerMain/SaveOrClearFavorite?sellerid=")${userid}&userid=${sellid}`);
+            xhr.open('GET', `@Url.Content("~/SellerStore/SaveOrClearFavorite?sellerid=")${userid}&userid=${sellid}`);
             xhr.send()
 
             xhr.addEventListener('load', () =>
