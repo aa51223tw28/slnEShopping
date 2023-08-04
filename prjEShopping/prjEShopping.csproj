@@ -256,6 +256,7 @@
     <Compile Include="Models\ViewModels\SellerReplyVM.cs" />
     <Compile Include="Models\ViewModels\UserFeedbackVM.cs" />
     <Compile Include="Models\ViewModels\UserFollowProductVM.cs" />
+    <Compile Include="Models\ViewModels\UserFollowSellerVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
