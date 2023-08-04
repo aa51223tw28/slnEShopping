@@ -472,13 +472,13 @@
             {
                 if (isTracked) {
                     trackBtnContent.innerText = "加入關注";
-                    trackNumber.innerText = parseInt(trackNumber.innerText - 1);
+                    trackNumber.innerText = parseInt(trackNumber.innerText) - 1;
                     trackBtn.classList.remove("btn-blue");
                     trackBtn.classList.add("btn-outline-primary");
                 }
                 else {
                     trackBtnContent.innerText = " 關 注 中";
-                    trackNumber.innerText = parseInt(trackNumber.innerText + 1);
+                    trackNumber.innerText = parseInt(trackNumber.innerText) + 1;
                     trackBtn.classList.remove("btn-outline-primary");
                     trackBtn.classList.add("btn-blue");
                 }
