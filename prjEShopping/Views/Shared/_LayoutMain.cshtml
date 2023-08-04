@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <title>@Page.Title</title>
@@ -21,7 +22,9 @@
                                 <li class="nav-item px-3 d-flex align-items-center">
                                     <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="text-decoration-none hover-opacity">
                                         <div class="d-flex align-items-center">
-                                            <img src="~/img/man32px.png" alt="User Avatar" class="me-2">
+                                            <div style="height:30px;width:30px" class="me-2">
+                                                <img src="~/img/amy.jpg" alt="User Avatar" class="me-2 img-fluid">
+                                            </div>                                            
                                             @*<span class="fw-bold text-light">John Doe</span>*@
                                             <span class="fw-bold text-light">@(User.Identity.Name)</span>
                                         </div>
@@ -223,10 +226,12 @@
             const response = await fetch(`/Main/SearchSubcategoryIdapi?subcategoryName=${encodeURIComponent(subcategoryName)}`);
             const datas = await response.json();
             //console.log(datas);
-            //link.href = '/UserProduct/UserProdutList?subcategory=' + datas;         
-            window.location.href = '/UserProduct/UserProdutList?subcategory=' + datas;            
+            //link.href = '/UserProduct/UserProdutList?subcategory=' + datas;
+            window.location.href = '/UserProduct/UserProdutList?subcategory=' + datas;
         }
-        
+
+        //買家的照片名字
+
         
     </script>
 
