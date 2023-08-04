@@ -62,7 +62,13 @@
                     <!-- 手風琴左邊選項區 -->
                 </div>
             </div>
+            
+            
+            
+            
             <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+
+
                 <!--讀取到的商品-->
                 <div>
                     <p>商品ID: @Html.DisplayFor(model => model.ProductId)</p>
@@ -89,6 +95,7 @@
                 @using (Html.BeginForm("SubmitComment", "UserFeedback", FormMethod.Post))
                 {
                     @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
+                    @Html.HiddenFor(model => model.ProductId, new { @id = "productId" ,value = 1 }) <!-- 新增隱藏字段來儲存 ProductId -->
                     @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
                     <div class="form-group">
                         @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
@@ -168,6 +175,9 @@
 
         // 存儲評論內容到隱藏字段 "ratingText"
         $("#ratingText").val($("#RatingText").val());
+
+        var productIdValue = 1;//"(加小老鼠)Model.ProductId"; // 將 Model 中的 ProductId 值轉換成 JavaScript 變數
+        $("#productId").val(productIdValue);
     });
 
     $(".reset").click(function () {
