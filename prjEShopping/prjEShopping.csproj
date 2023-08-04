@@ -194,6 +194,7 @@
     <Compile Include="Controllers\UserOrderController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UsersCouponsController.cs" />
+    <Compile Include="Controllers\UserTestCommentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -249,6 +250,7 @@
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
+    <Compile Include="Models\ViewModels\RatingVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductListVM.cs" />
@@ -361,6 +363,7 @@
     <Content Include="Views\ADProducts\CreateAD.cshtml" />
     <Content Include="Views\SellersAD\List.cshtml" />
     <Content Include="Views\SellerReply\SellerReply.cshtml" />
+    <Content Include="Views\UserTestComment\Comment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
