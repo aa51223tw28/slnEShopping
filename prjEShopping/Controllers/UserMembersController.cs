@@ -137,6 +137,24 @@ namespace prjEShopping.Controllers
         {
             return View();
         }
+
+
+        [Authorize]
+        public ActionResult UserPhotoName()
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var userdata=db.Users.Where(x=>x.UserId == userid).Select(x=>new UserProfileVM
+            {
+                UserName=x.UserName,
+                UserImagePath=x.UserImagePath,
+            });
+
+            return Json(userdata);
+        }
     }
 
 }

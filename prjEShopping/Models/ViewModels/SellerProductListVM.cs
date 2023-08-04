@@ -27,5 +27,7 @@ namespace prjEShopping.Models.ViewModels
         }
         [DisplayName("商品狀態")]
         public string ProductStatusName { get; set; }
+
+        public string Promote { get; set; }
     }
 }

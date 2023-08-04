@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <title>@Page.Title</title>
@@ -21,7 +22,9 @@
                                 <li class="nav-item px-3 d-flex align-items-center">
                                     <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="text-decoration-none hover-opacity">
                                         <div class="d-flex align-items-center">
-                                            <img src="~/img/man32px.png" alt="User Avatar" class="me-2">
+                                            <div style="height:30px;width:30px" class="me-2">
+                                                <img src="~/img/amy.jpg" alt="User Avatar" class="me-2 img-fluid">
+                                            </div>                                            
                                             @*<span class="fw-bold text-light">John Doe</span>*@
                                             <span class="fw-bold text-light">@(User.Identity.Name)</span>
                                         </div>
@@ -81,8 +84,8 @@
                     </div>
                     <div class="col-5 col-md-6 col-lg-7 col-xl-9">
                         <div class="input-group mt-3 mb-4">
-                            <input class="form-control" type="search" @*placeholder="去購物"*@ aria-label="Search" style="height: 40px;">
-                            <button class="btn btn-secondary" type="submit" style="height: 40px;">搜尋</button>
+                            <input id="subcategoryInput" class="form-control" type="search" @*placeholder="去購物"*@ aria-label="Search" style="height: 40px;">
+                            <a id="searchLink" href="#" class="btn btn-secondary" style="height: 40px;" onclick="searchSubcategory()">搜尋</a>
                         </div>
                     </div>
                 </div>
@@ -170,7 +173,7 @@
 
 
     @*這兩行只是為了下方js,要hidden*@
-    <a class="checkoutLink" hidden></a>
+    @*<a class="checkoutLink" hidden></a>*@
     <a class="confirmButton" hidden></a>
 
     <script src="https://kit.fontawesome.com/df26c5ac19.js" crossorigin="anonymous"></script>
@@ -189,18 +192,18 @@
 
 
             //要結合到UserShoppingCart.cshtml//判斷數量是否0,0無法結帳(上方html寫了兩個btn的hidden)
-            const checkoutLink = document.querySelector('.checkoutLink');
-            if (num == 0) {
-                checkoutLink.addEventListener('click', (event) => {
-                    //alert('購物車中沒有商品,無法前往結帳。');
-                    $("#checkCartModal").modal("show");
-                    event.preventDefault();
-                });
-            } else {
-                checkoutLink.removeEventListener('click', (event) => {
-                    event.preventDefault();
-                })
-            }
+            //const checkoutLink = document.querySelector('.checkoutLink');
+            //if (num == 0) {
+            //    checkoutLink.addEventListener('click', (event) => {
+            //        //alert('購物車中沒有商品,無法前往結帳。');
+            //        $("#checkCartModal").modal("show");
+            //        event.preventDefault();
+            //    });
+            //} else {
+            //    checkoutLink.removeEventListener('click', (event) => {
+            //        event.preventDefault();
+            //    })
+            //}
         }
         getTotalCount();
 
@@ -213,6 +216,23 @@
             getTotalCount();
         });
 
+
+        //搜尋欄
+        async function searchSubcategory() {
+            var subcategoryName = document.getElementById('subcategoryInput').value;
+            //console.log(subcategoryName);
+            var link = document.getElementById('searchLink');
+
+            const response = await fetch(`/Main/SearchSubcategoryIdapi?subcategoryName=${encodeURIComponent(subcategoryName)}`);
+            const datas = await response.json();
+            //console.log(datas);
+            //link.href = '/UserProduct/UserProdutList?subcategory=' + datas;
+            window.location.href = '/UserProduct/UserProdutList?subcategory=' + datas;
+        }
+
+        //買家的照片名字
+
+        
     </script>
 
     @RenderSection("Scripts", required: false)@*引用js或jquery*@

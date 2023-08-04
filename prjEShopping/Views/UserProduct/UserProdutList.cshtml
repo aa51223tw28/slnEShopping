@@ -366,15 +366,15 @@
             var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
             $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })//預設樣式被點選
 
-            //主頁直接點筆電篩選條件載入頁面如有categoryid
+            //主頁直接點筆電篩選條件載入頁面如有subcategoryid
             var urlParams = new URLSearchParams(window.location.search);//得當前網頁 URL 中的查詢參數部分
-            var categoryParam = urlParams.get('category');
-            if (categoryParam) {
-                var selectedCategoryId = parseInt(categoryParam)
+            var subcategoryParam = urlParams.get('subcategory');
+            if (subcategoryParam) {
+                var selectedsubcategoryId = parseInt(subcategoryParam)
                 products = products.filter(function (product) {
-                    return product.SubcategoryId === selectedCategoryId;
+                    return product.SubcategoryId === selectedsubcategoryId;
                 });
-                $("#isSubcategorySelected" + selectedCategoryId).prop("checked", true)
+                $("#isSubcategorySelected" + selectedsubcategoryId).prop("checked", true)
             }
             updateProductContainer();
 
@@ -414,17 +414,20 @@
                 var maxPrice = parseFloat($("#pricehigh").val());
 
                 // 如果沒有選中任何 SubcategoryId 和品牌，則返回所有產品
-                if (selectedSubcategories.length === 0 && selectedBrands.length === 0) {
+                if (selectedSubcategories.length === 0 && selectedBrands.length === 0 && isNaN(minPrice) && isNaN(maxPrice)) {
                     return products;
                 }
 
-                // 篩選符合條件的產品
+                // 篩選符合條件的產品               
                 return products.filter(function (product) {
                     var subcategoryMatch = selectedSubcategories.length === 0 || selectedSubcategories.includes(product.SubcategoryId);
                     var brandMatch = selectedBrands.length === 0 || selectedBrands.includes(product.BrandId);
-                    var priceMatch = isNaN(minPrice) || isNaN(maxPrice) || (product.Price >= minPrice && product.Price <= maxPrice);
-                    return subcategoryMatch && brandMatch && priceMatch;//自動將所有情形排列組合只選分類 只選品牌 都選
+                    var priceMatch = (isNaN(minPrice) && isNaN(maxPrice)) || (product.Price >= minPrice && product.Price <= maxPrice) || (product.Price >= minPrice && isNaN(maxPrice) || (isNaN(minPrice) && product.Price <= maxPrice));
+
+                    return subcategoryMatch && brandMatch && priceMatch;
+
                 });
+
 
             }
 
@@ -440,7 +443,7 @@
             //按下清除設定
             $("#btnDelete").on('click', async function () {
                 var urlParams = new URLSearchParams(window.location.search);
-                urlParams.delete('category');
+                urlParams.delete('subcategory');
                 var updatedQueryString = urlParams.toString();
                 window.location.href = window.location.pathname + '?' + updatedQueryString;
             });
@@ -451,11 +454,7 @@
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnHot,#btnPriceHight,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-                products.sort(function (a, b) {
-                    return a.ProductId - b.ProductId;
-                });
-
-                updateProductContainer();
+                handlePageClick(1);
 
             });
 
@@ -473,12 +472,8 @@
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnAll,#btnHot,#btnPriceLow").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-                // 將商品按照 Price 屬性由高到低排序
-                products.sort(function(a, b) {
-                    return b.Price - a.Price;
-                });
-
-                updateProductContainer();
+                currentSortType = "price_high";
+                handlePageClick(1);
             });
 
             // 按下價格低到高
@@ -486,12 +481,8 @@
                 $(this).css({ "background-color": "#0D47A1", "color": "white" })
                 $("#btnAll,#btnHot,#btnPriceHight").css({ "background-color": "transparent", "color": "#0D47A1", "border": "1px solid #0D47A1" })
 
-                // 將商品按照 Price 屬性由低到高排序
-                products.sort(function(a, b) {
-                    return a.Price - b.Price;
-                });
-
-                updateProductContainer();
+                currentSortType = "price_low";
+                handlePageClick(1);
             });
 
             // 重新生成商品迴圈內容的函式
@@ -527,7 +518,7 @@
            // 動態生成分頁標籤
             showPage(1, products);
 
-            var pageSize = 10;
+            var pageSize = 20;
             var totalPages = Math.ceil(products.length / pageSize);
 
             var paginationContainer = document.getElementById("paginationContainer");
@@ -577,7 +568,7 @@
 
         function showPage(pageNumber, sortedProducts) {
 
-                var pageSize = 10;
+                var pageSize = 20;
                 var startIndex = (pageNumber - 1) * pageSize;
                 var endIndex = startIndex + pageSize;
                 var currentPageProducts = sortedProducts.slice(startIndex, endIndex);

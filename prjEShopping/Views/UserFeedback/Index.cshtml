@@ -66,7 +66,9 @@
                 <!--讀取到的商品-->
                 <div>
                     <p>商品ID: @Html.DisplayFor(model => model.ProductId)</p>
+                    <hr />
                     <p>商品名稱:</p><!-- Display the product ID here -->
+                    <hr />
                     <!-- Add other product details if available in UserFeedbackVM -->
                 </div>
 
@@ -78,10 +80,11 @@
                     }
                 </div>
 
-                
-                <p id="selectedRatingText" style="font-size: 20px; font-weight: bold; color: #9F4D95;">請評分：<span style="color: #9F4D95; font-size: 24px;">@Html.DisplayFor(model => model.StarRating)</span>星</p>
+
+                <p id="starRatingText" style="font-size: 20px; font-weight: bold; color: #9F4D95;">請評分：<span style="color: #9F4D95; font-size: 24px;">@Html.DisplayFor(model => model.StarRating)</span>星</p>
 
                 <input type="button" class="btn btn-primary reset" value="重新評分" style="float:right" />
+                <br />
                 <br />
                 @using (Html.BeginForm("SubmitComment", "UserFeedback", FormMethod.Post))
                 {
@@ -129,7 +132,7 @@
 
             countStars = $("img.star").index(e.currentTarget) + 1;
 
-            $("#selectedRatingText").text("評分中..." + countStars + "星");
+            $("#starRatingText").text("評分中..." + countStars + "星");
         }
     }
 
@@ -141,7 +144,7 @@
                 .end()
                 .prop("src", "@Url.Content("~/img/star.gif")");
 
-            $("#selectedRatingText").text("請評分");
+            $("#starRatingText").text("請評分");
         }
     }
 
@@ -159,7 +162,7 @@
             .prop("src", "@Url.Content("~/img/star.gif")");
 
         countStars = $("img.star").index(e.currentTarget) + 1;
-        $("#selectedRatingText").text("您給" + countStars + "顆星");
+        $("#starRatingText").text("您給" + countStars + "顆星");
         // 存儲選中的星星數量到隱藏字段 "starRating"
         $("#starRating").val(countStars);
 
@@ -173,7 +176,7 @@
 
         $("img.star").prop("src", "@Url.Content("~/img/star.gif")");
 
-        $("#selectedRatingText").text("請評分");
+        $("#starRatingText").text("請評分");
     });
     $(document).ready(function () {
         // ... (your existing JavaScript code)

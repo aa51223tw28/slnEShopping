@@ -24,5 +24,6 @@ namespace prjEShopping.Models.ViewModels
 
         [StringLength(50)]
         public string RatingStatus { get; set; }
+
     }
 }

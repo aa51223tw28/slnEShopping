@@ -194,6 +194,7 @@
     <Compile Include="Controllers\UserOrderController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UsersCouponsController.cs" />
+    <Compile Include="Controllers\UserTestCommentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -249,16 +250,20 @@
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
+    <Compile Include="Models\ViewModels\RatingVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductCreateVM.cs" />
     <Compile Include="Models\ViewModels\SellerProductListVM.cs" />
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
     <Compile Include="Models\ViewModels\SellerReplyVM.cs" />
     <Compile Include="Models\ViewModels\UserFeedbackVM.cs" />
+    <Compile Include="Models\ViewModels\UserFollowProductVM.cs" />
+    <Compile Include="Models\ViewModels\UserFollowSellerVM.cs" />
     <Compile Include="Models\ViewModels\UserLoginVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentDetailsVM.cs" />
     <Compile Include="Models\ViewModels\SellerShipmentVM.cs" />
     <Compile Include="Models\ViewModels\UserOrderAllVM.cs" />
+    <Compile Include="Models\ViewModels\UserProfileVM.cs" />
     <Compile Include="Models\ViewModels\UserShoppingCartVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -361,6 +366,7 @@
     <Content Include="Views\SellersAD\CheckDetail.cshtml" />
     <Content Include="Views\SellersAD\ADList.cshtml" />
     <Content Include="Views\SellersAD\ADDemo.cshtml" />
+    <Content Include="Views\UserTestComment\Comment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

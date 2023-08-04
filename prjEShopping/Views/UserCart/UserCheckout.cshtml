@@ -114,7 +114,7 @@
                                 <h5 class="modal-title" id="exampleModalLabel">選擇優惠券</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
+                            @*<div class="modal-body">
                                 <div class="d-flex align-items-center mb-3">
                                     <span class="me-3">新增優惠券</span>
                                     <input type="text" placeholder="請輸入優惠券代碼" class="me-3">
@@ -157,7 +157,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">取消</button>
                                 <button type="button" class="btn btn-primary">好</button>
@@ -215,7 +215,10 @@
                 <div class="fs-5 mb-3">
                     <div class="d-flex justify-content-between">
                         <span>商品價格小計：</span>
-                        <span>@Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
+                        <div class="d-flex">
+                            <span>NT$</span>
+                            <span class="totalItemcheckedPrice"></span>
+                        </div>                        
                     </div>
                     <div class="d-flex justify-content-between">
                         <span>運費：</span>
@@ -334,6 +337,18 @@
             receiverAddress.value = "台北市永和區..."
         })
 
+        //商品原價小計
+        const totalItemcheckedPrice = document.querySelector('.totalItemcheckedPrice')
+
+        async function getTotalcheckedPrice() {
+            const response = await fetch('/UserCart/GetTotalcheckedPrice');
+            const price = await response.json();
+
+            const formattedPrice = price.toLocaleString();
+
+            totalItemcheckedPrice.textContent = formattedPrice;
+        }
+        getTotalcheckedPrice()
     </script>
 
 }

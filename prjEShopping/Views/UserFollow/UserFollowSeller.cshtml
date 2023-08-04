@@ -1,4 +1,4 @@
-﻿
+﻿@model List<prjEShopping.Models.ViewModels.UserFollowSellerVM>
 @{
     ViewBag.Title = "UserFollowSeller";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -69,69 +69,61 @@
                 <p class="fs-4 mt-3 fw-bold">追蹤店家</p>
                 <hr>
                 <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <div class="mb-3 col card p-2 bg-lightyellow me-3">
-                        <a href="#">
-                            <div class="card">
-                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                            </div>
-                        </a>
-                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
-                        <a href="#">
-                            <div class="card">
-                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                            </div>
-                        </a>
-                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
-                        <a href="#">
-                            <div class="card">
-                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                            </div>
-                        </a>
-                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
-                        <a href="#">
-                            <div class="card">
-                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                            </div>
-                        </a>
-                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
-                        <a href="#">
-                            <div class="card">
-                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                            </div>
-                        </a>
-                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                    </div>
-                    <div class="mb-3 col card p-2 bg-lightyellow me-2">
-                        <a href="#">
-                            <div class="card">
-                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                            </div>
-                        </a>
-                        <button class="btn btn-danger mt-2" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
-                    </div>
 
-
-
-
+                    @foreach (var item in Model)
+                    {
+                        <div class="mb-3 col card p-2 bg-lightyellow me-3">
+                            <a href="#">
+                                @*要再放賣家主頁連結*@
+                                <div class="card">
+                                    <img src="~/img/@Html.DisplayFor(modelItem => item.SellerImagePath)" class="card-img-top p-2" alt="...">
+                                    <h5 class="card-title text-blue text-center fw-bold">@item.SellerName</h5>
+                                </div>
+                            </a>
+                            <button class="btn btn-danger mt-2 addToFavorites" data-sellerid="@item.SellerId"><i class="fa-regular fa-heart"></i></button>
+                        </div>
+                    }
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+@*是否要移除追蹤商家*@
+<div class="modal" id="deletetrackModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                確定要從追蹤中移除此商家嗎？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancelButton">取消</button>
             </div>
         </div>
     </div>
 </div>
 
 
+@section Scripts{
+    <script>
+        //取消追蹤
+        $(document).ready(function () {
+            $(".addToFavorites").each(function () {
+                $(this).on('click', function () {
+                    var sellerid = $(this).attr("data-sellerid");
+                    //console.log(sellerid)
+                    $("#deletetrackModal").modal("show");
+                    $("#confirmButton").on('click', async function () {
+                        const result = await $.get("/UserFollow/TrackSellerapi?sellerid=" + sellerid)
+                        location.reload();
+                    });
+                })
+            })
+        })
+
+    </script>
+}

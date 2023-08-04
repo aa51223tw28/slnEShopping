@@ -11,7 +11,7 @@
         <p class="text-primary fs-3 fw-bold">購物車</p>
         <div class="row bg-success rounded py-3 mb-3">
             <div class="col-1">
-                <input type="checkbox" class="form-check-input">
+                @*<input type="checkbox" class="form-check-input">*@
             </div>
             <div class="col-3">
                 <span>商品</span>
@@ -52,7 +52,7 @@
                 <div class="row bg-success rounded py-3 mb-3">
                     <div class="row mb-3">
                         <div class="col-1 d-flex align-items-center">
-                            <input type="checkbox" class="form-check-input">
+                            <input type="checkbox" class="form-check-input sellercheckbox" data-sellerid="@sellerGroup.FirstOrDefault().SellerId">
                         </div>
                         <div class="col-3 d-flex align-items-center">
                             <span>@sellerGroup.FirstOrDefault().SellerName</span>
@@ -65,7 +65,7 @@
                     {
                         <div class="row">
                             <div class="col-1">
-                                <input type="checkbox" class="form-check-input">
+                                <input type="checkbox" class="form-check-input productcheckbox" data-id="@item.ProductId">
                             </div>
                             <div class="col-3">
                                 <div class="mb-3" style="max-width: 540px;">
@@ -115,22 +115,20 @@
         <div class="row bg-success rounded py-3">
             <div class="row mb-3">
                 <div class="col-1 d-flex align-items-center">
-                    <input type="checkbox" class="form-check-input">
+                    <input type="checkbox" class="form-check-input allproductcheckbox">
                 </div>
                 <div class="col-3 d-flex align-items-center">
                     <span>全選</span>
-                    <span class="text-danger fw-bold">(</span>
-                    <span class="text-danger fw-bold totalItemCount"></span>
-                    <span class="text-danger fw-bold">)</span>
                 </div>
 
                 <div class="col-4 d-flex align-items-center">
                     <span>總金額(</span>
-                    <span class="text-danger fw-bold totalItemCount"></span>
+                    <span class="text-danger fw-bold totalItemcheckedCount"></span>
                     <span>個商品)：</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
-                    <span class="text-danger fw-bold fs-4"> @Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
+                    <span class="text-danger fw-bold fs-4">NT$</span>
+                    <span class="text-danger fw-bold fs-4 totalItemcheckedPrice">0</span>
                 </div>
                 <div class="col-2 d-flex align-items-center">
                     @*<a id="checkoutLink" href="@Url.Content("~/UserCart/UserCheckout")" class="btn btn-secondary flex-grow-1 btn-lg">去買單</a>*@
@@ -150,7 +148,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                購物車中沒有商品，無法前往結帳。
+                購物車中沒有勾選要買的商品或尚未將商品加入購物車，無法前往結帳。
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
@@ -312,13 +310,15 @@
         $(document).ready(function () {
             $("#checkoutLink").each(function () {
                 $(this).on('click', async function () {
-                    if (@ViewBag.TotalPrice == 0) {
+
+                    const totalPrice = parseFloat(totalItemcheckedPrice.textContent.replace(",", "")); // 移除千分位符號並轉換為數字
+
+                    if (totalPrice == 0) {
                         $("#checkCartModal").modal("show");
 
                     } else {
+
                         var cartid = document.querySelector("#cartid").getAttribute("data-cartid");
-
-
                         //確定庫存的api,若不夠買要將ProductStocks的PurchaseQuantity=0,ShoppingCartDetails的Quantity=0
                         //確定購物車所選取的商品數量不為0才可以去買單
                         const result = await $.get("/UserCart/UserCartCheckStockapi?cartid=" + cartid)
@@ -346,6 +346,85 @@
         })
 
 
+
+        //勾選
+        const sellerCheckboxes = document.querySelectorAll(".sellercheckbox");    
+        const productCheckboxes = document.querySelectorAll(".productcheckbox");
+        const allproductcheckbox = document.querySelector(".allproductcheckbox");
+
+        //勾選全部
+        allproductcheckbox.addEventListener('change', async function () {
+            
+            sellerCheckboxes.forEach(sellerCheckbox => {
+                sellerCheckbox.checked = this.checked
+            })
+
+            productCheckboxes.forEach(productCheckbox => {
+                productCheckbox.checked = this.checked
+            })
+            
+            const result = await $.get("/UserCart/checkedBuyAllProductsapi");//全選 編輯ShoppingCartDetails的AddToOrder=1
+            getTotalcheckedCount();
+            getTotalcheckedPrice();
+        })
+
+        //勾選商家其商品也被勾選
+        sellerCheckboxes.forEach(sellertCheckbox => {
+            sellertCheckbox.addEventListener('change', async function () {
+                const productGroup = this.closest('.row.bg-success.rounded.py-3.mb-3') 
+                const productCheckboxes = productGroup.querySelectorAll('.productcheckbox');
+                productCheckboxes.forEach(productCheckbox => {
+                    productCheckbox.checked = this.checked;
+                })
+
+                var sellerId = $(this).attr("data-sellerid");
+                //console.log(sellerId)
+                const result = await $.get("/UserCart/checkedBuyOneSellerapi?sellerId=" + sellerId);//勾選整家店要去尋覽每件商品
+                getTotalcheckedCount();
+                getTotalcheckedPrice();
+            })
+        })
+
+        //勾選商品
+        productCheckboxes.forEach(productCheckbox => {
+            productCheckbox.addEventListener('change', async function () {
+                var productId = $(this).attr("data-id");
+                //console.log(productId)
+                const result = await $.get("/UserCart/checkedBuyOneProductapi?productId=" + productId);//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
+
+                 // 檢查是否有商品沒有勾選，如果有，取消全選的勾選
+                const isAnyProductUnchecked = Array.from(productCheckboxes).some(productCheckbox => !productCheckbox.checked)
+                allproductcheckbox.checked = !isAnyProductUnchecked;
+                getTotalcheckedCount();
+                getTotalcheckedPrice();
+            })
+        })
+
+
+        //呼叫選取商品數量api
+        const totalItemcheckedCount = document.querySelectorAll('.totalItemcheckedCount')
+        const totalItemcheckedPrice = document.querySelector('.totalItemcheckedPrice')
+
+        async function getTotalcheckedCount() {
+            const response = await fetch('/UserCart/GetTotalcheckedCount');
+
+            const num = await response.json();
+            totalItemcheckedCount.forEach(element => {
+                element.textContent = num;
+            });
+        }
+
+        async function getTotalcheckedPrice() {
+            const response = await fetch('/UserCart/GetTotalcheckedPrice');
+            const price = await response.json();
+            
+            const formattedPrice = price.toLocaleString();
+
+            totalItemcheckedPrice.textContent = formattedPrice;
+        }
+
+        getTotalcheckedCount();
+        getTotalcheckedPrice();
     </script>
 }
 
