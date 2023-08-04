@@ -41,7 +41,7 @@ namespace prjEShopping.Controllers
                 StockQuantity = x.StockQuantity,
                 OrderQuantity = x.OrderQuantity,
                 ProductStatusName = (db.ProductStatusDetails.Where(y => y.ProductStatusId == x.ProductStatusId).FirstOrDefault().ProductStatusName).ToString(),
-                Promote = x.Promote,
+                //Promote = x.Promote,
             }).ToList();
 
             return View(products);
@@ -200,21 +200,21 @@ namespace prjEShopping.Controllers
             if (countInPromote < 5)
             {
                 var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-                addToPromote = (countInPromote + 1).ToString();
+                //addToPromote = (countInPromote + 1).ToString();
             }
             else 
             {
-                var deleteFirstPrmote = db.Products.FirstOrDefault(x => x.Promote == 1.ToString());
-                db.Products.Remove(deleteFirstPrmote);
+                //var deleteFirstPrmote = db.Products.FirstOrDefault(x => x.Promote == 1.ToString());
+                //db.Products.Remove(deleteFirstPrmote);
 
                 var leftPromotes = db.Products.Where(x => x.Promote != null).ToList();
                  foreach (var item in leftPromotes) 
                 {
-                    item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
+                    //item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
                 }
 
                 var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-                addToPromote = 5.ToString();
+                //addToPromote = 5.ToString();
             }
             db.SaveChanges();
 
@@ -231,15 +231,15 @@ namespace prjEShopping.Controllers
         {
             var db = new AppDbContext();
             var clearPrmote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-            var movePrmotes = db.Products.Where(x => Int32.Parse(x.Promote) > Int32.Parse(clearPrmote)).ToList();
+            //var movePrmotes = db.Products.Where(x => Int32.Parse(x.Promote) > Int32.Parse(clearPrmote)).ToList();
 
             clearPrmote = null;
 
-            foreach (var item in movePrmotes)
-            {
-                item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
-            }
-            db.SaveChanges();
+            //foreach (var item in movePrmotes)
+            //{
+            //    item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
+            //}
+            //db.SaveChanges();
         }
     }
 }
