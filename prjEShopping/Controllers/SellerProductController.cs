@@ -199,8 +199,8 @@ namespace prjEShopping.Controllers
             var countInPromote = db.Products.Where(x => x.Promote < 6).Count();
             if (countInPromote < 5)
             {
-                var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-                addToPromote = countInPromote + 1;
+                var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id);
+                addToPromote.Promote = countInPromote + 1;
             }
             else 
             {
@@ -213,8 +213,8 @@ namespace prjEShopping.Controllers
                     item.Promote = item.Promote - 1;
                 }
 
-                var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-                addToPromote = 5;
+                var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id);
+                addToPromote.Promote = 5;
             }
             db.SaveChanges();
 
@@ -230,10 +230,10 @@ namespace prjEShopping.Controllers
         public void setToclearPromote(int? id) 
         {
             var db = new AppDbContext();
-            var clearPrmote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
-            var movePrmotes = db.Products.Where(x => x.Promote > clearPrmote);
+            var clearPrmote = db.Products.FirstOrDefault(x => x.ProductId == id);
+            var movePrmotes = db.Products.Where(x => x.Promote > clearPrmote.Promote);
 
-            clearPrmote = null;
+            clearPrmote.Promote = null;
 
             foreach (var item in movePrmotes)
             {
