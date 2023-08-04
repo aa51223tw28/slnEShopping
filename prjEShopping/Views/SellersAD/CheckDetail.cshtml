@@ -1,0 +1,134 @@
+﻿@model prjEShopping.Models.ViewModels.ADProductVM
+
+@{
+    ViewBag.Title = "CheckDetail";
+    Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
+}
+
+<div class="col-6 bg-secondary overflow-auto">
+    <h2>購買確認</h2>
+   
+    <div>
+        <form method="post">
+            <table class="table table-primary table-bordered">
+                <tr>
+                    <th>項目</th>
+                    <th>內容</th>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ADName)</td>
+                    <td>@Html.DisplayFor(model => model.ADName)</td>
+                </tr>
+                <tr>
+                    <td> @Html.DisplayNameFor(model => model.ADField)</td>
+                    <td>@Html.DisplayFor(model => model.ADFieldName)</td>
+                </tr>
+                <tr>
+                    <td>活動時間</td>
+                    <td>@Html.DisplayFor(model => model.ADStartDate)~@Html.DisplayFor(model => model.ADEndDate)</td>
+                </tr>
+            </table>
+
+            @if (Model.ADField == 1)
+            {
+                <input type="text" id="ProductId" name="ProductId" hidden />
+                <input type="text" id="Discount" name="Discount" hidden />
+                <div class="form-control">
+                    <label>@Html.DisplayNameFor(model => model.ADImagePath):</label>
+                    <input type="file" id="ADImage" accept=".jpg, .jpeg, .png" />
+                    <button type="button" id="uploadButton" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">上傳</button>
+                    <input type="text" id="ADImagePath" name="ADImagePath" hidden />
+                </div>
+            }
+
+            else
+            {
+                <input type="text" id="ADImagePath" name="ADImagePath" hidden />
+                <div class="form-control">
+                    <lable>商品名稱:</lable>
+                    <select id="ProductId" name="ProductId" required>
+                        <option selected disabled>請選擇</option>
+                        @foreach (var product in ViewBag.Products)
+                        {
+                            <option value="@product.ProductId">@product.ProductName</option>
+                        }
+                    </select><br />
+
+                    <lable>@Html.DisplayNameFor(model => model.Discount):</lable>
+                    <select id="Discount" name="Discount" required>
+                        <option selected disabled>請選擇</option>
+                        <option value="30">3折</option>
+                        <option value="50">5折</option>
+                        <option value="70">7折</option>
+                    </select>
+                </div>
+            }
+            <input type="text" id="SellerId" name="SellerId" value="@ViewBag.SellerId" hidden />
+            <input type="text" id="ADPoint" name="ADPoint" value="@Html.DisplayFor(model => model.ADPoint)" hidden />
+            <input type="submit" value="購買" class="btn btn-primary mt-2" />
+        </form>
+
+        <p>
+            @Html.ActionLink("取消", "List", null, new { @class = "btn btn-info my-2" })
+        </p>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+        document.getElementById('uploadButton').addEventListener('click', async function () {
+            var fileInput = document.getElementById('ADImage');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append('ADImage', file);
+
+            // 清除先前的消息
+            var uploadStatus = document.getElementById('uploadStatus');
+            if (uploadStatus) {
+                uploadStatus.remove();
+            }
+
+            try {
+                var response = await fetch('/SellersAD/UploadImage', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                var data = await response.json();
+
+                if (data.success) { 
+                    document.getElementById('ADImagePath').value = data.path;
+                   
+                    var successMessage = document.createElement('span');
+                    successMessage.id = 'uploadStatus';
+                    successMessage.style.color = 'green';
+                    successMessage.textContent = '已上傳成功';
+                    document.getElementById('ADImage').parentNode.appendChild(successMessage);
+                } else {
+                 
+                    var errorMessage = document.createElement('span');
+                    errorMessage.id = 'uploadStatus';
+                    errorMessage.style.color = 'red';
+                    errorMessage.textContent = data.message; 
+                    document.getElementById('ADImage').parentNode.appendChild(errorMessage);
+                }
+            } catch (error) {
+                console.error('上傳錯誤', error);
+           
+                var errorMessage = document.createElement('span');
+                errorMessage.id = 'uploadStatus';
+                errorMessage.style.color = 'red';
+                errorMessage.textContent = '上傳格式錯誤或失敗';
+                document.getElementById('ADImage').parentNode.appendChild(errorMessage);
+            }
+        });
+        
+    </script>
+}
+
+@section Styles{
+    <style>
+    </style>
+}

@@ -40,9 +40,8 @@ namespace prjEShopping.Models.ViewModels
                 {
                     case "1":
                         return "已付款";
-                    case "2":
-                        return "待付款";
-                   
+                    case "0":
+                        return "已扣點";                   
                     default:
                         return "待確認";
                 }
@@ -68,8 +67,22 @@ namespace prjEShopping.Models.ViewModels
 
         public static ADPointVM ADPoint2VM(ADPoint point)
         {
+            return new ADPointVM
+            {
+                ADPointId = point.ADPointId,
+                SellerId = point.SellerId,
+                GUINumber =point.GUINumber,
+                PurchaseTime = point.PurchaseTime,
+                ADPoints = point.ADPoints,
+                PaymentStatus = point.PaymentStatus,
+            };
+        }
+
+        public static ADPointVM BuyPoint(ADPoint point,int sellerId)
+        {
             var db = new AppDbContext();
-            var seller=db.Sellers.Where(x=>x.SellerId==point.SellerId).FirstOrDefault();
+            var seller=db.Sellers.Where(x=>x.SellerId==sellerId).FirstOrDefault();
+            
             return new ADPointVM
             {
                 ADPointId = point.ADPointId,

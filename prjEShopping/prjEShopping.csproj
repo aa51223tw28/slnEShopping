@@ -363,6 +363,9 @@
     <Content Include="Views\ADProducts\CreateAD.cshtml" />
     <Content Include="Views\SellersAD\List.cshtml" />
     <Content Include="Views\SellerReply\SellerReply.cshtml" />
+    <Content Include="Views\SellersAD\CheckDetail.cshtml" />
+    <Content Include="Views\SellersAD\ADList.cshtml" />
+    <Content Include="Views\SellersAD\ADDemo.cshtml" />
     <Content Include="Views\UserTestComment\Comment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

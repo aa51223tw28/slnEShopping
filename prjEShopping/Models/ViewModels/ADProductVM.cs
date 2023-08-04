@@ -30,7 +30,31 @@ namespace prjEShopping.Models.ViewModels
         public DateTime? ADEndDate { get; set; }
 
         [DisplayName("廣告欄位")]
-        public int? ADQuantity { get; set; }
+        public int? ADField { get; set; }
+
+        public string ADFieldName
+        {
+            get
+            {
+                switch (ADField)
+                {
+                    case 1:
+                        return "進版廣告";
+                    case 2:
+                        return "限時廣告A欄";
+                    case 3:
+                        return "限時廣告B欄";
+                    case 4:
+                        return "限時廣告C欄";
+                    case 5:
+                        return "限時廣告D欄";
+                    case 6:
+                        return "限時廣告E欄";
+                    default:
+                        return "待確認";
+                }
+            }
+        }
 
         [DisplayName("廣告圖片")]
         [StringLength(50)]
@@ -38,6 +62,9 @@ namespace prjEShopping.Models.ViewModels
 
         [DisplayName("商品ID")]
         public int? ProductId { get; set; }
+
+        [DisplayName("折扣")]
+        public int? Discount { get; set; }
     }
 
     public static class ADProductChange
@@ -51,9 +78,10 @@ namespace prjEShopping.Models.ViewModels
                 ADPoint = ad.ADPoint,
                 ADStartDate = ad.ADStartDate,
                 ADEndDate = ad.ADEndDate,
-                //ADQuantity = ad.ADQuantity,
+                ADField = ad.ADField,
                 ADImagePath = ad.ADImagePath,
                 ProductId = ad.ProductId,
+                Discount=ad.Discount,
             };
         }
 
@@ -66,9 +94,10 @@ namespace prjEShopping.Models.ViewModels
                 ADPoint =vm.ADPoint,
                 ADStartDate = vm.ADStartDate,
                 ADEndDate = vm.ADEndDate,
-                //ADQuantity = vm.ADQuantity,
+                ADField = vm.ADField,
                 ADImagePath = vm.ADImagePath,
                 ProductId = vm.ProductId,
+                Discount = vm.Discount,
             };
         }
 
@@ -81,6 +110,14 @@ namespace prjEShopping.Models.ViewModels
             }
 
             return source.Select(s => ADProduct2VM(s)).ToList();
+        }
+
+        public static void UpdateAdProduct(ADProduct adp, ADProductVM vm)
+        {
+            adp.ADImagePath = vm.ADImagePath;
+            adp.ProductId = vm.ProductId;
+            adp.Discount = vm.Discount;
+            // ... 繼續設置其他屬性
         }
     }
 }

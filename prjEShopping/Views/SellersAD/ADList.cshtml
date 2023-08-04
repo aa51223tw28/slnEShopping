@@ -1,26 +1,23 @@
 ﻿@model IEnumerable<prjEShopping.Models.ViewModels.ADProductVM>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ADList";
     Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
 }
 
-<div class="col-6 bg-secondary overflow-auto" >
-    <h2>廣告列表</h2>
+<div class="col-6 bg-secondary overflow-auto">
+    <h2>已購買廣告</h2>
 
     <p>
-        @Html.ActionLink("建立新廣告", "CreateAD", null, new {@class="btn btn-primary"})
+        @Html.ActionLink("購買廣告", "List", null, new {@class="btn btn-primary"})
     </p>
-    <table class="table table-primary">
+    <table class="table table-primary table-bordered">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ADField)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ADName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ADPoint)
+                @Html.DisplayNameFor(model => model.ADField)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ADStartDate)
@@ -29,25 +26,26 @@
                 @Html.DisplayNameFor(model => model.ADEndDate)
             </th>
 
+            <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ADField)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.ADName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ADPoint)
+                    @Html.DisplayFor(modelItem => item.ADFieldName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ADStartDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ADEndDate)
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", new { id = item.ADProductId }, new {@class="btn btn-info"})
                 </td>
             </tr>
         }
@@ -64,6 +62,5 @@
 
 @section Styles{
     <style>
-
     </style>
 }

@@ -13,73 +13,84 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.ADQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <select id="ADQuantity" name="ADQuantity" class="form-control" required onchange="setDateBasedOnQuantity()">
-                        <option selected disabled>請選擇</option>
-                        <option value="1">進版全頁</option>
-                        <option value="2">限時廣告A欄</option>
-                        <option value="3">限時廣告B欄</option>
-                    </select>
-                    @Html.ValidationMessageFor(model => model.ADQuantity, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ADName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="text" name="ADName" id="ADName" class="form-control" />
-                    @Html.ValidationMessageFor(model => model.ADName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADField, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select id="ADField" name="ADField" class="form-control" required onchange="setDateBasedOnQuantity()">
+                <option selected disabled>請選擇</option>
+                <option value="1">進版全頁</option>
+                <option value="2">限時廣告A欄</option>
+                <option value="3">限時廣告B欄</option>
+                <option value="4">限時廣告C欄</option>
+                <option value="5">限時廣告D欄</option>
+                <option value="6">限時廣告E欄</option>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ADPoint, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="number" name="ADPoint" id="ADPoint" class="form-control" />
-                    @Html.ValidationMessageFor(model => model.ADPoint, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ADStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" readonly />
-                    @Html.ValidationMessageFor(model => model.ADStartDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ADEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="date" name="ADEndDate" id="ADEndDate" class="form-control" />
-                    @Html.ValidationMessageFor(model => model.ADEndDate, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="text" name="ADImagePath" id="ADImagePath" hidden />
-                    @Html.ValidationMessageFor(model => model.ADImagePath, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="text" name="ProductId" id="ProductId" hidden />
-                    @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="新增" class="btn btn-primary mt-2" />
-                </div>
-            </div>
+            </select>
+            @Html.ValidationMessageFor(model => model.ADField, "", new { @class = "text-danger" })
         </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" name="ADName" id="ADName" class="form-control" />
+            @Html.ValidationMessageFor(model => model.ADName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADPoint, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" name="ADPoint" id="ADPoint" class="form-control" />
+            @Html.ValidationMessageFor(model => model.ADPoint, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" readonly />
+            @Html.ValidationMessageFor(model => model.ADStartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ADEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="date" name="ADEndDate" id="ADEndDate" class="form-control" />
+            @Html.ValidationMessageFor(model => model.ADEndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="text" name="ADImagePath" id="ADImagePath" hidden />
+            @Html.ValidationMessageFor(model => model.ADImagePath, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="text" name="ProductId" id="ProductId" hidden />
+            @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="text" name="Discount" id="Discount" hidden />
+            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="新增" class="btn btn-primary mt-2" />
+        </div>
+    </div>
+</div>
     }
 
     <div>
@@ -92,13 +103,13 @@
 
     <script>
         $(document).ready(function () {
-            $("#ADQuantity").change(function () {
+            $("#ADField").change(function () {
                 var selectedOption = $(this).val();
 
                 if (selectedOption == "1") {
                     $("#ADName").val("全版廣告");
                     $("#ADPoint").val(5000);
-                } else if (selectedOption == "2") {
+                } else if (selectedOption != "1") {
                     $("#ADName").val("限時廣告");
                     $("#ADPoint").val(500);
                 }
@@ -109,12 +120,12 @@
         var data = JSON.parse(jsonData);
 
       function setDateBasedOnQuantity() {
-    var selectedQuantity = document.getElementById('ADQuantity').value;
+          var selectedQuantity = document.getElementById('ADField').value;
     var lastEndDate = null;
 
     // 倒序遍历找到最后一个匹配的ADEndDate
     for (var i = data.length - 1; i >= 0; i--) {
-        if (data[i].ADQuantity.toString() === selectedQuantity) {
+        if (data[i].ADField.toString() === selectedQuantity) {
             lastEndDate = new Date(data[i].ADEndDate);
             break; // 找到就退出循环
         }
@@ -133,12 +144,12 @@
 }
 
         function setDateBasedOnQuantity() {
-            var selectedQuantity = document.getElementById('ADQuantity').value;
+            var selectedQuantity = document.getElementById('ADField').value;
             var lastEndDate = null;
 
             // 倒序遍历找到最后一个匹配的ADEndDate
             for (var i = data.length - 1; i >= 0; i--) {
-                if (data[i].ADQuantity.toString() === selectedQuantity) {
+                if (data[i].ADField.toString() === selectedQuantity) {
                     lastEndDate = new Date(data[i].ADEndDate);
                     break; // 找到就退出循环
                 }

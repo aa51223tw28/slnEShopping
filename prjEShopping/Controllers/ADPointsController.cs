@@ -55,10 +55,11 @@ namespace prjEShopping.Controllers
         }
 
         // GET: ADPoints/BuyPoints
-        public ActionResult BuyPoints(int? sellerId)
+        public ActionResult BuyPoints(int? sellerId=1)
         {
-            sellerId = 2;
-            var model = db.ADPoints.Where(x=>x.SellerId==sellerId).ADPoint2VM().FirstOrDefault();
+            sellerId = 1;
+            var point=new ADPoint();
+            var model =ADPointChange.BuyPoint(point,1);
             ViewBag.List = db.ADPoints.Where(s=>s.SellerId==sellerId).OrderByDescending(d=>d.PurchaseTime).ToList();
             ViewBag.SellerPoint=db.Sellers.Where(s => s.SellerId == sellerId).Select(p=>p.ADPoints).FirstOrDefault();
             return View(model);
@@ -72,10 +73,11 @@ namespace prjEShopping.Controllers
         public ActionResult BuyPoints([Bind(Include = "ADPointId,SellerId,GUINumber,PurchaseTime,ADPoints,PaymentStatus")] ADPointVM vm)
         {
 
-            if (ModelState.IsValid)
-            {            
-                var Seller=db.Sellers.FirstOrDefault(x=>x.SellerId == vm.SellerId);
-                Seller.ADPoints = Seller.ADPoints+ADPointChange.VM2ADPoint(vm).ADPoints;             
+            var sellerToUpdate = db.Sellers.FirstOrDefault(x => x.SellerId == vm.SellerId);
+            if (sellerToUpdate != null)
+            {
+                sellerToUpdate.ADPoints = sellerToUpdate.ADPoints+vm.ADPoints;
+                db.Entry(sellerToUpdate).State = EntityState.Modified; 
                 db.ADPoints.Add(ADPointChange.VM2ADPoint(vm));
                 db.SaveChanges();
                 return RedirectToAction("BuyPoints");
