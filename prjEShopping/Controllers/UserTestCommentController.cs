@@ -43,7 +43,7 @@ namespace prjEShopping.Controllers
                 int threeStarCount = threeStarRatings.Count();
                 int twoStarCount = twoStarRatings.Count();
                 int oneStarCount = oneStarRatings.Count();
-
+                
                 ViewBag.AllStarRatings = allStarRatings;
                 ViewBag.FiveStarRatings = fiveStarRatings;
                 ViewBag.FourStarRatings = fourStarRatings;

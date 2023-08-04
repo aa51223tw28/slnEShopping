@@ -1,7 +1,7 @@
 ﻿
-    @{
-        ViewBag.Title = "Comment";
-    }
+@{
+    ViewBag.Title = "Comment";
+}
 
 <div class="col-7 pt-5">
     <div class="row">
@@ -36,146 +36,161 @@
         </div>
     </div>
 </div>
-    <div class="container bg-success rounded py-2 mt-3">
-        <div class="bg-warning p-3 mb-3">
-            <span class="fs-4 fw-bold">商品評價</span>
-        </div>
+<div class="container bg-success rounded py-2 mt-3">
+    <div class="bg-warning p-3 mb-3">
+        <span class="fs-4 fw-bold">商品評價</span>
+    </div>
 
-        <p>
-            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('allstar')" aria-expanded="false" aria-controls="allstar">
-                全部<span>(@ViewBag.AllStarCount)</span>
-            </button>
-            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fivestar')" aria-expanded="false" aria-controls="fivestar">
-                5星<span>(@ViewBag.FiveStarCount)</span>
-            </button>
-            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fourstar')" aria-expanded="false" aria-controls="fourstar">
-                4星<span>(@ViewBag.FourStarCount)</span>
-            </button>
-            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('threestar')" aria-expanded="false" aria-controls="threestar">
-                3星<span>(@ViewBag.ThreeStarCount)</span>
-            </button>
-            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('twostar')" aria-expanded="false" aria-controls="twostar">
-                2星<span>(@ViewBag.TwoStarCount)</span>
-            </button>
-            <button class="btn btn-secondary" type="button" onclick="toggleCollapse('onestar')" aria-expanded="false" aria-controls="onestar">
-                1星<span>(@ViewBag.OneStarCount)</span>
-            </button>
-        </p>
+    <p>
+        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('allstar')" aria-expanded="false" aria-controls="collapseExample">
+            全部<span>(@ViewBag.AllStarCount)</span>
+        </button>
+        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fivestar')" aria-expanded="false" aria-controls="collapseExample">
+            5星<span>(@ViewBag.FiveStarCount)</span>
+        </button>
+        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fourstar')" aria-expanded="false" aria-controls="collapseExample">
+            4星<span>(@ViewBag.FourStarCount)</span>
+        </button>
+        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('threestar')" aria-expanded="false" aria-controls="collapseExample">
+            3星<span>(@ViewBag.ThreeStarCount)</span>
+        </button>
+        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('twostar')" aria-expanded="false" aria-controls="collapseExample">
+            2星<span>(@ViewBag.TwoStarCount)</span>
+        </button>
+        <button class="btn btn-secondary" type="button" onclick="toggleCollapse('onestar')" aria-expanded="false" aria-controls="collapseExample">
+            1星<span>(@ViewBag.OneStarCount)</span>
+        </button>
+    </p>
+    @foreach (var rating in Model)
+    {
+        <div class="collapse" id="allstar">
+            <div class="card card-body">
+                <!-- 顯示評分星星 -->
+                <div>評分：@rating.StarRating</div>
+                <!-- 顯示評論內容 -->
+                <div>評論：@rating.RatingText</div>
+                <div>評論時間：@rating.PostTime</div>
+                @if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                {
+                    <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                }
 
-        @foreach (var rating in Model)
-        {
-            <div class="collapse" id="@("rating_" + rating.RatingId)">
-                <div class="card card-body">
-                    <!-- 顯示評分星星 -->
-                    <div>評分：@rating.StarRating</div>
-                    <!-- 顯示評論內容 -->
-                    <div>評論：@rating.RatingText</div>
-                    <div>評論時間：@rating.PostTime</div>
-                    @if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
-                    {
-                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
-                    }
-
-                </div>
-            </div>
-        }
-        <!-- 五星內容 -->
-        <div class="collapse" id="fivestar">
-            <div class="card card-body">
-                @foreach (var rating in ViewBag.FiveStarRatings)
-                {
-                    <!-- 顯示評分星星 -->
-                    <div>評分：@rating.StarRating</div>
-                    <!-- 顯示評論內容 -->
-                    <div>評論：@rating.RatingText</div>
-                    <div>評論時間：@rating.PostTime</div>
-                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
-                    {
-                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
-                    }
-                }
             </div>
         </div>
-        <!-- 四星內容 -->
-        <div class="collapse" id="allstar">
-            <div class="card card-body">
-                @foreach (var rating in ViewBag.FourStarRatings)
+    }
+    <hr />
+    <!-- 五星內容 -->
+    <div class="collapse" id="fivestar">
+        <div class="card card-body">
+            @foreach (var rating in ViewBag.FiveStarRatings)
+            {
+                <!-- 顯示評分星星 -->
+                <div>評分：@rating.StarRating</div>
+                <!-- 顯示評論內容 -->
+                <div>評論：@rating.RatingText</div>
+                <div>評論時間：@rating.PostTime</div>
+                if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
                 {
-                    <!-- 顯示評分星星 -->
-                    <div>評分：@rating.StarRating</div>
-                    <!-- 顯示評論內容 -->
-                    <div>評論：@rating.RatingText</div>
-                    <div>評論時間：@rating.PostTime</div>
-                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
-                    {
-                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
-                    }
+                    <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
                 }
-            </div>
-        </div>
-        <!-- 三星內容 -->
-        <div class="collapse" id="allstar">
-            <div class="card card-body">
-                @foreach (var rating in ViewBag.ThreeStarRatings)
-                {<!-- 顯示評分星星 -->
-                    <div>評分：@rating.StarRating</div>
-                    <!-- 顯示評論內容 -->
-                    <div>評論：@rating.RatingText</div>
-                    <div>評論時間：@rating.PostTime</div>
-                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
-                    {
-                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
-                    }
-                }
-            </div>
-        </div>
-        <!-- 兩星內容 -->
-        <div class="collapse" id="allstar">
-            <div class="card card-body">
-                @foreach (var rating in ViewBag.TwoStarRatings)
-                {
-                    <!-- 顯示評分星星 -->
-                    <div>評分：@rating.StarRating</div>
-                    <!-- 顯示評論內容 -->
-                    <div>評論：@rating.RatingText</div>
-                    <div>評論時間：@rating.PostTime</div>
-                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
-                    {
-                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
-                    }
-                }
-            </div>
-        </div>
-        <!-- 一星內容 -->
-        <div class="collapse" id="allstar">
-            <div class="card card-body">
-                @foreach (var rating in ViewBag.OneStarRatings)
-                {
-                    <!-- 顯示評分星星 -->
-                    <div>評分：@rating.StarRating</div>
-                    <!-- 顯示評論內容 -->
-                    <div>評論：@rating.RatingText</div>
-                    <div>評論時間：@rating.PostTime</div>
-                    if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
-                    {
-                        <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
-                    }
-                }
-            </div>
+            }
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- 四星內容 -->
+    <div class="collapse" id="allstar">
+        <div class="card card-body">
+            @foreach (var rating in ViewBag.FourStarRatings)
+            {
+                <!-- 顯示評分星星 -->
+                <div>評分：@rating.StarRating</div>
+                <!-- 顯示評論內容 -->
+                <div>評論：@rating.RatingText</div>
+                <div>評論時間：@rating.PostTime</div>
+                if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                {
+                    <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                }
+            }
+        </div>
+    </div>
+    <!-- 三星內容 -->
+    <div class="collapse" id="allstar">
+        <div class="card card-body">
+            @foreach (var rating in ViewBag.ThreeStarRatings)
+            {<!-- 顯示評分星星 -->
+                <div>評分：@rating.StarRating</div>
+                <!-- 顯示評論內容 -->
+                <div>評論：@rating.RatingText</div>
+                <div>評論時間：@rating.PostTime</div>
+                if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                {
+                    <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                }
+            }
+        </div>
+    </div>
+    <!-- 兩星內容 -->
+    <div class="collapse" id="allstar">
+        <div class="card card-body">
+            @foreach (var rating in ViewBag.TwoStarRatings)
+            {
+                <!-- 顯示評分星星 -->
+                <div>評分：@rating.StarRating</div>
+                <!-- 顯示評論內容 -->
+                <div>評論：@rating.RatingText</div>
+                <div>評論時間：@rating.PostTime</div>
+                if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                {
+                    <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                }
+            }
+        </div>
+    </div>
+    <!-- 一星內容 -->
+    <div class="collapse" id="allstar">
+        <div class="card card-body">
+            @foreach (var rating in ViewBag.OneStarRatings)
+            {
+                <!-- 顯示評分星星 -->
+                <div>評分：@rating.StarRating</div>
+                <!-- 顯示評論內容 -->
+                <div>評論：@rating.RatingText</div>
+                <div>評論時間：@rating.PostTime</div>
+                if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
+                {
+                    <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- 在頁面底部加入以下腳本 -->
-    <script>
-        // 顯示初始的星級內容（全部）
-        $(document).ready(function () {
-            $("#allstar").addClass("show");
-        });
+<!-- 在頁面底部加入以下腳本 -->
+<script>
+    // 顯示初始的星級內容（全部）
+    $(document).ready(function () {
+        $("#allstar").addClass("show");
+    });
 
-        // 切換評價內容的函數
-        function toggleCollapse(collapseId) {
-            $(".collapse").removeClass("show"); // 先隱藏所有評價內容
-            $("#" + collapseId).addClass("show"); // 顯示所選的評價內容
+    //商品評價要用js判斷只留最新按的按紐
+    let activeCollapse = null;
+
+    // 切換評價內容的函數
+    function toggleCollapse(collapseId) {
+        if (activeCollapse !== collapseId) {
+            // 隱藏上一個 active 的 collapse
+            if (activeCollapse !== null) {
+                document.getElementById(activeCollapse).classList.remove('show');
+            }
+            // 顯示新的 active collapse
+            document.getElementById(collapseId).classList.add('show');
+            activeCollapse = collapseId;
+        } else {
+            // 如果已經是 active 的按鈕，再次點擊時隱藏該 collapse
+            document.getElementById(collapseId).classList.remove('show');
+            activeCollapse = null;
         }
-    </script>
+    }
+</script>
