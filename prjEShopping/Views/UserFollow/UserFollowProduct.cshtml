@@ -79,7 +79,7 @@
                                     <p class="card-text text-danger fw-bold">@Math.Round(item.Price).ToString("C0")</p>
                                     <div class="d-flex">
                                         <a href="@Url.Action("UserSingleProduct", "UserProduct", new { productid = item.ProductId })" class="btn btn-secondary">了解更多...</a>
-                                        <button class="btn btn-danger" id="addToFavorites"><i class="fa-regular fa-heart"></i></button>
+                                        <button class="btn btn-danger addToFavorites" data-id="@item.ProductId"><i class="fa-regular fa-heart"></i></button>
                                     </div>
 
                                 </div>
@@ -93,3 +93,42 @@
     </div>
 </div>
 
+@*是否要移除追蹤商品*@
+<div class="modal" id="deletetrackModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                確定要從追蹤中移除此商品嗎？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancelButton">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        //取消追蹤
+        $(document).ready(function () {
+            $(".addToFavorites").each(function () {
+                $(this).on('click',  function () {
+                    var productId = $(this).attr("data-id");
+                    //console.log(productId)                    
+                    $("#deletetrackModal").modal("show");
+                    $("#confirmButton").on('click', async function () {
+                        const result = await $.get("/UserProduct/TrackProductapi?productId=" + productId)
+                        location.reload();
+                    });
+                })
+            })
+        })
+
+    </script>
+}
