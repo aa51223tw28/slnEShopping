@@ -30,7 +30,8 @@ namespace prjEShopping.Controllers
                 ProductImagePathOne = x.ProductImagePathOne,
                 StockQuantity = y.StockQuantity,
                 OrderQuantity = y.OrderQuantity,
-                ProductStatusId = x.ProductStatusId
+                ProductStatusId = x.ProductStatusId,
+                Promote = x.Promote,
             }).Select(x => new SellerProductListVM
             {
                 ProductID = x.ProductID,
@@ -39,7 +40,8 @@ namespace prjEShopping.Controllers
                 ProductImagePathOne = x.ProductImagePathOne,
                 StockQuantity = x.StockQuantity,
                 OrderQuantity = x.OrderQuantity,
-                ProductStatusName = (db.ProductStatusDetails.Where(y => y.ProductStatusId == x.ProductStatusId).FirstOrDefault().ProductStatusName).ToString()
+                ProductStatusName = (db.ProductStatusDetails.Where(y => y.ProductStatusId == x.ProductStatusId).FirstOrDefault().ProductStatusName).ToString(),
+                Promote = x.Promote,
             }).ToList();
 
             return View(products);
@@ -149,7 +151,16 @@ namespace prjEShopping.Controllers
         {
             var db = new AppDbContext();
             var product = db.Products.Find(id);
-            product.ProductStatusId = 1;
+            if (product.ProductStatusId == 2) 
+            {
+                if (product.Promote != null) 
+                {
+                    setToclearPromote(id);
+                }
+                product.ProductStatusId = 3;
+            }  
+            else
+                product.ProductStatusId = 2;
             db.SaveChanges();
 
             return RedirectToAction("SellerProductList");
@@ -180,6 +191,55 @@ namespace prjEShopping.Controllers
                 .Select(x => int.Parse(x))
                 .ToList();
  
-        } 
+        }
+
+        public ActionResult setPromote(int id)
+        {
+            var db = new AppDbContext();
+            var countInPromote = db.Products.Where(x => x.Promote != null).Count();
+            if (countInPromote < 5)
+            {
+                var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
+                addToPromote = (countInPromote + 1).ToString();
+            }
+            else 
+            {
+                var deleteFirstPrmote = db.Products.FirstOrDefault(x => x.Promote == 1.ToString());
+                db.Products.Remove(deleteFirstPrmote);
+
+                var leftPromotes = db.Products.Where(x => x.Promote != null).ToList();
+                 foreach (var item in leftPromotes) 
+                {
+                    item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
+                }
+
+                var addToPromote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
+                addToPromote = 5.ToString();
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("SellerProductList");
+        }
+
+        public ActionResult clearPromote(int? id) 
+        {
+            setToclearPromote(id);
+            return RedirectToAction("SellerProductList");
+        }
+
+        public void setToclearPromote(int? id) 
+        {
+            var db = new AppDbContext();
+            var clearPrmote = db.Products.FirstOrDefault(x => x.ProductId == id).Promote;
+            var movePrmotes = db.Products.Where(x => Int32.Parse(x.Promote) > Int32.Parse(clearPrmote)).ToList();
+
+            clearPrmote = null;
+
+            foreach (var item in movePrmotes)
+            {
+                item.Promote = (Int32.Parse(item.Promote) - 1).ToString();
+            }
+            db.SaveChanges();
+        }
     }
 }

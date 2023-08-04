@@ -20,8 +20,11 @@ namespace prjEShopping.Controllers
             ViewBag.AvgRating = ((double)(ViewBag.AllRatingStar)/ (ViewBag.RatingCount)).ToString("F1");
             ViewBag.Storename = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerName;
             ViewBag.StoreIntro = db.Sellers.FirstOrDefault(x => x.SellerId == 1).StoreIntro;
-            ViewBag.CollectedCount = 0;
+            ViewBag.SellerId = 1;
             ViewBag.StoreImage = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerImagePath;
+            ViewBag.TrackSeller = db.TrackSellers.Any(x => x.SellerId == 1 && x.UserId == 1);
+            ViewBag.TrackCount = db.TrackSellers.Where(x => x.SellerId == 1).Count();
+
             var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductId = x.ProductId,
@@ -82,7 +85,7 @@ namespace prjEShopping.Controllers
         public ActionResult getTop5Product() 
         {
             var db = new AppDbContext();
-            var products = db.Products.Where(x => x.SellerId == 1).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new 
+            var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new 
                         {
                             x.ProductId,
                             x.ProductImagePathOne,
@@ -92,6 +95,21 @@ namespace prjEShopping.Controllers
                             x.SubcategoryId,
                         } ).OrderByDescending(x => x.QuantitySold).Take(5);
 
+            return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getPromoted() 
+        {
+            var db = new AppDbContext();
+            var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2 && x.Promote != null).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+                x.ProductId,
+                x.ProductImagePathOne,
+                x.ProductName,
+                PriceWithCurrency = "NT$" + ((int)x.Price).ToString(),
+                y.QuantitySold,
+                x.SubcategoryId,
+            });
             return Json(products, JsonRequestBehavior.AllowGet);
         }
     }
