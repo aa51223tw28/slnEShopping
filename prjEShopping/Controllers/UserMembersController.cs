@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -130,7 +132,59 @@ namespace prjEShopping.Controllers
 
         public ActionResult UserEditProfile()
         {
-            return View();
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var datas=db.Users.Where(x=>x.UserId==userid).Select(x=>new UserProfileVM()
+            {
+                UserName=x.UserName,
+                UserAccount=x.UserAccount,
+                CellPhone=x.CellPhone,
+                Phone = x.Phone,
+                City = x.City,
+                Address = x.Address,
+                Birthday= (DateTime)x.Birthday,
+                Gender=x.Gender,
+                UserImagePath=x.UserImagePath
+
+            }).FirstOrDefault();
+
+            return View(datas);
+        }
+
+        [HttpPost]
+        public ActionResult UserEditProfile(UserProfileVM vm)
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var data = db.Users.FirstOrDefault(x => x.UserId == userid);
+            data.UserName = vm.UserName;
+            data.UserAccount = vm.UserAccount;
+            data.CellPhone = vm.CellPhone;
+            data.Phone = vm.Phone;
+            data.City = vm.City;
+            data.Address = vm.Address;
+            data.Birthday = vm.Birthday;
+            data.Gender = vm.Gender;
+            
+            if(vm.UserImageFile != null&&vm.UserImageFile.ContentLength > 0)//上傳圖片
+            {
+                var fileName = Path.GetFileName(vm.UserImageFile.FileName);
+                var imagePath = Path.Combine(Server.MapPath("~/img"), fileName);
+                vm.UserImageFile.SaveAs(imagePath);
+
+                data.UserImagePath = fileName; 
+                
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("UserEditProfile");
         }
 
         public ActionResult UserEditPassword()

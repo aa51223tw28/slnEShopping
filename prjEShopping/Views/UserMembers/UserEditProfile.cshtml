@@ -1,4 +1,4 @@
-﻿
+﻿@model prjEShopping.Models.ViewModels.UserProfileVM
 @{
     ViewBag.Title = "UserEditProfile";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
@@ -10,7 +10,7 @@
             <div class="col-sm-auto col-md-3 bg-light">
                 <div class="d-flex flex-column">
                     <div class="d-flex align-items-center">
-                        <img src="" class="img-fluid" id="userImagePath"  style="width:130px">
+                        <img src="" class="img-fluid" id="userImagePath" style="width:130px">
                         <span class="fw-bold ms-3" id="username"></span>
                     </div>
                     <!-- 手風琴左邊選項區 -->
@@ -68,116 +68,134 @@
             <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded" style="height:500px">
                 <p class="fs-4 mt-3 fw-bold">個人檔案</p>
                 <hr>
-                <div class="row">
-                    <div class="col-sm-9">
-                        <div class="row mb-2">
-                            <div class="col-4 d-flex align-items-center">
-                                <span>使用者帳號：</span>
+
+                <form method="post" enctype="multipart/form-data" action="UserEditProfile" id="userEditForm">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>使用者帳號：</span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" value="@Model.UserAccount" name="UserAccount" readonly>
+                                </div>
+                                <div class="col-4">
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <span>John Doe</span>
-                            </div>
-                            <div class="col-4">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-4 d-flex align-items-center">
-                                <span>姓名：</span>
-                            </div>
-                            <div class="col-4">
-                                <input type="text">
-                            </div>
-                            <div class="col-4">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-4 d-flex align-items-center">
-                                <span>Email：</span>
-                            </div>
-                            <div class="col-4">
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-4 d-flex align-items-center">
-                                <span>手機號碼：</span>
-                            </div>
-                            <div class="col-4">
-                                <input type="text">
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>姓名：</span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" value="@Model.UserName" name="UserName">
+                                </div>
+                                <div class="col-4">
+                                </div>
                             </div>
 
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-3 d-flex align-items-center">
-                                <span>姓別：</span>
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>手機號碼：</span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" value="@Model.CellPhone" name="CellPhone">
+                                </div>
+
                             </div>
-                            <div class="col-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label">
-                                        男生
-                                    </label>
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>電話號碼：</span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" value="@Model.Phone" name="Phone">
+                                </div>
+
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>姓別：</span>
+                                </div>
+                                <div class="col-4">
+                                    <select class="form-select" name="Gender">
+                                        <option value="男生" @(Model.Gender == "男生" ? "selected" : "")>男生</option>
+                                        <option value="女生" @(Model.Gender == "女生" ? "selected" : "")>女生</option>
+                                        <option value="其他/保密" @(Model.Gender != "男生" && Model.Gender != "女生" ? "selected" : "")>其他/保密</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label">
-                                        女生
-                                    </label>
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>生日：</span>
+                                </div>
+                                <div class="col-4 d-flex align-items-center">
+                                    <input type="text" class="form-control" value="@Model.Birthday.ToString("yyyy-MM-dd")" name="Birthday" readonly>
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label">
-                                        其他/保密
-                                    </label>
+                            <div class="row mb-2">
+                                <div class="col-4 d-flex align-items-center">
+                                    <span>地址：</span>
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" value="@Model.City" name="City">
+                                </div>
+                                <div class="col-4">
+                                    <input type="text" class="form-control" value="@Model.Address" name="Address">
                                 </div>
                             </div>
+
+                            <button type="submit" class="btn btn-secondary mb-sm-3 mb-md-0" id="saveuserprofile">儲存</button>
+
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-3 d-flex align-items-center">
-                                <span>生日：</span>
-                            </div>
-                            <div class="col-3">
-                                <select>
-                                    <option value="option1">選項 1</option>
-                                    <option value="option2">選項 2</option>
-                                    <option value="option3">選項 3</option>
-                                </select>年
-                            </div>
-                            <div class="col-3">
-                                <select>
-                                    <option value="option1">選項 1</option>
-                                    <option value="option2">選項 2</option>
-                                    <option value="option3">選項 3</option>
-                                </select>月
-                            </div>
-                            <div class="col-3">
-                                <select>
-                                    <option value="option1">選項 1</option>
-                                    <option value="option2">選項 2</option>
-                                    <option value="option3">選項 3</option>
-                                </select>日
-                            </div>
+                        <div class="col-sm-3 d-flex flex-column align-items-center">
+                            <img src="" class="img-fluid" id="userImagePath" style="width:130px">
+                            <label for="formFile" class="form-label"></label>
+                            <input class="form-control" type="file" name="UserImageFile">
                         </div>
-                        <div class="btn btn-secondary mb-sm-3 mb-md-0">儲存</div>
 
                     </div>
-                    <div class="col-sm-3 d-flex flex-column align-items-center">
-                        <img src="~/img/comment.jpeg" alt="" class="img-fluid">
-                        <div class="btn btn-secondary mt-2">選擇圖片</div>
-                    </div>
-
-
-                </div>
-
-
+                </form>
 
             </div>
         </div>
     </div>
 </div>
 
+
+@*修改資料完成。*@
+<div class="modal" id="saveuserprofilemodal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                修改個人檔案完成。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#saveuserprofile").on('click', function (event) {
+                event.preventDefault();
+                $("#saveuserprofilemodal").modal("show")
+            })
+
+            $("#confirmButton").on("click", function () {
+                $("#saveuserprofilemodal").modal("hide")
+                $("#userEditForm").submit();
+            })
+        })
+
+    </script>
+
+}
 
