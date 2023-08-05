@@ -150,10 +150,10 @@ namespace prjEShopping.Controllers
             var userdata=db.Users.Where(x=>x.UserId == userid).Select(x=>new UserProfileVM
             {
                 UserName=x.UserName,
-                UserImagePath=x.UserImagePath,
-            });
+                UserImagePath =x.UserImagePath,
+            }).FirstOrDefault();
 
-            return Json(userdata);
+            return Json(userdata, JsonRequestBehavior.AllowGet);
         }
     }
 

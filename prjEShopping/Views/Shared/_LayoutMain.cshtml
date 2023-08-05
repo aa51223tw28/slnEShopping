@@ -22,11 +22,11 @@
                                 <li class="nav-item px-3 d-flex align-items-center">
                                     <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="text-decoration-none hover-opacity">
                                         <div class="d-flex align-items-center">
-                                            <div style="height:30px;width:30px" class="me-2">
-                                                <img src="~/img/amy.jpg" alt="User Avatar" class="me-2 img-fluid">
+                                            <div style="height:30px;width:30px" class="me-2">                                               
+                                                <img src="" class="me-2 img-fluid" id="userImagePath"/>
                                             </div>                                            
                                             @*<span class="fw-bold text-light">John Doe</span>*@
-                                            <span class="fw-bold text-light">@(User.Identity.Name)</span>
+                                            <span class="fw-bold text-light" id="username"></span>
                                         </div>
                                     </a>
                                 </li>
@@ -231,7 +231,20 @@
         }
 
         //買家的照片名字
+        $(document).ready(async function () {
+            const result = await $.get("/UserMembers/UserPhotoName")
+                       
+            const userImagePath = result.UserImagePath;
+            const username = result.UserName;
+            const img = document.querySelector("#userImagePath");
+            const name = document.querySelector("#username");
 
+            const baseUrl = window.location.origin;            
+            img.src = `${baseUrl}/img/${userImagePath}`;
+
+            name.textContent = username;
+                              
+        })
         
     </script>
 

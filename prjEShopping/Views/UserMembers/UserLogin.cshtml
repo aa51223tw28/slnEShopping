@@ -33,9 +33,10 @@
                         <div class="btn btn-light border border-3" id="btnerror">demo錯誤帳密</div>
                         <div class="btn btn-light border border-3" id="btnerrorright">demo權限問題</div>
                     </div>
-                    <div class="d-flex justify-content-end gap-2 mt-3">
+                    <div class="gap-2 mt-3 d-flex flex-column" style="width:100px">
                         <div class="btn btn-light border border-3" id="btnUser1">User1</div>
                         <div class="btn btn-light border border-3" id="btnUser2">User2</div>
+                        <div class="btn btn-light border border-3" id="btnUser3">User3</div>
                     </div>
                     @*<div class="d-flex justify-content-end gap-2 mt-3">
                         <div class="btn btn-light border border-3" id="btnSeller">Seller</div>
@@ -88,13 +89,14 @@
         })
 
         btnerrorright.addEventListener('click', () => {
-            UserAccount.value = "Bruce@gmail.com"
+            UserAccount.value = "Tom@hotmail.com"
             UserPassword.value = "1234"
         })
 
         /*demo測試腳色區*/
         const btnUser1 = document.querySelector('#btnUser1')
         const btnUser2 = document.querySelector('#btnUser2')
+        const btnUser3 = document.querySelector('#btnUser3')
         //const btnSeller = document.querySelector('#btnSeller')
         //const btnAdmin = document.querySelector('#btnAdmin')
 
@@ -105,6 +107,10 @@
 
         btnUser2.addEventListener('click', () => {
             UserAccount.value = "Mary@yahoo.com"
+            UserPassword.value = "1234"
+        })
+        btnUser3.addEventListener('click', () => {
+            UserAccount.value = "Bruce@gmail.com"
             UserPassword.value = "1234"
         })
         //btnSeller.addEventListener('click', () => {
