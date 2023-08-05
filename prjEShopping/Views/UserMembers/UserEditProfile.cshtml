@@ -147,9 +147,9 @@
 
                         </div>
                         <div class="col-sm-3 d-flex flex-column align-items-center">
-                            <img src="" class="img-fluid" id="userImagePath" style="width:130px">
+                            <img src="" class="img-fluid" id="userImagePaths" style="width:130px">
                             <label for="formFile" class="form-label"></label>
-                            <input class="form-control" type="file" name="UserImageFile">
+                            <input class="form-control" type="file" name="UserImageFile" id="formFile">
                         </div>
 
                     </div>
@@ -183,7 +183,32 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function () {
+        $(document).ready(async function () {
+
+            //先顯示圖片
+            const result = await $.get("/UserMembers/UserPhotoName")
+
+            const userImagePath = result.UserImagePath;           
+            const img = document.querySelector("#userImagePaths");    
+            const baseUrl = window.location.origin;
+            img.src = `${baseUrl}/img/${userImagePath}`;    
+
+            //預覽圖片
+            $("#formFile").change(function () {
+                readURL(this);
+            })
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#userImagePaths").attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0])
+                }
+            }
+
+            //等按下確認後再submit
             $("#saveuserprofile").on('click', function (event) {
                 event.preventDefault();
                 $("#saveuserprofilemodal").modal("show")
