@@ -22,7 +22,7 @@
                                 <li class="nav-item px-3 d-flex align-items-center">
                                     <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="text-decoration-none hover-opacity">
                                         <div class="d-flex align-items-center">
-                                            <div style="height:30px;width:30px" class="me-2">                                               
+                                            <div style="width:30px" class="me-2">                                               
                                                 <img src="" class="me-2 img-fluid" id="userImagePath"/>
                                             </div>                                            
                                             @*<span class="fw-bold text-light">John Doe</span>*@
@@ -236,13 +236,19 @@
                        
             const userImagePath = result.UserImagePath;
             const username = result.UserName;
-            const img = document.querySelector("#userImagePath");
-            const name = document.querySelector("#username");
+            const imgs = document.querySelectorAll("#userImagePath");
+            const names = document.querySelectorAll("#username");
 
-            const baseUrl = window.location.origin;            
-            img.src = `${baseUrl}/img/${userImagePath}`;
-
-            name.textContent = username;
+            const baseUrl = window.location.origin;          
+            
+            imgs.forEach(img => {
+                img.src = `${baseUrl}/img/${userImagePath}`;
+            })
+           
+            names.forEach(name => {
+                name.textContent = username;
+            })
+            
                               
         })
         
