@@ -212,12 +212,19 @@ namespace prjEShopping.Controllers
             }
 
             //更新密碼邏輯
-            UpdatePassword(vm.NewPassword);
+            if(!UpdatePassword(customerAccount, vm.NewPassword))
+            {
+                ModelState.AddModelError("", "密碼格式錯誤，新密碼需至少包含一個英文大寫，一個英文小寫，一個數字，一個符號，且至少8個字元");
+                TempData["ErrorMessage"] = "密碼格式錯誤，新密碼需至少包含一個英文大寫，一個英文小寫，一個數字，一個符號，且至少8個字元"; // 将错误消息保存到 TempData
+                return View(vm);
+            }
 
             //發送驗證郵件
             //SendVerificationEmail(User.Identity.Name);
 
-            return RedirectToAction("UserEditPassword");
+
+            TempData["SuccessMessage"] = "密碼已成功修改";
+            return RedirectToAction("UserLogin");
         }
 
 
@@ -240,9 +247,55 @@ namespace prjEShopping.Controllers
           
         }
 
-        private bool UpdatePassword(string newPassword)//更新密碼邏輯
+        private bool UpdatePassword(string useraccount, string newPassword)//更新密碼邏輯
         {
-            return false;
+            if (IsPasswordValid(newPassword))
+            {
+                var db = new AppDbContext();
+                var usernewpw=db.Users.FirstOrDefault(x=>x.UserAccount==useraccount); 
+                usernewpw.UserPassword = newPassword;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+           
+        }
+
+        private bool IsPasswordValid(string password)
+        {
+            //密碼長度至少為8個字符
+            if (password.Length < 8)
+            {
+                return false;
+            }
+
+            //一個英文大寫 一個英文小寫 一個數字 一個符號
+            bool hasUpperCase = false;
+            bool hasLowerCase = false;
+            bool hasDigit = false;
+            bool hasSymbol = false;
+            foreach (char c in password)
+            {
+                if(char.IsUpper(c))
+                {
+                    hasUpperCase = true;
+                }else if (char.IsLower(c))
+                {
+                    hasLowerCase = true;
+                }else if (char.IsDigit(c))//檢查數字
+                {
+                    hasDigit = true;
+                }
+                else if (char.IsSymbol(c)||char.IsPunctuation(c))//檢查符號
+                {
+                    hasSymbol = true;
+                }
+                
+            }
+            return hasUpperCase && hasLowerCase && hasDigit&& hasSymbol;
         }
 
 
