@@ -222,10 +222,9 @@ namespace prjEShopping.Controllers
 
             //發送驗證郵件
             SendVerificationEmail(customerAccount);
-
-
-            TempData["SuccessMessage"] = "密碼已成功修改";
-            return RedirectToAction("UserLogin");
+            TempData["SuccessMessage"] = "驗證郵件已發送，請查收並完成驗證，5秒後自動登出頁面";
+            return View(vm);
+            //return RedirectToAction("UserLogin");
         }
 
 
@@ -255,6 +254,7 @@ namespace prjEShopping.Controllers
                 var db = new AppDbContext();
                 var usernewpw=db.Users.FirstOrDefault(x=>x.UserAccount==useraccount); 
                 usernewpw.UserPassword = newPassword;
+                usernewpw.AccessRightId = "2";
                 db.SaveChanges();
                 return true;
             }
