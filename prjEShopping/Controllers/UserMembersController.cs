@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -220,7 +221,7 @@ namespace prjEShopping.Controllers
             }
 
             //發送驗證郵件
-            //SendVerificationEmail(User.Identity.Name);
+            SendVerificationEmail(customerAccount);
 
 
             TempData["SuccessMessage"] = "密碼已成功修改";
@@ -296,6 +297,66 @@ namespace prjEShopping.Controllers
                 
             }
             return hasUpperCase && hasLowerCase && hasDigit&& hasSymbol;
+        }
+
+        private void SendVerificationEmail(string userAccount)//發送驗證郵件
+        {
+            //生成驗證連結
+            var db=new AppDbContext();
+            var useraccount = db.Users.FirstOrDefault(x => x.UserAccount == userAccount);
+            if (useraccount != null)
+            {
+                string verificationToken = Guid.NewGuid().ToString();
+                useraccount.EmailCheck=verificationToken;
+                db.SaveChanges();
+
+                //string verificationLink = "https://localhost:44388/UserMembers/UserVerifyEmail?token=" + verificationToken;
+                string relativeUrl = Url.Action("UserVerifyEmail", "UserMembers", new { token = verificationToken });
+                string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
+
+
+                var fromAddress = new MailAddress("Eshopping17go@gmail.com", "E起購");
+                var toAddress = new MailAddress(userAccount);
+                string subject = "E起購修改密碼驗證信";
+                string body = $"<html><body><h3>請點擊以下連結驗證您的電子郵件:<a href=\"{absoluteUrl}\">驗證</a></h3></body></html>";
+                
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential("Eshopping17go@gmail.com", "ayakelsjzapfbtil"),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true//可以吃到html標籤
+                })
+                {
+                    smtpClient.Send(message);
+                }
+            }
+            
+        }
+                
+        public ActionResult UserVerifyEmail(string token)
+        {
+            var db=new AppDbContext();
+            var usertoken=db.Users.FirstOrDefault(x=>x.EmailCheck==token);
+            if (usertoken != null)
+            {
+                usertoken.AccessRightId = "1";
+                usertoken.EmailCheck = null;
+                db.SaveChanges();
+
+                TempData["SuccessMessage"] = "您的郵箱已成功驗證";               
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "驗證已失敗";               
+            }
+            return View();
         }
 
 
