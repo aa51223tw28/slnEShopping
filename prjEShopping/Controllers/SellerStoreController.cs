@@ -12,6 +12,10 @@ namespace prjEShopping.Controllers
     public class SellerStoreController : Controller
     {
         // GET: SellerStore
+        public ActionResult StoresList() 
+        {
+            return View();
+        }
         public ActionResult StoreMain()
         {
             var db = new AppDbContext();
