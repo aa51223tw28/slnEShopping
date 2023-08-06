@@ -130,6 +130,7 @@ namespace prjEShopping.Controllers
             return Redirect("/Main/Index");
         }
 
+        [Authorize]
         public ActionResult UserEditProfile()
         {
             var customerAccount = User.Identity.Name;
@@ -153,7 +154,7 @@ namespace prjEShopping.Controllers
 
             return View(datas);
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult UserEditProfile(UserProfileVM vm)
         {
@@ -186,15 +187,67 @@ namespace prjEShopping.Controllers
 
             return RedirectToAction("UserEditProfile");
         }
-
+        [Authorize]
         public ActionResult UserEditPassword()
         {
             return View();
         }
 
+        [Authorize]
+        [HttpPost]
+        public ActionResult UserEditPassword(UserChangePasswordVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            //驗證舊密碼邏輯
+            var customerAccount = User.Identity.Name;
+            if (!ValidateOldPassword(customerAccount, vm.OldPassword))
+            {
+                ModelState.AddModelError("", "舊密碼輸入錯誤");
+                TempData["ErrorMessage"] = "舊密碼輸入錯誤"; // 将错误消息保存到 TempData
+                return View(vm);
+            }
+
+            //更新密碼邏輯
+            UpdatePassword(vm.NewPassword);
+
+            //發送驗證郵件
+            //SendVerificationEmail(User.Identity.Name);
+
+            return RedirectToAction("UserEditPassword");
+        }
+
+
+        private bool ValidateOldPassword(string useraccount,string oldPassword)//驗證舊密碼邏輯
+        {
+            var db = new AppDbContext();
+
+            var user = db.Users.FirstOrDefault(x => x.UserAccount == useraccount);
+            var userpw = db.Users.Where(x=>x.UserAccount == useraccount).Select(x=>x.UserPassword).FirstOrDefault();
+            
+           
+            if(userpw == oldPassword)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+          
+        }
+
+        private bool UpdatePassword(string newPassword)//更新密碼邏輯
+        {
+            return false;
+        }
+
 
         [Authorize]
-        public ActionResult UserPhotoName()
+        public ActionResult UserPhotoName()//傳送api使用者圖片跟名字到layout
         {
             var customerAccount = User.Identity.Name;
 
