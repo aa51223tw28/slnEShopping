@@ -31,10 +31,11 @@ namespace prjEShopping.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var db = new AppDbContext();
                 var feedback = new Rating
                 {
-                    UserId = model.UserId,
+                    UserId = 2,
                     ProductId = model.ProductId,
                     StarRating = model.StarRating,
                     RatingText = model.RatingText,

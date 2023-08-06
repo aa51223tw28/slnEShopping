@@ -68,35 +68,36 @@
             
             <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
 
-
-                <!--讀取到的商品-->
-                <div>
-                    <p>商品ID: @Html.DisplayFor(model => model.ProductId)</p>
-                    <hr />
-                    <p>商品名稱:</p><!-- Display the product ID here -->
-                    <hr />
-                    <!-- Add other product details if available in UserFeedbackVM -->
-                </div>
-
-                <!--評分-->
-                <div id="starContainer">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <img class="star" src="@Url.Content("~/img/star.gif")" data-value="@i" />
-                    }
-                </div>
-
-
-                <p id="starRatingText" style="font-size: 20px; font-weight: bold; color: #9F4D95;">請評分：<span style="color: #9F4D95; font-size: 24px;">@Html.DisplayFor(model => model.StarRating)</span>星</p>
-
-                <input type="button" class="btn btn-primary reset" value="重新評分" style="float:right" />
-                <br />
-                <br />
                 @using (Html.BeginForm("SubmitComment", "UserFeedback", FormMethod.Post))
                 {
                     @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
-                    @Html.HiddenFor(model => model.ProductId, new { @id = "productId" ,value = 1 }) <!-- 新增隱藏字段來儲存 ProductId -->
+                    @Html.HiddenFor(model => model.ProductId, new { @id = "productId", value = 1 }) <!-- 新增隱藏字段來儲存 ProductId -->
+                    @Html.HiddenFor(model => model.UserId, new { @id = "userId", value = 1 })
                     @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
+                    <!--讀取到的商品-->
+                    <div>
+                        <p>商品ID: @Html.DisplayFor(model => model.ProductId)</p>
+                        <hr />
+                        <p>商品名稱:</p><!-- Display the product ID here -->
+                        <hr />
+                        <!-- Add other product details if available in UserFeedbackVM -->
+                    </div>
+
+                    <!--評分-->
+                    <div id="starContainer">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <img class="star" src="@Url.Content("~/img/star.gif")" data-value="@i" />
+                        }
+                    </div>
+
+
+                    <p id="starRatingText" style="font-size: 20px; font-weight: bold; color: #9F4D95;">請評分：<span style="color: #9F4D95; font-size: 24px;">@Html.DisplayFor(model => model.StarRating)</span>星</p>
+
+                    <input type="button" class="btn btn-primary reset" value="重新評分" style="float:right" />
+                    <br />
+                    <br />
+
                     <div class="form-group">
                         @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
                     </div>

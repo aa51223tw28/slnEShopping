@@ -69,11 +69,16 @@
                 <div>評分：@rating.StarRating</div>
                 <!-- 顯示評論內容 -->
                 <div>評論：@rating.RatingText</div>
-                <div>評論時間：@rating.PostTime</div>
+                <div>買家評論時間：@rating.PostTime</div>
                 @if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
                 {
                     <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    if (ViewBag.ReplayTime.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家評論時間：@ViewBag.ReplayTime[rating.RatingId]</div>
+                    }
                 }
+
 
             </div>
         </div>
@@ -88,10 +93,14 @@
                 <div>評分：@rating.StarRating</div>
                 <!-- 顯示評論內容 -->
                 <div>評論：@rating.RatingText</div>
-                <div>評論時間：@rating.PostTime</div>
+                <div>買家評論時間：@rating.PostTime</div>
                 if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
                 {
                     <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    if (ViewBag.ReplayTime.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家評論時間：@ViewBag.ReplayTime[rating.RatingId]</div>
+                    }
                 }
             }
         </div>
@@ -105,10 +114,14 @@
                 <div>評分：@rating.StarRating</div>
                 <!-- 顯示評論內容 -->
                 <div>評論：@rating.RatingText</div>
-                <div>評論時間：@rating.PostTime</div>
+                <div>買家評論時間：@rating.PostTime</div>
                 if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
                 {
                     <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    if (ViewBag.ReplayTime.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家評論時間：@ViewBag.ReplayTime[rating.RatingId]</div>
+                    }
                 }
             }
         </div>
@@ -121,10 +134,14 @@
                 <div>評分：@rating.StarRating</div>
                 <!-- 顯示評論內容 -->
                 <div>評論：@rating.RatingText</div>
-                <div>評論時間：@rating.PostTime</div>
+                <div>買家評論時間：@rating.PostTime</div>
                 if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
                 {
                     <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    if (ViewBag.ReplayTime.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家評論時間：@ViewBag.ReplayTime[rating.RatingId]</div>
+                    }
                 }
             }
         </div>
@@ -138,10 +155,14 @@
                 <div>評分：@rating.StarRating</div>
                 <!-- 顯示評論內容 -->
                 <div>評論：@rating.RatingText</div>
-                <div>評論時間：@rating.PostTime</div>
+                <div>買家評論時間：@rating.PostTime</div>
                 if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
                 {
                     <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    if (ViewBag.ReplayTime.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家評論時間：@ViewBag.ReplayTime[rating.RatingId]</div>
+                    }
                 }
             }
         </div>
@@ -155,10 +176,14 @@
                 <div>評分：@rating.StarRating</div>
                 <!-- 顯示評論內容 -->
                 <div>評論：@rating.RatingText</div>
-                <div>評論時間：@rating.PostTime</div>
+                <div>買家評論時間：@rating.PostTime</div>
                 if (ViewBag.SellerReplies.ContainsKey(rating.RatingId))
                 {
                     <div>賣家回覆：@ViewBag.SellerReplies[rating.RatingId]</div>
+                    if (ViewBag.ReplayTime.ContainsKey(rating.RatingId))
+                    {
+                        <div>賣家評論時間：@ViewBag.ReplayTime[rating.RatingId]</div>
+                    }
                 }
             }
         </div>
