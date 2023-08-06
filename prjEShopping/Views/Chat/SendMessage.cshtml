@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "SendMessage";
+}
+<div id="chat-history">
+    @foreach (var message in ViewBag.ChatHistory)
+    {
+        <div>@message.Sender: @message.Message</div>
+    }
+</div>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatBot</title>
+</head>
+<body>
+    <div id="chat-container">
+        <input type="text" id="user-input" />
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        sendButton.addEventListener('click', () => {
+            const userMessage = userInput.value;
+            appendMessage('User', userMessage);
+            // TODO: Send user message to server and receive bot response
+            userInput.value = '';
+        });
+
+        function appendMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = `${sender}: ${message}`;
+            chatHistory.appendChild(messageDiv);
+        }
+    </script>
+</body>
+</html>
