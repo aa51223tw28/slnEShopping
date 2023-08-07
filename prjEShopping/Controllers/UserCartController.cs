@@ -535,7 +535,14 @@ namespace prjEShopping.Controllers
             var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid).ToList();
             foreach (var item in shoppingdetails)
             {
-                item.AddToOrder = "1";               
+                if (item.AddToOrder == "1")
+                {
+                    item.AddToOrder = "0";
+                }
+                else
+                {
+                    item.AddToOrder = "1";
+                }
             }
 
 
