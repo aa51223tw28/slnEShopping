@@ -52,18 +52,21 @@
                     {
                         <div class="container">
                             <div class="collapse navbar-collapse">
-                                <ul class="navbar-nav me-auto">
+                                <ul class="navbar-nav me-auto">                                   
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">賣家註冊</a>
+                                        <a>@Html.ActionLink("管理者登入", "Login", "Admins", new { area = "" }, new { @class = "nav-link" })</a>
+                                    </li>                                  
+                                    <li class="nav-item">
+                                        <a>@Html.ActionLink("賣家註冊", "Create", "SellerRegister", new { area = "" }, new { @class = "nav-link" })</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">賣家登入</a>
+                                        <a>@Html.ActionLink("賣家登入", "Login", "SellerLogin", new { area = "" }, new { @class = "nav-link" })</a>
                                     </li>
                                 </ul>
                                 <div class="justify-content-end d-flex">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">買家註冊</a>
+                                            <a>@Html.ActionLink("買家註冊", "UserRegister", "UserMembers", new { area = "" }, new { @class = "nav-link" })</a>
                                         </li>
                                         <li class="nav-item">
                                             <a>@Html.ActionLink("買家登入", "UserLogin", "UserMembers", new { area = "" }, new { @class = "nav-link" })</a>

@@ -1,0 +1,64 @@
+﻿
+@model prjEShopping.Models.ViewModels.UserProfileVM
+
+@{
+    ViewBag.Title = "UserRegister";
+    Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
+}
+
+<form method="post" enctype="multipart/form-data" action="UserEditPassword">
+    <div class="bg-light py-5">
+        <div class="container pt-2">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6 bg-success rounded ">
+                    <p class="mt-3 fs-3 fw-bold text-center">買家註冊</p>
+                    <div class="row mb-2">
+                        <div class="col-4 d-flex align-items-center">
+                            <span>使用者帳號：</span>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="" name="UserAccount">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 d-flex align-items-center">
+                            <span>姓名：</span>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="" name="UserAccount">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 d-flex align-items-center">
+                            <span>密碼：</span>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="" name="UserAccount">
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-4 d-flex align-items-center">
+                            <span>確認密碼：</span>
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" value="" name="UserAccount">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="d-grid gap-2 mb-3">
+                        <input type="submit" value="註冊" class="btn btn-secondary mt-3" />
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+

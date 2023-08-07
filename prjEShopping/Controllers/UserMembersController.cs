@@ -376,6 +376,19 @@ namespace prjEShopping.Controllers
 
             return Json(userdata, JsonRequestBehavior.AllowGet);
         }
+
+
+        public ActionResult UserRegister()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UserRegister(UserProfileVM vm)
+        {
+
+            return View();
+        }
     }
 
 }
