@@ -386,7 +386,29 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult UserRegister(UserProfileVM vm)
         {
+            if (!ModelState.IsValid)
+            {
+                // 驗證失敗，返回原始的註冊視圖並顯示錯誤訊息
+                return View(vm);
+            }
+
             var db = new AppDbContext();
+
+            //檢查是否有相同的UserAccount
+            if (db.Users.Any(x => x.UserAccount == vm.UserAccount))
+            {
+                ModelState.AddModelError("UserAccount", $"{vm.UserAccount}該使用者帳號已經被註冊過");
+                return View(vm);
+            }
+
+            string fileName = "";
+            if (vm.UserImageFile != null && vm.UserImageFile.ContentLength > 0)
+            {
+                fileName = Path.GetFileName(vm.UserImageFile.FileName);
+                var imagePath = Path.Combine(Server.MapPath("~/img"), fileName);
+                vm.UserImageFile.SaveAs(imagePath);
+            }
+
             var data = new User()
             {
                 UserName = vm.UserName,
@@ -400,13 +422,75 @@ namespace prjEShopping.Controllers
                 Birthday = vm.Birthday,
                 Role = "User",
                 AccessRightId = "2",//審核中
-                ShippingMethodId = "2",
-                PaymenyMethodId = "2",
+                ShippingMethodId = "1",
+                PaymenyMethodId = "1",    
+                UserImagePath=fileName,
             };
+         
             db.Users.Add(data);
             db.SaveChanges();
 
-            return RedirectToAction("UserLogin");
+            SendRegisterEmail(vm.UserAccount);
+
+            TempData["SuccessMessage"] = "驗證郵件已發送，請查收並完成驗證，5秒後導向登入頁面";
+            return View(vm);
+        }
+
+        private void SendRegisterEmail(string userAccount)//註冊驗證信
+        {
+            var db=new AppDbContext();
+            var useraccount=db.Users.FirstOrDefault(x => x.UserAccount == userAccount);
+            if(useraccount != null)
+            {
+                string verificationToken=Guid.NewGuid().ToString();
+                useraccount.EmailCheck=verificationToken;
+                db.SaveChanges();
+
+                string relativeUrl = Url.Action("UserRegisterEmail", "UserMembers", new { token = verificationToken });
+                string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
+
+                var fromAddress=new MailAddress("Eshopping17go@gmail.com", "E起購");
+                var toAddress = new MailAddress(userAccount);
+                string subject = "E起購開通會員驗證信";
+                string body = $"<html><body><h3>請點擊以下連結驗證您的電子郵件:<a href=\"{absoluteUrl}\">驗證</a></h3></body></html>";
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential("Eshopping17go@gmail.com", "ayakelsjzapfbtil"),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true//可以吃到html標籤
+                })
+                {
+                    smtpClient.Send(message);
+                }
+            }
+        }
+
+
+        public ActionResult UserRegisterEmail(string token)
+        {
+            var db = new AppDbContext();
+            var usertoken = db.Users.FirstOrDefault(x => x.EmailCheck == token);
+            if (usertoken != null)
+            {
+                usertoken.AccessRightId = "1";
+                usertoken.EmailCheck = null;
+                db.SaveChanges();
+
+                TempData["SuccessMessage"] = "您的郵箱已成功驗證";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "驗證已失敗";
+            }
+            return View();
         }
     }
 

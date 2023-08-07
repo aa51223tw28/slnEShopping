@@ -13,6 +13,16 @@
                 <div class="col-3"></div>
                 <div class="col-6 bg-success rounded ">
                     <p class="mt-3 fs-3 fw-bold text-center">買家註冊</p>
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["SuccessMessage"]</div>
+                        <script>
+                            setTimeout(function () {
+                                window.location.href = '@Url.Action("UserLogin", "UserMembers")';
+                            }, 5000);
+                        </script>
+                    }
+
                     <div class="row mb-2">
                         <div class="col-3 d-flex align-items-center">
                             <span>使用者帳號：</span>
@@ -21,7 +31,7 @@
                             <input type="text" class="form-control" value="" name="UserAccount" id="UserAccount">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.UserAccount, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -32,7 +42,7 @@
                             <input type="text" class="form-control" value="" name="UserName" id="UserName">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -43,7 +53,7 @@
                             <input type="password" class="form-control" value="" name="UserPassword" id="UserPassword">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.UserPassword, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -54,7 +64,7 @@
                             <input type="password" class="form-control" value="" name="ConfirmUserPassword" id="ConfirmUserPassword">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.ConfirmUserPassword, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -70,7 +80,7 @@
                             </select>
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -81,7 +91,7 @@
                             <input type="text" class="form-control" value="" name="CellPhone" id="CellPhone">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.CellPhone, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -92,7 +102,7 @@
                             <input type="text" class="form-control" value="" name="Phone" id="Phone">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -103,7 +113,7 @@
                             <input type="text" class="form-control" value="" name="City" placeholder="請輸入區域" id="City">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -114,7 +124,7 @@
                             <input type="text" class="form-control" value="" name="Address" placeholder="請輸入街道" id="Address">
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
@@ -125,7 +135,7 @@
                             <input class="form-control" type="date" name="Birthday" value="1984-07-22" />
                         </div>
                         <div class="col-4">
-                            @*@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })*@
+                            @Html.ValidationMessageFor(m => m.Birthday, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -137,10 +147,20 @@
                             <input class="form-control" type="file" name="UserImageFile" id="formFile">
                         </div>
                         <div class="col-4">
-                            <img src="" class="img-fluid" id="userImagePaths" style="width:130px">
+                            @Html.ValidationMessageFor(m => m.UserImageFile, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row mb-2">
+                        <div class="col-3 d-flex align-items-center"></div>
+                        <div class="col-5">
+                            <img src="" class="img-fluid" id="userImagePaths" style="width:130px">
+                        </div>
+
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-3 d-flex align-items-center">
+                            <div class="btn btn-light border border-3" id="btnDemoRegisterold">Demo註冊(已註冊過帳號)</div>
+                        </div>
                         <div class="col-3 d-flex align-items-center">
                             <div class="btn btn-light border border-3" id="btnDemoRegister">Demo註冊</div>
                         </div>
@@ -148,6 +168,7 @@
                     <div class="d-grid gap-2 mb-3">
                         <input type="submit" value="註冊" class="btn btn-secondary mt-3" />
                     </div>
+
                 </div>
                 <div class="col-3"></div>
             </div>
@@ -175,16 +196,41 @@
 
             $("#btnDemoRegister").on('click', function () {
                 UserAccount.value = "aasharon1014@gmail.com"
-                UserName.value = "Mark"
-                UserPassword.value = "Aa12345$mark"
-                ConfirmUserPassword.value = "Aa12345$mark"
-                CellPhone.value = "0951234775"
-                Phone.value = "0227531441"
-                City.value = "新竹市東區"
-                Address.value ="食品路"
+                UserName.value = "Tom"
+                UserPassword.value = "Aa12345$tom"
+                ConfirmUserPassword.value = "Aa12345$tom"
+                CellPhone.value = "0971254789"
+                Phone.value = "0245795412"
+                City.value = "台中市西區"
+                Address.value ="五權西路一段"
             })
 
-            
+            $("#btnDemoRegisterold").on('click', function () {
+                UserAccount.value = "Tom@hotmail.com"
+                UserName.value = "Tom"
+                UserPassword.value = "Aa12345$tom"
+                ConfirmUserPassword.value = "Aa12345$tom"
+                CellPhone.value = "0971254789"
+                Phone.value = "0245795412"
+                City.value = "台中市西區"
+                Address.value = "五權西路一段"
+            })
+
+
+            //預覽圖片
+            $("#formFile").change(function () {
+                readURL(this)
+            })
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#userImagePaths").attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }            
         })
 
     </script>

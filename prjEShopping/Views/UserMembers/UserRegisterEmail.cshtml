@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "UserRegisterEmail";
+    Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
+}
+
+<div class="container" style="height:600px">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-secondary mt-3">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["ErrorMessage"]</div>
+    }
+
+    <p>5秒後自動轉回登入頁面...</p>
+
+
+</div>
+
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("UserLogin", "UserMembers")';
+        }, 5000);
+    </script>
+}

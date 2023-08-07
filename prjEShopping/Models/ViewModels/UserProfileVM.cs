@@ -25,9 +25,11 @@ namespace prjEShopping.Models.ViewModels
         [Required]
         [Compare("UserPassword")]
         public string ConfirmUserPassword { get; set; }
-        
 
+        
         public string UserImagePath { get; set; }
+        [Display(Name = "相片")]
+        [Required]
         public HttpPostedFileBase UserImageFile { get; set; }
 
         [Required]
@@ -43,11 +45,11 @@ namespace prjEShopping.Models.ViewModels
         public string Gender { get; set; }
 
         [Required]
-        [Display(Name = "通訊地(區域)")]
+        [Display(Name = "地址(區域)")]
         public string City { get; set; }
 
         [Required]
-        [Display(Name = "通訊地(街道)")]
+        [Display(Name = "地址(街道)")]
         public string Address { get; set; }
 
         [Required]

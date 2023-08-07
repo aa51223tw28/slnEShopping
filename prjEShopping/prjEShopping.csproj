@@ -370,6 +370,7 @@
     <Content Include="Views\UserTestComment\Comment.cshtml" />
     <Content Include="Views\UserMembers\UserVerifyEmail.cshtml" />
     <Content Include="Views\UserMembers\UserRegister.cshtml" />
+    <Content Include="Views\UserMembers\UserRegisterEmail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
