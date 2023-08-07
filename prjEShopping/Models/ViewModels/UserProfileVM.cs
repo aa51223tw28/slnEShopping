@@ -23,7 +23,7 @@ namespace prjEShopping.Models.ViewModels
         
         [Display(Name = "確認密碼")]
         [Required]
-        [Compare("NewPassword")]
+        [Compare("UserPassword")]
         public string ConfirmUserPassword { get; set; }
         
 

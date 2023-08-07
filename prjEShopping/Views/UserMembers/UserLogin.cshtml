@@ -40,7 +40,7 @@
                             <div class="btn btn-light border border-3" id="btnUser1new">User1新密碼</div>
                     </div>
                     <div class="gap-2 mt-3 d-flex flex-column" style="width:100px">                        
-                        
+                        <div class="btn btn-light border border-3" id="btnregisterUser">新註冊</div>
                         <div class="btn btn-light border border-3" id="btnUser2">User2</div>
                         <div class="btn btn-light border border-3" id="btnUser3">User3</div>
                     </div>
@@ -102,6 +102,7 @@
         /*demo測試腳色區*/
         const btnUser1 = document.querySelector('#btnUser1')
         const btnUser1new = document.querySelector('#btnUser1new')
+        const btnregisterUser = document.querySelector('#btnregisterUser')
         const btnUser2 = document.querySelector('#btnUser2')
         const btnUser3 = document.querySelector('#btnUser3')
         //const btnSeller = document.querySelector('#btnSeller')
@@ -115,6 +116,11 @@
         btnUser1new.addEventListener('click', () => {
             UserAccount.value = "aa51223tw28@gmail.com"
             UserPassword.value = "Aa12346$"
+        })
+
+        btnregisterUser.addEventListener('click', () => {
+            UserAccount.value = "aasharon1014@gmail.com"
+            UserPassword.value = "Aa12345$mark"
         })
 
         btnUser2.addEventListener('click', () => {

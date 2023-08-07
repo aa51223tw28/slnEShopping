@@ -386,8 +386,27 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult UserRegister(UserProfileVM vm)
         {
+            var db = new AppDbContext();
+            var data = new User()
+            {
+                UserName = vm.UserName,
+                UserAccount = vm.UserAccount,
+                UserPassword = vm.UserPassword,
+                CellPhone = vm.CellPhone,
+                Phone = vm.Phone,
+                City = vm.City,
+                Address = vm.Address,
+                Gender = vm.Gender,
+                Birthday = vm.Birthday,
+                Role = "User",
+                AccessRightId = "2",//審核中
+                ShippingMethodId = "2",
+                PaymenyMethodId = "2",
+            };
+            db.Users.Add(data);
+            db.SaveChanges();
 
-            return View();
+            return RedirectToAction("UserLogin");
         }
     }
 
