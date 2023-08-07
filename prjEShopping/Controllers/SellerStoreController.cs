@@ -12,6 +12,10 @@ namespace prjEShopping.Controllers
     public class SellerStoreController : Controller
     {
         // GET: SellerStore
+        public ActionResult StoresList() 
+        {
+            return View();
+        }
         public ActionResult StoreMain()
         {
             var db = new AppDbContext();
@@ -111,6 +115,27 @@ namespace prjEShopping.Controllers
                 x.SubcategoryId,
             });
             return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SaveOrClearFavorite(int sellerid, int userid)
+        {
+            var db = new AppDbContext();
+            var isInFavorite = db.TrackSellers.FirstOrDefault(x => x.SellerId == sellerid && x.UserId == userid);
+            if (isInFavorite != null)
+            {
+                db.TrackSellers.Remove(isInFavorite);
+            }
+            else
+            {
+                var addtofavorite = new TrackSeller
+                {
+                    UserId = userid,
+                    SellerId = sellerid,
+                };
+                db.TrackSellers.Add(addtofavorite);
+            }
+            db.SaveChanges();
+            return Json(1, JsonRequestBehavior.AllowGet);
         }
     }
 }

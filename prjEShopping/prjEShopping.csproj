@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ADProductsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
+    <Compile Include="Controllers\SellerActivitiesController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
     <Compile Include="Controllers\SellerProductController.cs" />
@@ -370,6 +371,10 @@
     <Content Include="Views\SellersAD\ADList.cshtml" />
     <Content Include="Views\SellersAD\ADDemo.cshtml" />
     <Content Include="Views\UserTestComment\Comment.cshtml" />
+    <Content Include="Views\SellerStore\StoresList.cshtml" />
+    <Content Include="Views\SellerActivities\ADList.cshtml" />
+    <Content Include="Views\SellerActivities\CouponList.cshtml" />
+    <Content Include="Views\SellerActivities\MyADList.cshtml" />
     <Content Include="Views\SellerLogin\SellerPasswordForgot.cshtml" />
     <Content Include="Views\Chat\SendMessage.cshtml" />
     <Content Include="Views\SellerLogin\ResetPassword.cshtml" />
