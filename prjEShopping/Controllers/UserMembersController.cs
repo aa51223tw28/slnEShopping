@@ -409,7 +409,7 @@ namespace prjEShopping.Controllers
                 vm.UserImageFile.SaveAs(imagePath);
             }
 
-            var data = new User()
+            var newUser = new User()
             {
                 UserName = vm.UserName,
                 UserAccount = vm.UserAccount,
@@ -426,8 +426,18 @@ namespace prjEShopping.Controllers
                 PaymenyMethodId = "1",    
                 UserImagePath=fileName,
             };
+            db.Users.Add(newUser);
+            db.SaveChanges();//先存進資料庫已讓有新的userId
+
+            var userId = newUser.UserId;
+
+            var newShoppingCart = new ShoppingCart()
+            {
+                UserId= userId,
+            };
          
-            db.Users.Add(data);
+            
+            db.ShoppingCarts.Add(newShoppingCart);
             db.SaveChanges();
 
             SendRegisterEmail(vm.UserAccount);
