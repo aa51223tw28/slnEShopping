@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AdmintestController.cs" />
     <Compile Include="Controllers\ADPointsController.cs" />
     <Compile Include="Controllers\ADProductsController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
+    <Compile Include="Models\ViewModels\ChatMessageVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\RatingVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
@@ -368,6 +370,9 @@
     <Content Include="Views\SellersAD\ADList.cshtml" />
     <Content Include="Views\SellersAD\ADDemo.cshtml" />
     <Content Include="Views\UserTestComment\Comment.cshtml" />
+    <Content Include="Views\SellerLogin\SellerPasswordForgot.cshtml" />
+    <Content Include="Views\Chat\SendMessage.cshtml" />
+    <Content Include="Views\SellerLogin\ResetPassword.cshtml" />
     <Content Include="Views\UserMembers\UserVerifyEmail.cshtml" />
     <Content Include="Views\UserMembers\UserRegister.cshtml" />
     <Content Include="Views\UserMembers\UserRegisterEmail.cshtml" />

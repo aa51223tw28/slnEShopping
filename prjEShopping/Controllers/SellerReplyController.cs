@@ -46,8 +46,8 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult AddReply(int commentId, int starRating, string ratingText, string replyText)
         {
-            int productId = 0;
-            int userId = 1;
+            int productId = 1;//先寫死productId=1;
+            //int userId = 1;
             // 在這裡將回覆資料儲存到 RatingReplaies 資料庫
             // 建立 RatingReplaies 物件並填入資料
             var ratingReply = new RatingReplay
@@ -66,10 +66,8 @@ namespace prjEShopping.Controllers
             var rating = db.Ratings.FirstOrDefault(r => r.RatingId == commentId);
             if (rating != null)
             {
-                productId = rating.ProductId ?? 0;
-                userId = rating.UserId ?? 0;
                 rating.ProductId = productId;
-                rating.UserId = userId;
+                //rating.UserId = userId;之後有值要改
                 db.SaveChanges();
             }
             TempData["ReplySuccess"] = "回覆成功";

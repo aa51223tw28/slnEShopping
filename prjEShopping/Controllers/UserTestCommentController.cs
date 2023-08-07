@@ -25,6 +25,11 @@ namespace prjEShopping.Controllers
                     .GroupBy(r => r.RatingId.Value) // 按照 RatingId 分組
                     .ToDictionary(g => g.Key, g => g.FirstOrDefault()?.ReplayText ?? string.Empty);
                 ViewBag.SellerReplies = sellerReplies;
+                var replayTimeDict = db.RatingReplaies
+    .Where(r => ratingIds.Contains(r.RatingId.Value))
+    .GroupBy(r => r.RatingId.Value)
+    .ToDictionary(g => g.Key, g => g.FirstOrDefault()?.ReplayTime); // 修正此处获取回复时间
+                ViewBag.ReplayTime = replayTimeDict;
                 // 計算評分平均星級數
                 double averageStarRating = (double)(ratingsList.Any() ? ratingsList.Average(r => r.StarRating) : 0);
                 ViewBag.AverageStarRating = averageStarRating;
@@ -43,7 +48,7 @@ namespace prjEShopping.Controllers
                 int threeStarCount = threeStarRatings.Count();
                 int twoStarCount = twoStarRatings.Count();
                 int oneStarCount = oneStarRatings.Count();
-
+                
                 ViewBag.AllStarRatings = allStarRatings;
                 ViewBag.FiveStarRatings = fiveStarRatings;
                 ViewBag.FourStarRatings = fourStarRatings;
