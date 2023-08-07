@@ -29,12 +29,12 @@ namespace prjEShopping.Controllers
             return View();
         }
 
-        public ActionResult MyADList()
+        public ActionResult MyPointList()
         {
             return View();
         }
 
-        public ActionResult MyADCreate()
+        public ActionResult MyPointBuy()
         {
             return View();
         }

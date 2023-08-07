@@ -251,6 +251,7 @@
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
+    <Compile Include="Models\ViewModels\UserAllStoreListVM.cs" />
     <Compile Include="Models\ViewModels\ChatMessageVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\RatingVM.cs" />
@@ -374,13 +375,16 @@
     <Content Include="Views\SellerStore\StoresList.cshtml" />
     <Content Include="Views\SellerActivities\ADList.cshtml" />
     <Content Include="Views\SellerActivities\CouponList.cshtml" />
-    <Content Include="Views\SellerActivities\MyADList.cshtml" />
     <Content Include="Views\SellerLogin\SellerPasswordForgot.cshtml" />
     <Content Include="Views\Chat\SendMessage.cshtml" />
     <Content Include="Views\SellerLogin\ResetPassword.cshtml" />
     <Content Include="Views\UserMembers\UserVerifyEmail.cshtml" />
     <Content Include="Views\UserMembers\UserRegister.cshtml" />
     <Content Include="Views\UserMembers\UserRegisterEmail.cshtml" />
+    <Content Include="Views\SellerActivities\MyPointList.cshtml" />
+    <Content Include="Views\SellerActivities\ADCreate.cshtml" />
+    <Content Include="Views\SellerActivities\CouponCreate.cshtml" />
+    <Content Include="Views\SellerActivities\MyPointBuy.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -137,5 +137,12 @@ namespace prjEShopping.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ShowAllStore() 
+        {
+            var db = new AppDbContext();
+
+            return View();
+        }
     }
 }
