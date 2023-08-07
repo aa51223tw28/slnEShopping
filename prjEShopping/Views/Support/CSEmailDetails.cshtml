@@ -1,0 +1,77 @@
+﻿@model prjEShopping.Models.EFModels.Support
+
+@{
+    ViewBag.Title = "CSEmailDetails";
+    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+}
+
+<div class="col-6 bg-secondary overflow-auto">
+<h2>CSEmailDetails</h2>
+
+<div>
+    <h4>Support</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupportType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupportType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupportTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupportTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupportText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupportText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivedTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivedTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupportStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupportStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+</p>
+
+</div>

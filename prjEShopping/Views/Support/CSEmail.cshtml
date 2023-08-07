@@ -1,0 +1,66 @@
+﻿@model prjEShopping.Models.EFModels.Support
+
+@{
+    ViewBag.Title = "CSEmail";
+    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+}
+
+<div class="col-6 bg-secondary overflow-auto">
+
+    <div class="container">
+        <form method="post">
+            <h1 class="text-center">客訴單</h1>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="complaintNumber">客訴單號：</label>
+                <input type="text" class="form-control" id="complaintNumber" value="s230808001" readonly>
+            </div>
+            <div class="form-group">
+                <label for="userName">用戶Id：</label>
+                <input type="text" class="form-control" id="UserId" name="UserId" value="1" readonly>
+            </div>
+            <div class="form-group">
+                <label for="complaintType">投訴類別：</label>
+                <select class="form-control" id="SupportType" name="SupportType">
+                    <option selected value="1">商品投訴</option>
+                    <option value="2">商家投訴</option>
+                    <option value="3">會員投訴</option>
+                    <option value="4">平台投訴</option>
+                    <option value="5">其他投訴</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="complaintProduct">投訴商品：</label>
+                <input type="text" class="form-control" id="complaintProduct" value="ｓ牌手機" readonly>
+                <input type="text" class="form-control" id="ProductId" name="ProductId" value="1" readonly>
+            </div>
+            <div class="form-group">
+                <label for="title">標題：</label>
+                <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label for="content">內容：</label>
+                <textarea class="form-control" id="SupportText" name="SupportText" rows="5" maxlength="500"></textarea>
+                <input type="datetime" class="form-control" id="ReceivedTime" name="ReceivedTime" readonly value="@DateTime.Now">
+                <input type="text" class="form-control" id="SupportStatus" name="SupportStatus" value="1" readonly>
+            </div>
+            <input type="submit" value="寄出" class="btn btn-primary my-2" />
+        </form>
+    </div>
+
+    <div>
+        @Html.ActionLink("取消", "Index", null, new {@class="btn btn-info"})
+    </div>
+</div>
+
+    @section Scripts{
+
+        <script>
+
+        </script>
+    }
+
+    @section Styles{
+        <style>
+        </style>
+    }

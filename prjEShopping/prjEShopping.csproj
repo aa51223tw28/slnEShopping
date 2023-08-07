@@ -187,6 +187,7 @@
     <Compile Include="Controllers\SellerShipmentController.cs" />
     <Compile Include="Controllers\SellerStoreController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserCouponController.cs" />
@@ -381,6 +382,10 @@
     <Content Include="Views\UserMembers\UserVerifyEmail.cshtml" />
     <Content Include="Views\UserMembers\UserRegister.cshtml" />
     <Content Include="Views\UserMembers\UserRegisterEmail.cshtml" />
+    <Content Include="Views\Support\CSEmail.cshtml" />
+    <Content Include="Views\Support\Index.cshtml" />
+    <Content Include="Views\Support\CSEmailDetails.cshtml" />
+    <Content Include="Views\Support\IndexBtn.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
