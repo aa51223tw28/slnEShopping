@@ -175,7 +175,6 @@
     <Compile Include="Controllers\ADProductsController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
-    <Compile Include="Controllers\EcpayController.cs" />
     <Compile Include="Controllers\SellerActivitiesController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
@@ -382,7 +381,6 @@
     <Content Include="Views\UserMembers\UserVerifyEmail.cshtml" />
     <Content Include="Views\UserMembers\UserRegister.cshtml" />
     <Content Include="Views\UserMembers\UserRegisterEmail.cshtml" />
-    <Content Include="Views\Ecpay\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
