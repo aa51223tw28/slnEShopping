@@ -18,6 +18,7 @@ namespace prjEShopping.Controllers
 {
     public class SellerLoginController : Controller
     {
+        private AppDbContext db = new AppDbContext();
         public ActionResult Login()
         {
             return View();
@@ -26,8 +27,8 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult Login(SellerLoginVM vm)
         {
-            using(var db=new AppDbContext())
-            {
+            //using(var db=new AppDbContext())
+            //{
                 var sellerDetail = db.Sellers.Where(x=>x.SellerAccount == vm.SellerAccount && x.SellerPassword == vm.SellerPassword).FirstOrDefault();
                 if(sellerDetail == null)
                 {
@@ -40,10 +41,10 @@ namespace prjEShopping.Controllers
                     Session["StoreName"] = sellerDetail.StoreName;
                     return RedirectToAction("Index", "SellerMain");
                 }
-            }
+           // }
 
         }
-        private AppDbContext db = new AppDbContext();
+        
         public ActionResult SellerPasswordForgot()
         {
             return View();
@@ -61,20 +62,20 @@ namespace prjEShopping.Controllers
             }
 
             var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
-            EmailVerifyUrl.SendEmailUrl(SellerAccount, urlHelper, "EmailVerifySeller", "Sellers");
+            EmailVerifyUrl.SendEmailUrl(SellerAccount, urlHelper, "EmailVerify", "Sellers");
 
             ViewBag.Message = "郵件已發送，請檢查您的信箱！";
 
             return View();
         }
 
-        public ActionResult EmailVerifySeller(string token)
+        public ActionResult EmailVerify(string token)
         {
             var seller = db.Sellers.FirstOrDefault(s => s.EmailCheck == token);
 
             if (seller != null)
             {
-                return RedirectToAction("ResetPassword", new { seller = seller.SellerAccount });
+                return RedirectToAction("ResetPassword",new { seller = seller.SellerAccount });
             }
             else
             {
@@ -82,9 +83,9 @@ namespace prjEShopping.Controllers
             }
         }
 
-        public ActionResult ResetPassword(string account)
+        public ActionResult ResetPassword(string seller)
         {
-            ViewBag.Account = account;
+            ViewBag.Account = seller;
             return View();
         }
 
