@@ -253,6 +253,7 @@
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
     <Compile Include="Models\ViewModels\ChatMessageVM.cs" />
+    <Compile Include="Models\ViewModels\CombinedSupportsVM.cs" />
     <Compile Include="Models\ViewModels\CouponVM.cs" />
     <Compile Include="Models\ViewModels\RatingVM.cs" />
     <Compile Include="Models\ViewModels\SellerLoginVM.cs" />
@@ -389,6 +390,8 @@
     <Content Include="Views\Support\CSSIndex.cshtml" />
     <Content Include="Views\Support\CSSNewMailList.cshtml" />
     <Content Include="Views\Support\CSSNewMailReplay.cshtml" />
+    <Content Include="Views\Support\CSSOldMailList.cshtml" />
+    <Content Include="Views\Support\CSSOldMailDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

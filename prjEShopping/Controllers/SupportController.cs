@@ -1,4 +1,5 @@
 ﻿using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,7 +16,7 @@ namespace prjEShopping.Controllers
         // GET: Support
         public ActionResult Index()
         {
-            var userid = 1;
+            var userid = 2;
             var model = db.Supports.Where(x => x.UserId == userid).ToList();
             return View(model);
         }
@@ -75,10 +76,10 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult CSSNewMailReplay(SupportReplay r)
         {
-            var replay=new SupportReplay();
+            var replay = new SupportReplay();
             replay = r;
-            replay.AdminId =1;
-            var s=db.Supports.FirstOrDefault(x=>x.SupportId==r.SupportId);
+            replay.AdminId = 1;
+            var s = db.Supports.FirstOrDefault(x => x.SupportId == r.SupportId);
             if (s != null)
             {
                 s.SupportStatus = "2";
@@ -89,5 +90,24 @@ namespace prjEShopping.Controllers
             }
             return View(r);
         }
+
+        public ActionResult CSSOldMailList()
+        {
+            var model = db.Supports.Where(x => x.SupportStatus == "2").ToList();
+            return View(model);
+        }
+
+        public ActionResult CSSOldMailDetails(int? id)
+        {
+            var s = db.Supports.FirstOrDefault(x => x.SupportId == id);
+            var r=db.SupportReplaies.FirstOrDefault(x => x.SupportId == id);
+            var model = new CombinedSupportsVM
+            {
+                Support = s,
+                SupportReplay = r,
+            };
+            return View(model);
+        }
+
     }
 }
