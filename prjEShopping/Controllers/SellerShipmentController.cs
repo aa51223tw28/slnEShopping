@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -231,6 +232,24 @@ namespace prjEShopping.Controllers
 
             };
             return RedirectToAction("ShipmentDetail", parameters);
+        }
+
+        public ActionResult getTop10Shipments() 
+        {
+            var db = new AppDbContext();
+            var top10Shipments = db.Shipments.Where(x => x.SellerId == 1 && x.ShipmentStatusId == 1)
+                            .Join(db.ShipmentStatusDetails,x => x.ShipmentStatusId,y => y.ShipmentStatusId,(x,y) => new 
+                            { 
+                                shipmentdate = x.ShipmentDate,
+                                shipmentnumber = x.ShipmentNumber,
+                                shipmentstatus = y.ShipmentStatus,
+                            }).OrderByDescending(x => x.shipmentdate).Take(10).ToList().Select(x => new 
+                            {
+                                shipmentdate = x.shipmentdate.ToString(),
+                                shipmentnumber = x.shipmentnumber,
+                                shipmentstatus = x.shipmentstatus,
+                            });
+            return Json(top10Shipments,JsonRequestBehavior.AllowGet);
         }
     }
 }

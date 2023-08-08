@@ -151,18 +151,5 @@ namespace prjEShopping.Controllers
             return View(products);
         }
 
-        public ActionResult ShowAllStore2()
-        {
-            var db = new AppDbContext();
-            var products = db.Sellers.GroupJoin(db.TrackSellers, x => x.SellerId, y => y.SellerId, (x, y) => new UserAllStoreListVM
-            {
-                SellerId = x.SellerId,
-                StoreName = x.StoreName,
-                SellerImagePath = x.SellerImagePath,
-                TrackCount = y.Count(),
-            }).ToList();
-
-            return Json(products, JsonRequestBehavior.AllowGet);
-        }
     }
 }
