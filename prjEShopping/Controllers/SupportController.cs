@@ -17,9 +17,25 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             var userid = 2;
-            var model = db.Supports.Where(x => x.UserId == userid).OrderBy(x=>x.SupportStatus).OrderByDescending(y=>y.ReceivedTime).ToList();
+            var model = db.Supports.Where(x => x.UserId == userid && x.SupportStatus != "3").OrderBy(x => x.SupportStatus).OrderByDescending(y => y.ReceivedTime).ToList();
             return View(model);
         }
+
+        [HttpPost]
+        public ActionResult Delete(int? id)
+        {
+            var s = db.Supports.FirstOrDefault(x => x.SupportId == id);
+            if (s != null)
+            {
+                s.SupportStatus = "3";
+                db.Entry(s).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+        
 
         public ActionResult CSEmail()
         {
@@ -43,6 +59,7 @@ namespace prjEShopping.Controllers
 
         public ActionResult CSEmailDetails(int? id)
         {
+            //todo 還要設定UserId權限 不同的點不開回前一頁等
             var s = db.Supports.FirstOrDefault(x => x.SupportId == id);
             var r = db.SupportReplaies.FirstOrDefault(x => x.SupportId == id);
             var model = new CombinedSupportsVM

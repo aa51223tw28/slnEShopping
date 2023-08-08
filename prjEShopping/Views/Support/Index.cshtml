@@ -43,10 +43,46 @@
                 </td>
                 <td>
                     @Html.ActionLink("詳情", "CSEmailDetails", new { id = item.SupportId }, new {@class="btn btn-primary"})
-                    @Html.ActionLink("刪除", "Delete", new { id = item.SupportId },new { @class = "btn btn-danger my-2" })
+                    <button class="btn btn-danger my-2 deleteBtn" data-id="@item.SupportId">刪除</button>
                 </td>
             </tr>
         }
 
     </table>
 </div>
+
+@section Scripts{
+    <script>
+
+$(document).on('click', '.deleteBtn', async function() {
+    if (confirm('確定要刪除這項內容嗎？')) {
+        var supportId = $(this).data('id');
+        var url = '@Url.Action("Delete", "Support")';
+
+        try {
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: supportId })
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            let data = await response.json();
+            if (data.success) {
+                location.reload();  // 重新加载页面
+            } else {
+                alert('刪除失敗！');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('發生錯誤，請稍後再試！');
+        }
+    }
+});
+    </script>
+    }
