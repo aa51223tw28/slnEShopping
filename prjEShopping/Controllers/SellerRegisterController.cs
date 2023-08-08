@@ -117,11 +117,11 @@ namespace prjEShopping.Controllers
             // 假設註冊成功後，取得賣家的 ID 和商店名稱
             int sellerId = s.SellerId; // 這裡假設取得了賣家的 ID
             string storeName = s.StoreName; // 假設取得了商店名稱
-
+            string sellerImagePath = s.SellerImagePath;
             // 將賣家的 ID 和商店名稱存入 Session 中，方便在 SellerMain 頁面使用
             Session["SellerId"] = sellerId;
             Session["StoreName"] = storeName;
-
+            Session["SellerImagePath"] = sellerImagePath;
             // 註冊成功後，直接導向到 SellerMain 頁面，並將賣家的 ID 傳遞過去
             return RedirectToAction("Index", "SellerMain", new { id = sellerId });
         }

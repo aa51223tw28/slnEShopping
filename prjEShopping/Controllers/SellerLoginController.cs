@@ -45,9 +45,16 @@ namespace prjEShopping.Controllers
                 if(sellerDetail == null)
                 {
                     vm.LoginErrorMessage = "帳號或密碼有誤!!";
-                    return View("Login", vm);
+                ViewBag.ShowErrorModal = true;
+                return View("Login", vm);
                 }
-                else
+            else if (sellerDetail.AccessRightId != 1)
+            {
+                vm.LoginErrorMessage = "權限不對，無法登入!!";
+                ViewBag.ShowErrorModal = true;
+                return View("Login", vm);
+            }
+            else
                 {
                     Session["SellerId"] = sellerDetail.SellerId;
                     Session["StoreName"] = sellerDetail.StoreName;
