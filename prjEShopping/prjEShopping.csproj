@@ -372,7 +372,7 @@
     <Content Include="Views\SellersAD\ADList.cshtml" />
     <Content Include="Views\SellersAD\ADDemo.cshtml" />
     <Content Include="Views\UserTestComment\Comment.cshtml" />
-    <Content Include="Views\SellerStore\StoresList.cshtml" />
+    <Content Include="Views\SellerStore\ShowAllStore.cshtml" />
     <Content Include="Views\SellerActivities\ADList.cshtml" />
     <Content Include="Views\SellerActivities\CouponList.cshtml" />
     <Content Include="Views\SellerLogin\SellerPasswordForgot.cshtml" />
