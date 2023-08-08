@@ -115,49 +115,49 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             @*<div class="modal-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <span class="me-3">新增優惠券</span>
-                                    <input type="text" placeholder="請輸入優惠券代碼" class="me-3">
-                                    <button type="button" class="btn btn-secondary">領取</button>
-                                </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <span class="me-3">新增優惠券</span>
+                                        <input type="text" placeholder="請輸入優惠券代碼" class="me-3">
+                                        <button type="button" class="btn btn-secondary">領取</button>
+                                    </div>
 
-                                <div class="d-flex me-5 coupon-item mb-5">
-                                    <img src="img/coupon.png" alt="">
-                                    <div class="d-flex flex-column p-2 bg-info">
-                                        <span>Apple折價券</span>
-                                        <span>Apple全館打85折</span>
-                                        <span>20230701-20230731</span>
-                                        <div class="d-flex">
-                                            <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                            <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                    <div class="d-flex me-5 coupon-item mb-5">
+                                        <img src="img/coupon.png" alt="">
+                                        <div class="d-flex flex-column p-2 bg-info">
+                                            <span>Apple折價券</span>
+                                            <span>Apple全館打85折</span>
+                                            <span>20230701-20230731</span>
+                                            <div class="d-flex">
+                                                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                                                <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="d-flex me-5 coupon-item mb-5">
-                                    <img src="img/coupon.png" alt="">
-                                    <div class="d-flex flex-column p-2 bg-info">
-                                        <span>Apple折價券</span>
-                                        <span>Apple全館打85折</span>
-                                        <span>20230701-20230731</span>
-                                        <div class="d-flex">
-                                            <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                            <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                    <div class="d-flex me-5 coupon-item mb-5">
+                                        <img src="img/coupon.png" alt="">
+                                        <div class="d-flex flex-column p-2 bg-info">
+                                            <span>Apple折價券</span>
+                                            <span>Apple全館打85折</span>
+                                            <span>20230701-20230731</span>
+                                            <div class="d-flex">
+                                                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                                                <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="d-flex me-5 coupon-item mb-5">
-                                    <img src="img/coupon.png" alt="">
-                                    <div class="d-flex flex-column p-2 bg-info">
-                                        <span>Apple折價券</span>
-                                        <span>Apple全館打85折</span>
-                                        <span>20230701-20230731</span>
-                                        <div class="d-flex">
-                                            <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                                            <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                    <div class="d-flex me-5 coupon-item mb-5">
+                                        <img src="img/coupon.png" alt="">
+                                        <div class="d-flex flex-column p-2 bg-info">
+                                            <span>Apple折價券</span>
+                                            <span>Apple全館打85折</span>
+                                            <span>20230701-20230731</span>
+                                            <div class="d-flex">
+                                                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                                                <button type="button" class="btn btn-secondary ms-3">領取</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>*@
+                                </div>*@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-bs-dismiss="modal">取消</button>
                                 <button type="button" class="btn btn-primary">好</button>
@@ -169,80 +169,93 @@
             </div>
         </div>
         <!-- 優惠券 -->
-
-
-
         @*<form method="post" enctype="multipart/form-data" action="UserCheckout">*@
-            <!-- 運送方式 -->
-            <div class="row bg-lightyellow rounded py-3 mb-3">
-                <div class="col-2 d-flex align-items-center justify-content-center">
-                    <span class="fw-bold">運送方式</span>
-                </div>
-                <div class="col-4 d-flex flex-column">
-                    <select id="shippingMethod" class="form-select mb-3" @*name="ShippingMethodName"*@>
-                    </select>
-
-                    <input class="form-control mb-3" type="text" placeholder="請填入收件者" id="receiver" @*name="Receiver"*@>
-                    <input class="form-control" type="text" placeholder="請填入收件地址" id="receiverAddress" @*name="ReceiverAddress"*@>
-                </div>
-                <div class="col-6 d-flex align-items-center">
-                    <div class="btn btn-light border border-3" id="btnReceiver">DemoReceiver</div>
-                </div>
-
-
+        <!-- 運送方式 -->
+        <div class="row bg-lightyellow rounded py-3 mb-3">
+            <div class="col-2 d-flex align-items-center justify-content-center">
+                <span class="fw-bold">運送方式</span>
             </div>
+            <div class="col-4 d-flex flex-column">
+                <select id="shippingMethod" class="form-select mb-3" @*name="ShippingMethodName"*@>
+                </select>
 
-            <!-- 運送方式 -->
-            <!-- 付款方式 -->
-            <div class="row bg-lightyellow rounded py-3 mb-3">
-                <div class="col-2 d-flex align-items-center justify-content-center">
-                    <span class="fw-bold">付款方式</span>
-                </div>
-                <div class="col-4 d-flex align-items-center">
-                    <select id="paymentMethod" class="form-select" @*name="PaymentMethodName"*@>
-                    </select>
-                </div>
-                <div class="col-6 d-flex align-items-center">
-                </div>
+                <input class="form-control mb-3" type="text" placeholder="請填入收件者" id="receiver" @*name="Receiver"*@>
+                <input class="form-control" type="text" placeholder="請填入收件地址" id="receiverAddress" @*name="ReceiverAddress"*@>
+            </div>
+            <div class="col-6 d-flex align-items-center">
+                <div class="btn btn-light border border-3" id="btnReceiver">DemoReceiver</div>
             </div>
 
 
+        </div>
+
+        <!-- 運送方式 -->
+        <!-- 付款方式 -->
+        <div class="row bg-lightyellow rounded py-3 mb-3">
+            <div class="col-2 d-flex align-items-center justify-content-center">
+                <span class="fw-bold">付款方式</span>
+            </div>
+            <div class="col-4 d-flex align-items-center">
+                <select id="paymentMethod" class="form-select" @*name="PaymentMethodName"*@>
+                </select>
+            </div>
+            <div class="col-6 d-flex align-items-center">
+            </div>
+        </div>
 
 
-            <!-- 付款方式 -->
-            <!-- 金額 -->
-            <div class="row bg-warning rounded py-3 px-5">
-                <div class="fs-5 mb-3">
-                    <div class="d-flex justify-content-between">
-                        <span>商品價格小計：</span>
-                        <div class="d-flex">
-                            <span>NT$</span>
-                            <span class="totalItemcheckedPrice"></span>
-                        </div>                        
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span>運費：</span>
-                        <span></span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="text-danger">運費折扣小計：</span>
-                        <span class="text-danger"></span>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <span class="text-danger">已使用賣場優惠券：</span>
-                        <span class="text-danger"></span>
-                    </div>
-                    <div class="d-flex border-top border-2 border-dark pt-2 mt-2 justify-content-between">
-                        <span>付款金額：</span>
-                        <span></span>
+
+
+        <!-- 付款方式 -->
+        <!-- 金額 -->
+        <div class="row bg-warning rounded py-3 px-5">
+            <div class="fs-5 mb-3">
+                <div class="d-flex justify-content-between">
+                    <span>商品價格小計：</span>
+                    <div class="d-flex">
+                        <span>NT$</span>
+                        <span class="totalItemcheckedPrice"></span>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-lg add2order" @*type="submit"*@>下訂單</button>
+                <div class="d-flex justify-content-between">
+                    <span>運費：</span>
+                    <span></span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-danger">運費折扣小計：</span>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-danger">已使用賣場優惠券：</span>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="d-flex border-top border-2 border-dark pt-2 mt-2 justify-content-between">
+                    <span>付款金額：</span>
+                    <span></span>
+                </div>
             </div>
+            <button class="btn btn-secondary btn-lg add2order" @*type="submit"*@>下訂單</button>
+        </div>
         @*</form>*@
     </div>
 </div>
 
+@*繳費。*@
+<div class="modal" id="add2orderpayModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                購買完成，前往繳費。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add2orderpayconfirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @*購買完成，請到購買清單確認訂單詳情。*@
 <div class="modal" id="add2orderModal" tabindex="-1">
@@ -264,7 +277,7 @@
 
 
 @section Scripts{
-    <script>        
+    <script>
 
         //呼叫寫進order的api
         $(document).ready(function () {
@@ -276,7 +289,7 @@
                     var paymentMethod = document.getElementById("paymentMethod").value;
                     var receiverValue = $("#receiver").val();
                     var receiverAddressValue = $("#receiverAddress").val();
-             
+
                     const result2 = await $.post("/UserCart/UserCheckoutDataapi", {
                         shippingMethod: shippingMethod,
                         paymentMethod: paymentMethod,
@@ -284,22 +297,31 @@
                         receiverAddressValue: receiverAddressValue
                     });
 
-                    $("#add2orderModal").modal("show");//modal-購買完成
+                    $("#add2orderpayModal").modal("show");//去繳費
 
-                    $("#add2orderconfirmButton").on('click', () => {
-                        window.location.href = "/UserOrder/UserOrderDetailAll"; 
-                    })                    
+                    var orderId = 1;
+
+                    $("#add2orderpayconfirmButton").on('click', () => {
+                        window.location.href = "/Ecpay/Index=" + orderId;
+                    })
+
+
+                    //$("#add2orderModal").modal("show");//modal-購買完成
+
+                    //$("#add2orderconfirmButton").on('click', () => {
+                    //    window.location.href = "/UserOrder/UserOrderDetailAll";
+                    //})
                 });
             });
         });
 
         //呼叫運送方式的api
-        document.addEventListener("DOMContentLoaded", async function () {            
+        document.addEventListener("DOMContentLoaded", async function () {
             const response = await fetch("/UserCart/getShippingMethodName");
-            
+
             const data = await response.json();
-           
-            var shippingMethodSelect = document.getElementById("shippingMethod");            
+
+            var shippingMethodSelect = document.getElementById("shippingMethod");
 
             data.forEach(function (value) {
                 var option = document.createElement("option")
@@ -311,11 +333,11 @@
 
         //呼叫顯示付款方式的api
         document.addEventListener("DOMContentLoaded", async function () {
-            const response = await fetch("/UserCart/getPaymentMethodName");            
+            const response = await fetch("/UserCart/getPaymentMethodName");
 
-            const data = await response.json();          
+            const data = await response.json();
 
-            var paymentMethodSelect = document.getElementById("paymentMethod");           
+            var paymentMethodSelect = document.getElementById("paymentMethod");
 
             data.forEach(function (value) {
                 var option = document.createElement("option")
@@ -323,14 +345,14 @@
                 option.text = value;
                 paymentMethodSelect.appendChild(option);
             })
-          
+
         })
 
         /*demo測試權限區*/
         const receiver = document.querySelector('#receiver')
         const receiverAddress = document.querySelector('#receiverAddress')
-        
-        const btnReceiver = document.querySelector('#btnReceiver')        
+
+        const btnReceiver = document.querySelector('#btnReceiver')
 
         btnReceiver.addEventListener('click', () => {
             receiver.value = "黃先生"
