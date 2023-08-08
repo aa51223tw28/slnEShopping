@@ -1,0 +1,59 @@
+﻿@model prjEShopping.Models.EFModels.Support
+
+@{
+    ViewBag.Title = "CSSNewMailReplay";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary ">
+    <h2>CSSNewMailDetails</h2>
+
+    <div>
+        <hr />
+        <form method="post">
+            <div class="container">
+                <div class="row">
+                    <div class="col-5">
+                        <label class="form-label">@Html.DisplayNameFor(model => model.UserId)</label>
+                        <input type="text" class="form-control" value=" @Model.UserId" readonly />
+                    </div>
+                    <div class="col-5">
+                        <label class="form-label"> @Html.DisplayNameFor(model => model.SupportType)</label>
+                        <input type="text" class="form-control" value="@Model.SupportType" readonly />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <label class="form-label"> @Html.DisplayNameFor(model => model.ProductId)</label>
+                        <input type="text" class="form-control" value="@Model.ProductId" readonly />
+                    </div>
+                    <div class="col-3">
+                        <label class="form-label"> @Html.DisplayNameFor(model => model.SupportStatus)</label>
+                        <input type="text" class="form-control bg-primary text-white border border-1 border-dark" value=" @Model.SupportStatus" readonly />
+                    </div>
+                </div>
+                <label class="form-label">@Html.DisplayNameFor(model => model.SupportTitle)</label>
+                <input type="text" class="form-control" value=" @Model.SupportTitle" readonly />
+                <label class="form-label"> @Html.DisplayNameFor(model => model.SupportText)</label>
+                <textarea class="form-control" readonly>@Model.SupportText</textarea>
+                    <div>來信時間:@Model.ReceivedTime</div>
+                    <div>
+                        <label class="form-label">回信標題</label>
+                        <input type="text" class="form-control" name="ReplayTitle" />
+                        <label class="form-label">回信內容</label>
+                        <textarea class="form-control" name="ReplayText"></textarea>
+                        <input type="text" class="form-control" name="SupportId" value="@Model.SupportId" hidden />
+                        <input type="datetime" class="form-control" name="ReplayTime" value="@DateTime.Now" hidden />
+                        <input type="text" class="form-control" name="SupportReplayStatus" value="2" hidden />
+                    </div>
+                    <input type="submit" class="btn btn-primary mt-2" value="回信"/>
+                <div>           
+                    <p>
+                        @Html.ActionLink("取消", "CSSIndex", null, new { @class = "btn btn-success my-2" })
+                    </p>
+                </div>
+            </div>
+        </form>     
+    </div>
+</div>
+

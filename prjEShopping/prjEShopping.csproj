@@ -386,6 +386,9 @@
     <Content Include="Views\Support\Index.cshtml" />
     <Content Include="Views\Support\CSEmailDetails.cshtml" />
     <Content Include="Views\Support\IndexBtn.cshtml" />
+    <Content Include="Views\Support\CSSIndex.cshtml" />
+    <Content Include="Views\Support\CSSNewMailList.cshtml" />
+    <Content Include="Views\Support\CSSNewMailReplay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

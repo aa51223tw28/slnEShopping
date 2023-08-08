@@ -6,72 +6,37 @@
 }
 
 <div class="col-6 bg-secondary overflow-auto">
-<h2>CSEmailDetails</h2>
+    <h2>CSEmailDetails</h2>
 
-<div>
-    <h4>Support</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
+    <div class="container">
+        <div class="row">
+            <div class="col-5">
+                <label class="form-label">@Html.DisplayNameFor(model => model.UserId)</label>
+                <input type="text" class="form-control" value=" @Model.UserId" readonly />
+            </div>
+            <div class="col-5">
+                <label class="form-label"> @Html.DisplayNameFor(model => model.SupportType)</label>
+                <input type="text" class="form-control" value="@Model.SupportType" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+                <label class="form-label"> @Html.DisplayNameFor(model => model.ProductId)</label>
+                <input type="text" class="form-control" value="@Model.ProductId" readonly />
+            </div>
+            <div class="col-3">
+                <label class="form-label"> @Html.DisplayNameFor(model => model.SupportStatus)</label>
+                <input type="text" class="form-control bg-primary text-white border border-1 border-dark" value=" @Model.SupportStatus" readonly />
+            </div>
+        </div>
+        <label class="form-label">@Html.DisplayNameFor(model => model.SupportTitle)</label>
+        <input type="text" class="form-control" value=" @Model.SupportTitle" readonly />
+        <label class="form-label"> @Html.DisplayNameFor(model => model.SupportText)</label>
+        <textarea class="form-control" readonly>@Model.SupportText</textarea>
+        <div>寄信時間:@Model.ReceivedTime</div>
+        </div>
+        <p>
+            @Html.ActionLink("取消", "Index", null, new { @class = "btn btn-primary" })
+        </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SupportType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SupportType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SupportTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SupportTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SupportText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SupportText)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReceivedTime)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReceivedTime)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SupportStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SupportStatus)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
-</p>
-
-</div>
+    </div>
