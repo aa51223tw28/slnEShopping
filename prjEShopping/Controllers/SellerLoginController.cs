@@ -13,16 +13,28 @@ using System.Web.Security;
 using System.Web.Helpers;
 using prjEShopping.Models.Infra;
 using System.Security.Principal;
-
+using System.Threading.Tasks;
+using GoogleAuthentication.Services;
 namespace prjEShopping.Controllers
 {
     public class SellerLoginController : Controller
     {
         private AppDbContext db = new AppDbContext();
-        public ActionResult Login()
+
+        public ActionResult Index()
         {
+            
             return View();
         }
+        public ActionResult Login()
+        {
+            var clientId = "428102972567-vrsafsab1n7en9tuu7k7lajf77dcmcgo.apps.googleusercontent.com";
+            var url = "https://localhost:8080/User/RedirectGoogleLogin";
+            var response = GoogleAuth.GetAuthUrl(clientId, url);
+            ViewBag.response = response;
+            return View();
+        }
+        
 
         [HttpPost]
         public ActionResult Login(SellerLoginVM vm)
