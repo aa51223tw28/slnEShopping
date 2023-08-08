@@ -1,4 +1,4 @@
-﻿@model prjEShopping.Models.EFModels.Support
+﻿@model prjEShopping.Models.ViewModels.CombinedSupportsVM
 
 @{
     ViewBag.Title = "CSEmailDetails";
@@ -6,35 +6,59 @@
 }
 
 <div class="col-6 bg-secondary overflow-auto">
-    <h2>CSEmailDetails</h2>
+    <h2>申訴詳情</h2>
 
     <div class="container">
-        <div class="row">
-            <div class="col-5">
-                <label class="form-label">@Html.DisplayNameFor(model => model.UserId)</label>
-                <input type="text" class="form-control" value=" @Model.UserId" readonly />
+        <div class="border border-2 border-primary my-2 py-2 px-2 bg-info">
+            <h4>申訴資訊</h4>
+            <div class="row">
+                <div class="col-5">
+                    <label class="form-label">@Html.DisplayNameFor(model => model.Support.UserId)</label>
+                    <input type="text" class="form-control" value=" @Model.Support.UserId" readonly />
+                </div>
+                <div class="col-5">
+                    <label class="form-label"> @Html.DisplayNameFor(model => model.Support.SupportType)</label>
+                    <input type="text" class="form-control" value="@Model.Support.SupportType" readonly />
+                </div>
             </div>
-            <div class="col-5">
-                <label class="form-label"> @Html.DisplayNameFor(model => model.SupportType)</label>
-                <input type="text" class="form-control" value="@Model.SupportType" readonly />
+            <div class="row">
+                <div class="col-5">
+                    <label class="form-label"> @Html.DisplayNameFor(model => model.Support.ProductId)</label>
+                    <input type="text" class="form-control" value="@Model.Support.ProductId" readonly />
+                </div>
+                <div class="col-3">
+                    <label class="form-label"> @Html.DisplayNameFor(model => model.Support.SupportStatus)</label>
+                    <input type="text" class="form-control bg-secondary  border border-1 border-dark" value=" @Model.Support.SupportStatus" readonly />
+                </div>
             </div>
+            <label class="form-label">@Html.DisplayNameFor(model => model.Support.SupportTitle)</label>
+            <input type="text" class="form-control" value=" @Model.Support.SupportTitle" readonly />
+            <label class="form-label"> @Html.DisplayNameFor(model => model.Support.SupportText)</label>
+            <textarea class="form-control" readonly>@Model.Support.SupportText</textarea>
+            <div>來信時間:@Model.Support.ReceivedTime</div>
         </div>
-        <div class="row">
-            <div class="col-5">
-                <label class="form-label"> @Html.DisplayNameFor(model => model.ProductId)</label>
-                <input type="text" class="form-control" value="@Model.ProductId" readonly />
+        @if (@Model.Support.SupportStatus == "2")
+        {
+        <div class="border border-2 border-primary my-2 py-2 px-2 bg-success">
+            <h4>回覆內容</h4>
+            <div class="row">
+                <div class="col-5">
+                    <label class="form-label">@Html.DisplayNameFor(model => model.SupportReplay.AdminId)</label>
+                    <input type="text" class="form-control" value=" @Model.SupportReplay.AdminId" readonly />
+                </div>
+                <div class="col-3">
+                    <label class="form-label"> @Html.DisplayNameFor(model => model.SupportReplay.SupportReplayStatus)</label>
+                    <input type="text" class="form-control bg-secondary border border-1 border-dark" value=" @Model.SupportReplay.SupportReplayStatus" readonly />
+                </div>
             </div>
-            <div class="col-3">
-                <label class="form-label"> @Html.DisplayNameFor(model => model.SupportStatus)</label>
-                <input type="text" class="form-control bg-primary text-white border border-1 border-dark" value=" @Model.SupportStatus" readonly />
-            </div>
+            <label class="form-label">@Html.DisplayNameFor(model => model.SupportReplay.ReplayTitle)</label>
+            <input type="text" class="form-control" value=" @Model.SupportReplay.ReplayTitle" readonly />
+            <label class="form-label"> @Html.DisplayNameFor(model => model.SupportReplay.ReplayText)</label>
+            <textarea class="form-control" style="height:300px" readonly>@Model.SupportReplay.ReplayText</textarea>
+            <div>回信時間:@Model.SupportReplay.ReplayTime</div>
         </div>
-        <label class="form-label">@Html.DisplayNameFor(model => model.SupportTitle)</label>
-        <input type="text" class="form-control" value=" @Model.SupportTitle" readonly />
-        <label class="form-label"> @Html.DisplayNameFor(model => model.SupportText)</label>
-        <textarea class="form-control" readonly>@Model.SupportText</textarea>
-        <div>寄信時間:@Model.ReceivedTime</div>
-        </div>
+        }
+    </div>
         <p>
             @Html.ActionLink("取消", "Index", null, new { @class = "btn btn-primary" })
         </p>

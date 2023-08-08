@@ -17,7 +17,7 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             var userid = 2;
-            var model = db.Supports.Where(x => x.UserId == userid).ToList();
+            var model = db.Supports.Where(x => x.UserId == userid).OrderBy(x=>x.SupportStatus).OrderByDescending(y=>y.ReceivedTime).ToList();
             return View(model);
         }
 
@@ -26,6 +26,7 @@ namespace prjEShopping.Controllers
             var userId = 1;
             var productId = 1;
             var model = db.Supports.FirstOrDefault();
+
             return View(model);
         }
 
@@ -42,7 +43,13 @@ namespace prjEShopping.Controllers
 
         public ActionResult CSEmailDetails(int? id)
         {
-            var model = db.Supports.FirstOrDefault(x => x.SupportId == id);
+            var s = db.Supports.FirstOrDefault(x => x.SupportId == id);
+            var r = db.SupportReplaies.FirstOrDefault(x => x.SupportId == id);
+            var model = new CombinedSupportsVM
+            {
+                Support = s,
+                SupportReplay = r,
+            };
             return View(model);
         }
 
