@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="bg-light">
+    <div class="container pt-2 text-center d-flex flex-column" style="height:600px">
+        <span class="fs-5">感謝您的購買，將於5秒後將頁面轉至購買清單查看詳情</span>
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("UserOrderDetailAll", "UserOrder")';
+        }, 5000);
+    </script>
+}
