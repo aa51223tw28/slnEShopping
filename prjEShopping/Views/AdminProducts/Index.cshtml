@@ -86,7 +86,7 @@
                                 break;
                         }
                     }
-                    <span id="statusDisplay" class="@statusColor">@Html.DisplayFor(modelItem => item.ProductStatusName)</span>                  
+                    <span class="statusDisplay @statusColor" data-product-id="@item.ProductId"> @Html.DisplayFor(modelItem => item.ProductStatusName)</span>
                     <span hidden>@Html.DisplayFor(modelItem => item.ProductStatusId)</span>
                 </td>
                 <td>
@@ -100,19 +100,7 @@
     </table>
 </div>
 @section Scripts{
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable({
-                paging: true,         // 啟用或禁用分頁
-                ordering: true,       // 啟用或禁用排序
-                info: true,           // 顯示表格信息（例如"顯示第 1 至 10 項結果，共 57 項"）
-                search: true,         // 顯示搜尋框
-                pageLength: 10,
-            });
-        });
-
         $(document).ready(function () {
             $('.change-status-btn').click(function () {
                 var newStatusId = $(this).data('status');
@@ -147,7 +135,7 @@
                                 break;
                         }
                         // Update the displayed status
-                        $('#statusDisplay').text(r).attr('class', statusColor);;
+                        $('tr').find('.statusDisplay[data-product-id="' + productId + '"]').text(r).attr('class', 'statusDisplay ' + statusColor);
                     },
                     error: function (error) {
                         console.log("Error:", error);
@@ -155,11 +143,10 @@
                 });
             });
         });
-
     </script>
 
 }
 
 @section Styles{
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
 }
