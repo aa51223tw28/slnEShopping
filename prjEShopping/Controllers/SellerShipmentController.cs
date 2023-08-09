@@ -19,27 +19,50 @@ namespace prjEShopping.Controllers
             return View();
         }
 
-        public ActionResult ShipmentList()
+        public ActionResult ShipmentList(SellerKeyWordVM vm)
         {
             int sellerid = (int)Session["SellerId"];
             List<SellerShipmentVM> datashow;
             AppDbContext db = new AppDbContext();
 
-            var data = db.Shipments.Where(x => x.SellerId == sellerid)
-                                    .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
-                                    {
-                                        ShipmentStatus = y.ShipmentStatus,
-                                        ShipmentDate = x.ShipmentDate,
-                                        ShipmentNumber = x.ShipmentNumber,
-                                    }).ToList();
-            datashow = data.Select(x => new SellerShipmentVM
+            if (string.IsNullOrEmpty(vm.KeyWord))
             {
-                ShipmentStatus = x.ShipmentStatus,
-                ShipmentDate = (DateTime)x.ShipmentDate,
-                ShipmentNumber = x.ShipmentNumber,
-            }).ToList();
+                var data = db.Shipments.Where(x => x.SellerId == sellerid)
+                                        .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
+                                        {
+                                            ShipmentStatus = y.ShipmentStatus,
+                                            ShipmentDate = x.ShipmentDate,
+                                            ShipmentNumber = x.ShipmentNumber,
+                                        }).ToList();
+                datashow = data.Select(x => new SellerShipmentVM
+                {
+                    ShipmentStatus = x.ShipmentStatus,
+                    ShipmentDate = (DateTime)x.ShipmentDate,
+                    ShipmentNumber = x.ShipmentNumber,
+                }).ToList();
 
-            return View(datashow);
+                return View(datashow);
+            }
+
+            else 
+            {
+                var data = db.Shipments.Where(x => x.SellerId == sellerid && x.ShipmentNumber.Contains(vm.KeyWord))
+                                        .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
+                                        {
+                                            ShipmentStatus = y.ShipmentStatus,
+                                            ShipmentDate = x.ShipmentDate,
+                                            ShipmentNumber = x.ShipmentNumber,
+                                        }).ToList();
+                datashow = data.Select(x => new SellerShipmentVM
+                {
+                    ShipmentStatus = x.ShipmentStatus,
+                    ShipmentDate = (DateTime)x.ShipmentDate,
+                    ShipmentNumber = x.ShipmentNumber,
+                }).ToList();
+
+                return View(datashow);
+            }
+            
         }
 
         public ActionResult ShipmentDetail(string ShipNum, string Shiptatus)

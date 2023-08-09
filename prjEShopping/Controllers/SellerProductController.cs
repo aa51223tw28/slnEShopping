@@ -18,33 +18,62 @@ namespace prjEShopping.Controllers
         List<int> optionIds = new List<int>();
         
         // GET: SellerProduct
-        public ActionResult SellerProductList()
+        public ActionResult SellerProductList(SellerKeyWordVM vm)
         {
             int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
-            var products = db.Products.Where(x => x.SellerId == sellerid).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            if (string.IsNullOrEmpty(vm.KeyWord))
             {
-                ProductID = x.ProductId,
-                ProductName = x.ProductName,
-                Price = x.Price,
-                ProductImagePathOne = x.ProductImagePathOne,
-                StockQuantity = y.StockQuantity,
-                OrderQuantity = y.OrderQuantity,
-                ProductStatusId = x.ProductStatusId,
-                Promote = x.Promote,
-            }).Select(x => new SellerProductListVM
-            {
-                ProductID = x.ProductID,
-                ProductName = x.ProductName,
-                Price = (int)x.Price,
-                ProductImagePathOne = x.ProductImagePathOne,
-                StockQuantity = x.StockQuantity,
-                OrderQuantity = x.OrderQuantity,
-                ProductStatusName = (db.ProductStatusDetails.Where(y => y.ProductStatusId == x.ProductStatusId).FirstOrDefault().ProductStatusName).ToString(),
-                Promote = (int)x.Promote,
-            }).ToList();
+                var products = db.Products.Where(x => x.SellerId == sellerid ).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+                {
+                    ProductID = x.ProductId,
+                    ProductName = x.ProductName,
+                    Price = x.Price,
+                    ProductImagePathOne = x.ProductImagePathOne,
+                    StockQuantity = y.StockQuantity,
+                    OrderQuantity = y.OrderQuantity,
+                    ProductStatusId = x.ProductStatusId,
+                    Promote = x.Promote,
+                }).Select(x => new SellerProductListVM
+                {
+                    ProductID = x.ProductID,
+                    ProductName = x.ProductName,
+                    Price = (int)x.Price,
+                    ProductImagePathOne = x.ProductImagePathOne,
+                    StockQuantity = x.StockQuantity,
+                    OrderQuantity = x.OrderQuantity,
+                    ProductStatusName = (db.ProductStatusDetails.Where(y => y.ProductStatusId == x.ProductStatusId).FirstOrDefault().ProductStatusName).ToString(),
+                    Promote = (int)x.Promote,
+                }).ToList();
 
-            return View(products);
+                return View(products);
+            }
+            else 
+            {
+                var products = db.Products.Where(x => x.SellerId == sellerid && x.ProductName.Contains(vm.KeyWord)).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+                {
+                    ProductID = x.ProductId,
+                    ProductName = x.ProductName,
+                    Price = x.Price,
+                    ProductImagePathOne = x.ProductImagePathOne,
+                    StockQuantity = y.StockQuantity,
+                    OrderQuantity = y.OrderQuantity,
+                    ProductStatusId = x.ProductStatusId,
+                    Promote = x.Promote,
+                }).Select(x => new SellerProductListVM
+                {
+                    ProductID = x.ProductID,
+                    ProductName = x.ProductName,
+                    Price = (int)x.Price,
+                    ProductImagePathOne = x.ProductImagePathOne,
+                    StockQuantity = x.StockQuantity,
+                    OrderQuantity = x.OrderQuantity,
+                    ProductStatusName = (db.ProductStatusDetails.Where(y => y.ProductStatusId == x.ProductStatusId).FirstOrDefault().ProductStatusName).ToString(),
+                    Promote = (int)x.Promote,
+                }).ToList();
+
+                return View(products);
+            }
         }
         public ActionResult ProductEdit(int? id)
         {
