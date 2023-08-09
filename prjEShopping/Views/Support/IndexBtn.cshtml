@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "IndexBtn";
+    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+}
+
+
+<div class="col-6 bg-secondary overflow-auto">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary complaintBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-userid="2" data-productid="2">
+        投訴
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增投訴單</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="complaintForm">
+                        <div class="form-group">
+                            <label for="complaintNumber">客訴單號：</label>
+                            <input type="text" class="form-control" id="complaintNumber" value="1" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="userName">用戶Id：</label>
+                            <input type="text" class="form-control" id="UserId" name="UserId" value="1" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="complaintType">投訴類別：</label>
+                            <select class="form-control" id="SupportType" name="SupportType">
+                                <option selected value="1">商品投訴</option>
+                                <option value="2">商家投訴</option>
+                                <option value="3">會員投訴</option>
+                                <option value="4">平台投訴</option>
+                                <option value="5">其他投訴</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="complaintProduct">投訴商品：</label>
+                            <input type="text" class="form-control" id="complaintProduct" value="ｓ牌手機" readonly>
+                            <input type="text" class="form-control" id="ProductId" name="ProductId" value="1" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">標題：</label>
+                            <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" maxlength="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="content">內容：</label>
+                            <textarea class="form-control" id="SupportText" name="SupportText" rows="5" maxlength="500"></textarea>
+                            <input type="datetime" class="form-control" id="ReceivedTime" name="ReceivedTime" readonly value="@DateTime.Now">
+                            <input type="text" class="form-control" id="SupportStatus" name="SupportStatus" value="1" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitComplaint()">寄出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    @section Scripts{
+
+        <script>
+            $(document).ready(function () {
+                $('#exampleModal').on('show.bs.modal', function (event) {
+                    // 获取触发该模态窗口的按钮
+                    var button = $(event.relatedTarget);
+
+                    // 从 data- 属性中提取出 userId 和 productId
+                    var userId = button.data('userid');
+                    var productId = button.data('productid');
+
+                    // 更新模态窗口的内容。这里假设模态窗口中有名为 'UserId' 和 'ProductId' 的表单字段
+                    var modal = $(this);
+                    modal.find('#UserId').val(userId);
+                    modal.find('#ProductId').val(productId);
+                });
+            });
+            function submitComplaint() {
+                // Here you get the form data and submit it to the server
+                var formData = $('#complaintForm').serialize();
+
+                $.post('/Support/CSEmail', formData)
+                    .done(function () {
+                        alert('投訴單已寄出');
+                    })
+                    .fail(function () {
+                        alert('寄送失敗');
+                    })
+                    .always(function () {
+                        $('#exampleModal').modal('hide');
+                    });
+            }
+
+        </script>
+    }

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<prjEShopping.Models.EFModels.Support>
+
+@{
+    ViewBag.Title = "CSSOldMailList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary ">
+    <h2>CSSOldMailList</h2>
+
+    <table class="table table-primary table-bordered">
+        <tr class="table-secondary">
+            <th>
+                @Html.DisplayNameFor(model => model.SupportType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceivedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportStatus)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupportType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupportTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceivedTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupportStatus)
+                </td>
+                <td>
+
+                    @Html.ActionLink("詳情", "CSSOldMailDetails", new { id = item.SupportId }, new {@class="btn btn-primary my-2"})
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "CSSIndex";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary " style="height:500px">
+    <h2>客服系統</h2>
+    <hr />
+    <div>
+        @Html.ActionLink("新進信件", "CSSNewMailList", null, new { @class = "btn btn-primary my-2" })<br />
+
+        @Html.ActionLink("已完成", "CSSOldMailList", null, new { @class = "btn btn-info my-2" })
+    </div>
+</div>
+

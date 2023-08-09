@@ -1,0 +1,67 @@
+﻿@model prjEShopping.Models.ViewModels.CombinedSupportsVM
+
+@{
+    ViewBag.Title = "CSSOldMailDetails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-9 bg-secondary ">
+
+    <div>
+        <h2>信件資訊</h2>
+        <hr />
+        <form>
+            <div class="container">
+                <div class="border border-2 border-primary my-2 py-2 px-2 bg-info">
+                    <h4>來信資訊</h4>
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="form-label">@Html.DisplayNameFor(model => model.Support.UserId)</label>
+                            <input type="text" class="form-control" value=" @Model.Support.UserId" readonly />
+                        </div>
+                        <div class="col-5">
+                            <label class="form-label"> @Html.DisplayNameFor(model => model.Support.SupportType)</label>
+                            <input type="text" class="form-control" value="@Model.Support.SupportType" readonly />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="form-label"> @Html.DisplayNameFor(model => model.Support.ProductId)</label>
+                            <input type="text" class="form-control" value="@Model.Support.ProductId" readonly />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> @Html.DisplayNameFor(model => model.Support.SupportStatus)</label>
+                            <input type="text" class="form-control bg-secondary  border border-1 border-dark" value=" @Model.Support.SupportStatus" readonly />
+                        </div>
+                    </div>
+                    <label class="form-label">@Html.DisplayNameFor(model => model.Support.SupportTitle)</label>
+                    <input type="text" class="form-control" value=" @Model.Support.SupportTitle" readonly />
+                    <label class="form-label"> @Html.DisplayNameFor(model => model.Support.SupportText)</label>
+                    <textarea class="form-control" readonly>@Model.Support.SupportText</textarea>
+                    <div>來信時間:@Model.Support.ReceivedTime</div>
+                </div>
+                <div class="border border-2 border-primary my-2 py-2 px-2 bg-success">
+                    <h4>回信內容</h4>
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="form-label">@Html.DisplayNameFor(model => model.SupportReplay.AdminId)</label>
+                            <input type="text" class="form-control" value=" @Model.SupportReplay.AdminId" readonly />
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label"> @Html.DisplayNameFor(model => model.SupportReplay.SupportReplayStatus)</label>
+                            <input type="text" class="form-control bg-secondary border border-1 border-dark" value=" @Model.SupportReplay.SupportReplayStatus" readonly />
+                        </div>
+                    </div>
+                    <label class="form-label">@Html.DisplayNameFor(model => model.SupportReplay.ReplayTitle)</label>
+                    <input type="text" class="form-control" value=" @Model.SupportReplay.ReplayTitle" readonly />
+                    <label class="form-label"> @Html.DisplayNameFor(model => model.SupportReplay.ReplayText)</label>
+                    <textarea class="form-control" readonly>@Model.SupportReplay.ReplayText</textarea>
+                    <div>回信時間:@Model.SupportReplay.ReplayTime</div>
+                </div>
+                </div>
+</form>
+    </div>
+    <p>
+        @Html.ActionLink("返回", "CSSOldMailList", null, new {@class="btn btn-primary my-2"})
+    </p>
+</div>
