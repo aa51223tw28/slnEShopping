@@ -141,7 +141,7 @@
                                  <div class="card-body">
                                      <input type="hidden" value="${product.ProductId}">
                                      <p class="card-title">${product.ProductName.substring(0, 25)}</p>
-                                     <p class="card-text text-danger fw-bold">${product.PriceWithCurrency}</p>
+                                     <p class="card-text text-danger fw-bold">NT$${Math.floor(product.Price).toLocaleString() }</p>
                                      <span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
                                  </div>
                          </div>
