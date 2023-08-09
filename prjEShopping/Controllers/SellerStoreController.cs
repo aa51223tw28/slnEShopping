@@ -1,9 +1,11 @@
 ﻿using prjEShopping.Models.DTOs;
 using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,10 +14,7 @@ namespace prjEShopping.Controllers
     public class SellerStoreController : Controller
     {
         // GET: SellerStore
-        public ActionResult StoresList() 
-        {
-            return View();
-        }
+        
         public ActionResult StoreMain()
         {
             var db = new AppDbContext();
@@ -94,7 +93,7 @@ namespace prjEShopping.Controllers
                             x.ProductId,
                             x.ProductImagePathOne,
                             x.ProductName,
-                            PriceWithCurrency = "NT$" + ((int)x.Price).ToString(),
+                            x.Price,
                             y.QuantitySold,
                             x.SubcategoryId,
                         } ).OrderByDescending(x => x.QuantitySold).Take(5);
@@ -110,7 +109,7 @@ namespace prjEShopping.Controllers
                 x.ProductId,
                 x.ProductImagePathOne,
                 x.ProductName,
-                PriceWithCurrency = "NT$" + ((int)x.Price).ToString(),
+                x.Price,
                 y.QuantitySold,
                 x.SubcategoryId,
             });
@@ -137,5 +136,20 @@ namespace prjEShopping.Controllers
             db.SaveChanges();
             return Json(1, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ShowAllStore() 
+        {
+            var db = new AppDbContext();
+            var products = db.Sellers.GroupJoin(db.TrackSellers, x => x.SellerId, y => y.SellerId, (x, y) => new UserAllStoreListVM
+            {
+                SellerId = x.SellerId,
+                StoreName = x.StoreName,
+                SellerImagePath = x.SellerImagePath,
+                TrackCount = y.Count(),
+            }).ToList();
+
+            return View(products);
+        }
+
     }
 }
