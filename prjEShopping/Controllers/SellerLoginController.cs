@@ -13,37 +13,57 @@ using System.Web.Security;
 using System.Web.Helpers;
 using prjEShopping.Models.Infra;
 using System.Security.Principal;
-
+using System.Threading.Tasks;
+using GoogleAuthentication.Services;
 namespace prjEShopping.Controllers
 {
     public class SellerLoginController : Controller
     {
-        public ActionResult Login()
+        private AppDbContext db = new AppDbContext();
+
+        public ActionResult Index()
         {
+            
             return View();
         }
+        public ActionResult Login()
+        {
+            var clientId = "428102972567-vrsafsab1n7en9tuu7k7lajf77dcmcgo.apps.googleusercontent.com";
+            var url = "https://localhost:8080/User/RedirectGoogleLogin";
+            var response = GoogleAuth.GetAuthUrl(clientId, url);
+            ViewBag.response = response;
+            return View();
+        }
+        
 
         [HttpPost]
         public ActionResult Login(SellerLoginVM vm)
         {
-            using(var db=new AppDbContext())
-            {
+            //using(var db=new AppDbContext())
+            //{
                 var sellerDetail = db.Sellers.Where(x=>x.SellerAccount == vm.SellerAccount && x.SellerPassword == vm.SellerPassword).FirstOrDefault();
                 if(sellerDetail == null)
                 {
                     vm.LoginErrorMessage = "帳號或密碼有誤!!";
-                    return View("Login", vm);
+                ViewBag.ShowErrorModal = true;
+                return View("Login", vm);
                 }
-                else
+            else if (sellerDetail.AccessRightId != 1)
+            {
+                vm.LoginErrorMessage = "權限不對，無法登入!!";
+                ViewBag.ShowErrorModal = true;
+                return View("Login", vm);
+            }
+            else
                 {
                     Session["SellerId"] = sellerDetail.SellerId;
                     Session["StoreName"] = sellerDetail.StoreName;
                     return RedirectToAction("Index", "SellerMain");
                 }
-            }
+           // }
 
         }
-        private AppDbContext db = new AppDbContext();
+        
         public ActionResult SellerPasswordForgot()
         {
             return View();
@@ -61,20 +81,20 @@ namespace prjEShopping.Controllers
             }
 
             var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
-            EmailVerifyUrl.SendEmailUrl(SellerAccount, urlHelper, "EmailVerifySeller", "Sellers");
+            EmailVerifyUrl.SendEmailUrl(SellerAccount, urlHelper, "EmailVerify", "Sellers");
 
             ViewBag.Message = "郵件已發送，請檢查您的信箱！";
 
             return View();
         }
 
-        public ActionResult EmailVerifySeller(string token)
+        public ActionResult EmailVerify(string token)
         {
             var seller = db.Sellers.FirstOrDefault(s => s.EmailCheck == token);
 
             if (seller != null)
             {
-                return RedirectToAction("ResetPassword", new { seller = seller.SellerAccount });
+                return RedirectToAction("ResetPassword",new { seller = seller.SellerAccount });
             }
             else
             {
@@ -82,9 +102,9 @@ namespace prjEShopping.Controllers
             }
         }
 
-        public ActionResult ResetPassword(string account)
+        public ActionResult ResetPassword(string seller)
         {
-            ViewBag.Account = account;
+            ViewBag.Account = seller;
             return View();
         }
 

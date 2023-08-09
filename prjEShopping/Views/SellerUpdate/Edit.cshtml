@@ -5,29 +5,7 @@
 }
 
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
-    @if (TempData["Fail"] != null)
-    {
-        <div class="modal" tabindex="-1" role="dialog" id="registrationModal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        註冊成功
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonstock">確定</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(document).ready(function () {
-                $("#registrationModal").modal("show");
-            });
-        </script>
-    }
+    
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
     <hr>
     @using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
@@ -45,7 +23,7 @@
                         <input class="form-control" type="file" id="photo" name="photo">
                     </div>
                     <div id="div-preivew">
-                        <img src="#" id="preview" alt="預覽圖" />
+                        <img src="" id="preview" alt="預覽圖" />
                     </div>
                 </div>
             </div>
@@ -152,6 +130,11 @@
                         @Html.PasswordFor(model => model.SellerPassword, new { @class = "form-control" })
                     </div>
                 </div>
+                @if (TempData["Fail"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Fail"]</div>
+                }
+                <input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()"/>
                 <br />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -203,6 +186,10 @@
 
             }
         })
+
+        function redirectToResetPassword() {
+        window.location.href = '@Url.Content("~/SellerLogin/ResetPassword")';
+    }
     </script>
 }
 
