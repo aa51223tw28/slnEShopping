@@ -184,6 +184,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminProductsController.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
+    <Compile Include="Controllers\AdminSellersController.cs" />
     <Compile Include="Controllers\AdmintestController.cs" />
     <Compile Include="Controllers\ADPointsController.cs" />
     <Compile Include="Controllers\ADProductsController.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Models\Interface\IAdminRepository.cs" />
     <Compile Include="Models\Services\AdminService.cs" />
     <Compile Include="Models\ViewModels\AdminProductVM.cs" />
+    <Compile Include="Models\ViewModels\AdminSellerVM.cs" />
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
@@ -420,6 +422,11 @@
     <Content Include="Views\AdminProducts\Details.cshtml" />
     <Content Include="Views\AdminProducts\Edit.cshtml" />
     <Content Include="Views\AdminProducts\Index.cshtml" />
+    <Content Include="Views\AdminSellers\Create.cshtml" />
+    <Content Include="Views\AdminSellers\Delete.cshtml" />
+    <Content Include="Views\AdminSellers\Details.cshtml" />
+    <Content Include="Views\AdminSellers\Edit.cshtml" />
+    <Content Include="Views\AdminSellers\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
