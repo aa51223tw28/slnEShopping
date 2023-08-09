@@ -178,7 +178,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\sweetalert2.js" />
-    <Content Include="Views\WebRobot.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +189,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\GoogleController.cs" />
+    <Compile Include="Controllers\RobotController.cs" />
     <Compile Include="Controllers\SellerActivitiesController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
     <Compile Include="Controllers\SellerMainController.cs" />
@@ -397,6 +397,7 @@
     <Content Include="Views\UserMembers\UserVerifyEmail.cshtml" />
     <Content Include="Views\UserMembers\UserRegister.cshtml" />
     <Content Include="Views\UserMembers\UserRegisterEmail.cshtml" />
+    <Content Include="Views\Robot\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
