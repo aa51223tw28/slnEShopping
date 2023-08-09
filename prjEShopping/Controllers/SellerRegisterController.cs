@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -37,6 +38,11 @@ namespace prjEShopping.Controllers
             if (newAccount != null)
             {
                 TempData["Fail"] = "此帳號已經被註冊！";
+                return View();
+            }
+            if (!IsStrongPassword(s.SellerPassword))
+            {
+                TempData["Fail"] = "密碼需至少包含一個英文大寫、一個英文小寫、一個數字、一個符號，且至少8個字元！";
                 return View();
             }
             if (photo != null && photo.ContentLength > 0)
@@ -124,6 +130,11 @@ namespace prjEShopping.Controllers
             Session["SellerImagePath"] = sellerImagePath;
             // 註冊成功後，直接導向到 SellerMain 頁面，並將賣家的 ID 傳遞過去
             return RedirectToAction("Index", "SellerMain", new { id = sellerId });
+        }
+
+        private bool IsStrongPassword(string sellerPassword)
+        {
+            return Regex.IsMatch(sellerPassword, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{8,}$");
         }
     }
 }
