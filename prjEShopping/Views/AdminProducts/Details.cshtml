@@ -1,0 +1,154 @@
+﻿@model prjEShopping.Models.EFModels.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SellerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductStatusId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductStatusId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrandId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrandId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductImagePathOne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductImagePathOne)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductImagePathTwo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductImagePathTwo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductImagePathThree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductImagePathThree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubcategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubcategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OptionIdOne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OptionIdOne)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OptionIdTwo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OptionIdTwo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OptionIdThree)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OptionIdThree)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OptionIdFour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OptionIdFour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OptionIdFive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OptionIdFive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Promote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Promote)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

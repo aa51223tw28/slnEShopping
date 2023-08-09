@@ -1,0 +1,165 @@
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.AdminProductVM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+}
+
+<h2>商品列表</h2>
+
+<div class="container mt-4">
+    <div class="row align-items-center">
+        <div class="col-auto my-2">
+            <button class="btn btn-info ">商家排序</button>
+        </div>
+        <div class="col-auto my-2">
+            <button class="btn btn-info">品牌排序</button>
+        </div>
+        <div class="col-7">
+        </div>
+        <div class="col-auto my-2">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="查詢關鍵字">
+                <div class="input-group-append">
+                    <button class="btn btn-info">查詢</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table table-primary table-bordered " id="myTable">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductImagePathOne)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductStatusId)
+            </th>
+            <th>變更權限</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" alt="Description" style="height:40px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrandId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Math.Round((decimal)item.Price).ToString("C0")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerId)
+                </td>
+                <td>
+                    @{
+                        var statusColor = "";
+                        switch (item.ProductStatusName)
+                        {
+                            case "審核中":
+                                statusColor = "text-white bg-danger";
+                                break;
+                            case "販售中":
+                                statusColor = "text-white bg-primary";
+                                break;
+                            case "下架中":
+                                statusColor = "text-primary bg-secondary";
+                                break;
+                        }
+                    }
+                    <span id="statusDisplay" class="@statusColor">@Html.DisplayFor(modelItem => item.ProductStatusName)</span>                  
+                    <span hidden>@Html.DisplayFor(modelItem => item.ProductStatusId)</span>
+                </td>
+                <td>
+                    <p hidden> @Html.DisplayFor(modelItem => item.ProductId)</p>
+                    <button data-product-id="@item.ProductId" data-status="2" class="btn btn-primary change-status-btn">上架</button>
+                    <button data-product-id="@item.ProductId" data-status="3" class="btn btn-secondary change-status-btn">下架</button>
+                    <button data-product-id="@item.ProductId" data-status="1" class="btn btn-danger change-status-btn">審核</button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@section Scripts{
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                paging: true,         // 啟用或禁用分頁
+                ordering: true,       // 啟用或禁用排序
+                info: true,           // 顯示表格信息（例如"顯示第 1 至 10 項結果，共 57 項"）
+                search: true,         // 顯示搜尋框
+                pageLength: 10,
+            });
+        });
+
+        $(document).ready(function () {
+            $('.change-status-btn').click(function () {
+                var newStatusId = $(this).data('status');
+                var productId = $(this).data('product-id');
+                // AJAX call to server
+                $.ajax({
+                    url: '/AdminProducts/ChangeStatus',
+                    type: 'POST',
+                    data: { id: productId, statusId: newStatusId },
+                    success: function (response) {
+                        let r = ""
+                        if (response.newStatusId == "1")
+                            r = "審核中"
+                        else if (response.newStatusId == "2")
+                            r = "販售中"
+                        else if (response.newStatusId == "3")
+                            r = "下架中"
+
+                        var statusColor;
+                        switch (r) {
+                            case "審核中":
+                                statusColor = "text-white bg-danger";
+                                break;
+                            case "販售中":
+                                statusColor = "text-white bg-primary";
+                                break;
+                            case "下架中":
+                                statusColor = "text-primary bg-secondary";
+                                break;
+                            default:
+                                statusColor = "";  // 或任何你希望的默認樣式
+                                break;
+                        }
+                        // Update the displayed status
+                        $('#statusDisplay').text(r).attr('class', statusColor);;
+                    },
+                    error: function (error) {
+                        console.log("Error:", error);
+                    }
+                });
+            });
+        });
+
+    </script>
+
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+}
