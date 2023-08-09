@@ -51,29 +51,6 @@ namespace prjEShopping.Controllers
             return View(product);
         }
 
-        // GET: AdminProducts/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: AdminProducts/Create
-        // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
-        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,SellerId,ProductName,ProductDescription,Price,ProductStatusId,BrandId,ProductImagePathOne,ProductImagePathTwo,ProductImagePathThree,CategoryId,SubcategoryId,OptionIdOne,OptionIdTwo,OptionIdThree,OptionIdFour,OptionIdFive,Promote")] Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(product);
-        }
-
         // GET: AdminProducts/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -105,31 +82,6 @@ namespace prjEShopping.Controllers
             return View(product);
         }
 
-        // GET: AdminProducts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-
-        // POST: AdminProducts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Product product = db.Products.Find(id);
-            db.Products.Remove(product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

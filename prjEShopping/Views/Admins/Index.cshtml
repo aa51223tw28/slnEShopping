@@ -19,76 +19,103 @@
             @Html.ActionLink("新增員工", "Create", null, new { @class = "btn btn-primary" })
         </p>
     }
-    <table class="table table-primary table-bordered" style="width:960px">
-
-        <tr class="table-info">
-            <th style="width:100px">
-                @Html.DisplayNameFor(model => model.AdminNumber)
-            </th>
-            <th style="width:100px">
-                @Html.DisplayNameFor(model => model.AdminName)
-            </th>
-            <th style="width:80px">
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th style="width:120px">
-                @Html.DisplayNameFor(model => model.AdminAccount)
-            </th>
-            <th style="width:80px">
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th style="width:80px">
-                @Html.DisplayNameFor(model => model.JobStatus)
-            </th>
-            @if (canSeeTableA)
-            {
-                <th style="width:50px">
-                    功能
+    <table class="table table-primary table-bordered" style="width:960px" id="myTable">
+        <thead>
+            <tr class="table-info">
+                <th style="width:100px">
+                    @Html.DisplayNameFor(model => model.AdminNumber)
                 </th>
-            }
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr style="cursor:pointer" class="clickable-row" data-href="@Url.Action("Details", "Admins", new { id = item.AdminId })">
-                <td>
-                    @Html.DisplayFor(modelItem => item.AdminNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AdminName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AdminAccount)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.JobStatus)
-                </td>
+                <th style="width:100px">
+                    @Html.DisplayNameFor(model => model.AdminName)
+                </th>
+                <th style="width:80px">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th style="width:120px">
+                    @Html.DisplayNameFor(model => model.AdminAccount)
+                </th>
+                <th style="width:80px">
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th style="width:80px">
+                    @Html.DisplayNameFor(model => model.JobStatus)
+                </th>
                 @if (canSeeTableA)
                 {
-                    <td>
-                        @Html.ActionLink("修改", "Edit", new { id = item.AdminId }, new { @class = "btn btn-secondary" })
-                    </td>
+                    <th style="width:50px">
+                        功能
+                    </th>
                 }
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="cursor:pointer" class="clickable-row" data-href="@Url.Action("Details", "Admins", new { id = item.AdminId })">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdminNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdminName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdminAccount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JobStatus)
+                    </td>
+                    @if (canSeeTableA)
+                    {
+                        <td>
+                            @Html.ActionLink("修改", "Edit", new { id = item.AdminId }, new { @class = "btn btn-secondary" })
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 
 @section Scripts{
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
     <script>
-            $(document).ready(function ($) {
-                $(".clickable-row").click(function () {
-                    window.location = $(this).data("href");
-                });
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                pageLength: 10, // 每頁顯示10筆資料
+                columnDefs: [{
+                    type: 'currency', // 使用上面定義的排序方法
+                    targets: [3]  // 替換 [0] 為你希望套用這種排序的柱子索引值。例如：0，如果你希望在第一列上使用這個排序。
+                }],
+                language: {
+                    search: "搜尋：",
+                    paginate: {
+                        first: "首頁",
+                        last: "尾頁",
+                        next: "下一頁",
+                        previous: "上一頁"
+                    },
+                    info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
+                    //最下面顯示
+                    infoEmpty: "顯示 0 到 0 的 0 筆資料",
+                    //下拉選單
+                    lengthMenu: "顯示 _MENU_ 筆資料",
+                }
             });
+        });
+        $(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
     </script>
 }
 
 @section Styles{
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 }

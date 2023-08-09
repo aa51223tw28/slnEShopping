@@ -89,17 +89,17 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 
     <script>
-        // 定義一個新的排序方法
-$.fn.dataTable.ext.type.order['currency-pre'] = function (data) {
-    // 移除不需要的字符，例如 NT$ 和逗號，然後將其轉換為浮點數
-    return parseFloat(data.replace('NT$', '').replace(',', ''));
+        // 定義一個新的排序方法重要 不然金額排序會錯
+        $.fn.dataTable.ext.type.order['currency-pre'] = function (data) {
+        // 移除不需要的字符，例如 NT$ 和逗號，然後將其轉換為浮點數 
+        return parseFloat(data.replace('NT$', '').replace(',', ''));
 };
         $(document).ready( function () {
         $('#myTable').DataTable({
          pageLength: 10, // 每頁顯示10筆資料
           columnDefs: [{
             type: 'currency', // 使用上面定義的排序方法
-            targets: [3]  // 替換 "柱編號" 為你希望套用這種排序的柱子索引。例如：0，如果你希望在第一列上使用這個排序。
+            targets: [3]  // 替換 [0] 為你希望套用這種排序的柱子索引值。例如：0，如果你希望在第一列上使用這個排序。
         }],
             language: {
                 search: "搜尋：",
@@ -110,7 +110,9 @@ $.fn.dataTable.ext.type.order['currency-pre'] = function (data) {
                     previous: "上一頁"
                 },
                 info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
+                //最下面顯示
                 infoEmpty: "顯示 0 到 0 的 0 筆資料",
+                //下拉選單
                 lengthMenu: "顯示 _MENU_ 筆資料",
             }
         });
