@@ -18,34 +18,37 @@
                     if (User.Identity.IsAuthenticated)
                     {
                         <div class="container d-flex justify-content-end">
-                            <ul class="nav">
-                                <li class="nav-item px-3 d-flex align-items-center">
-                                    <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="text-decoration-none hover-opacity">
-                                        <div class="d-flex align-items-center">
-                                            <div style="width:30px" class="me-2">                                               
-                                                <img src="" class="me-2 img-fluid" id="userImagePath"/>
-                                            </div>                                            
-                                            @*<span class="fw-bold text-light">John Doe</span>*@
-                                            <span class="fw-bold text-light" id="username"></span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="nav-item px-3">
-                                    <a href="@Url.Content("~/UserCart/UserShoppingCart")" class="position-relative text-decoration-none">
-                                        購物車
-                                        <i class="bi bi-cart-fill fs-4"></i>
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger totalItemCount"></span>
-                                    </a>
-                                </li>
+                                            <ul class="nav">
+                                                <li class="nav-item px-3 d-flex align-items-center">
+                                                    <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="text-decoration-none hover-opacity">
+                                                        <div class="d-flex align-items-center">
+                                                            <div style="width:30px" class="me-2">
+                                                                <img src="" class="me-2 img-fluid" id="userImagePath" />
+                                                            </div>
+                                                            @*<span class="fw-bold text-light">John Doe</span>*@
+                                                            <span class="fw-bold text-light" id="username"></span>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item px-3">
+                                                    <img src="~/img/WebRobot.png" onclick="window.open('@Url.Content("~/WebRobot.html")', '線上客服', 'width=450,height=500');" style="width:32px;height:32px" title="線上客服" />
+                                                </li>
+                                                <li class="nav-item px-3">
+                                                    <a href="@Url.Content("~/UserCart/UserShoppingCart")" class="position-relative text-decoration-none">
+                                                        購物車
+                                                        <i class="bi bi-cart-fill fs-4"></i>
+                                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger totalItemCount"></span>
+                                                    </a>
+                                                </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="@Url.Content("~/UserOrder/UserOrderDetailAll")">購買清單</a>
-                                </li>
-                                <li class="nav-item">
-                                    @*<a class="nav-link" href="0.index.html">登出</a>*@
-                                    <a>@Html.ActionLink("登出", "UserLogout", "UserMembers", new { area = "" }, new { @class = "nav-link" })</a>
-                                </li>
-                            </ul>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="@Url.Content("~/UserOrder/UserOrderDetailAll")">購買清單</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    @*<a class="nav-link" href="0.index.html">登出</a>*@
+                                                    <a>@Html.ActionLink("登出", "UserLogout", "UserMembers", new { area = "" }, new { @class = "nav-link" })</a>
+                                                </li>
+                                            </ul>
                         </div>
                     }
                     else

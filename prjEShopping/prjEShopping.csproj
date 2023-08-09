@@ -178,6 +178,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\sweetalert2.js" />
+    <Content Include="Views\WebRobot.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
