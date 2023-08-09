@@ -93,7 +93,7 @@ namespace prjEShopping.Controllers
                             x.ProductId,
                             x.ProductImagePathOne,
                             x.ProductName,
-                            PriceWithCurrency = "NT$" + ((int)x.Price).ToString(),
+                            x.Price,
                             y.QuantitySold,
                             x.SubcategoryId,
                         } ).OrderByDescending(x => x.QuantitySold).Take(5);
@@ -109,7 +109,7 @@ namespace prjEShopping.Controllers
                 x.ProductId,
                 x.ProductImagePathOne,
                 x.ProductName,
-                PriceWithCurrency = "NT$" + ((int)x.Price).ToString(),
+                x.Price,
                 y.QuantitySold,
                 x.SubcategoryId,
             });
