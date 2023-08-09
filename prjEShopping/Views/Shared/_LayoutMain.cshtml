@@ -31,7 +31,7 @@
                                                     </a>
                                                 </li>
                                                 <li class="nav-item px-3">
-                                                    <img src="~/img/WebRobot.png" onclick="window.open('@Url.Content("~/Robot/Index")', '線上客服', 'width=550,height=600');" style="width:32px;height:32px" title="線上客服" />
+                                                    <img src="~/img/WebRobot.png" onclick="openPopup();" style="width:32px;height:32px" title="線上客服" />
                                                 </li>
                                                 <li class="nav-item px-3">
                                                     <a href="@Url.Content("~/UserCart/UserShoppingCart")" class="position-relative text-decoration-none">
@@ -239,25 +239,30 @@
         //買家的照片名字
         $(document).ready(async function () {
             const result = await $.get("/UserMembers/UserPhotoName")
-                       
+
             const userImagePath = result.UserImagePath;
             const username = result.UserName;
             const imgs = document.querySelectorAll("#userImagePath");
             const names = document.querySelectorAll("#username");
 
-            const baseUrl = window.location.origin;          
-            
+            const baseUrl = window.location.origin;
+
             imgs.forEach(img => {
                 img.src = `${baseUrl}/img/${userImagePath}`;
             })
-           
+
             names.forEach(name => {
                 name.textContent = username;
             })
-            
-                              
+
+
         })
-        
+        function openPopup() {
+        var left = window.innerWidth - 550;  // 距離螢幕右邊 550 個像素
+        var top = window.innerHeight - 600;  // 距離螢幕底部 600 個像素
+        var options = 'width=550,height=600,left=' + left + ',top=' + top;
+        window.open('@Url.Content("~/Robot/Index")', '線上客服', options);
+    }
     </script>
 
     @RenderSection("Scripts", required: false)@*引用js或jquery*@
