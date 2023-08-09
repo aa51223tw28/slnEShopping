@@ -134,6 +134,7 @@
                 {
                     <div class="alert alert-danger">@TempData["Fail"]</div>
                 }
+                <input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()"/>
                 <br />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -185,6 +186,10 @@
 
             }
         })
+
+        function redirectToResetPassword() {
+        window.location.href = '@Url.Content("~/SellerLogin/ResetPassword")';
+    }
     </script>
 }
 
