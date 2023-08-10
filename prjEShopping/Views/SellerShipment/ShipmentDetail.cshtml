@@ -59,7 +59,7 @@
                         <td><input type="checkbox" class="form-check-input" /></td>
                     </tr>
                 }
-                int total = pay + @ViewBag.Fright;
+                int total = pay + @ViewBag.Freight;
             }
 
         </tbody>
@@ -82,7 +82,7 @@
         <span>商品金額:</span>
         <span class="text-danger fw-bold mx-2">@pay.ToString("###,###,##0")  元</span>
         <span>運費:</span>
-        <span class="text-danger fw-bold mx-2">@ViewBag.Fright   元</span>
+        <span class="text-danger fw-bold mx-2">@ViewBag.Freight   元</span>
         <span>總金額:</span>
         <span class="text-danger fw-bold mx-2">@total.ToString("###,###,##0")   元</span>
     </div>

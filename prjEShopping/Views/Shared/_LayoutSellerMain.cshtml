@@ -109,7 +109,7 @@
                                             @Html.ActionLink("新增商品(上架)", "ProductCreate", "SellerProductCreate", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                         <li class="nav-item">                            
-                                            @Html.ActionLink("查詢商品(修改/刪除/再上架)", "SellerProductList", "SellerProduct", new { area = "" }, new { @class = "text-decoration-none" })
+                                            @Html.ActionLink("查詢商品(再上架)", "SellerProductList", "SellerProduct", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                     </ul>
                                 </div>
@@ -190,7 +190,7 @@
                     </div>
                 </div>
                 <div class="pre my-2 rounded fw-bold ">
-                    <h4 class="text-center pre bg-secondary rounded-2 p-1 ">進行中的折價卷</h4>
+                    <h4 class="text-center pre bg-secondary rounded-2 p-1 ">即將到期折價卷</h4>
                     <div id="coupon">
 
                     </div>
@@ -290,6 +290,7 @@
                 let coupons = datas.map(coupon => {
                     const formattedEndTime = new Date(parseInt(coupon.EndTime.substr(6))).toLocaleString();
                     return (`<div class="pre bg-warning rounded-2">
+                        <P class="text-center">${coupon.CouponName}</P>
                         <P class="text-center">${coupon.CouponTerms+coupon.CouponType+coupon.Discount}</P>
                         <img src=@Url.Content("~/img/coupon.png") class="d -block w-100 container" alt="..." height="120">
                         <P class="text-center"><span>總數量:</span><span class="text-danger">${coupon.Quantity}</span>
