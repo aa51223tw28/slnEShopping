@@ -373,8 +373,9 @@
             sellertCheckbox.addEventListener('change', async function () {
                 const productGroup = this.closest('.row.bg-success.rounded.py-3.mb-3') 
                 const productCheckboxes = productGroup.querySelectorAll('.productcheckbox');
+
                 productCheckboxes.forEach(productCheckbox => {
-                    productCheckbox.checked = this.checked;
+                    productCheckbox.checked = this.checked;                   
                 })
 
                 var sellerId = $(this).attr("data-sellerid");
@@ -382,6 +383,11 @@
                 const result = await $.get("/UserCart/checkedBuyOneSellerapi?sellerId=" + sellerId);//勾選整家店要去尋覽每件商品
                 getTotalcheckedCount();
                 getTotalcheckedPrice();
+
+                // 檢查是否有商家沒有勾選，如果有，取消全選的勾選
+                const isAnySellerUnchecked = Array.from(sellerCheckboxes).some(sellerCheckbox => !sellerCheckbox.checked)//true(有->沒有勾選)
+                allproductcheckbox.checked = !isAnySellerUnchecked;//false(取消全選)
+
             })
         })
 
@@ -395,8 +401,18 @@
                  // 檢查是否有商品沒有勾選，如果有，取消全選的勾選
                 const isAnyProductUnchecked = Array.from(productCheckboxes).some(productCheckbox => !productCheckbox.checked)
                 allproductcheckbox.checked = !isAnyProductUnchecked;
+
                 getTotalcheckedCount();
                 getTotalcheckedPrice();
+
+                //獲取商品所屬的商家勾選框
+                const sellerCheckbox = this.closest('.row.bg-success.rounded.py-3.mb-3').querySelector('.sellercheckbox');
+
+                //檢查商家下的所有商品是否有未選中的
+                const productGroup = this.closest('.row.bg-success.rounded.py-3.mb-3');
+                const productCheckboxesInGroup = productGroup.querySelectorAll('.productcheckbox');
+                const isAllProductsUnchecked = Array.from(productCheckboxesInGroup).some(productCheckbox => !productCheckbox.checked);
+                sellerCheckbox.checked = !isAllProductsUnchecked;
             })
         })
 
