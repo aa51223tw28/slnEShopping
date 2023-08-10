@@ -119,6 +119,7 @@ namespace prjEShopping.Controllers
                 TempData["Fail"] = "商城介紹為必填欄位！";
                 return View();
             }
+            s.AccessRightId = 2;
             db.Sellers.Add(s);
             db.SaveChanges();
             SendRegisterEmail(s.SellerAccount);

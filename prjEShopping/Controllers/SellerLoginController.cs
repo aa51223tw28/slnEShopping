@@ -114,11 +114,12 @@ namespace prjEShopping.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ResetPassword(string Account, string newPassword, string confirmPassword)
         {
-            if (newPassword == confirmPassword)
-            {
+          
                 var seller = db.Sellers.FirstOrDefault(s => s.SellerAccount == Account);
 
                 if (seller != null)
+                { 
+                if (newPassword == confirmPassword)
                 {
                     seller.SellerPassword = newPassword;
                     seller.EmailCheck = null; // 清空 token
