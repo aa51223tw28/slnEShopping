@@ -189,48 +189,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="pre my-2 bg-secondary rounded fw-bold ">
-                    <h4 class="text-center pre ">即將進行的活動</h4>
-                    <div class="pre">
-                        <P class="text-center">
-                            7/5一日特賣
-                        </P>
-                        <img src="~/img/APPLE輪播圖.jpg" class="d-block w-100 container" alt="...">
-                        <P class="text-center">
-                            <span>
-                                開始於:
-                            </span>
-                            <span>
-                                12小時17分03秒
-                            </span>
-                        </P>
+                <div class="pre my-2 rounded fw-bold ">
+                    <h4 class="text-center pre bg-secondary rounded-2 p-1 " id="coupon">進行中的折價卷</h4>
+                    <div class="pre bg-warning rounded-2">
+                        <P class="text-center">7/5一日特賣</P>
+                        <img src="~/img/coupon.png" class="d-block w-100 container" alt="..." height="120">
+                        <P class="text-center"><span>開始於:</span><span>12小時17分03秒</span></P>
                     </div>
-                    <div class="pre bg-warning">
-                        <P class="text-center">
-                            7/9-7/21夏季特賣
-                        </P>
-                        <img src="~/img/dyson輪播圖.jpg" class="d-block w-100 container" alt="...">
-                        <P class="text-center">
-                            <span>
-                                開始於:
-                            </span>
-                            <span>
-                                55小時17分03秒
-                            </span>
-                        </P>
+                    <div class="pre bg-warning rounded-2 ">
+                        <P class="text-center">7/9-7/21夏季特賣</P>
+                        <img src="~/img/coupon.png" class="d-block w-100 container" alt="..." height="120">
+                        <P class="text-center"><span>開始於:</span><span>55小時17分03秒</span></P>
                     </div>
-                    <div class="pre">
-                        <P class="text-center">
-                            8/5-8/12父親節活動
-                        </P>
-                        <img src="~/img/LG輪播圖.jpg" class="d-block w-100 container" alt="...">
-                        <P class="text-center">
-                            <span>
-                                開始於:
-                            </span>
-                            <span>
-                                256小時17分03秒
-                            </span>
+                    <div class="pre bg-warning rounded-2 ">
+                        <P class="text-center">8/5-8/12父親節活動</P>
+                        <img src="~/img/coupon.png" class="d-block w-100 container" alt="..." height="120">
+                        <P class="text-center"><span>開始於:</span><span>256小時17分03秒</span>
                         </P>
                     </div>
                 </div>
@@ -316,6 +290,22 @@
             integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const selcoupon = document.querySelector('#coupon');
+
+        function LoadCoupn()
+        {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '@Url.Content("~/SellerMain/LoadCoupon")');
+            xhr.send();
+            xhr.addEventListener('load', () => {
+                const datas = JSON.parse(xhr.responseText);
+                let coupons = datas.map(coupon => {
+                    return(``)
+                })
+            })
+        }
+    </script>
     @RenderSection("Scripts", required: false)
     @RenderSection("Styles", required: false)
 </body>
