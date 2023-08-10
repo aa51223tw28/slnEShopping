@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows;
 
 namespace prjEShopping.Controllers
 {
@@ -27,6 +28,22 @@ namespace prjEShopping.Controllers
 
             var orderNum = orderdbNum + orderguid;//總共20個字元為何給綠界用 需要不重複 以免付款失敗
 
+            //總價
+            var orderid = db.Orders.Where(x => x.OrderNumber == orderdbNum).Select(x => x.OrderId).FirstOrDefault();
+            var totalprice = db.OrderDetails.Where(x => x.OrderId == orderid).Sum(x => x.CurrentPrice * x.Quantity);
+            int total = (int)Math.Round((decimal)totalprice);
+
+            //買了什麼商品
+            var items = db.OrderDetails.Where(x => x.OrderId == orderid)
+                                        .Join(db.Products, x => x.ProductId, y => y.ProductId, (x,y) => new
+                                        {
+                                            ProductId=x.ProductId,
+                                            Quantity=x.Quantity,
+                                            ProductName =y.ProductName
+                                        })
+                                        .Select(x => x.ProductName + "X" + x.Quantity);
+            string itemName = string.Join("#", items);
+
             //需填入你的網址
             var website = $"https://localhost:44388/";
             var order = new Dictionary<string, string>
@@ -38,13 +55,13 @@ namespace prjEShopping.Controllers
                 { "MerchantTradeDate",  DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")},
                 
                 //交易金額
-                { "TotalAmount",  "100"},
+                { "TotalAmount",  total.ToString()},
                 
                 //交易描述
                 { "TradeDesc",  "無"},
                 
                 //商品名稱
-                { "ItemName",  "測試商品"},
+                { "ItemName",  itemName},
                 
                 //允許繳費有效天數
                 { "ExpireDate",  "3"},
