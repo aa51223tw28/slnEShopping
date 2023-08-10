@@ -300,42 +300,7 @@
 
         <!-- 五星內容 -->
         <div class="collapse" id="fivestar">
-            <div class="card card-body">
-                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <div class="col">
-                        <img src="~/img/comment.jpeg" alt="">
-                    </div>
-                    <div class="col d-flex flex-column">
-                        <div>我是五星k*****3</div>
-                        <div>我是五星2022-08-17 09:17</div>
-                        <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-body">
-                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <div class="col">
-                        <img src="~/img/comment.jpeg" alt="">
-                    </div>
-                    <div class="col d-flex flex-column">
-                        <div>我是五星k*****3</div>
-                        <div>我是五星2022-08-17 09:17</div>
-                        <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-body">
-                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <div class="col">
-                        <img src="~/img/comment.jpeg" alt="">
-                    </div>
-                    <div class="col d-flex flex-column">
-                        <div>我是五星k*****3</div>
-                        <div>我是五星2022-08-17 09:17</div>
-                        <div>我是五星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
 
@@ -345,6 +310,11 @@
                 <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
                     <div class="col">
                         <img src="~/img/comment.jpeg" alt="">
+                    </div>
+                    <div class="col d-flex flex-column">
+                        <div>我是四星k*****3</div>
+                        <div>我是四星2022-08-17 09:17</div>
+                        <div>我是四星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
                     </div>
                     <div class="col d-flex flex-column">
                         <div>我是四星k*****3</div>
@@ -464,43 +434,12 @@
 
         <!-- 一星內容 -->
         <div class="collapse" id="onestar">
-            <div class="card card-body">
-                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <div class="col">
-                        <img src="~/img/comment.jpeg" alt="">
-                    </div>
-                    <div class="col d-flex flex-column">
-                        <div>我是一星k*****3</div>
-                        <div>我是一星2022-08-17 09:17</div>
-                        <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-body">
-                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <div class="col">
-                        <img src="~/img/comment.jpeg" alt="">
-                    </div>
-                    <div class="col d-flex flex-column">
-                        <div>我是一星k*****3</div>
-                        <div>我是一星2022-08-17 09:17</div>
-                        <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                    </div>
-                </div>
-            </div>
-            <div class="card card-body">
-                <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <div class="col">
-                        <img src="~/img/comment.jpeg" alt="">
-                    </div>
-                    <div class="col d-flex flex-column">
-                        <div>我是一星k*****3</div>
-                        <div>我是一星2022-08-17 09:17</div>
-                        <div>我是一星終於買到PS5了！搭配商城折價劵及信用卡回饋以還不錯的價格入手</div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
+
+
+
+
     </div>
 </div> 
 
@@ -738,6 +677,68 @@
                 }
             });
         });
+
+
+
+        //評論
+        $(document).ready(function () {
+            $.ajax({
+                url: '@Url.Action("Comment", "UserProduct")',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data)
+                    var ratingone = '';
+                    var ratingfive = '';
+                    for (var i = 0; i < data.length; i++) {
+                        var rating = data[i];
+
+                        if (rating.StarRating === 1) {
+                            ratingone += '<div class="card card-body">';
+                            ratingone += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
+                            ratingone += '<div class="col">';
+                            ratingone += '<img src="~/img/comment.jpeg">';
+                            ratingone += '</div>';
+                            ratingone += '<div class="col d-flex flex-column">';
+                            ratingone += '<div>' + rating.RatingId + '</div>';
+                            ratingone += '<div>' + rating.PostTime + '</div>';
+                            ratingone += '<div>' + rating.RatingText + '</div>';
+                            ratingone += '</div>';
+                            ratingone += '</div>';
+                            ratingone += '</div>';
+                        }
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        var rating = data[i];                      
+
+                        if (rating.StarRating === 5) {
+                            ratingfive += '<div class="card card-body">';
+                            ratingfive += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
+                            ratingfive += '<div class="col">';
+                            ratingfive += '<img src="~/img/comment.jpeg" alt="">';
+                            ratingfive += '</div>';
+                            ratingfive += '<div class="col d-flex flex-column">';
+                            ratingfive += '<div>'+rating.RatingId + '</div>';
+                            ratingfive += '<div>' + rating.PostTime + '</div>';
+                            ratingfive += '<div>' + rating.RatingText + '</div>';
+                            ratingfive += '</div>';
+                            ratingfive += '<div class="col d-flex flex-column">';
+                            ratingfive += '<div>' + rating.RatingId + '</div>';
+                            ratingfive += '<div>' + rating.PostTime + '</div>';
+                            ratingfive += '<div>' + rating.RatingText + '</div>';
+                            ratingfive += '</div>';
+                            ratingfive += '</div>';
+                            ratingfive += '</div>';
+                        }
+                    }
+                    
+                    $('#onestar').html(ratingone);
+                    $('#fivestar').html(ratingfive);
+                }
+            })
+        })
+
+
 
     </script>
 
