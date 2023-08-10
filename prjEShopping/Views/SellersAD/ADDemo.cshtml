@@ -11,6 +11,7 @@
         border-image: linear-gradient(to right, red, yellow, green, blue, violet);
         border-image-slice: 1;
     }
+
     .time-sale-banner {
         position: absolute;
         top: 10%;
@@ -23,6 +24,17 @@
     }
 </style>
 <h2>限時廣告DEMO</h2>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="adModal" tabindex="-1" role="dialog" aria-labelledby="adModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <!-- Your Ad Content Here -->
+                <img src="~/img/ETest.jpg" alt="Advertisement" class="img-fluid cursor-pointer" id="adImage">
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container mt-3 bg-success rounded pb-3">
     <h2 class="pt-3 ps-2 fw-bold fs-3 text">暢銷排行</h2>
@@ -47,7 +59,7 @@
                     </div>
                 </div>
             </div>
-           
+
             <script>
 
                 function countdown(endTime, elementId) {
@@ -77,3 +89,21 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            // Show the modal when the page loads
+            $('#adModal').modal('show');
+
+            // Hide the modal when the image is clicked
+            $('#adImage').click(function () {
+                $('#adModal').modal('hide');
+            });
+
+            // Set a timeout to hide the modal after 5 seconds
+            setTimeout(function () {
+                $('#adModal').modal('hide');
+            }, 5000);
+        });
+    </script>
+}
