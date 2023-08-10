@@ -190,22 +190,9 @@
                     </div>
                 </div>
                 <div class="pre my-2 rounded fw-bold ">
-                    <h4 class="text-center pre bg-secondary rounded-2 p-1 " id="coupon">進行中的折價卷</h4>
-                    <div class="pre bg-warning rounded-2">
-                        <P class="text-center">7/5一日特賣</P>
-                        <img src="~/img/coupon.png" class="d-block w-100 container" alt="..." height="120">
-                        <P class="text-center"><span>開始於:</span><span>12小時17分03秒</span></P>
-                    </div>
-                    <div class="pre bg-warning rounded-2 ">
-                        <P class="text-center">7/9-7/21夏季特賣</P>
-                        <img src="~/img/coupon.png" class="d-block w-100 container" alt="..." height="120">
-                        <P class="text-center"><span>開始於:</span><span>55小時17分03秒</span></P>
-                    </div>
-                    <div class="pre bg-warning rounded-2 ">
-                        <P class="text-center">8/5-8/12父親節活動</P>
-                        <img src="~/img/coupon.png" class="d-block w-100 container" alt="..." height="120">
-                        <P class="text-center"><span>開始於:</span><span>256小時17分03秒</span>
-                        </P>
+                    <h4 class="text-center pre bg-secondary rounded-2 p-1 ">進行中的折價卷</h4>
+                    <div id="coupon">
+
                     </div>
                 </div>
             </div>
@@ -293,18 +280,30 @@
     <script>
         const selcoupon = document.querySelector('#coupon');
 
-        function LoadCoupn()
+        function LoadCoupns()
         {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', '@Url.Content("~/SellerMain/LoadCoupon")');
+            xhr.open('GET', '@Url.Content("~/SellerMain/LoadCoupons")');
             xhr.send();
             xhr.addEventListener('load', () => {
                 const datas = JSON.parse(xhr.responseText);
                 let coupons = datas.map(coupon => {
-                    return(``)
+                    const formattedEndTime = new Date(parseInt(coupon.EndTime.substr(6))).toLocaleString();
+                    return (`<div class="pre bg-warning rounded-2">
+                        <P class="text-center">${coupon.CouponTerms+coupon.CouponType+coupon.Discount}</P>
+                        <img src=@Url.Content("~/img/coupon.png") class="d -block w-100 container" alt="..." height="120">
+                        <P class="text-center"><span>總數量:</span><span class="text-danger">${coupon.Quantity}</span>
+                        <span>已領取:</span><span class="text-danger">${coupon.ReceivedQuantity}</span></P>
+                        <P class="container text-center"><span>結束日:</span><span class="row">${formattedEndTime}</span></P>
+                    </div>`)
                 })
+                selcoupon.innerHTML = coupons.join("");
             })
         }
+
+        $(document).ready(function () {
+            LoadCoupns();
+        })
     </script>
     @RenderSection("Scripts", required: false)
     @RenderSection("Styles", required: false)

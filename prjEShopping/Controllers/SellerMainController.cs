@@ -38,16 +38,5 @@ namespace prjEShopping.Controllers
             var coupons = db.Coupons.Where(x => x.SellerId == 1 && x.EndTime > DateTime.Now).OrderBy(x => x.EndTime).Take(3);
             return Json(coupons,JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult LoadCouponsTest()
-        {
-            int id = (int)Session["SellerId"];
-            var db = new AppDbContext();
-            var coupons = db.Coupons.Where(x => x.SellerId == 1);
-            return Json(coupons, JsonRequestBehavior.AllowGet);
-        }
-
-
-
     }
 }
