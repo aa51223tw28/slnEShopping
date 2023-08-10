@@ -1,6 +1,7 @@
 ﻿using prjEShopping.Models.EFModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
@@ -11,44 +12,58 @@ namespace prjEShopping.Models.ViewModels
 {
     public class AdminSellerVM
     {
+        [DisplayName("商家ID")]
         public int SellerId { get; set; }
 
+        [DisplayName("負責人")]
         [StringLength(50)]
         public string SellerName { get; set; }
 
+        [DisplayName("商家名")]
         [StringLength(50)]
         public string StoreName { get; set; }
 
+        [DisplayName("商家帳號")]
         [StringLength(50)]
         public string SellerAccount { get; set; }
 
+        [DisplayName("商家密碼")]
         [StringLength(100)]
         public string SellerPassword { get; set; }
 
         [StringLength(100)]
         public string SellerPasswordSalt { get; set; }
 
+        [DisplayName("電話")]
         [StringLength(50)]
         public string Phone { get; set; }
 
+        [DisplayName("地址")]
         [StringLength(50)]
         public string Address { get; set; }
 
+        [DisplayName("統編")]
         [StringLength(50)]
         public string GUINumber { get; set; }
 
+        [DisplayName("商家介紹")]
         [StringLength(4000)]
         public string StoreIntro { get; set; }
 
+        [DisplayName("權限")]
         public int? AccessRightId { get; set; }
 
+        [DisplayName("銀行帳戶")]
         [StringLength(50)]
         public string BankAccount { get; set; }
 
+        [DisplayName("付款方式")]
         public int? PaymentMethodId { get; set; }
 
+        [DisplayName("貨運方式")]
         public int? ShippingMethodId { get; set; }
 
+        [DisplayName("廣告點數")]
         public int? ADPoints { get; set; }
 
         [StringLength(50)]

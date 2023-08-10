@@ -1,31 +1,38 @@
-﻿@model IEnumerable<prjEShopping.Models.ViewModels.AdminSellerVM>
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.AdminUserVM>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
 }
 
-<h2>商家列表</h2>
+<h2>會員列表</h2>
+
 <table class="table table-primary table-bordered" id="myTable">
     <thead>
         <tr>
             <th>
-               商標
+                用戶頭像
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StoreName)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SellerName)
+                @Html.DisplayNameFor(model => model.UserAccount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SellerAccount)
+                @Html.DisplayNameFor(model => model.Gender)
             </th>
             <th>
-                權限狀態
+                @Html.DisplayNameFor(model => model.City)
             </th>
-            <th></th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccessRightId)
+            </th>
+            <th>變更權限</th>
+            <th>資料系統</th>
         </tr>
     </thead>
     <tbody>
@@ -33,16 +40,22 @@
         {
             <tr>
                 <td>
-                    <img src="~/img/@Html.DisplayFor(modelItem => item.SellerImagePath)" alt="Description" style="height:40px" />
+                    <img src="~/img/@Html.DisplayFor(modelItem => item.UserImagePath)" alt="Description" style="height:40px" />
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StoreName)
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SellerName)
+                    @Html.DisplayFor(modelItem => item.UserAccount)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SellerAccount)
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @item.Birthday.Value.ToString("yyyy/MM/dd")
                 </td>
                 <td>
                     @{
@@ -50,30 +63,31 @@
                         var AccessRightName = "";
                         switch (item.AccessRightId)
                         {
-                            case 1:
+                            case "1":
                                 statusColor = "text-white bg-primary";
                                 AccessRightName = "使用中";
                                 break;
-                            case 2:
+                            case "2":
                                 statusColor = "text-primary bg-secondary";
                                 AccessRightName = "審核中";
                                 break;
-                            case 3:
+                            case "3":
                                 statusColor = "text-white bg-danger";
                                 AccessRightName = "停權中";
                                 break;
                         }
                     }
-                    <span class="statusDisplay @statusColor" data-seller-id="@item.SellerId">@AccessRightName </span>
+                    <span class="statusDisplay @statusColor" data-user-id="@item.UserId">@AccessRightName </span>
                 </td>
                 <td>
-                    <button data-seller-id="@item.SellerId" data-status="1" class="btn btn-primary change-status-btn">使用中</button>
-                    <button data-seller-id="@item.SellerId" data-status="2" class="btn btn-secondary change-status-btn">審核中</button>
-                    <button data-seller-id="@item.SellerId" data-status="3" class="btn btn-danger change-status-btn">停權中</button>
+                    <button data-user-id="@item.UserId" data-status="1" class="btn btn-primary change-status-btn">使用中</button>
+                    <button data-user-id="@item.UserId" data-status="2" class="btn btn-secondary change-status-btn">審核中</button>
+                    <button data-user-id="@item.UserId" data-status="3" class="btn btn-danger change-status-btn">停權中</button>
                 </td>
+
                 <td>
-                    @Html.ActionLink("修改", "Edit", new { id = item.SellerId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("詳細", "Details", new { id = item.SellerId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("編輯", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("詳細", "Details", new { id = item.UserId }, new { @class = "btn btn-secondary" })
                 </td>
             </tr>
         }
@@ -86,12 +100,17 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 
     <script>
-				//主要語法
+        // 定義一個新的排序方法重要 不然金額排序會錯
+        $.fn.dataTable.ext.type.order['currency-pre'] = function (data) {
+        // 移除不需要的字符，例如 NT$ 和逗號，然後將其轉換為浮點數
+        return parseFloat(data.replace('NT$', '').replace(',', ''));
+};
         $(document).ready( function () {
         $('#myTable').DataTable({
-         pageLength: 10, // 每頁顯示10筆資料 下面都是變更欄位為中文
+         pageLength: 10, // 每頁顯示10筆資料
           columnDefs: [{
-            type: 'currency', // 使用上面定義的排序方法 NT$1,490 這種排序會用到           
+            type: 'currency', // 使用上面定義的排序方法
+            targets: [3]  // 替換 [0] 為你希望套用這種排序的柱子索引值。例如：0，如果你希望在第一列上使用這個排序。
         }],
             language: {
                 search: "搜尋：",
@@ -113,25 +132,25 @@
         $(document).ready(function () {
             $('.change-status-btn').click(function () {
                 var newAccessRightId = $(this).data('status');
-                var sellerId = $(this).data('seller-id');
+                var userId = $(this).data('user-id');
                 // AJAX call to server
                 $.ajax({
-                    url: '/AdminSellers/ChangeAccessRightId',
+                    url: '/AdminUsers/ChangeAccessRightId',
                     type: 'POST',
-                    data: { id: sellerId, AccessRightId: newAccessRightId },
+                    data: { id: userId, AccessRightId: newAccessRightId },
                     success: function (response) {
                         var statusColor;
                         let AccessRightName = "";
                         switch (response.newAccessRightId) {
-                            case 1:
+                            case "1":
                                 statusColor = "text-white bg-primary";
-                                AccessRightName="使用中"
+                                AccessRightName = "使用中"
                                 break;
-                            case 2:
+                            case "2":
                                 statusColor = "text-primary bg-secondary";
                                 AccessRightName = "審核中"
                                 break;
-                            case 3:
+                            case "3":
                                 statusColor = "text-white bg-danger";
                                 AccessRightName = "停權中"
                                 break;
@@ -140,7 +159,7 @@
                                 break;
                         }
                         // Update the displayed status
-                        $('tr').find('.statusDisplay[data-seller-id="' + sellerId + '"]').text(AccessRightName).attr('class', 'statusDisplay ' + statusColor);
+                        $('tr').find('.statusDisplay[data-user-id="' + userId + '"]').text(AccessRightName).attr('class', 'statusDisplay ' + statusColor);
                     },
                     error: function (error) {
                         console.log("Error:", error);
@@ -148,11 +167,11 @@
                 });
             });
         });
-        </script>
+    </script>
+
 }
 
-
 @section Styles{
-    <!--DataTables CSS BS5版本-->
+    <!-- DataTables CSS BS5版本 -->
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 }
