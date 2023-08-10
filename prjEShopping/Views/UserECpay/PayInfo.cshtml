@@ -5,17 +5,28 @@
 }
 
 <div class="bg-light">
-    <div class="container pt-2 text-center d-flex flex-column" style="height:600px">
-        <span class="fs-5">感謝您的購買，將於5秒後將頁面轉至購買清單查看詳情</span>
-
+    <div class="container pt-5 text-center d-flex flex-column" style="height:600px">
+        <span class="fs-5 fw-bold">THANK YOU</span>
+        <span class="fs-5 fw-bold">感謝您的購買</span>
+        <div class="d-flex justify-content-center align-items-center py-4">
+            <img src="~/img/shopping-cart64px.png" style="height:64px;width:64px" />
+        </div>
+        <span class="fs-5 fw-bold">商品訂購完成</span>
+        <span class="fs-5 fw-bold">您的訂單編號為 @ViewBag.OrderNumber</span>
+        <span class="pt-5">將於5秒後將頁面轉至購買清單查看詳情</span>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     </div>
 </div>
 
 
 @section Scripts{
     <script>
-        setTimeout(function () {
+        @*setTimeout(function () {
             window.location.href = '@Url.Action("UserOrderDetailAll", "UserOrder")';
-        }, 5000);
+        }, 5000);*@
     </script>
 }
