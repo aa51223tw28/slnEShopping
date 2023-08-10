@@ -134,7 +134,8 @@
                 {
                     <div class="alert alert-danger">@TempData["Fail"]</div>
                 }
-                <input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()"/>
+                <input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()" />
+                <a href="@Url.Action("ResetPassword", "SellerLogin", new { seller = "SellerPassword" })">重設密碼</a>
                 <br />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">

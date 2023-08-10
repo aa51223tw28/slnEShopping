@@ -90,18 +90,20 @@ namespace prjEShopping.Controllers
 
         public ActionResult EmailVerify(string token)
         {
-            var seller = db.Sellers.FirstOrDefault(s => s.EmailCheck == token);
-
-            if (seller != null)
+            var sellertoken = db.Sellers.FirstOrDefault(s => s.EmailCheck == token);
+            if (sellertoken != null)
             {
-                return RedirectToAction("ResetPassword",new { seller = seller.SellerAccount });
+                sellertoken.AccessRightId = 1;
+                sellertoken.EmailCheck = null;
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "您的郵箱已成功驗證";
             }
             else
             {
-                return RedirectToAction("Login");
+                TempData["ErrorMessage"] = "驗證已失敗";
             }
+            return View();
         }
-
         public ActionResult ResetPassword(string seller)
         {
             ViewBag.Account = seller;
@@ -110,23 +112,25 @@ namespace prjEShopping.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(string Account, string newPassword)
+        public ActionResult ResetPassword(string Account, string newPassword, string confirmPassword)
         {
-            var seller = db.Sellers.FirstOrDefault(s => s.SellerAccount == Account);
-
-            if (seller != null)
+            if (newPassword == confirmPassword)
             {
-                HashPassword hashPassword = new HashPassword(db); // 假设 _db 是你的数据库上下文
-                string salt;
-                string hash = hashPassword.CreateHashPassword(newPassword, out salt);
+                var seller = db.Sellers.FirstOrDefault(s => s.SellerAccount == Account);
 
-                seller.SellerPassword = hash;
-                seller.SellerPasswordSalt = salt;
-                seller.EmailCheck = null; // 清空 token
-                db.SaveChanges();
+                if (seller != null)
+                {
+                    seller.SellerPassword = newPassword;
+                    seller.EmailCheck = null; // 清空 token
+                    db.SaveChanges();
 
-                ViewBag.SuccessMessage = "密碼已重設成功！請使用新密碼登入。";
-                return View();
+                    ViewBag.SuccessMessage = "密碼已重設成功！請使用新密碼登入。";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "請確認新密碼和確認密碼相符。";
             }
 
             ViewBag.ErrorMessage = "重設密碼失敗，請重新操作。";
@@ -145,5 +149,6 @@ namespace prjEShopping.Controllers
             Session.Abandon();
             return RedirectToAction("Login", "SellerLogin");
         }
+
     }
 }
