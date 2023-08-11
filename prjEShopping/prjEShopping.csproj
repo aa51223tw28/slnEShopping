@@ -443,6 +443,7 @@
     <Content Include="Views\UserECpay\ToECpay.cshtml" />
     <Content Include="Views\UserECpay\PayInfo.cshtml" />
     <Content Include="Views\Support2\CSSList.cshtml" />
+    <Content Include="Views\Support2\CSSSendMail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
