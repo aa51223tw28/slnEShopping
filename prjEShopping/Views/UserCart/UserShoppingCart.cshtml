@@ -104,10 +104,22 @@
                                     <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
                                 </div>
                             </div>
-                            <div class="col-2 d-flex align-items-center">
-                                @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
-                                <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>@*小計*@
-                            </div>
+
+                            @if (item.DiscountPrice > 0)//要寫判斷式
+                            {
+                                <div class="col-2 d-flex align-items-center">
+                                    @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                    <span class="text-danger fw-bold">@Math.Round(item.DiscountSubTotal).ToString("C0")</span>@*小計*@
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-2 d-flex align-items-center">
+                                    @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                    <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>@*小計*@
+                                </div>
+                            }
+                            
                             <div class="col-2 d-flex align-items-center">
                                 <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
                                 <span hidden data-cartid="@item.CartId" id="cartid"></span>@*為了獲得購物車編號*@

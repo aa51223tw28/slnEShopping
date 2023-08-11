@@ -113,6 +113,7 @@ namespace prjEShopping.Controllers
                 Discount=db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0,
                 DiscountPrice= (decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0)/100,
                 SubTotal = (decimal)x.SubTotal,
+                DiscountSubTotal= (decimal)(x.Quantity)*((decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0) / 100),
                 ProductImagePathOne = x.ProductImagePathOne,
                 SellerId = (int)x.SellerId,
                 SellerName=db.Sellers.FirstOrDefault(y=>y.SellerId== x.SellerId).SellerName,
