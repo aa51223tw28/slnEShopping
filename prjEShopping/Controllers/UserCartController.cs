@@ -659,9 +659,31 @@ namespace prjEShopping.Controllers
                                                 {                                                    
                                                     couponName=y.CouponDetails
                                                 }).ToList();
-
-            //var couponNames = db.Coupons.Select(x=>x.CouponDetails).Distinct();
+            
             return Json(usercouponNames, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult getshipPrice()//傳送運費
+        {
+            int shipPriceone = 60;//一家sellerid是60元
+
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            var sellerids = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                                    .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                                    {
+                                                        y.SellerId,
+                                                    })
+                                                    .Distinct()
+                                                    .Count();
+            int shipPrice = shipPriceone * sellerids;
+
+            return Json(shipPrice, JsonRequestBehavior.AllowGet);
         }
     }
 }
