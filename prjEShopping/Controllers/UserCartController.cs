@@ -646,6 +646,22 @@ namespace prjEShopping.Controllers
             return Json(totalPrice, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
+        public ActionResult getCouponName()
+        {
+            var customerAccount = User.Identity.Name;
 
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var usercouponNames = db.UsersCoupons.Where(x => x.UserId == userid && x.CouponStatus == "可使用")
+                                                .Join(db.Coupons, x => x.CouponId, y => y.CouponId, (x, y) => new
+                                                {                                                    
+                                                    couponName=y.CouponDetails
+                                                }).ToList();
+
+            //var couponNames = db.Coupons.Select(x=>x.CouponDetails).Distinct();
+            return Json(usercouponNames, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -77,10 +77,8 @@
                 <span class="fw-bold">優惠券</span>
             </div>
             <div class="col-4 d-flex align-items-center">
-                <select id="counpon" class="form-select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                <select id="couponname" class="form-select">
+                    
                 </select>
                 @*<div class="d-flex flex-column">
             <div class="my-1">
@@ -373,6 +371,30 @@
             totalItemcheckedPrice.textContent = formattedPrice;
         }
         getTotalcheckedPrice()
+
+
+        //呼叫優惠券內容
+        document.addEventListener("DOMContentLoaded", async function () {
+            const response = await fetch("/UserCart/getCouponName")            
+            const data = await response.json();
+            //console.log(data)
+
+            var couponname = document.querySelector("#couponname");
+
+            //先新增一個預設的空選項
+            var defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.text = "請選擇優惠券";
+            couponname.appendChild(defaultOption);
+
+            data.forEach(function (value) {
+                var option = document.createElement("option")
+                //console.log(value)
+                option.value = value.couponName;
+                option.text = value.couponName;
+                couponname.appendChild(option)
+            })
+        })
     </script>
 
 }
