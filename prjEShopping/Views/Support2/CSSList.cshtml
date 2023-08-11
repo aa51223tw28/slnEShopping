@@ -1,0 +1,62 @@
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.SupportVM>
+
+@{
+    ViewBag.Title = "CSSList";
+    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+}
+
+<h2>客服後台列表</h2>
+
+<table class="table table-primary table-bordered" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceivedTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupportStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupportNumber)
+                    <div hidden>
+                        @Html.DisplayFor(modelItem => item.AdminId)
+                        @Html.DisplayFor(modelItem => item.SellerId)
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupportType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupportTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceivedTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupportStatus)
+                </td>
+                <td>
+                    @Html.ActionLink("回覆", "Details", new { id = item.SupportId }, new {@class="btn btn-primary"})                  
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
