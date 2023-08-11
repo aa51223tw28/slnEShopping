@@ -685,5 +685,19 @@ namespace prjEShopping.Controllers
 
             return Json(shipPrice, JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize]
+        public ActionResult getdiscountProductPrice()//折扣商品 限時特賣 要判斷起訖日 用載入頁面時間判斷
+        {
+            int discountProductPrice = 10;
+            return Json(discountProductPrice, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize]
+        public ActionResult getcouponPrice()//優惠券
+        {
+            int couponPrice = 100;
+            return Json(couponPrice, JsonRequestBehavior.AllowGet);
+        }
     }
 }
