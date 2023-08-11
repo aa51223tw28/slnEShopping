@@ -534,6 +534,7 @@
         });
 
 
+      
 
         //評論
         $(document).ready(function () {
@@ -549,6 +550,7 @@
                     var ratingfour = '';
                     var ratingfive = '';
                     var ratingall = "";
+
                     for (var i = 0; i < data.length; i++) {
                         var rating = data[i];
 
@@ -563,6 +565,7 @@
                             ratingone += '<div>評分:' + rating.StarRating + '</div>';
                             ratingone += '<div>評論:' + rating.RatingText + '</div>';
                             ratingone += '<div>評論時間:' + rating.PostTime + '</div>';
+                            ratingone += '</div>';
                             ratingone += '</div>';
                             ratingone += '</div>';
                         }
@@ -584,6 +587,7 @@
                             ratingtwo += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingtwo += '</div>';
                             ratingtwo += '</div>';
+                            ratingtwo += '</div>';
                         }
 
                     }
@@ -601,6 +605,7 @@
                             ratingthree += '<div>評分:' + rating.StarRating + '</div>';
                             ratingthree += '<div>評論:' + rating.RatingText + '</div>';
                             ratingthree += '<div>評論時間:' + rating.PostTime + '</div>';
+                            ratingthree += '</div>';
                             ratingthree += '</div>';
                             ratingthree += '</div>';
                         }
@@ -622,6 +627,7 @@
                             ratingfour += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingfour += '</div>';
                             ratingfour += '</div>';
+                            ratingfour += '</div>';
                         }
 
                     }
@@ -641,6 +647,7 @@
                             ratingfive += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingfive += '</div>';
                             ratingfive += '</div>';
+                            ratingfive += '</div>';
 
                         }
                     }
@@ -658,6 +665,7 @@
                             ratingall += '<div>評分:' + rating.StarRating + '</div>';
                             ratingall += '<div>評論:' + rating.RatingText + '</div>';
                             ratingall += '<div>評論時間:' + rating.PostTime + '</div>';
+                            ratingall += '</div>';
                             ratingall += '</div>';
                             ratingall += '</div>';
 
