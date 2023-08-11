@@ -286,6 +286,8 @@
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
+    <Compile Include="Models\ViewModels\CombinedVM.cs" />
+    <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\SellerKeyWordVM.cs" />
     <Compile Include="Models\ViewModels\SellerPasswordChangeVM.cs" />
     <Compile Include="Models\ViewModels\UserAllStoreListVM.cs" />

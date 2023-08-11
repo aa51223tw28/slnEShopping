@@ -67,19 +67,19 @@
                 {
                     @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
 
-                    @Html.HiddenFor(model => model.UserId, new { @id = "userId", value = 1 })
+                    @Html.HiddenFor(model => model.UserId, new { @id = "userId"})
 
-                    @Html.HiddenFor(model => model.ProductId, new { @id = "productId" ,value = 1 }) <!-- 新增隱藏字段來儲存 ProductId -->
+                    @Html.HiddenFor(model => model.ProductId, new { @id = "productId" }) <!-- 新增隱藏字段來儲存 ProductId -->
 
                     @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
                     <!--讀取到的商品-->
-                    <div>
-                        <p>商品ID: @Html.DisplayFor(model => model.ProductId)</p>
-                        <hr />
-                        <p>商品名稱:</p><!-- Display the product ID here -->
-                        <hr />
-                        <!-- Add other product details if available in UserFeedbackVM -->
-                    </div>
+                <div>
+                    <p>商品ID: @Html.DisplayFor(model => model.ProductViewModel.ProductId)</p>
+                    <hr />
+                    <p>商品名稱: @Html.DisplayFor(model => model.ProductViewModel.ProductName)</p>
+                    <hr />
+                    <!-- Add other product details if available in UserFeedbackVM -->
+                </div>
 
                     <!--評分-->
                     <div id="starContainer">
@@ -100,7 +100,7 @@
                         @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
                     </div>
                     <br />
-                    <button type="submit" class="btn btn-primary" style="float:right">提交評分留言</button>
+                    <button type="submit" class="btn btn-primary" style="float:right" data-bs-target="#replyModal">提交評分留言</button>
                 }
                 <br />
                 <div class="modal" tabindex="-1" role="dialog" id="replyModal">

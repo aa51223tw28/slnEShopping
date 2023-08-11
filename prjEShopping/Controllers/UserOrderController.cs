@@ -180,5 +180,40 @@ namespace prjEShopping.Controllers
             return new EmptyResult();
         }
 
+        public ActionResult UserRating(int ShipmentDetailId)
+        {
+            using (var db = new AppDbContext())
+            {
+                var productViewModel = db.Products
+            .Where(p => p.ProductId == ShipmentDetailId) // Use the correct property and condition
+            .Select(p => new ProductViewModel // Use the correct ViewModel type
+            {
+                ProductId = p.ProductId,
+                ProductName = p.ProductName,
+                // Map other properties
+            })
+            .FirstOrDefault();
+
+                var shipmentViewModel = db.ShipmentDetails
+             .Where(s => s.ShipmentDetailId == ShipmentDetailId)
+             .Select(s => new ShipmentViewModel
+             {
+                 ShipmentDetailId = s.ShipmentDetailId,
+                 ShipmentNumber = s.ShipmentNumber,
+                 // Map other properties
+             })
+             .FirstOrDefault();
+
+                // Pass the view models to the view
+                var combinedViewModel = new CombinedVM
+                {
+                    ProductViewModel = productViewModel,
+                    ShipmentViewModel = shipmentViewModel
+                };
+
+                return View(combinedViewModel);
+            }
+        }
     }
-}
+
+    }
