@@ -110,6 +110,8 @@ namespace prjEShopping.Controllers
                 ProductName = x.ProductName,
                 Quantity = (int)x.Quantity,
                 Price = (decimal)x.Price,
+                Discount=db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0,
+                DiscountPrice= (decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0)/100,
                 SubTotal = (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
                 SellerId = (int)x.SellerId,
@@ -118,7 +120,9 @@ namespace prjEShopping.Controllers
             }).ToList();
 
             //總金額
-            //ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);            
+            //ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
+
+
         }
 
         public int calculateProductStock(int productId,int quantity)//計算庫存的方法
