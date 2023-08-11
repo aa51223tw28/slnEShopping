@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Windows.Media.Media3D;
 
 namespace prjEShopping.Controllers
 {
@@ -19,27 +20,50 @@ namespace prjEShopping.Controllers
             return View();
         }
 
-        public ActionResult ShipmentList()
+        public ActionResult ShipmentList(SellerKeyWordVM vm)
         {
             int sellerid = (int)Session["SellerId"];
             List<SellerShipmentVM> datashow;
             AppDbContext db = new AppDbContext();
 
-            var data = db.Shipments.Where(x => x.SellerId == sellerid)
-                                    .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
-                                    {
-                                        ShipmentStatus = y.ShipmentStatus,
-                                        ShipmentDate = x.ShipmentDate,
-                                        ShipmentNumber = x.ShipmentNumber,
-                                    }).ToList();
-            datashow = data.Select(x => new SellerShipmentVM
+            if (string.IsNullOrEmpty(vm.KeyWord))
             {
-                ShipmentStatus = x.ShipmentStatus,
-                ShipmentDate = (DateTime)x.ShipmentDate,
-                ShipmentNumber = x.ShipmentNumber,
-            }).ToList();
+                var data = db.Shipments.Where(x => x.SellerId == sellerid)
+                                        .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
+                                        {
+                                            ShipmentStatus = y.ShipmentStatus,
+                                            ShipmentDate = x.ShipmentDate,
+                                            ShipmentNumber = x.ShipmentNumber,
+                                        }).ToList();
+                datashow = data.Select(x => new SellerShipmentVM
+                {
+                    ShipmentStatus = x.ShipmentStatus,
+                    ShipmentDate = (DateTime)x.ShipmentDate,
+                    ShipmentNumber = x.ShipmentNumber,
+                }).ToList();
 
-            return View(datashow);
+                return View(datashow);
+            }
+
+            else 
+            {
+                var data = db.Shipments.Where(x => x.SellerId == sellerid && x.ShipmentNumber.Contains(vm.KeyWord))
+                                        .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
+                                        {
+                                            ShipmentStatus = y.ShipmentStatus,
+                                            ShipmentDate = x.ShipmentDate,
+                                            ShipmentNumber = x.ShipmentNumber,
+                                        }).ToList();
+                datashow = data.Select(x => new SellerShipmentVM
+                {
+                    ShipmentStatus = x.ShipmentStatus,
+                    ShipmentDate = (DateTime)x.ShipmentDate,
+                    ShipmentNumber = x.ShipmentNumber,
+                }).ToList();
+
+                return View(datashow);
+            }
+            
         }
 
         public ActionResult ShipmentDetail(string ShipNum, string Shiptatus)
@@ -52,7 +76,6 @@ namespace prjEShopping.Controllers
             ViewBag.Pmethod = (db.PaymentMethods.Where(x => x.PaymentMethodId == data.PaymentMethodId).FirstOrDefault()).PaymentMethodName;
             ViewBag.Receiver = data.Receiver;
             ViewBag.RAddress = data.ReceiverAddress;
-            ViewBag.Fright = (int)db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault().Freight;
             ViewBag.ShipmentNumber = ShipNum;
             ViewBag.ShipmentStatus = Shiptatus;
             ViewBag.ShipmentDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).ShipmentDate;
@@ -60,6 +83,23 @@ namespace prjEShopping.Controllers
             ViewBag.ArrivalTimeDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).ArrivalTimeDate;
             ViewBag.PickDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).PickDate;
             ViewBag.CompletionDate = db.Shipments.FirstOrDefault(x => x.ShipmentNumber == ShipNum).CompletionDate;
+
+            var Freight = 0;
+            var couponid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum && x.SellerId == sellerid).Join(db.Orders, x => x.OrderId, y => y.OrderId, (x, y) => new { y.CouponId }).FirstOrDefault().CouponId;
+            if (couponid.HasValue)
+            {
+                var isMyCoupon = db.Coupons.FirstOrDefault(x => x.CouponId == couponid && x.SellerId == sellerid)?.CouponType;
+                if (!string.IsNullOrEmpty(isMyCoupon) && isMyCoupon == "免運券")
+                {
+                    Freight =  0;
+                }
+                else 
+                {
+                    Freight = (int)db.ShippingMethods.Where(x => x.ShippingMethodId == data.ShippingMethodId).FirstOrDefault().Freight; 
+                }
+            }
+            ViewBag.Freight = Freight;
+
             //購買人
             var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
 

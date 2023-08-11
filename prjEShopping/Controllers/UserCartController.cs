@@ -533,15 +533,19 @@ namespace prjEShopping.Controllers
 
             //0是沒勾 1是有勾
             var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid).ToList();
+
+            //先檢查是否全都是1
+            bool allItemsAreOne = shoppingdetails.All(x => x.AddToOrder == "1");
+
             foreach (var item in shoppingdetails)
             {
-                if (item.AddToOrder == "1")
+                if (allItemsAreOne)//如果全都是1才要變成0
                 {
                     item.AddToOrder = "0";
                 }
                 else
                 {
-                    item.AddToOrder = "1";
+                    item.AddToOrder = "1";//如果有一個不是1是全部都要變成1
                 }
             }
 
@@ -561,6 +565,8 @@ namespace prjEShopping.Controllers
 
             //0是沒勾 1是有勾
             var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid&&x.ProductId== productId).FirstOrDefault();
+
+            
             if (shoppingdetails.AddToOrder == "1")
             {
                 shoppingdetails.AddToOrder = "0";
@@ -586,11 +592,14 @@ namespace prjEShopping.Controllers
             var productids=db.Products.Where(x=>x.SellerId== sellerId).Select(x=>x.ProductId).ToList();
 
             var shoppingdetails = db.ShoppingCartDetails.Where(x => x.CartId == cartid && productids.Contains((int)x.ProductId));
-            
-            
+
+            //先檢查是否全都是1
+            bool allItemsAreOne = shoppingdetails.All(x => x.AddToOrder == "1");
+
+
             foreach (var item in shoppingdetails)
             {
-                if (item.AddToOrder == "1")
+                if (allItemsAreOne)
                 {
                     item.AddToOrder = "0";
                 }

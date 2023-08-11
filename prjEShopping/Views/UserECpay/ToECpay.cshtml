@@ -1,0 +1,43 @@
+﻿@model System.Collections.Generic.Dictionary<string, string>
+@{
+    ViewBag.Title = "ToECpay";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="bg-light">
+    <div class="container pt-5 text-center d-flex flex-column" style="height:600px">
+        <span class="fs-5">資料導向中，請勿關閉網頁</span>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+
+        <form id="form" name="form" action="https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5" method="POST">
+            @foreach (var key in @Model.Keys.ToList())
+            {
+                <div style="display: none;">
+                    @*隱藏*@
+                    @(key)
+                </div>
+                <input type="hidden" name="@key" value="@Model[key]" />@*隱藏*@
+            }
+            @*<button type="submit" id="checkoutBtn">送出</button>*@
+        </form>
+
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        //到這頁面5秒自動跳傳到綠界submit "https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5"
+        window.onload = function () {
+            setTimeout(function () {
+                document.getElementById("form").submit();
+            }, 3000);
+        }
+
+    </script>
+
+}

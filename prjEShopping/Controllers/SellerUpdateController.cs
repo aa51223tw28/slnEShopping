@@ -71,8 +71,6 @@ namespace prjEShopping.Controllers
                 data.StoreIntro = s.StoreIntro;
                 data.PaymentMethodId = s.PaymentMethodId;
                 data.ShippingMethodId = s.ShippingMethodId;
-                //data.PaymentMethodId = (db.PaymentMethods.Where(x => x.PaymentMethodId == s.PaymentMethodId).SingleOrDefault()).PaymentMethodId;
-                //data.ShippingMethodId = (db.ShippingMethods.Where(x => x.ShippingMethodId == s.ShippingMethodId).SingleOrDefault()).ShippingMethodId;
                 db.SaveChanges();
                 TempData["Success"] = "您已修改完成！";
                 return RedirectToAction("Index", "SellerMain");
