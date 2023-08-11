@@ -82,7 +82,7 @@
                                 </div>
                             </div>
 
-                            @if (item.DiscountPrice > 0)//要寫判斷式
+                            @if (item.DiscountPrice != item.Price)//要寫判斷式
                             {
                                 <div class="col-2 d-flex flex-column justify-content-center">
                                     <span class="text-decoration-line-through">@Math.Round(item.Price).ToString("C0")</span>@*單價*@
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
 
-                            @if (item.DiscountPrice > 0)//要寫判斷式
+                            @if (item.DiscountPrice != item.Price)//要寫判斷式
                             {
                                 <div class="col-2 d-flex align-items-center">
                                     @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
@@ -454,6 +454,7 @@
             });
         }
 
+        //總金額
         async function getTotalcheckedPrice() {
             const response = await fetch('/UserCart/GetTotalcheckedPrice');
             const price = await response.json();

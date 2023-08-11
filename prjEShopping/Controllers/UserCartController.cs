@@ -111,9 +111,9 @@ namespace prjEShopping.Controllers
                 Quantity = (int)x.Quantity,
                 Price = (decimal)x.Price,
                 Discount=db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0,
-                DiscountPrice= (decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0)/100,
+                DiscountPrice= IsInDiscountPeriod((int)x.ProductId)?(decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0)/100: (decimal)x.Price,
                 SubTotal = (decimal)x.SubTotal,
-                DiscountSubTotal= (decimal)(x.Quantity)*((decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0) / 100),
+                DiscountSubTotal= IsInDiscountPeriod((int)x.ProductId) ? (decimal)(x.Quantity)*((decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0) / 100): (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
                 SellerId = (int)x.SellerId,
                 SellerName=db.Sellers.FirstOrDefault(y=>y.SellerId== x.SellerId).SellerName,
@@ -123,7 +123,13 @@ namespace prjEShopping.Controllers
             //總金額
             //ViewBag.TotalPrice = datas.Sum(x => x.SubTotal);
 
+        }
 
+        private bool IsInDiscountPeriod(int productId)//判斷折價價格期限
+        {
+            var now = DateTime.Now;
+            var db = new AppDbContext();
+            return db.ADProducts.Any(ad => ad.ProductId == productId && ad.ADStartDate <= now && ad.ADEndDate >= now);
         }
 
         public int calculateProductStock(int productId,int quantity)//計算庫存的方法
@@ -638,17 +644,44 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
-            
-            
+
+            var now= DateTime.Now;//確保特價商品期間有符合當下才能有折扣,否則就原價
+
+            var discountproductids=db.ADProducts.Where(x=>x.ADStartDate<= now&&x.ADEndDate>=now)
+                                                    .Select(x=>x.ProductId)
+                                                    .Distinct()
+                                                    .ToList();
+
             var datatotal = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
                                  .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
                                  {
                                      Quantity = x.Quantity,
                                      Price = y.Price,
                                      SubTotal = (x.Quantity) * (y.Price),
-                                 }).ToList();
-            var totalPrice = datatotal.Sum(x => x.SubTotal);
-            return Json(totalPrice, JsonRequestBehavior.AllowGet);
+                                     ProductId=y.ProductId,
+                                 })
+                                 .Where(item=>!discountproductids.Contains(item.ProductId))
+                                 .ToList();
+            var totalPrice = datatotal.Sum(x => x.SubTotal);//只有沒折扣商品的加總
+
+            var datatotaldis=db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                    .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                    {
+                                        Quantity = x.Quantity,
+                                        Price = y.Price,
+                                        Discount= db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount,
+                                        DiscountPrice= (y.Price)*(db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount)/100,
+                                        DiscountSubTotal =((y.Price) * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount) / 100)*(x.Quantity),
+                                        ProductId = y.ProductId,
+                                    })
+                                    .Where(item => discountproductids.Contains(item.ProductId))
+                                    .ToList();
+            var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);
+
+
+            var grandTotal = totalPrice + totalDiscountSubTotal;
+
+            return Json(grandTotal, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]
