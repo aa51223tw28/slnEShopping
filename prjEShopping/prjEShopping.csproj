@@ -273,6 +273,7 @@
     <Compile Include="Models\ViewModels\AdminVM.cs" />
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
+    <Compile Include="Models\ViewModels\SellerPasswordChangeVM.cs" />
     <Compile Include="Models\ViewModels\UserAllStoreListVM.cs" />
     <Compile Include="Models\ViewModels\ChatMessageVM.cs" />
     <Compile Include="Models\ViewModels\CombinedSupportsVM.cs" />

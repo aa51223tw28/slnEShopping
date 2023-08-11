@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -117,8 +119,10 @@ namespace prjEShopping.Controllers
                 TempData["Fail"] = "商城介紹為必填欄位！";
                 return View();
             }
+            s.AccessRightId = 2;
             db.Sellers.Add(s);
             db.SaveChanges();
+            SendRegisterEmail(s.SellerAccount);
             TempData["Success"] = "您已註冊成功！";
             // 假設註冊成功後，取得賣家的 ID 和商店名稱
             int sellerId = s.SellerId; // 這裡假設取得了賣家的 ID
@@ -130,6 +134,60 @@ namespace prjEShopping.Controllers
             Session["SellerImagePath"] = sellerImagePath;
             // 註冊成功後，直接導向到 SellerMain 頁面，並將賣家的 ID 傳遞過去
             return RedirectToAction("Index", "SellerMain", new { id = sellerId });
+        }
+
+        private void SendRegisterEmail(string sellerAccount)
+        {
+            var db = new AppDbContext();
+            var selleraccount = db.Sellers.FirstOrDefault(x => x.SellerAccount == sellerAccount);
+            if (selleraccount != null)
+            {
+                string verificationToken = Guid.NewGuid().ToString();
+                selleraccount.EmailCheck = verificationToken;
+                db.SaveChanges();
+
+                string relativeUrl = Url.Action("UserRegisterEmail", "UserMembers", new { token = verificationToken });
+                string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
+
+                var fromAddress = new MailAddress("Eshopping17go@gmail.com", "E起購");
+                var toAddress = new MailAddress(sellerAccount);
+                string subject = "EShopping開通會員驗證信";
+                string body = $"<html><body><h3>請點擊以下連結驗證您的電子郵件:<a href=\"{absoluteUrl}\">驗證</a></h3></body></html>";
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential("Eshopping17go@gmail.com", "ayakelsjzapfbtil"),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true//可以吃到html標籤
+                })
+                {
+                    smtpClient.Send(message);
+                }
+            }
+        }
+        public ActionResult UserRegisterEmail(string token)
+        {
+            var db = new AppDbContext();
+            var sellertoken = db.Sellers.FirstOrDefault(x => x.EmailCheck == token);
+            if (sellertoken != null)
+            {
+                sellertoken.AccessRightId = 1;//改string要變字串
+                sellertoken.EmailCheck = null;
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "您的郵箱已成功驗證";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "驗證已失敗";
+            }
+            return View();
         }
 
         private bool IsStrongPassword(string sellerPassword)
