@@ -69,10 +69,10 @@
                     <div class="col-9">
                         <div class="d-flex">
                             <a href="#">
-                                <h5 class="text-danger fw-bold">5.0</h5>
+                                <h5 class="text-danger fw-bold" id="averageStarRating"></h5>
                             </a><span class="ms-1 me-2">顆星</span>
                             <a href="#">
-                                <h5 class="text-danger fw-bold">17</h5>
+                                <h5 class="text-danger fw-bold" id="totalRatings"></h5>
                             </a><span class="ms-2 me-2">評價</span>
                         </div>
                     </div>
@@ -238,22 +238,22 @@
 
         <p>
             <button class="btn btn-secondary" type="button" onclick="toggleCollapse('allstar')" aria-expanded="false" aria-controls="collapseExample">
-                全部<span>(@ViewBag.AllStarCount)</span>
+                全部(<span id="allstarCount"></span>)
             </button>
             <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fivestar')" aria-expanded="false" aria-controls="collapseExample">
-                5星<span>(@ViewBag.FiveStarCount)</span>
+                5星(<span id="fivestarCount"></span>)
             </button>
             <button class="btn btn-secondary" type="button" onclick="toggleCollapse('fourstar')" aria-expanded="false" aria-controls="collapseExample">
-                4星<span>(@ViewBag.FourStarCount)</span>
+                4星(<span id="fourstarCount"></span>)
             </button>
             <button class="btn btn-secondary" type="button" onclick="toggleCollapse('threestar')" aria-expanded="false" aria-controls="collapseExample">
-                3星<span>(@ViewBag.ThreeStarCount)</span>
+                3星(<span id="threestarCount"></span>)
             </button>
             <button class="btn btn-secondary" type="button" onclick="toggleCollapse('twostar')" aria-expanded="false" aria-controls="collapseExample">
-                2星<span>(@ViewBag.TwoStarCount)</span>
+                2星(<span id="twostarCount"></span>)
             </button>
             <button class="btn btn-secondary" type="button" onclick="toggleCollapse('onestar')" aria-expanded="false" aria-controls="collapseExample">
-                1星<span>(@ViewBag.OneStarCount)</span>
+                1星(<span id="onestarCount"></span>)
             </button>
         </p>
 
@@ -560,9 +560,9 @@
                             ratingone += '</div>';
                             ratingone += '<div class="col d-flex flex-column">';
                             ratingone += '<div>' + rating.RatingId + '</div>';
-                            ratingone += '<div>' + rating.PostTime + '</div>';
-                            ratingone += '<div>' + rating.RatingText + '</div>';
-                            ratingone += '</div>';
+                            ratingone += '<div>評分:' + rating.StarRating + '</div>';
+                            ratingone += '<div>評論:' + rating.RatingText + '</div>';
+                            ratingone += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingone += '</div>';
                             ratingone += '</div>';
                         }
@@ -579,9 +579,9 @@
                             ratingtwo += '</div>';
                             ratingtwo += '<div class="col d-flex flex-column">';
                             ratingtwo += '<div>' + rating.RatingId + '</div>';
-                            ratingtwo += '<div>' + rating.PostTime + '</div>';
-                            ratingtwo += '<div>' + rating.RatingText + '</div>';
-                            ratingtwo += '</div>';
+                            ratingtwo += '<div>評分:' + rating.StarRating + '</div>';
+                            ratingtwo += '<div>評論:' + rating.RatingText + '</div>';
+                            ratingtwo += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingtwo += '</div>';
                             ratingtwo += '</div>';
                         }
@@ -598,9 +598,9 @@
                             ratingthree += '</div>';
                             ratingthree += '<div class="col d-flex flex-column">';
                             ratingthree += '<div>' + rating.RatingId + '</div>';
-                            ratingthree += '<div>' + rating.PostTime + '</div>';
-                            ratingthree += '<div>' + rating.RatingText + '</div>';
-                            ratingthree += '</div>';
+                            ratingthree += '<div>評分:' + rating.StarRating + '</div>';
+                            ratingthree += '<div>評論:' + rating.RatingText + '</div>';
+                            ratingthree += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingthree += '</div>';
                             ratingthree += '</div>';
                         }
@@ -617,9 +617,9 @@
                             ratingfour += '</div>';
                             ratingfour += '<div class="col d-flex flex-column">';
                             ratingfour += '<div>' + rating.RatingId + '</div>';
-                            ratingfour += '<div>' + rating.PostTime + '</div>';
-                            ratingfour += '<div>' + rating.RatingText + '</div>';
-                            ratingfour += '</div>';
+                            ratingfour += '<div>評分:' + rating.StarRating + '</div>';
+                            ratingfour += '<div>評論:' + rating.RatingText + '</div>';
+                            ratingfour += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingfour += '</div>';
                             ratingfour += '</div>';
                         }
@@ -635,12 +635,13 @@
                             ratingfive += '<img src="~/img/comment.jpeg" alt="">';
                             ratingfive += '</div>';
                             ratingfive += '<div class="col d-flex flex-column">';
-                            ratingfive += '<div>'+rating.RatingId + '</div>';
-                            ratingfive += '<div>' + rating.PostTime + '</div>';
-                            ratingfive += '<div>' + rating.RatingText + '</div>';
+                            ratingfive += '<div>' + rating.RatingId + '</div>';
+                            ratingfive += '<div>評分:' + rating.StarRating + '</div>';
+                            ratingfive += '<div>評論:' + rating.RatingText + '</div>';
+                            ratingfive += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingfive += '</div>';
                             ratingfive += '</div>';
-                            ratingfive += '</div>';
+
                         }
                     }
                     for (var i = 0; i < data.length; i++) {
@@ -654,11 +655,12 @@
                             ratingall += '</div>';
                             ratingall += '<div class="col d-flex flex-column">';
                             ratingall += '<div>' + rating.RatingId + '</div>';
-                            ratingall += '<div>' + rating.PostTime + '</div>';
-                            ratingall += '<div>' + rating.RatingText + '</div>';
+                            ratingall += '<div>評分:' + rating.StarRating + '</div>';
+                            ratingall += '<div>評論:' + rating.RatingText + '</div>';
+                            ratingall += '<div>評論時間:' + rating.PostTime + '</div>';
                             ratingall += '</div>';
                             ratingall += '</div>';
-                            ratingall += '</div>';
+
                         }
 
                     }
@@ -668,6 +670,44 @@
                     $('#fourstar').html(ratingfour);
                     $('#fivestar').html(ratingfive);
                     $('#allstar').html(ratingall);
+
+                    var onestarCount = 0;
+                    var twostarCount = 0;
+                    var threestarCount = 0;
+                    var fourstarCount = 0;
+                    var fivestarCount = 0;
+                    var allstarCount = 0; 
+                    var totalRatings = data.length;
+                    var totalStarRating = 0;
+
+                    for (var i = 0; i < data.length; i++) {
+                        var rating = data[i];
+
+                        if (rating.StarRating === 1) {
+                            onestarCount++;
+                        } else if (rating.StarRating === 2) {
+                            twostarCount++;
+                        } else if (rating.StarRating === 3) {
+                            threestarCount++;
+                        } else if (rating.StarRating === 4) {
+                            fourstarCount++;
+                        } else if (rating.StarRating === 5) {
+                            fivestarCount++;
+                        }
+                        totalStarRating += data[i].StarRating;
+
+                    }
+                    var averageStarRating = totalStarRating / totalRatings;
+
+                    // 更新一星评价的数量显示
+                    $('#onestarCount').text(onestarCount);
+                    $('#twostarCount').text(twostarCount);
+                    $('#threestarCount').text(threestarCount);
+                    $('#fourstarCount').text(fourstarCount);
+                    $('#fivestarCount').text(fivestarCount);
+                    $('#allstarCount').text(data.length);
+                    $('#averageStarRating').text(averageStarRating.toFixed(1));
+                    $('#totalRatings').text(totalRatings);
                 }
             })
         })
