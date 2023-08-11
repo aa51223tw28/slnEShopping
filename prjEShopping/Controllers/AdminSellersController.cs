@@ -11,77 +11,74 @@ using prjEShopping.Models.ViewModels;
 
 namespace prjEShopping.Controllers
 {
-    public class AdminProductsController : Controller
+    public class AdminSellersController : Controller
     {
         private AppDbContext db = new AppDbContext();
 
-        // GET: AdminProducts
+        // GET: AdminSellers
         public ActionResult Index()
         {
-            var model = AdminProductChange.AdminProduct2VM(db.Products);
+            var model = AdminSellerChange.AdminSeller2VM(db.Sellers);
 
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult ChangeStatus(int id, int statusId)
-        {   
-            
-            // Update the product status in the database
-            var product = db.Products.Find(id); // Assuming you are using Entity Framework
-            product.ProductStatusId = statusId;
+        public ActionResult ChangeAccessRightId(int id, int AccessRightId)
+        {
+            var seller = db.Sellers.Find(id); 
+            seller.AccessRightId = AccessRightId;
             db.SaveChanges();
 
             // Return the new status
-            return Json(new { newStatusId = statusId });
+            return Json(new { newAccessRightId = AccessRightId });
         }
 
-        // GET: AdminProducts/Details/5
+        // GET: AdminSellers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Seller seller = db.Sellers.Find(id);
+            if (seller == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(seller);
         }
-
-        // GET: AdminProducts/Edit/5
+     
+        // GET: AdminSellers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Seller seller = db.Sellers.Find(id);
+            if (seller == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+            return View(seller);
         }
 
-        // POST: AdminProducts/Edit/5
+        // POST: AdminSellers/Edit/5
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,SellerId,ProductName,ProductDescription,Price,ProductStatusId,BrandId,ProductImagePathOne,ProductImagePathTwo,ProductImagePathThree,CategoryId,SubcategoryId,OptionIdOne,OptionIdTwo,OptionIdThree,OptionIdFour,OptionIdFive,Promote")] Product product)
+        public ActionResult Edit([Bind(Include = "SellerId,SellerName,StoreName,SellerAccount,SellerPassword,SellerPasswordSalt,Phone,Address,GUINumber,StoreIntro,AccessRightId,BankAccount,PaymentMethodId,ShippingMethodId,ADPoints,SellerImagePath,Role,EmailCheck")] Seller seller)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                db.Entry(seller).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(seller);
         }
-
 
         protected override void Dispose(bool disposing)
         {
