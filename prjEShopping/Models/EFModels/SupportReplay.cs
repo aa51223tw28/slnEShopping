@@ -15,6 +15,10 @@ namespace prjEShopping.Models.EFModels
 
         public int? AdminId { get; set; }
 
+        public int? SellerId { get; set; }
+
+        public int? UserId { get; set; }
+
         [StringLength(50)]
         public string ReplayTitle { get; set; }
 
@@ -25,5 +29,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string SupportReplayStatus { get; set; }
+
+        [StringLength(100)]
+        public string ImageLink { get; set; }
     }
 }

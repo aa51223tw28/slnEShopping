@@ -10,6 +10,13 @@ namespace prjEShopping.Models.EFModels
     {
         public int SupportId { get; set; }
 
+        [StringLength(50)]
+        public string SupportNumber { get; set; }
+
+        public int? AdminId { get; set; }
+
+        public int? SellerId { get; set; }
+
         public int? UserId { get; set; }
 
         public int? ProductId { get; set; }
@@ -27,5 +34,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string SupportStatus { get; set; }
+
+        [StringLength(100)]
+        public string ImageLink { get; set; }
     }
 }
