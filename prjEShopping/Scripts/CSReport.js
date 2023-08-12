@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#exampleModal').on('show.bs.modal', function (event) {
+    $('#reportModal').on('show.bs.modal', function (event) {
         //獲取觸發窗口的按鈕
         var button = $(event.relatedTarget);
 
@@ -29,7 +29,7 @@ function submitComplaint() {
             alert('寄送失敗');
         },
         complete: function () {
-            $('#exampleModal').modal('hide');
+            $('#reportModal').modal('hide');
         }
     });
 }

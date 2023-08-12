@@ -7,11 +7,11 @@
 
 <!-- 商品投訴單 使用方法
     步驟1. 做一個BTN 要代入UserId 跟ProductId
-    步驟2. 連結PartialView @Html.Partial("CSReportPView")
+    步驟2. 連結PartialView (小老鼠)Html.Partial("CSReportPView")
     步驟3. 引用Js部分 <script src="~/Scripts/CSReport.js" defer></script>  -->
 <div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary complaintBtn my-2" data-bs-toggle="modal" data-bs-target="#exampleModal" data-userid="@ViewBag.UserId" data-productid="@ViewBag.ProductId">
+    <button type="button" class="btn btn-primary complaintBtn my-2" data-bs-toggle="modal" data-bs-target="#reportModal" data-userid="@ViewBag.UserId" data-productid="@ViewBag.ProductId">
         投訴
     </button>
 </div>
