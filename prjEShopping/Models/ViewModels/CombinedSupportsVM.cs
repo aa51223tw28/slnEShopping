@@ -15,6 +15,12 @@ namespace prjEShopping.Models.ViewModels
         public SupportReplay SupportReplay { get; set; }
     }
 
+    public class SupportDetailViewModel
+    {
+        public SupportVM Support { get; set; }
+        public List<SupportReplayVM> SupportReplies { get; set; }
+    }
+
     public partial class SupportVM
     {
         public int SupportId { get; set; }
@@ -118,13 +124,13 @@ namespace prjEShopping.Models.ViewModels
             };
         }
         public static List<SupportVM> Support2VM(this IEnumerable<Support> source)
+        {
+            if (source == null || source.Count() == 0)
             {
-                if (source == null || source.Count() == 0)
-                {
-                    return Enumerable.Empty<SupportVM>().ToList();
-                }
-                return source.Select(s => Support2VM(s)).ToList();
+                return Enumerable.Empty<SupportVM>().ToList();
             }
+            return source.Select(s => Support2VM(s)).ToList();
+        }
         public static Support VM2Support(SupportVM vm)
         {
             return new Support
@@ -143,5 +149,49 @@ namespace prjEShopping.Models.ViewModels
                 ImageLink = vm.ImageLink,
             };
         }
+       
     }
+    public static class SupportReplayChange
+    {
+        public static SupportReplayVM SupportReplay2VM(SupportReplay r)
+        {
+            return new SupportReplayVM
+            {
+                SupportReplayId = r.SupportReplayId,
+                SupportId = r.SupportId,
+                AdminId = r.AdminId,
+                SellerId = r.SellerId,
+                UserId = r.UserId,
+                ReplayTitle = r.ReplayTitle,
+                ReplayText = r.ReplayText,
+                ReplayTime = r.ReplayTime,
+                SupportReplayStatus = r.SupportReplayStatus,
+                ImageLink = r.ImageLink,
+            };
+        }
+        public static List<SupportReplayVM> SupportReplay2VM(this IEnumerable<SupportReplay> source)
+        {
+            if (source == null || source.Count() == 0)
+            {
+                return Enumerable.Empty<SupportReplayVM>().ToList();
+            }
+            return source.Select(s => SupportReplay2VM(s)).ToList();
+        }
+        public static SupportReplay VM2SupportReplay(SupportReplayVM vm)
+        {
+            return new SupportReplay
+            {
+                SupportReplayId = vm.SupportReplayId,
+                SupportId = vm.SupportId,
+                AdminId = vm.AdminId,
+                SellerId = vm.SellerId,
+                UserId = vm.UserId,
+                ReplayTitle = vm.ReplayTitle,
+                ReplayText = vm.ReplayText,
+                ReplayTime = vm.ReplayTime,
+                SupportReplayStatus = vm.SupportReplayStatus,
+                ImageLink = vm.ImageLink,
+            };
+        }
     }
+}
