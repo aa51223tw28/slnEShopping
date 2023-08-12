@@ -52,16 +52,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <span>@Math.Round(item.Price).ToString("C0")</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <span>@item.Quantity</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
-                            <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
-                        </div>
+
+                        @if (item.DiscountPrice != item.Price)//有折扣
+                        {
+                            <div class="col-2 d-flex flex-column justify-content-center">
+                                <span class="text-decoration-line-through">@Math.Round(item.Price).ToString("C0")</span>@*單價*@
+                                <span class="text-danger">@Math.Round(item.DiscountPrice).ToString("C0")</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <span>@item.Quantity</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                <span class="text-danger fw-bold">@Math.Round(item.DiscountSubTotal).ToString("C0")</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-2 d-flex align-items-center">
+                                <span>@Math.Round(item.Price).ToString("C0")</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <span>@item.Quantity</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
+                            </div>
+                        }
+
+
+
+
                     </div>
                 }
             </div>

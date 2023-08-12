@@ -77,7 +77,7 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-
+            //應該與checkoutList()一模一樣但購物車頁面要將AddToOrder變換寫進去資料庫
             // 將 AddToOrder 的值為 null 的資料更新為 "0"
             var shoppingCartDetailsToUpdate = db.ShoppingCartDetails.Where(x => x.CartId == cartid).ToList();
             foreach (var item in shoppingCartDetailsToUpdate)
@@ -108,16 +108,19 @@ namespace prjEShopping.Controllers
                 CartDetailId = x.CartDetailId,
                 ProductId = (int)x.ProductId,
                 ProductName = x.ProductName,
+                ProductImagePathOne = x.ProductImagePathOne,
+                SellerId = (int)x.SellerId,
+                SellerName = db.Sellers.FirstOrDefault(y => y.SellerId == x.SellerId).SellerName,
+                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity),//計算庫存可不可以買
+
                 Quantity = (int)x.Quantity,
                 Price = (decimal)x.Price,
                 Discount=db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0,
+                //要判斷折價商品的時間
                 DiscountPrice= IsInDiscountPeriod((int)x.ProductId)?(decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0)/100: (decimal)x.Price,
                 SubTotal = (decimal)x.SubTotal,
                 DiscountSubTotal= IsInDiscountPeriod((int)x.ProductId) ? (decimal)(x.Quantity)*((decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0) / 100): (decimal)x.SubTotal,
-                ProductImagePathOne = x.ProductImagePathOne,
-                SellerId = (int)x.SellerId,
-                SellerName=db.Sellers.FirstOrDefault(y=>y.SellerId== x.SellerId).SellerName,
-                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)//計算庫存可不可以買
+                
             }).ToList();
 
             //總金額
@@ -168,7 +171,7 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-
+            //應該與shoppingList()一模一樣但結帳頁要直接判斷x.AddToOrder=="1"
             var data = db.ShoppingCartDetails.Where(x => x.CartId == cartid&&x.AddToOrder=="1").OrderBy(x => x.CartDetailId)
                                 .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
                                 {
@@ -191,13 +194,18 @@ namespace prjEShopping.Controllers
                 CartDetailId = x.CartDetailId,
                 ProductId = (int)x.ProductId,
                 ProductName = x.ProductName,
-                Quantity = (int)x.Quantity,
-                Price = (decimal)x.Price,
-                SubTotal = (decimal)x.SubTotal,
                 ProductImagePathOne = x.ProductImagePathOne,
                 SellerId = (int)x.SellerId,
                 SellerName = db.Sellers.FirstOrDefault(y => y.SellerId == x.SellerId).SellerName,
-                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity)//計算庫存可不可以買
+                ProductStock = calculateProductStock((int)x.ProductId, (int)x.Quantity),//計算庫存可不可以買
+
+                Quantity = (int)x.Quantity,
+                Price = (decimal)x.Price,
+                Discount = db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0,
+                //要判斷折價商品的時間
+                DiscountPrice = IsInDiscountPeriod((int)x.ProductId) ? (decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0) / 100 : (decimal)x.Price,
+                SubTotal = (decimal)x.SubTotal,
+                DiscountSubTotal = IsInDiscountPeriod((int)x.ProductId) ? (decimal)(x.Quantity) * ((decimal)x.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId)?.Discount ?? 0) / 100) : (decimal)x.SubTotal,
             }).ToList();
 
                     
@@ -535,7 +543,7 @@ namespace prjEShopping.Controllers
 
 
         [Authorize]
-        public ActionResult checkedBuyAllProductsapi()//全選 編輯ShoppingCartDetails的AddToOrder=1
+        public ActionResult checkedBuyAllProductsapi()//全選
         {
             var customerAccount = User.Identity.Name;
             var db = new AppDbContext();
@@ -567,7 +575,7 @@ namespace prjEShopping.Controllers
 
 
         [Authorize]
-        public ActionResult checkedBuyOneProductapi(int productId)//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
+        public ActionResult checkedBuyOneProductapi(int productId)//單勾選商品
         {
             var customerAccount = User.Identity.Name;
             var db = new AppDbContext();
@@ -593,7 +601,7 @@ namespace prjEShopping.Controllers
         }
 
         [Authorize]
-        public ActionResult checkedBuyOneSellerapi(int sellerId)
+        public ActionResult checkedBuyOneSellerapi(int sellerId)//勾選整個店家的商品
         {
             var customerAccount = User.Identity.Name;
             var db = new AppDbContext();
