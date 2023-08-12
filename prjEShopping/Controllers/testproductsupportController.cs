@@ -114,9 +114,11 @@ namespace prjEShopping.Controllers
             {
                 ViewBag.TotalQuantity = 0;
             }
+            ViewBag.SupportNum = GenerateSupportNumberU();
             return View(datas);
         }
 
+        [HttpPost]
         //客戶端寄信
         public ActionResult CSSendMail(int? UserId = null)
         {  //客服信頁面寄信
@@ -124,7 +126,7 @@ namespace prjEShopping.Controllers
             ViewBag.UserId = UserId;
             var model = new SupportVM();
             //編號生成
-            ViewBag.SupportNum = GenerateSupportNumberU();
+            
             return View(model);
         }
 
