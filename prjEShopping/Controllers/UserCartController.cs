@@ -637,7 +637,7 @@ namespace prjEShopping.Controllers
             return Json(totalcheckedCount, JsonRequestBehavior.AllowGet);           
         }
 
-        public ActionResult GetTotalcheckedPrice()
+        public ActionResult GetTotalcheckedPrice()//總金額-有判斷是否有折扣UserCheckout UserShoppingCart都有呼叫此api
         {
             var customerAccount = User.Identity.Name;
 
@@ -676,7 +676,7 @@ namespace prjEShopping.Controllers
                                     })
                                     .Where(item => discountproductids.Contains(item.ProductId))
                                     .ToList();
-            var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);
+            var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);//有折扣的加總
 
 
             var grandTotal = totalPrice + totalDiscountSubTotal;
@@ -724,12 +724,7 @@ namespace prjEShopping.Controllers
             return Json(shipPrice, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize]
-        public ActionResult getdiscountProductPrice()//折扣商品 限時特賣 要判斷起訖日 用載入頁面時間判斷
-        {
-            int discountProductPrice = 10;
-            return Json(discountProductPrice, JsonRequestBehavior.AllowGet);
-        }
+        
 
         [Authorize]
         public ActionResult getcouponPrice()//優惠券

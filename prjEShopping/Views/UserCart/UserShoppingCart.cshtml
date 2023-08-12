@@ -454,7 +454,7 @@
             });
         }
 
-        //總金額
+        //總金額-有判斷是否有折扣
         async function getTotalcheckedPrice() {
             const response = await fetch('/UserCart/GetTotalcheckedPrice');
             const price = await response.json();
