@@ -218,6 +218,7 @@
     <Compile Include="Controllers\SellerStoreController.cs" />
     <Compile Include="Controllers\SellerUpdateController.cs" />
     <Compile Include="Controllers\SupportController.cs" />
+    <Compile Include="Controllers\testproductsupportController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserCouponController.cs" />
@@ -441,6 +442,7 @@
     <Content Include="Views\AdminProducts\Index.cshtml" />
     <Content Include="Views\UserECpay\ToECpay.cshtml" />
     <Content Include="Views\UserECpay\PayInfo.cshtml" />
+    <Content Include="Views\testproductsupport\UserSingleProduct2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
