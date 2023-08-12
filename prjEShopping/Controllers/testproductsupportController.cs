@@ -131,6 +131,7 @@ namespace prjEShopping.Controllers
         //user 寄送
         public string GenerateSupportNumberU()
         {
+            var db = new AppDbContext();
             var today = DateTime.Now;
             // 獲取當前日期的格式化字符串 "230812"
             var datePart = today.ToString("yyMMdd");
