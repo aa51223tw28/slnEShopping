@@ -452,6 +452,8 @@
     <Content Include="Views\Support2\CSReport.cshtml" />
     <Content Include="Views\Support2\CSReportPView.cshtml" />
     <Content Include="Views\Support2\CSBList.cshtml" />
+    <Content Include="Views\Support2\CSBSendMail.cshtml" />
+    <Content Include="Views\Support2\CSBReplay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

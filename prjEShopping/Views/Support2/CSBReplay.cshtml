@@ -1,7 +1,7 @@
 ﻿@model prjEShopping.Models.ViewModels.SupportDetailViewModel
 
 @{
-    ViewBag.Title = "CSReplay";
+    ViewBag.Title = "CSBReplay";
     Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
 }
 
@@ -36,7 +36,7 @@
                     @foreach (var item in Model.SupportReplies)
                     {
                         <div class="border border-2 border-info rounded rounded-2 my-2 px-2 py-2 bg-white">
-                            @if (ViewBag.UserId == @item.UserId)
+                            @if (ViewBag.SellerId == @item.SellerId)
                             {
                                 <h5 class="border border-1 bg-primary text-white">我的回覆</h5>
                             }
@@ -61,15 +61,15 @@
         <form method="post" enctype="multipart/form-data">
             <div class="border border-2 border-primary rounded rounded-2 px-2 py-2">
                 <input type="text" id="SupportId" name="SupportId" class="form-control" value="@Model.Support.SupportId" hidden />
-                <input type="text" id="UserId" name="UserId" class="form-control" value="@ViewBag.UserId" hidden />
+                <input type="text" id="SellerId" name="SellerId" class="form-control" value="@ViewBag.SellerId" hidden />
                 <input type="text" id="ReplayTime" name="ReplayTime" class="form-control" value="@DateTime.Now" hidden />
                 <textarea id="ReplayText" name="ReplayText" class="form-control" style="height:300px"></textarea>
                 <input class="form-control" type="file" id="ImageFile" name="ImageFile">
                 <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
 
             </div>
-            <input type="submit" value="回覆" class="btn btn-primary my-2" />           
-            @Html.ActionLink("取消", "CSList", null, new { @class = "btn btn-info my-2" })
+            <input type="submit" value="回覆" class="btn btn-primary my-2" />
+            @Html.ActionLink("取消", "CSBList", null, new { @class = "btn btn-info my-2" })
         </form>
     </div>
 </div>
@@ -96,3 +96,4 @@
     <style>
     </style>
 }
+
