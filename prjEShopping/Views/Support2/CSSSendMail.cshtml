@@ -12,7 +12,7 @@
 
 <div class="container">
     <h2>客服寄信</h2>
-    <input type="text" id="SupportStatus" name="SupportStatus" value="新進單" hidden />
+    <input type="text" id="SupportStatus" name="SupportStatus" value="新寄送" hidden />
     @Html.ValidationMessageFor(model => model.SupportStatus, "", new { @class = "text-danger" })
     <input type="datetime" id="ReceivedTime" name="ReceivedTime" value="@DateTime.Now" hidden />
     @Html.ValidationMessageFor(model => model.ReceivedTime, "", new { @class = "text-danger" })

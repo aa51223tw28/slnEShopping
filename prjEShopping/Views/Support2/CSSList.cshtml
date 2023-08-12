@@ -53,10 +53,89 @@
                     @Html.DisplayFor(modelItem => item.SupportStatus)
                 </td>
                 <td>
-                    @Html.ActionLink("回覆", "CSSReplay", new { id = item.SupportId }, new {@class="btn btn-primary"})                  
+                    @Html.ActionLink("回覆", "CSSReplay", new { id = item.SupportId }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }
     </tbody>
 
 </table>
+
+@section Scripts{
+
+    <!-- DataTables BS5版本-->
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+
+    <script>
+
+        $(document).ready( function () {
+        $('#myTable').DataTable({
+         pageLength: 10, // 每頁顯示10筆資料
+            language: {
+                search: "搜尋：",
+                paginate: {
+                    first: "首頁",
+                    last: "尾頁",
+                    next: "下一頁",
+                    previous: "上一頁"
+                },
+                info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
+                //最下面顯示
+                infoEmpty: "顯示 0 到 0 的 0 筆資料",
+                //下拉選單
+                lengthMenu: "顯示 _MENU_ 筆資料",
+            }
+        });
+        });
+
+        $(document).ready(function () {
+        $('.change-status-btn').click(function () {
+        var newStatusId = $(this).data('status');
+        var productId = $(this).data('product-id');
+        // AJAX call to server
+        $.ajax({
+        url: '/AdminProducts/ChangeStatus',
+        type: 'POST',
+        data: { id: productId, statusId: newStatusId },
+        success: function (response) {
+        let r = ""
+        if (response.newStatusId == "1")
+        r = "審核中"
+        else if (response.newStatusId == "2")
+        r = "販售中"
+        else if (response.newStatusId == "3")
+        r = "下架中"
+
+        var statusColor;
+        switch (r) {
+        case "審核中":
+        statusColor = "text-white bg-danger";
+        break;
+        case "販售中":
+        statusColor = "text-white bg-primary";
+        break;
+        case "下架中":
+        statusColor = "text-primary bg-secondary";
+        break;
+        default:
+        statusColor = "";  // 或任何你希望的默認樣式
+        break;
+        }
+        // Update the displayed status
+        $('tr').find('.statusDisplay[data-product-id="' + productId + '"]').text(r).attr('class', 'statusDisplay ' + statusColor);
+        },
+        error: function (error) {
+        console.log("Error:", error);
+        }
+        });
+        });
+        });
+    </script>
+
+}
+
+@section Styles{
+
+    <!-- DataTables CSS BS5版本 -->
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+}
