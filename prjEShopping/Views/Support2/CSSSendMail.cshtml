@@ -6,7 +6,7 @@
 }
 
 
-@using (Html.BeginForm("CSSSendMail", "Support2", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mt-5" }))
+@using (Html.BeginForm("CSSSendMail", "Support2", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 
@@ -71,7 +71,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.SupportTitle, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="text" id="SupportTitle" name="SupportTitle" required />
+            <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" required />
             @Html.ValidationMessageFor(model => model.SupportTitle, "", new { @class = "text-danger" })
         </div>
     </div>

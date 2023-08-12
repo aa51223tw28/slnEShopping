@@ -1,0 +1,104 @@
+﻿@model prjEShopping.Models.ViewModels.SupportVM
+
+@{
+    ViewBag.Title = "CSSendMail";
+    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+}
+
+
+@using (Html.BeginForm("CSSendMail", "Support2", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h2>用戶支援</h2>
+    <div class="container">
+        <input type="text" id="SupportStatus" name="SupportStatus" value="新進單" hidden />
+        @Html.ValidationMessageFor(model => model.SupportStatus, "", new { @class = "text-danger" })
+        <input type="datetime" id="ReceivedTime" name="ReceivedTime" value="@DateTime.Now" hidden />
+        @Html.ValidationMessageFor(model => model.ReceivedTime, "", new { @class = "text-danger" })
+        <input type="text" class="form-control" id="UserId" name="UserId" value="@ViewBag.UserId" readonly hidden />
+        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupportNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNum" readonly />
+                @Html.ValidationMessageFor(model => model.SupportNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupportType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" id="SupportType" name="SupportType" required>                  
+                    <option value="商品投訴">商品投訴</option>
+                    <option value="商家問題">商家問題</option>
+                    <option value="會員問題">會員問題</option>
+                    <option value="平台問題">平台問題</option>
+                    <option value="其他協助">其他協助</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.SupportType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupportTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" required />
+                @Html.ValidationMessageFor(model => model.SupportTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupportText, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea class="form-control" id="SupportText" name="SupportText" style="height:300px" required></textarea>
+                @Html.ValidationMessageFor(model => model.SupportText, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="form-control" type="file" id="ImageFile" name="ImageFile">
+                <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="寄出信件" class="btn btn-primary mt-2" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("取消", "CSList", null, new { @class = "btn btn-secondary my-2" })
+</div>
+
+@section Scripts{
+    <script>
+
+        //看圖片用
+        $(document).ready(function () {
+            $('#ImageFile').change(function (e) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // 顯示圖片預覽
+                    $('#imagePreview').attr('src', e.target.result);
+                    $('#imagePreview').removeAttr('hidden');
+                }
+
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
+}
+
+@section Styles{
+    <style>
+    </style>
+}
+
+

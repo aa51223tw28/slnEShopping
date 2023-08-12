@@ -17,27 +17,27 @@ namespace prjEShopping.Controllers
         // CSS 客服端
         // CS  客戶端
         // CSB 商家端
- 
+
         //客服端信件列表
         public ActionResult CSSList()
         {
             //todo 分類頁面 新進信件/已回覆 Admin權限設定
             var model = SupportChange.Support2VM(db.Supports);
-            
+
             return View(model);
         }
 
         //客服端寄信
-        public ActionResult CSSSendMail(int? SellerId=null,int? UserId=null)
+        public ActionResult CSSSendMail(int? SellerId = null, int? UserId = null)
         {
-            var AdminId=1; //要從帳號代入
+            var AdminId = 1; //要從帳號代入
             //UserId = 1;
-            var model =new SupportVM();
-            ViewBag.AdminId =AdminId;
+            var model = new SupportVM();
+            ViewBag.AdminId = AdminId;
             ViewBag.SellerId = SellerId;
             ViewBag.UserId = UserId;
             //編號生成
-            ViewBag.SupportNum=GenerateSupportNumber();
+            ViewBag.SupportNum = GenerateSupportNumber();
             return View(model);
         }
 
@@ -61,7 +61,7 @@ namespace prjEShopping.Controllers
         public ActionResult CSSReplay(int? id)
         {
             var Adminid = 1;
-            ViewBag.AdminId=Adminid;
+            ViewBag.AdminId = Adminid;
             if (!id.HasValue)
             {
                 // 返回錯誤或重定向，因為沒有指定ID
@@ -74,7 +74,7 @@ namespace prjEShopping.Controllers
                 return HttpNotFound();
             }
 
-            var r = db.SupportReplaies.Where(x=>x.SupportId==id).ToList();
+            var r = db.SupportReplaies.Where(x => x.SupportId == id).ToList();
             var model = new SupportDetailViewModel
             {
                 Support = SupportChange.Support2VM(s),
@@ -86,22 +86,22 @@ namespace prjEShopping.Controllers
 
         [HttpPost]
         public ActionResult CSSReplay(SupportReplayVM vm)
-        {           
+        {
             if (vm != null)
             {   //存圖..
                 imageAdd2(vm);
                 var r = new SupportReplay();
-                r=SupportReplayChange.VM2SupportReplay(vm);
+                r = SupportReplayChange.VM2SupportReplay(vm);
                 db.SupportReplaies.Add(r);
                 var s = db.Supports.Find(vm.SupportId);
                 if (s != null)
                 {
                     s.SupportStatus = "已回覆";
                 }
-                    db.SaveChanges();
+                db.SaveChanges();
                 return RedirectToAction("CSSReplay");
             }
-                return View(vm);
+            return View(vm);
         }
 
 
@@ -111,7 +111,7 @@ namespace prjEShopping.Controllers
             var record = db.Supports.Find(id);
             if (record != null)
             {
-                record.SupportStatus="已完成"; // 對欄位進行更新
+                record.SupportStatus = "已完成"; // 對欄位進行更新
                 db.SaveChanges();
                 return Json(new { success = true, message = "更新成功!" });
             }
@@ -119,26 +119,98 @@ namespace prjEShopping.Controllers
         }
 
         //客戶端信件列表
-        public ActionResult CSList()
+        public ActionResult CSList(int? userId = null)
         {
-            return View();
+            //userId
+            userId = 1;
+            ViewBag.UserId = userId;
+            var s = db.Supports.Where(x => x.UserId == userId).ToList();
+            var model = SupportChange.Support2VM(s);
+            return View(model);
         }
 
         //客戶端寄信
-        public ActionResult CSSendMail()
+        public ActionResult CSSendMail(int? UserId = null)
         {  //客服信頁面寄信
-            return View();
+            UserId = 1;
+            ViewBag.UserId = UserId;
+            var model = new SupportVM();           
+            //編號生成
+            ViewBag.SupportNum = GenerateSupportNumberU();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult CSSendMail(SupportVM vm)
+        {
+            if (vm != null)
+            {   //存圖..
+                imageAdd(vm);
+                var s = new Support();
+                s = SupportChange.VM2Support(vm);
+                db.Supports.Add(s);
+                db.SaveChanges();
+                return RedirectToAction("CSList");
+            }
+            return View(vm);          
+        }
+        //客戶端回覆、查看
+        public ActionResult CSReplay(int? id)
+        {
+            //帳號登入代入
+            var UserId = 1;
+            ViewBag.UserId = UserId;
+            if (!id.HasValue)
+            {
+                // 返回錯誤或重定向，因為沒有指定ID
+                return RedirectToAction("CSList");
+            }
+            var s = db.Supports.FirstOrDefault(x => x.SupportId == id);
+            if (s == null)
+            {
+                // 沒有找到首封信件
+                return HttpNotFound();
+            }
+            var r = db.SupportReplaies.Where(x => x.SupportId == id).ToList();
+            var model = new SupportDetailViewModel
+            {
+                Support = SupportChange.Support2VM(s),
+                SupportReplies = r.Select(reply => SupportReplayChange.SupportReplay2VM(reply)).ToList()
+            };
+            return View(model);
         }
 
-        //客戶端回覆、查看
-        public ActionResult CSReplay()
+        [HttpPost]
+        public ActionResult CSReplay(SupportReplayVM vm)
         {
-            return View();
+            if (vm != null)
+            {   //存圖..
+                imageAdd2(vm);
+                var r = new SupportReplay();
+                r = SupportReplayChange.VM2SupportReplay(vm);
+                db.SupportReplaies.Add(r);
+                var s = db.Supports.Find(vm.SupportId);
+                if (s != null)
+                {
+                    s.SupportStatus = "待回覆";
+                }
+                db.SaveChanges();
+                return RedirectToAction("CSReplay");
+            }
+            return View(vm);
         }
 
         //客戶端檢舉信
-        public ActionResult CSReport()
+        public ActionResult CSReport(int? userId,int? productId)
         { //Btn->彈出視窗寄信
+            userId = 1;
+            productId = 1;
+            var productName=db.Products.FirstOrDefault(x=>x.ProductId==productId).ProductName.ToString();
+            var s = new Support();
+            ViewBag.UserId = userId;
+            ViewBag.ProductId=productId;
+            ViewBag.ProductName =productName;
+            ViewBag.Support = s;
+            ViewBag.SupportNumber = GenerateSupportNumberU();
             return View();
         }
 
@@ -214,6 +286,40 @@ namespace prjEShopping.Controllers
             var numberPart = (countForToday + 1).ToString("D4"); // 四位數，不足前面補0
 
             return "CS" + datePart + numberPart;
+        }
+
+        //user 寄送
+        public string GenerateSupportNumberU()
+        {
+            var today = DateTime.Now;
+            // 獲取當前日期的格式化字符串 "230812"
+            var datePart = today.ToString("yyMMdd");
+
+            // 查詢當天已有多少條記錄
+            var countForToday = db.Supports
+                                  .Where(s => s.SupportNumber.StartsWith("US" + datePart))
+                                  .Count();
+            // 生成下一個編號
+            var numberPart = (countForToday + 1).ToString("D4"); // 四位數，不足前面補0
+
+            return "US" + datePart + numberPart;
+        }
+
+        //Seller 寄送
+        public string GenerateSupportNumberS()
+        {
+            var today = DateTime.Now;
+            // 獲取當前日期的格式化字符串 "230812"
+            var datePart = today.ToString("yyMMdd");
+
+            // 查詢當天已有多少條記錄
+            var countForToday = db.Supports
+                                  .Where(s => s.SupportNumber.StartsWith("SS" + datePart))
+                                  .Count();
+            // 生成下一個編號
+            var numberPart = (countForToday + 1).ToString("D4"); // 四位數，不足前面補0
+
+            return "SS" + datePart + numberPart;
         }
     }
 }

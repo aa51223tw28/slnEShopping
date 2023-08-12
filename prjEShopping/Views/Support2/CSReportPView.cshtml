@@ -1,0 +1,47 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">商品投訴單</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="complaintForm">
+                    <div class="form-group">
+                        <label for="complaintNumber">客訴單號：</label>
+                        <input type="text" class="form-control" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNumber" readonly>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="UserId" name="UserId" value="" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="complaintType">投訴類別：</label>
+                        <input type="text" class="form-control" id="SupportType" name="SupportType" value="商品投訴" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="complaintProduct">投訴商品：</label>
+                        <input type="text" class="form-control" id="complaintProduct" value="@ViewBag.ProductName" readonly>
+                        <input type="text" class="form-control" id="ProductId" name="ProductId" value="" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">標題：</label>
+                        <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">內容：</label>
+                        <textarea class="form-control" id="SupportText" name="SupportText" rows="5" maxlength="500"></textarea>
+                        <input class="form-control" type="file" id="ImageFile" name="ImageFile">
+                        <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
+                        <input type="datetime" class="form-control" id="ReceivedTime" name="ReceivedTime" readonly value="@DateTime.Now" hidden>
+                        <input type="text" class="form-control" id="SupportStatus" name="SupportStatus" value="新進單" readonly hidden>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="submitComplaint()">寄出</button>
+            </div>
+        </div>
+    </div>
+</div>

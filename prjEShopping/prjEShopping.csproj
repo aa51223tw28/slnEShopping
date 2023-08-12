@@ -177,6 +177,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\CSReport.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -445,6 +446,11 @@
     <Content Include="Views\Support2\CSSList.cshtml" />
     <Content Include="Views\Support2\CSSSendMail.cshtml" />
     <Content Include="Views\Support2\CSSReplay.cshtml" />
+    <Content Include="Views\Support2\CSList.cshtml" />
+    <Content Include="Views\Support2\CSSendMail.cshtml" />
+    <Content Include="Views\Support2\CSReplay.cshtml" />
+    <Content Include="Views\Support2\CSReport.cshtml" />
+    <Content Include="Views\Support2\CSReportPView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
