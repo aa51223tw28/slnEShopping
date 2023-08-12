@@ -94,6 +94,8 @@
             },
             complete: function () {
                 $('#reportModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
             }
         });
     }
