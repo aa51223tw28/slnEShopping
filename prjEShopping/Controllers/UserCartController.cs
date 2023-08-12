@@ -213,7 +213,7 @@ namespace prjEShopping.Controllers
 
         //[Authorize]
         //[HttpPost]
-        //public ActionResult UserCheckout(UserShipmentDetailVM vm)不能用偷雞摸狗法
+        //public ActionResult UserCheckout(UserShipmentDetailVM vm)不能用偷雞摸狗法只好一個一個傳UserCheckoutDataapi
         //{
         //    var customerAccount = User.Identity.Name;
         //    var db = new AppDbContext();
@@ -280,13 +280,17 @@ namespace prjEShopping.Controllers
             foreach (var item in shoppingdatas)
             {
                 var product = db.Products.FirstOrDefault(x => x.ProductId == item.ProductId);
+                var isDiscounted = IsInDiscountPeriod((int)item.ProductId);//如果有折扣商品判斷時間
+                var discount = db.ADProducts.FirstOrDefault(ad => ad.ProductId == item.ProductId)?.Discount ?? 0;
+                var currentPrice = isDiscounted ? (product.Price * discount/100) : product.Price;
+
 
                 var orderDetail = new OrderDetail
                 {
                     OrderId= orderId,
                     ProductId= item.ProductId,
                     Quantity = item.Quantity,
-                    CurrentPrice= product.Price
+                    CurrentPrice= currentPrice,
                 };
                 db.OrderDetails.Add(orderDetail);
             }
