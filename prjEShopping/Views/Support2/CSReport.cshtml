@@ -1,23 +1,117 @@
 ﻿@{
     ViewBag.Title = "CSReport";
-    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
 }
+<link href="~/Content/all.css" rel="stylesheet" type="text/css" />
 
-<h2>CSReport</h2>
-
-<!-- 商品投訴單 使用方法
-    步驟1. 做一個BTN 要代入UserId 跟ProductId
-    步驟2. 連結PartialView (小老鼠)Html.Partial("CSReportPView")
-    步驟3. 引用Js部分 <script src="~/Scripts/CSReport.js" defer></script>  -->
 <div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary complaintBtn my-2" data-bs-toggle="modal" data-bs-target="#reportModal" data-userid="@ViewBag.UserId" data-productid="@ViewBag.ProductId">
+    <button type="button" class="btn-outline-primary btn rounded-pill btn-lg" data-bs-toggle="modal" data-bs-target="#reportModal" data-userid="@ViewBag.UserId" data-productid="@ViewBag.ProductId">
         投訴
     </button>
 </div>
-@Html.Partial("CSReportPView")
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">商品投訴單</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="complaintForm">
+                    <div class="form-group">
+                        <label for="complaintNumber">客訴單號：</label>
+                        <input type="text" class="form-control" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNumber" readonly>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="UserId" name="UserId" value="" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="complaintType">投訴類別：</label>
+                        <input type="text" class="form-control" id="SupportType" name="SupportType" value="商品投訴" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="complaintProduct">投訴商品：</label>
+                        <input type="text" class="form-control" id="complaintProduct" value="@ViewBag.ProductName" readonly>
+                        <input type="text" class="form-control" id="ProductId" name="ProductId" value="" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">標題：</label>
+                        <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">內容：</label>
+                        <textarea class="form-control" id="SupportText" name="SupportText" rows="5" maxlength="500"></textarea>
+                        <input class="form-control" type="file" id="ImageFile" name="ImageFile">
+                        <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
+                        <input type="datetime" class="form-control" id="ReceivedTime" name="ReceivedTime" readonly value="@DateTime.Now" hidden>
+                        <input type="text" class="form-control" id="SupportStatus" name="SupportStatus" value="新進單" readonly hidden>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="submitComplaint()">寄出</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-@section Scripts{
-    <script src="~/Scripts/CSReport.js" defer></script>
-}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://kit.fontawesome.com/df26c5ac19.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#reportModal').on('show.bs.modal', function (event) {
+            //獲取觸發窗口的按鈕
+            var button = $(event.relatedTarget);
+
+            // 從 data- 屬性中提取出 userId 和 productId
+            var userId = button.data('userid');
+            var productId = button.data('productid');
+
+            // 更新窗口的內容。
+            var modal = $(this);
+            modal.find('#UserId').val(userId);
+            modal.find('#ProductId').val(productId);
+        });
+    });
+    function submitComplaint() {
+        var formData = new FormData($('#complaintForm')[0]);
+
+        $.ajax({
+            url: '/Support2/CSSendMail',
+            type: 'POST',
+            data: formData,
+            processData: false,  // 告訴jQuery不要處理傳送的數據
+            contentType: false,  // 告訴jQuery不要設置contentType
+            success: function (data) {
+                alert('投訴單已寄出');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('寄送失敗');
+            },
+            complete: function () {
+                $('#reportModal').modal('hide');
+            }
+        });
+    }
+
+    //看圖片用
+    $(document).ready(function () {
+        $('#ImageFile').change(function (e) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // 顯示圖片預覽
+                $('#imagePreview').attr('src', e.target.result);
+                $('#imagePreview').removeAttr('hidden');
+            }
+
+            reader.readAsDataURL(this.files[0]);
+        });
+    });
+</script>
+
 

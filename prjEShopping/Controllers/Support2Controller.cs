@@ -215,9 +215,14 @@ namespace prjEShopping.Controllers
         }
 
         //商家端列表
-        public ActionResult CSBList()
+        public ActionResult CSBList(int? sellerId = null)
         {
-            return View();
+            sellerId = 1;
+            ViewBag.SellerId = sellerId;
+            var s = db.Supports.Where(x => x.SellerId == sellerId).ToList();
+            var model = SupportChange.Support2VM(s);
+            return View(model);
+
         }
 
         //商家端寄信
