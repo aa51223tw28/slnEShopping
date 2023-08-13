@@ -175,100 +175,103 @@ namespace prjEShopping.Controllers
                 vm.ImageLink = fileName;
             }
         }
+        
+    }
 
-        public static class SupportChange
+
+    //以下可刪除-------------------------------------------------------------------------------------
+    public static class SupportChange
+    {
+        public static SupportVM Support2VM(Support s)
         {
-            public static SupportVM Support2VM(Support s)
+            return new SupportVM
             {
-                return new SupportVM
-                {
-                    SupportId = s.SupportId,
-                    SupportNumber = s.SupportNumber,
-                    AdminId = s.AdminId,
-                    SellerId = s.SellerId,
-                    UserId = s.UserId,
-                    ProductId = s.ProductId,
-                    SupportType = s.SupportType,
-                    SupportTitle = s.SupportTitle,
-                    SupportText = s.SupportText,
-                    ReceivedTime = s.ReceivedTime,
-                    SupportStatus = s.SupportStatus,
-                    ImageLink = s.ImageLink,
-                };
-            }
-            public static List<SupportVM> Support2VM(this IEnumerable<Support> source)
+                SupportId = s.SupportId,
+                SupportNumber = s.SupportNumber,
+                AdminId = s.AdminId,
+                SellerId = s.SellerId,
+                UserId = s.UserId,
+                ProductId = s.ProductId,
+                SupportType = s.SupportType,
+                SupportTitle = s.SupportTitle,
+                SupportText = s.SupportText,
+                ReceivedTime = s.ReceivedTime,
+                SupportStatus = s.SupportStatus,
+                ImageLink = s.ImageLink,
+            };
+        }
+        public static List<SupportVM> Support2VM(this IEnumerable<Support> source)
+        {
+            if (source == null || source.Count() == 0)
             {
-                if (source == null || source.Count() == 0)
-                {
-                    return Enumerable.Empty<SupportVM>().ToList();
-                }
-                return source.Select(s => Support2VM(s)).ToList();
+                return Enumerable.Empty<SupportVM>().ToList();
             }
-            public static Support VM2Support(SupportVM vm)
+            return source.Select(s => Support2VM(s)).ToList();
+        }
+        public static Support VM2Support(SupportVM vm)
+        {
+            return new Support
             {
-                return new Support
-                {
-                    SupportId = vm.SupportId,
-                    SupportNumber = vm.SupportNumber,
-                    AdminId = vm.AdminId,
-                    SellerId = vm.SellerId,
-                    UserId = vm.UserId,
-                    ProductId = vm.ProductId,
-                    SupportType = vm.SupportType,
-                    SupportTitle = vm.SupportTitle,
-                    SupportText = vm.SupportText,
-                    ReceivedTime = vm.ReceivedTime,
-                    SupportStatus = vm.SupportStatus,
-                    ImageLink = vm.ImageLink,
-                };
-            }
-
+                SupportId = vm.SupportId,
+                SupportNumber = vm.SupportNumber,
+                AdminId = vm.AdminId,
+                SellerId = vm.SellerId,
+                UserId = vm.UserId,
+                ProductId = vm.ProductId,
+                SupportType = vm.SupportType,
+                SupportTitle = vm.SupportTitle,
+                SupportText = vm.SupportText,
+                ReceivedTime = vm.ReceivedTime,
+                SupportStatus = vm.SupportStatus,
+                ImageLink = vm.ImageLink,
+            };
         }
 
-        public partial class SupportVM
-        {
-            public int SupportId { get; set; }
+    }
 
-            [DisplayName("信件編號")]
-            [StringLength(50)]
-            public string SupportNumber { get; set; }
+    public partial class SupportVM
+    {
+        public int SupportId { get; set; }
 
-            [DisplayName("管理員ID")]
-            public int? AdminId { get; set; }
+        [DisplayName("信件編號")]
+        [StringLength(50)]
+        public string SupportNumber { get; set; }
 
-            [DisplayName("商家ID")]
-            public int? SellerId { get; set; }
+        [DisplayName("管理員ID")]
+        public int? AdminId { get; set; }
 
-            [DisplayName("會員ID")]
-            public int? UserId { get; set; }
+        [DisplayName("商家ID")]
+        public int? SellerId { get; set; }
 
-            [DisplayName("商品ID")]
-            public int? ProductId { get; set; }
+        [DisplayName("會員ID")]
+        public int? UserId { get; set; }
 
-            [DisplayName("信件類型")]
-            [StringLength(50)]
-            public string SupportType { get; set; }
+        [DisplayName("商品ID")]
+        public int? ProductId { get; set; }
 
-            [DisplayName("標題")]
-            [StringLength(50)]
-            public string SupportTitle { get; set; }
+        [DisplayName("信件類型")]
+        [StringLength(50)]
+        public string SupportType { get; set; }
 
-            [DisplayName("內容")]
-            [StringLength(4000)]
-            public string SupportText { get; set; }
+        [DisplayName("標題")]
+        [StringLength(50)]
+        public string SupportTitle { get; set; }
 
-            [DisplayName("發信時間")]
-            public DateTime? ReceivedTime { get; set; }
+        [DisplayName("內容")]
+        [StringLength(4000)]
+        public string SupportText { get; set; }
 
-            [DisplayName("信件狀態")]
-            [StringLength(50)]
-            public string SupportStatus { get; set; }
+        [DisplayName("發信時間")]
+        public DateTime? ReceivedTime { get; set; }
 
-            [DisplayName("上傳圖片")]
-            [StringLength(100)]
-            public string ImageLink { get; set; }
+        [DisplayName("信件狀態")]
+        [StringLength(50)]
+        public string SupportStatus { get; set; }
 
-            public HttpPostedFileBase ImageFile { get; set; }
-        }
+        [DisplayName("上傳圖片")]
+        [StringLength(100)]
+        public string ImageLink { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }
