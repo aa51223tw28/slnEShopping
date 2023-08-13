@@ -229,6 +229,7 @@
     <Compile Include="Controllers\UserOrderController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UsersCouponsController.cs" />
+    <Compile Include="Controllers\UserSupportController.cs" />
     <Compile Include="Controllers\UserTestCommentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -456,6 +457,7 @@
     <Folder Include="Models\DAOs\" />
     <Folder Include="Views\Google\" />
     <Folder Include="Views\SellerProductCreateApi\" />
+    <Folder Include="Views\UserSupport\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
