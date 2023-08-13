@@ -450,6 +450,9 @@
     <Content Include="Views\Support2\CSReplay.cshtml" />
     <Content Include="Views\Support2\CSReport.cshtml" />
     <Content Include="Views\Support2\CSReportPView.cshtml" />
+    <Content Include="Views\Support2\CSBList.cshtml" />
+    <Content Include="Views\Support2\CSBSendMail.cshtml" />
+    <Content Include="Views\Support2\CSBReplay.cshtml" />
     <Content Include="Views\Shared\_LayoutAdminelse.cshtml" />
     <Content Include="Views\Coupons\CouponListForSeller.cshtml" />
     <None Include="Web.Debug.config">

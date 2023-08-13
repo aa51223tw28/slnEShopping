@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<prjEShopping.Models.ViewModels.SupportVM>
 
 @{
-    ViewBag.Title = "CSList";
+    ViewBag.Title = "CSBList";
     Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
 }
 
-<h2>客服信件列表</h2>
+<h2>客服信件一覽</h2>
 
 <p>
-    @Html.ActionLink("新建客服信", "CSSendMail", new { id = @ViewBag.UserId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("新建客服信", "CSBSendMail", new { id = @ViewBag.SellerId }, new { @class = "btn btn-primary" })
 </p>
 <div class="container">
     <table class="table table-primary table-bordered" id="myTable">
@@ -52,7 +52,7 @@
                         @(item.SupportStatus=="新進單"?"已發送":@item.SupportStatus)
                     </td>
                     <td>
-                        @Html.ActionLink("開啟", "CSReplay", new { id = item.SupportId }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("開啟", "CSBReplay", new { id = item.SupportId }, new { @class = "btn btn-info" })
                     </td>
                 </tr>
             }
@@ -60,7 +60,6 @@
     </table>
 
 </div>
-
 @section Scripts{
 
     <!-- DataTables BS5版本-->

@@ -215,21 +215,86 @@ namespace prjEShopping.Controllers
         }
 
         //商家端列表
-        public ActionResult CSBList()
+        public ActionResult CSBList(int? sellerId = null)
         {
-            return View();
+            sellerId = 1;
+            ViewBag.SellerId = sellerId;
+            var s = db.Supports.Where(x => x.SellerId == sellerId).ToList();
+            var model = SupportChange.Support2VM(s);
+            return View(model);
+
         }
 
         //商家端寄信
-        public ActionResult CSBSendMail()
+        public ActionResult CSBSendMail(int? sellerId = null)
+        {  //商家頁面寄信
+            sellerId = 1;
+            ViewBag.SellerId = sellerId;
+            var model = new SupportVM();
+            //編號生成
+            ViewBag.SupportNum = GenerateSupportNumberS();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult CSBSendMail(SupportVM vm)
         {
-            return View();
+            if (vm != null)
+            {   //存圖..
+                imageAdd(vm);
+                var s = new Support();
+                s = SupportChange.VM2Support(vm);
+                db.Supports.Add(s);
+                db.SaveChanges();
+                return RedirectToAction("CSBList");
+            }
+            return View(vm);
         }
 
         //商家端回覆
-        public ActionResult CSBReplay()
+        public ActionResult CSBReplay(int? id)
         {
-            return View();
+            //帳號登入代入
+            var SellerId = 1;
+            ViewBag.SellerId = SellerId;
+            if (!id.HasValue)
+            {
+                // 返回錯誤或重定向，因為沒有指定ID
+                return RedirectToAction("CSBList");
+            }
+            var s = db.Supports.FirstOrDefault(x => x.SupportId == id);
+            if (s == null)
+            {
+                // 沒有找到首封信件
+                return HttpNotFound();
+            }
+            var r = db.SupportReplaies.Where(x => x.SupportId == id).ToList();
+            var model = new SupportDetailViewModel
+            {
+                Support = SupportChange.Support2VM(s),
+                SupportReplies = r.Select(reply => SupportReplayChange.SupportReplay2VM(reply)).ToList()
+            };
+            return View(model);
+        }
+        
+        [HttpPost]
+        public ActionResult CSBReplay(SupportReplayVM vm)
+        {
+            if (vm != null)
+            {   //存圖..
+                imageAdd2(vm);
+                var r = new SupportReplay();
+                r = SupportReplayChange.VM2SupportReplay(vm);
+                db.SupportReplaies.Add(r);
+                var s = db.Supports.Find(vm.SupportId);
+                if (s != null)
+                {
+                    s.SupportStatus = "待回覆";
+                }
+                db.SaveChanges();
+                return RedirectToAction("CSBReplay");
+            }
+            return View(vm);
         }
 
 
