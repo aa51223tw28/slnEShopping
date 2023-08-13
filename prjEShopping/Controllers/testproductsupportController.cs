@@ -120,14 +120,19 @@ namespace prjEShopping.Controllers
 
         [HttpPost]
         //客戶端寄信
-        public ActionResult CSSendMail(int? UserId = null)
-        {  //客服信頁面寄信
-            UserId = 1;
-            ViewBag.UserId = UserId;
-            var model = new SupportVM();
-            //編號生成
-            
-            return View(model);
+        public ActionResult CSSendMail(SupportVM vm)
+        {
+            var db = new AppDbContext();
+            if (vm != null)
+            {   //存圖..
+                imageAdd(vm);
+                var s = new Support();
+                s = SupportChange.VM2Support(vm);
+                db.Supports.Add(s);
+                db.SaveChanges();
+                return RedirectToAction("CSList");
+            }
+            return View(vm);
         }
 
         //user 寄送
@@ -146,6 +151,47 @@ namespace prjEShopping.Controllers
             var numberPart = (countForToday + 1).ToString("D4"); // 四位數，不足前面補0
 
             return "US" + datePart + numberPart;
+        }
+
+        //存圖範例
+        private void imageAdd(SupportVM vm)
+        {
+            if (vm.ImageFile != null && vm.ImageFile.ContentLength > 0)
+            {
+                // 生成一個唯一的檔案名稱
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(vm.ImageFile.FileName);
+
+                // 指定檔案的保存路徑
+                var path = Path.Combine(Server.MapPath("~/img/"), fileName);
+
+                // 儲存檔案
+                vm.ImageFile.SaveAs(path);
+
+                // 將檔案名稱保存到Support模型的相應欄位
+                vm.ImageLink = fileName;
+            }
+        }
+
+        public static class SupportChange
+        {
+            public static SupportVM Support2VM(Support s)
+            {
+                return new SupportVM
+                {
+                    SupportId = s.SupportId,
+                    SupportNumber = s.SupportNumber,
+                    AdminId = s.AdminId,
+                    SellerId = s.SellerId,
+                    UserId = s.UserId,
+                    ProductId = s.ProductId,
+                    SupportType = s.SupportType,
+                    SupportTitle = s.SupportTitle,
+                    SupportText = s.SupportText,
+                    ReceivedTime = s.ReceivedTime,
+                    SupportStatus = s.SupportStatus,
+                    ImageLink = s.ImageLink,
+                };
+            }
         }
     }
 }
