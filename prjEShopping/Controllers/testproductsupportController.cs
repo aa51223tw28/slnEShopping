@@ -279,4 +279,82 @@ namespace prjEShopping.Controllers
         public SupportVM Support { get; set; }
         public List<SupportReplayVM> SupportReplies { get; set; }
     }
+    public static class SupportReplayChange
+    {
+        public static SupportReplayVM SupportReplay2VM(SupportReplay r)
+        {
+            return new SupportReplayVM
+            {
+                SupportReplayId = r.SupportReplayId,
+                SupportId = r.SupportId,
+                AdminId = r.AdminId,
+                SellerId = r.SellerId,
+                UserId = r.UserId,
+                ReplayTitle = r.ReplayTitle,
+                ReplayText = r.ReplayText,
+                ReplayTime = r.ReplayTime,
+                SupportReplayStatus = r.SupportReplayStatus,
+                ImageLink = r.ImageLink,
+            };
+        }
+        public static List<SupportReplayVM> SupportReplay2VM(this IEnumerable<SupportReplay> source)
+        {
+            if (source == null || source.Count() == 0)
+            {
+                return Enumerable.Empty<SupportReplayVM>().ToList();
+            }
+            return source.Select(s => SupportReplay2VM(s)).ToList();
+        }
+        public static SupportReplay VM2SupportReplay(SupportReplayVM vm)
+        {
+            return new SupportReplay
+            {
+                SupportReplayId = vm.SupportReplayId,
+                SupportId = vm.SupportId,
+                AdminId = vm.AdminId,
+                SellerId = vm.SellerId,
+                UserId = vm.UserId,
+                ReplayTitle = vm.ReplayTitle,
+                ReplayText = vm.ReplayText,
+                ReplayTime = vm.ReplayTime,
+                SupportReplayStatus = vm.SupportReplayStatus,
+                ImageLink = vm.ImageLink,
+            };
+        }
+    }
+    public partial class SupportReplayVM
+    {
+        [DisplayName("回覆ID")]
+        public int SupportReplayId { get; set; }
+
+        public int? SupportId { get; set; }
+
+        public int? AdminId { get; set; }
+
+        public int? SellerId { get; set; }
+
+        public int? UserId { get; set; }
+
+        [DisplayName("回覆標題")]
+        [StringLength(50)]
+        public string ReplayTitle { get; set; }
+
+        [DisplayName("回覆內容")]
+        [StringLength(4000)]
+        public string ReplayText { get; set; }
+
+        [DisplayName("回覆時間")]
+        public DateTime? ReplayTime { get; set; }
+
+        [DisplayName("回覆狀態")]
+        [StringLength(50)]
+        public string SupportReplayStatus { get; set; }
+
+        [DisplayName("上傳圖片")]
+        [StringLength(100)]
+        public string ImageLink { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
+    }
+
 }

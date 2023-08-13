@@ -140,7 +140,7 @@ namespace prjEShopping.Controllers
                     s.SupportStatus = "待回覆";
                 }
                 db.SaveChanges();
-                return RedirectToAction("CSReplay");
+                return RedirectToAction("UserCSReplay");
             }
             return View(vm);
         }
