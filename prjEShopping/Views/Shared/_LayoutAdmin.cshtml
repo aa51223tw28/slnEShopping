@@ -77,7 +77,7 @@
                             <li>@Html.ActionLink("員工一覽", "Index", "Admins", null, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("新增員工", "Create", "Admins", null, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("資料修改", "Edit", "Admins", new {id=userId}, new { @class = "nav-link" })</li>
-                            <li><a class="dropdown-item btn1" href="#tab105">權限設置</a></li>
+                            @*<li><a class="dropdown-item btn1" href="#tab105">權限設置</a></li>*@
                         </ul>
                     }
                     @if (canSeeTableB)
@@ -112,39 +112,42 @@
 
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">商家申請審核</a></li>
-                            <li><a class="dropdown-item" href="#">商家查詢權限設置</a></li>
-                            <li><a class="dropdown-item" href="#">廣告方案設置</a></li>
-                            <li><a class="dropdown-item" href="#">商家優惠方案設置</a></li>
-                            <li><a class="dropdown-item" href="#">商品分類設定</a></li>
-                            <li><a class="dropdown-item" href="#">商品上架審核</a></li>
+                            <li><a class="dropdown-item" href="#">商家資料查詢</a></li>
+                            <li><a class="dropdown-item" href="#">商家權限設置</a></li>
                             <li><a class="dropdown-item" href="#">商品資料查詢</a></li>
                             <li><a class="dropdown-item" href="#">出貨單資料查詢</a></li>
+                            @*<li><a class="dropdown-item" href="#">商家優惠方案設置</a></li>*@
+                            @*<li><a class="dropdown-item" href="#">商品分類設定</a></li>*@
+                            @*<li><a class="dropdown-item" href="#">商品上架審核</a></li>*@
+                            @*<li><a class="dropdown-item" href="#">商家申請審核</a></li>*@
+                            @*<li><a class="dropdown-item" href="#">廣告方案設置</a></li>*@
                         </ul>
                     }
-                    @if (canSeeTableE)
+                    @*@if (canSeeTableE)
                     {
                         <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="d-none d-md-inline">平台管理設定</span><span class="d-sm-inline d-md-none ">平</span>
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="#">平台公告設置</a></li>
-                            <li><a class="dropdown-item" href="#">輪播頁面設置</a></li>
                             <li><a class="dropdown-item" href="#">活動欄位設置</a></li>
-                            <li><a class="dropdown-item" href="#">促銷欄位設置</a></li>
                             <li><a class="dropdown-item" href="#">限時欄位設置</a></li>
+                            <li><a class="dropdown-item" href="#">輪播頁面設置</a></li>
+                            <li><a class="dropdown-item" href="#">促銷欄位設置</a></li>
                         </ul>
-                    }
+                    }*@
                     @if (canSeeTableF)
                     {
                         <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                             <span class="d-none d-md-inline">廣告優惠設定</span><span class="d-sm-inline d-md-none ">廣</span>
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">商家廣告設置</a></li>
-                            <li><a class="dropdown-item" href="#">站內折扣設置</a></li>
-                            @*<li><a class="dropdown-item" href="@Url.Action("Index", "Coupons", new { id = 123 })">優惠券設置</a></li>*@
                             <li>@Html.ActionLink("優惠券設置", "Index", "Coupons", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li><a class="dropdown-item" href="#">商家點數</a></li>
+                            <li><a class="dropdown-item" href="#">商家廣告</a></li>
+                            @*<li><a class="dropdown-item" href="#">站內折扣設置</a></li>*@
+                            @*<li><a class="dropdown-item" href="@Url.Action("Index", "Coupons", new { id = 123 })">優惠券設置</a></li>*@
+
                         </ul>
                     }
                     @if (canSeeTableG)
@@ -154,11 +157,12 @@
 
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">數據中心首頁</a></li>
-                            <li><a class="dropdown-item" href="#">會員數據統計</a></li>
                             <li><a class="dropdown-item" href="#">商家數據統計</a></li>
                             <li><a class="dropdown-item" href="#">商品數據統計</a></li>
                             <li><a class="dropdown-item" href="#">平台數據統計</a></li>
+                            @*<li><a class="dropdown-item" href="#">數據中心首頁</a></li>*@
+                            @*<li><a class="dropdown-item" href="#">會員數據統計</a></li>*@
+
                         </ul>
                     }
                     @if (canSeeTableH)
@@ -168,8 +172,8 @@
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="#">客服管理區</a></li>
-                            <li><a class="dropdown-item" href="#">站內檢舉</a></li>
-                            <li><a class="dropdown-item" href="#">即時訊息</a></li>
+                            @*<li><a class="dropdown-item" href="#">即時訊息</a></li>*@
+                            @*<li><a class="dropdown-item" href="#">站內檢舉</a></li>*@
                         </ul>
                     }
                     </div>
