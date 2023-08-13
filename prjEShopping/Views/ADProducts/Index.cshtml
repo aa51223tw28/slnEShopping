@@ -2,57 +2,61 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
 }
 
-<div class="col-6 bg-secondary overflow-auto" >
-    <h2>廣告列表</h2>
+<div class="col-10 bg-secondary overflow-auto pt-4">
 
-    <p>
-        @Html.ActionLink("建立新廣告", "CreateAD", null, new {@class="btn btn-primary"})
-    </p>
-    <table class="table table-primary">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ADField)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ADName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ADPoint)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ADStartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ADEndDate)
-            </th>
-
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <div class="container">
+        <h2>廣告列表</h2>
+        <hr />
+        <p>
+            @Html.ActionLink("建立新廣告", "CreateAD", null, new { @class = "btn btn-primary" })
+        </p>
+        <table class="table table-primary">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADField)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADPoint)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADStartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADEndDate)
-                </td>
-            </tr>
-        }
+                <th>
+                    @Html.DisplayNameFor(model => model.ADField)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADPoint)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADStartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADEndDate)
+                </th>
 
-    </table>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADField)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADPoint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADEndDate)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
 </div>
 
 @section Scripts{

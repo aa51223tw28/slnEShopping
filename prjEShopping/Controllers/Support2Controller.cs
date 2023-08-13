@@ -21,6 +21,13 @@ namespace prjEShopping.Controllers
         //客服端信件列表
         public ActionResult CSSList()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
             //todo 分類頁面 新進信件/已回覆 Admin權限設定
             var model = SupportChange.Support2VM(db.Supports);
 
@@ -30,7 +37,15 @@ namespace prjEShopping.Controllers
         //客服端寄信
         public ActionResult CSSSendMail(int? SellerId = null, int? UserId = null)
         {
-            var AdminId = 1; //要從帳號代入
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+            int AdminId = Convert.ToInt32(HttpUtility.UrlDecode(authCookie.Values["userId"]));
+
             //UserId = 1;
             var model = new SupportVM();
             ViewBag.AdminId = AdminId;

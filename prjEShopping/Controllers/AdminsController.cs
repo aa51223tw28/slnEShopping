@@ -28,10 +28,10 @@ namespace prjEShopping.Controllers
             {
                 return RedirectToAction("Login");
             }
-
-            var model = db.Admins.Admin2VM();
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
+
+            var model = db.Admins.Admin2VM();
             return View(model);
         }
 

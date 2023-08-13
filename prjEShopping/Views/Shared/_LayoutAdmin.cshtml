@@ -95,12 +95,11 @@
                     @if (canSeeTableC)
                     {
                         <a class="btn btn-primary dropdown-toggle d-block mt-2" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="d-none d-md-inline">買家管理設定</span><span class="d-sm-inline d-md-none ">買</span>
+                            <span class="d-none d-md-inline">會員管理設定</span><span class="d-sm-inline d-md-none ">會</span>
 
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">買家資料查詢</a></li>
-                            <li><a class="dropdown-item" href="#">買家權限設置</a></li>
+                            <li>@Html.ActionLink("會員資料權限", "Index", "AdminUsers", new { area = "" }, new { @class = "nav-link" })</li>
                             <li><a class="dropdown-item" href="#">購物車資料查詢</a></li>
                             <li><a class="dropdown-item" href="#">訂單資料查詢</a></li>
                         </ul>
@@ -112,9 +111,8 @@
 
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">商家資料查詢</a></li>
-                            <li><a class="dropdown-item" href="#">商家權限設置</a></li>
-                            <li><a class="dropdown-item" href="#">商品資料查詢</a></li>
+                            <li>@Html.ActionLink("商家資料權限", "Index", "AdminSellers", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("商品資料查詢", "Index", "AdminProducts", new { area = "" }, new { @class = "nav-link" })</li>
                             <li><a class="dropdown-item" href="#">出貨單資料查詢</a></li>
                             @*<li><a class="dropdown-item" href="#">商家優惠方案設置</a></li>*@
                             @*<li><a class="dropdown-item" href="#">商品分類設定</a></li>*@
@@ -144,7 +142,7 @@
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
                             <li>@Html.ActionLink("優惠券設置", "Index", "Coupons", new { area = "" }, new { @class = "nav-link" })</li>
                             <li>@Html.ActionLink("商家點數", "List", "ADPoints", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li><a class="dropdown-item" href="#">商家廣告</a></li>
+                            <li>@Html.ActionLink("商家廣告", "Index", "ADProducts", new { area = "" }, new { @class = "nav-link" })</li>
                             @*<li><a class="dropdown-item" href="#">站內折扣設置</a></li>*@
                             @*<li><a class="dropdown-item" href="@Url.Action("Index", "Coupons", new { id = 123 })">優惠券設置</a></li>*@
 
@@ -171,7 +169,7 @@
                             <span class="d-none d-md-inline">客服中心</span><span class="d-sm-inline d-md-none ">客</span>
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">客服管理區</a></li>
+                            <li>@Html.ActionLink("客服信件", "CSSList", "Support2", new { area = "" }, new { @class = "nav-link" })</li>
                             @*<li><a class="dropdown-item" href="#">即時訊息</a></li>*@
                             @*<li><a class="dropdown-item" href="#">站內檢舉</a></li>*@
                         </ul>

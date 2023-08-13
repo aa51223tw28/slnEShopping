@@ -18,6 +18,14 @@ namespace prjEShopping.Controllers
         // GET: AdminSellers
         public ActionResult Index()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             var model = AdminSellerChange.AdminSeller2VM(db.Sellers);
 
             return View(model);

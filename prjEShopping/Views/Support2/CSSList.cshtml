@@ -2,11 +2,12 @@
 
 @{
     ViewBag.Title = "CSSList";
-    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
 }
 
 <div class="container">
     <h2>客服後台列表</h2>
+    @Html.ActionLink("建立信件", "CSSSendMail", new { id = ViewBag.AdminId }, new { @class = "btn btn-primary my-2" })
     <table class="table table-primary table-bordered" id="myTable">
         <thead>
             <tr>
