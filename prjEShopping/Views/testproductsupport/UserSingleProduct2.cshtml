@@ -129,7 +129,7 @@
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-outline-primary btn rounded-pill btn-lg" id="trackProduct"  data-id="@(Model.ProductId)">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg" id="trackProduct" data-id="@(Model.ProductId)">
                             <i class="fas fa-heart custom-heart"></i>
                             加入追蹤
                         </button>
@@ -240,7 +240,7 @@
 
 
 
-    </div>
+</div>
 
 
 @*加入購物車跳出視窗*@
@@ -363,6 +363,23 @@
     </div>
 </div>
 
+
+@*投訴單已寄出*@
+<div class="modal" id="supportsendmodal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                投訴單已寄出。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonsuppor">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts{
@@ -559,9 +576,10 @@
                 processData: false,  // 告訴jQuery不要處理傳送的數據
                 contentType: false,  // 告訴jQuery不要設置contentType
                 success: function (data) {
-                    alert('投訴單已寄出');
+                    //alert('投訴單已寄出');
+                    $("#supportsendmodal").modal("show");
                 },
-                error: function (jqXHR, textStatus, errorThrown) {                    
+                error: function (jqXHR, textStatus, errorThrown) {
                     alert('寄送失敗');
                 },
                 complete: function () {
