@@ -28,10 +28,25 @@ namespace prjEShopping.Controllers
 
             var orderNum = orderdbNum + orderguid;//總共20個字元為何給綠界用 需要不重複 以免付款失敗
 
-            //總價
+            //總價有折扣+無折扣
             var orderid = db.Orders.Where(x => x.OrderNumber == orderdbNum).Select(x => x.OrderId).FirstOrDefault();
             var totalprice = db.OrderDetails.Where(x => x.OrderId == orderid).Sum(x => x.CurrentPrice * x.Quantity);
-            int total = (int)Math.Round((decimal)totalprice);
+
+            //運費
+            int shipPriceone = 60;//一家sellerid是60元
+            var sellerids = db.OrderDetails.Where(x => x.OrderId == orderid)
+                                            .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                            {
+                                                y.SellerId,
+                                            })
+                                            .Distinct()
+                                            .Count();
+            int shipPrice = shipPriceone * sellerids;
+
+            //優惠券
+
+
+            int total = (int)(totalprice + shipPrice);
 
             //買了什麼商品
             var items = db.OrderDetails.Where(x => x.OrderId == orderid)

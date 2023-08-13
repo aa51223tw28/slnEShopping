@@ -661,7 +661,7 @@ namespace prjEShopping.Controllers
             return Json(grandTotal, JsonRequestBehavior.AllowGet);
         }
 
-        private decimal totalgrandTotal(int sellerId)
+        public decimal totalgrandTotal(int sellerId)
         {
             var customerAccount = User.Identity.Name;
 
