@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 using prjEShopping.Models.EFModels;
@@ -19,6 +20,8 @@ namespace prjEShopping.Controllers
         public ActionResult List()
         {
             var model= db.ADPoints.ADPoint2VM().ToList();
+            var Sellers=db.Sellers.ToList();
+            ViewBag.Sellers = Sellers;
             return View(model);
         }
 

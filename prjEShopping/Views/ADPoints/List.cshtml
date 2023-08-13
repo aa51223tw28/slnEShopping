@@ -16,6 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.SellerId)
             </th>
+            <th>商家名稱</th>
             <th>
                 @Html.DisplayNameFor(model => model.GUINumber)
             </th>
@@ -33,9 +34,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td data-seller-id="@item.SellerId">
                     @Html.DisplayFor(modelItem => item.SellerId)
                 </td>
+                <td></td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GUINumber)
                 </td>
@@ -47,9 +49,24 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PaymentStatusName)
-                </td>              
+                </td>
             </tr>
         }
 
     </table>
 </div>
+
+@section Scripts{
+    <script>
+        var sellers = @Html.Raw(Json.Encode(ViewBag.Sellers));
+
+        $(document).ready(function () {
+            $('td[data-seller-id]').each(function () {
+                var sellerId = $(this).data('seller-id');
+                var storeName = sellers.find(s => s.SellerId == sellerId).StoreName;
+                $(this).next().text(storeName); // 假設下一個 <td> 是要顯示 StoreName 的地方
+            });
+        });
+    </script>
+    
+    }
