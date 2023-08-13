@@ -38,7 +38,7 @@ namespace prjEShopping.Controllers
         }
 
         public ActionResult CouponListForSeller(int? SellerId)
-        {
+        { //等接商家頁面
             SellerId = 1;
             if (SellerId != 0)
             {
@@ -48,9 +48,6 @@ namespace prjEShopping.Controllers
 
             return RedirectToAction("Index","Main");
         }
-
-
-        //todo 建立欄位商家專屬優惠券未連結商家資料庫
 
         // GET: Coupons/Create
         public ActionResult Create()
