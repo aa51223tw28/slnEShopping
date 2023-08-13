@@ -390,19 +390,19 @@
             receiverAddress.value = "台北市永和區..."
         })
 
-
+        var selectedCouponId = 0;
 
         //-----------------------呼叫優惠-券內容-------------------------
         document.addEventListener("DOMContentLoaded", async function () {
             const response = await fetch("/UserCart/getCouponName")
             const data = await response.json();
-            //console.log(data)
+            console.log(data)
 
             var couponname = document.querySelector("#couponname");
 
             //先新增一個預設的空選項
             var defaultOption = document.createElement("option");
-            defaultOption.value = "";
+            defaultOption.value = "請選擇優惠券";
             defaultOption.text = "請選擇優惠券";
             couponname.appendChild(defaultOption);
 
@@ -412,6 +412,20 @@
                 option.value = value.couponName;
                 option.text = value.couponName;
                 couponname.appendChild(option)
+            })
+
+            //選中哪個            
+            couponname.addEventListener("change", function () {
+                var selectedCouponName = couponname.value;
+                var selectedCoupon = data.find(function (coupon) {
+                    return coupon.couponName === selectedCouponName;
+                })
+                if (selectedCoupon) {
+                    selectedCouponId = selectedCoupon.couponId;                   
+                } else {
+                    selectedCouponId = 0;
+                }
+                //console.log(selectedCouponId)
             })
         })
 
@@ -461,7 +475,7 @@
 
         //優惠券
         async function getcouponPrice() {
-            const response = await fetch('/UserCart/getcouponPrice')
+            const response = await fetch("/UserCart/getcouponPrice?couponId=" + selectedCouponId)
             const couponPrice = await response.json();
             const formattedcouponPrice = couponPrice.toLocaleString();
             couponPriceid.textContent=formattedcouponPrice

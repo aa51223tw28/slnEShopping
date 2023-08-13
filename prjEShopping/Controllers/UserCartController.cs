@@ -2,6 +2,7 @@
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -649,7 +650,18 @@ namespace prjEShopping.Controllers
             return Json(totalcheckedCount, JsonRequestBehavior.AllowGet);           
         }
 
+
+        decimal grandTotal = 0;//總價=折扣+沒折扣
+
+
         public ActionResult GetTotalcheckedPrice()//總金額-有判斷是否有折扣UserCheckout UserShoppingCart都有呼叫此api
+        {
+
+            totalgrandTotal(0);
+            return Json(grandTotal, JsonRequestBehavior.AllowGet);
+        }
+
+        private decimal totalgrandTotal(int sellerId)
         {
             var customerAccount = User.Identity.Name;
 
@@ -657,43 +669,86 @@ namespace prjEShopping.Controllers
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
             var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
 
-            var now= DateTime.Now;//確保特價商品期間有符合當下才能有折扣,否則就原價
+            if (sellerId == 0)
+            {
+                var now = DateTime.Now;//確保特價商品期間有符合當下才能有折扣,否則就原價
 
-            var discountproductids=db.ADProducts.Where(x=>x.ADStartDate<= now&&x.ADEndDate>=now)
-                                                    .Select(x=>x.ProductId)
-                                                    .Distinct()
-                                                    .ToList();
+                var discountproductids = db.ADProducts.Where(x => x.ADStartDate <= now && x.ADEndDate >= now)
+                                                        .Select(x => x.ProductId)
+                                                        .Distinct()
+                                                        .ToList();
 
-            var datatotal = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
-                                 .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
-                                 {
-                                     Quantity = x.Quantity,
-                                     Price = y.Price,
-                                     SubTotal = (x.Quantity) * (y.Price),
-                                     ProductId=y.ProductId,
-                                 })
-                                 .Where(item=>!discountproductids.Contains(item.ProductId))
-                                 .ToList();
-            var totalPrice = datatotal.Sum(x => x.SubTotal);//只有沒折扣商品的加總
+                var datatotal = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                     .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                     {
+                                         Quantity = x.Quantity,
+                                         Price = y.Price,
+                                         SubTotal = (x.Quantity) * (y.Price),
+                                         ProductId = y.ProductId,
+                                     })
+                                     .Where(item => !discountproductids.Contains(item.ProductId))
+                                     .ToList();
+                var totalPrice = datatotal.Sum(x => x.SubTotal);//只有沒折扣商品的加總
 
-            var datatotaldis=db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
-                                    .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
-                                    {
-                                        Quantity = x.Quantity,
-                                        Price = y.Price,
-                                        Discount= db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount,
-                                        DiscountPrice= (y.Price)*(db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount)/100,
-                                        DiscountSubTotal =((y.Price) * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount) / 100)*(x.Quantity),
-                                        ProductId = y.ProductId,
-                                    })
-                                    .Where(item => discountproductids.Contains(item.ProductId))
-                                    .ToList();
-            var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);//有折扣的加總
+                var datatotaldis = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                        .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                        {
+                                            Quantity = x.Quantity,
+                                            Price = y.Price,
+                                            Discount = db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount,
+                                            DiscountPrice = (y.Price) * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount) / 100,
+                                            DiscountSubTotal = ((y.Price) * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount) / 100) * (x.Quantity),
+                                            ProductId = y.ProductId,
+                                        })
+                                        .Where(item => discountproductids.Contains(item.ProductId))
+                                        .ToList();
+                var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);//有折扣的加總
 
 
-            var grandTotal = totalPrice + totalDiscountSubTotal;
+                grandTotal = (decimal)(totalPrice + totalDiscountSubTotal);
+            }
+            else
+            {
+                var now = DateTime.Now;//確保特價商品期間有符合當下才能有折扣,否則就原價
 
-            return Json(grandTotal, JsonRequestBehavior.AllowGet);
+                var discountproductids = db.ADProducts.Where(x => x.ADStartDate <= now && x.ADEndDate >= now)
+                                                        .Select(x => x.ProductId)
+                                                        .Distinct()
+                                                        .ToList();
+
+                var datatotal = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                     .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                     {
+                                         Quantity = x.Quantity,
+                                         Price = y.Price,
+                                         SubTotal = (x.Quantity) * (y.Price),
+                                         ProductId = y.ProductId,
+                                         SellerId=y.SellerId,
+                                     })
+                                     .Where(item => !discountproductids.Contains(item.ProductId)&& item.SellerId == sellerId)//哪家商家的加總
+                                     .ToList();
+                var totalPrice = datatotal.Sum(x => x.SubTotal);//只有沒折扣商品的加總
+
+                var datatotaldis = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                        .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                        {
+                                            Quantity = x.Quantity,
+                                            Price = y.Price,
+                                            Discount = db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount,
+                                            DiscountPrice = (y.Price) * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount) / 100,
+                                            DiscountSubTotal = ((y.Price) * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == x.ProductId).Discount) / 100) * (x.Quantity),
+                                            ProductId = y.ProductId,
+                                            SellerId = y.SellerId,
+                                        })
+                                        .Where(item => discountproductids.Contains(item.ProductId) && item.SellerId == sellerId)//哪家商家的加總
+                                        .ToList();
+                var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);//有折扣的加總
+
+
+                grandTotal = (decimal)(totalPrice + totalDiscountSubTotal);
+            }
+            
+            return grandTotal;
         }
 
         [Authorize]
@@ -704,15 +759,27 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
 
+            var now = DateTime.Now;        
+
             var usercouponNames = db.UsersCoupons.Where(x => x.UserId == userid && x.CouponStatus == "可使用")
                                                 .Join(db.Coupons, x => x.CouponId, y => y.CouponId, (x, y) => new
-                                                {                                                    
-                                                    couponName=y.CouponDetails
-                                                }).ToList();
-            
+                                                {
+                                                    couponId = x.CouponId,
+                                                    couponName =y.CouponDetails,
+                                                    StartTime = y.StartTime,
+                                                    EndTime=y.EndTime,
+                                                    CouponTerms=y.CouponTerms,
+                                                    SellerId=y.SellerId,
+                                                })
+                                                .Where(x=>x.StartTime <= now && x.EndTime >= now)
+                                                .ToList();
+           
+
             return Json(usercouponNames, JsonRequestBehavior.AllowGet);
         }
 
+       
+       
         [Authorize]
         public ActionResult getshipPrice()//傳送運費
         {
@@ -739,9 +806,22 @@ namespace prjEShopping.Controllers
         
 
         [Authorize]
-        public ActionResult getcouponPrice()//優惠券
+        public ActionResult getcouponPrice(int couponId)//優惠券
         {
-            int couponPrice = 100;
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            int couponPrice = 0;
+            if (couponId == 0)//是選到請選擇優惠券
+            {
+                couponPrice = 0;
+            }
+
+            var couponidselect=db.Coupons.Where(x=>x.CouponId== couponId).Select(x=>x.CouponId).FirstOrDefault();
+
+
             return Json(couponPrice, JsonRequestBehavior.AllowGet);
         }
     }
