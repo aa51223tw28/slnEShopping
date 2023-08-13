@@ -135,7 +135,7 @@
                         </button>
                     </div>
                     <div class="col">
-                        <button class="btn-outline-primary btn rounded-pill btn-lg" data-bs-toggle="modal" data-bs-target="#reportModal" data-id="@(Model.ProductId)" data-userid="@ViewBag.UserId">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg" data-bs-toggle="modal" data-bs-target="#reportModal" data-productId="@(Model.ProductId)" data-userid="@ViewBag.UserId">
                             <i class="fa-solid fa-triangle-exclamation"></i>
                             投訴
                         </button>
@@ -327,7 +327,7 @@
                 <form id="complaintForm">
                     <div class="form-group">
                         <label for="complaintNumber">客訴單號：</label>
-                        <input type="text" class="form-control" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNumber" readonly>
+                        <input type="text" class="form-control" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNum" readonly>
                     </div>
                     <div class="form-group">
                         <input type="text" class="form-control" id="UserId" name="UserId" value="" readonly hidden>
@@ -338,7 +338,7 @@
                     </div>
                     <div class="form-group">
                         <label for="complaintProduct">投訴商品：</label>
-                        <input type="text" class="form-control" id="complaintProduct" value="@ViewBag.ProductName" readonly>
+                        <input type="text" class="form-control" id="complaintProduct" value="@Model.ProductName" readonly>
                         <input type="text" class="form-control" id="ProductId" name="ProductId" value="" readonly hidden>
                     </div>
                     <div class="form-group">
@@ -561,7 +561,7 @@
                 success: function (data) {
                     alert('投訴單已寄出');
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function (jqXHR, textStatus, errorThrown) {                    
                     alert('寄送失敗');
                 },
                 complete: function () {

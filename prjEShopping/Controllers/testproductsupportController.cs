@@ -3,9 +3,12 @@ using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace prjEShopping.Controllers
 {
@@ -115,6 +118,7 @@ namespace prjEShopping.Controllers
                 ViewBag.TotalQuantity = 0;
             }
             ViewBag.SupportNum = GenerateSupportNumberU();
+            ViewBag.UserId = userid;
             return View(datas);
         }
 
@@ -130,7 +134,7 @@ namespace prjEShopping.Controllers
                 s = SupportChange.VM2Support(vm);
                 db.Supports.Add(s);
                 db.SaveChanges();
-                return RedirectToAction("CSList");
+                return new EmptyResult();
             }
             return View(vm);
         }
@@ -173,25 +177,72 @@ namespace prjEShopping.Controllers
         }
 
         public static class SupportChange
-        {
-            public static SupportVM Support2VM(Support s)
+        {            
+            public static Support VM2Support(SupportVM vm)
             {
-                return new SupportVM
+                return new Support
                 {
-                    SupportId = s.SupportId,
-                    SupportNumber = s.SupportNumber,
-                    AdminId = s.AdminId,
-                    SellerId = s.SellerId,
-                    UserId = s.UserId,
-                    ProductId = s.ProductId,
-                    SupportType = s.SupportType,
-                    SupportTitle = s.SupportTitle,
-                    SupportText = s.SupportText,
-                    ReceivedTime = s.ReceivedTime,
-                    SupportStatus = s.SupportStatus,
-                    ImageLink = s.ImageLink,
+                    SupportId = vm.SupportId,
+                    SupportNumber = vm.SupportNumber,
+                    AdminId = vm.AdminId,
+                    SellerId = vm.SellerId,
+                    UserId = vm.UserId,
+                    ProductId = vm.ProductId,
+                    SupportType = vm.SupportType,
+                    SupportTitle = vm.SupportTitle,
+                    SupportText = vm.SupportText,
+                    ReceivedTime = vm.ReceivedTime,
+                    SupportStatus = vm.SupportStatus,
+                    ImageLink = vm.ImageLink,
                 };
             }
+
+        }
+
+        public partial class SupportVM
+        {
+            public int SupportId { get; set; }
+
+            [DisplayName("信件編號")]
+            [StringLength(50)]
+            public string SupportNumber { get; set; }
+
+            [DisplayName("管理員ID")]
+            public int? AdminId { get; set; }
+
+            [DisplayName("商家ID")]
+            public int? SellerId { get; set; }
+
+            [DisplayName("會員ID")]
+            public int? UserId { get; set; }
+
+            [DisplayName("商品ID")]
+            public int? ProductId { get; set; }
+
+            [DisplayName("信件類型")]
+            [StringLength(50)]
+            public string SupportType { get; set; }
+
+            [DisplayName("標題")]
+            [StringLength(50)]
+            public string SupportTitle { get; set; }
+
+            [DisplayName("內容")]
+            [StringLength(4000)]
+            public string SupportText { get; set; }
+
+            [DisplayName("發信時間")]
+            public DateTime? ReceivedTime { get; set; }
+
+            [DisplayName("信件狀態")]
+            [StringLength(50)]
+            public string SupportStatus { get; set; }
+
+            [DisplayName("上傳圖片")]
+            [StringLength(100)]
+            public string ImageLink { get; set; }
+
+            public HttpPostedFileBase ImageFile { get; set; }
         }
     }
 }
