@@ -274,4 +274,9 @@ namespace prjEShopping.Controllers
 
         public HttpPostedFileBase ImageFile { get; set; }
     }
+    public class SupportDetailViewModel
+    {
+        public SupportVM Support { get; set; }
+        public List<SupportReplayVM> SupportReplies { get; set; }
+    }
 }

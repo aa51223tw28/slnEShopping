@@ -127,6 +127,7 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult UserCSReplay(SupportReplayVM vm)
         {
+            var db = new AppDbContext();
             if (vm != null)
             {   //存圖..
                 imageAdd2(vm);
@@ -143,6 +144,25 @@ namespace prjEShopping.Controllers
             }
             return View(vm);
         }
+
+        private void imageAdd2(SupportReplayVM vm)
+        {
+            if (vm.ImageFile != null && vm.ImageFile.ContentLength > 0)
+            {
+                // 生成一個唯一的檔案名稱
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(vm.ImageFile.FileName);
+
+                // 指定檔案的保存路徑
+                var path = Path.Combine(Server.MapPath("~/img/"), fileName);
+
+                // 儲存檔案
+                vm.ImageFile.SaveAs(path);
+
+                // 將檔案名稱保存到Support模型的相應欄位
+                vm.ImageLink = fileName;
+            }
+        }
+
 
     }
 }
