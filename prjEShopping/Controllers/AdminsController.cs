@@ -24,7 +24,7 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "2")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
             {
                 return RedirectToAction("Login");
             }
@@ -38,7 +38,7 @@ namespace prjEShopping.Controllers
         public ActionResult Indexem()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="1")
             {                
                 return RedirectToAction("Login");
             }
@@ -52,11 +52,11 @@ namespace prjEShopping.Controllers
         public ActionResult Login()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie != null && authCookie.Values["status"] == "AdminLogin" &&authCookie.Values["AccessRightId"] == "2")
+            if (authCookie != null && authCookie.Values["status"] == "AdminLogin" &&authCookie.Values["AccessRightId"] == "1")
             {
                 return RedirectToAction("Index");
             }
-            else if (authCookie != null && authCookie.Values["AccessRightId"] != "2")
+            else if (authCookie != null && authCookie.Values["AccessRightId"] != "1")
             {
                 // 添加錯誤提示
                 ModelState.AddModelError("", "帳號不存在或無效。");
@@ -85,7 +85,7 @@ namespace prjEShopping.Controllers
                 {
                     HttpCookie authCookie = new HttpCookie("AdminLogin");
                     authCookie.Values["status"] = "AdminLogin";
-                    authCookie.Values["AccessRightId"] = account.AccessRightId.ToString(); //權限=2才開通
+                    authCookie.Values["AccessRightId"] = account.AccessRightId.ToString(); //權限=1才開通
                     authCookie.Values["userId"] = account.AdminId.ToString(); // 將用戶ID存儲在Cookie中
                     authCookie.Values["permissionsId"] = account.PermissionsId.ToString();
                     string encodedName = HttpUtility.UrlEncode(account.AdminName);
@@ -175,7 +175,7 @@ namespace prjEShopping.Controllers
                 string hash = hashPassword.CreateHashPassword(newPassword, out salt);
 
                 // 如果找到了相匹配的帳戶，更新帳戶狀態
-                Admin.AccessRightId = 2; //將身份設為"已驗證"
+                Admin.AccessRightId = 1; //將身份設為"已驗證"
                 Admin.EmailCheck = null; //清空token
                 Admin.AdminPassword = hash;
                 Admin.AdminPasswordSalt = salt;
@@ -202,7 +202,7 @@ namespace prjEShopping.Controllers
         public ActionResult Details(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="1")
             {
                 return RedirectToAction("Login");
             }
@@ -229,7 +229,7 @@ namespace prjEShopping.Controllers
         public ActionResult Create()
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="1")
             {
                 return RedirectToAction("Login");
             }
@@ -289,7 +289,7 @@ namespace prjEShopping.Controllers
             // 更新 ViewModel 中的密碼和鹽字段
             vm.AdminPassword = hash;
             vm.AdminPasswordSalt = salt;
-            vm.AccessRightId = 2;
+            vm.AccessRightId = 1;
             db.Admins.Add(AdminChange.VM2Admin(vm));
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -310,7 +310,7 @@ namespace prjEShopping.Controllers
         public ActionResult Edit(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="1")
             {
                 return RedirectToAction("Login");
             }
@@ -352,7 +352,7 @@ namespace prjEShopping.Controllers
         public ActionResult PasswordChange(int? id)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
-            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="2")
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"]!="1")
             {
                 return RedirectToAction("Login");
             }

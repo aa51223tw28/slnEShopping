@@ -47,7 +47,7 @@ namespace prjEShopping.Models.Infra
             var account = db.Admins.FirstOrDefault(a => a.AdminAccount == Account);
             if (account != null)
             {
-                account.AccessRightId = 3;
+                account.AccessRightId = 2;
                 account.EmailCheck = token;
                 db.SaveChanges();
             }
