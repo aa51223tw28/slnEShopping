@@ -1,4 +1,4 @@
-﻿@model prjEShopping.Controllers.CouponsController.PaginatedViewModel<prjEShopping.Models.ViewModels.CouponVM>
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.CouponVM>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
@@ -7,6 +7,7 @@
 <div class="col-10 bg-secondary overflow-auto pt-4">
     <h2 class="text-primary">優惠券列表</h2>
     <div id="dataContainer">
+        <hr />
         <div class="container overflow-auto">
             <p>
                 @Html.ActionLink("新增優惠券", "Create", null, new { @class = "btn btn-primary my-2" })
@@ -27,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Items)
+                    @foreach (var item in Model)
                     {
                         <tr>
                             <td>
@@ -78,17 +79,10 @@
 </div>
 @section Scripts{
 
-    <!-- DataTables JavaScript -->
-    @*<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>*@
     <!-- DataTables BS5版本-->
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 
     <script>
-        // 定義一個新的排序方法重要 不然金額排序會錯
-        $.fn.dataTable.ext.type.order['currency-pre'] = function (data) {
-            // 移除不需要的字符，例如 NT$ 和逗號，然後將其轉換為浮點數
-            return parseFloat(data.replace('NT$', '').replace(',', ''));
-        };
         $(document).ready(function () {
             $('#myTable').DataTable({
                 pageLength: 10, // 每頁顯示10筆資料
@@ -113,56 +107,12 @@
             });
         });
 
-        $(document).ready(function () {
-            $('.change-status-btn').click(function () {
-                var newStatusId = $(this).data('status');
-                var productId = $(this).data('product-id');
-                // AJAX call to server
-                $.ajax({
-                    url: '/AdminProducts/ChangeStatus',
-                    type: 'POST',
-                    data: { id: productId, statusId: newStatusId },
-                    success: function (response) {
-                        let r = ""
-                        if (response.newStatusId == "1")
-                            r = "審核中"
-                        else if (response.newStatusId == "2")
-                            r = "販售中"
-                        else if (response.newStatusId == "3")
-                            r = "下架中"
-
-                        var statusColor;
-                        switch (r) {
-                            case "審核中":
-                                statusColor = "text-white bg-danger";
-                                break;
-                            case "販售中":
-                                statusColor = "text-white bg-primary";
-                                break;
-                            case "下架中":
-                                statusColor = "text-primary bg-secondary";
-                                break;
-                            default:
-                                statusColor = "";  // 或任何你希望的默認樣式
-                                break;
-                        }
-                        // Update the displayed status
-                        $('tr').find('.statusDisplay[data-product-id="' + productId + '"]').text(r).attr('class', 'statusDisplay ' + statusColor);
-                    },
-                    error: function (error) {
-                        console.log("Error:", error);
-                    }
-                });
-            });
-        });
     </script>
 
 }
 
 @section Styles{
 
-    <!-- DataTables CSS -->
-    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">*@
     <!-- DataTables CSS BS5版本 -->
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 

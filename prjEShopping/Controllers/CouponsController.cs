@@ -23,208 +23,35 @@ namespace prjEShopping.Controllers
         //}
 
         //優惠券列表分頁專用
-        public ActionResult Index(int page = 1, int pageSize = 10)
+        public ActionResult Index()
         {
-            //todo 分類篩選頁面異常未排除
-            using (db)
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
             {
-                int totalItems = db.Coupons.Count();
-                //Skip(page - 1) * pageSize records and Take pageSize records
-                var items = db.Coupons
-                              .OrderBy(c => c.CouponId)  // 依照Id排序
-                              .Skip((page - 1) * pageSize)
-                              .Take(pageSize);
-
-                var vm = items.Select(c => new CouponVM
-                {
-                    CouponId = c.CouponId,
-                    SellerId = c.SellerId,
-                    CouponNumber = c.CouponNumber,
-                    CouponName = c.CouponName,
-                    CouponDetails = c.CouponDetails,
-                    Quantity = c.Quantity,
-                    ReceivedQuantity = c.ReceivedQuantity,
-                    CouponTerms = c.CouponTerms,
-                    CouponType = c.CouponType,
-                    Discount = c.Discount,
-                    Storewide = c.Storewide,
-                    StartTime = c.StartTime,
-                    ClaimDeadline = c.ClaimDeadline,
-                    EndTime = c.EndTime,
-                    EventStatus = c.EventStatus
-                }).ToList();
-
-
-                var model = new PaginatedViewModel<CouponVM>
-                {
-                    CurrentPage = page,
-                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
-                    Items = vm  //優惠券
-                };
-
-                //重要 要分開
-                if (Request.IsAjaxRequest())
-                {
-                    // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
-                    return PartialView("_IndexCoupons", model);
-                }
-                else
-                {
-                    // 如果不是 AJAX 请求，返回包含布局(Layout)的完整頁面
-                    return View(model);
-                }
+                return RedirectToAction("Login","Admins");
             }
-        }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
 
-        //todo 優惠券列表分頁VM未搬家
-        //優惠券分頁的VM 之後再搬家
-        public class PaginatedViewModel<CouponVM>
-        {
-            public int CurrentPage { get; set; }
-            public int TotalPages { get; set; }
-            public List<CouponVM> Items { get; set; }
-        }
+            var model = db.Coupons.Coupon2VM();
+            return View(model);
+            }
 
-        // GET: Coupons/Create
+
 
         //todo 建立欄位商家專屬優惠券未連結商家資料庫
 
-        // GET: Coupons/All
-        public ActionResult CouponsAll(int page = 1, int pageSize = 10)
-        {
-            using (db)
-            {
-
-                int totalItems = db.Coupons.Count();
-                //Skip(page - 1) * pageSize records and Take pageSize records
-                var items = db.Coupons
-                              .OrderBy(c => c.CouponId)  // 依照Id排序
-                              .Skip((page - 1) * pageSize)
-                              .Take(pageSize);
-
-                var vm = items.Select(c => new CouponVM
-                {
-                    CouponId = c.CouponId,
-                    SellerId = c.SellerId,
-                    CouponNumber = c.CouponNumber,
-                    CouponName = c.CouponName,
-                    CouponDetails = c.CouponDetails,
-                    Quantity = c.Quantity,
-                    ReceivedQuantity = c.ReceivedQuantity,
-                    CouponTerms = c.CouponTerms,
-                    CouponType = c.CouponType,
-                    Discount = c.Discount,
-                    Storewide = c.Storewide,
-                    StartTime = c.StartTime,
-                    ClaimDeadline = c.ClaimDeadline,
-                    EndTime = c.EndTime,
-                    EventStatus = c.EventStatus
-                }).ToList();
-
-
-                var model = new PaginatedViewModel<CouponVM>
-                {
-                    CurrentPage = page,
-                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),  //取整數
-                    Items = vm  //優惠券
-                };
-
-                // 如果是 AJAX 请求，只返回包含表格和分頁的視圖
-                return PartialView("_IndexCoupons", model);
-            }
-        }
-
-
-        // GET: Coupons/CouponsOpening
-        public ActionResult CouponsOpening(int page = 1, int pageSize = 10)
-        {
-            using (db)
-            {
-                var openCoupons = db.Coupons.Where(c => c.EndTime > DateTime.Now);
-                int totalItems = openCoupons.Count();
-                var items = openCoupons
-                   .OrderBy(c => c.CouponId)
-                   .Skip((page - 1) * pageSize)
-                   .Take(pageSize);
-
-                var vm = items.Select(c => new CouponVM
-                {
-                    CouponId = c.CouponId,
-                    SellerId = c.SellerId,
-                    CouponNumber = c.CouponNumber,
-                    CouponName = c.CouponName,
-                    CouponDetails = c.CouponDetails,
-                    Quantity = c.Quantity,
-                    ReceivedQuantity = c.ReceivedQuantity,
-                    CouponTerms = c.CouponTerms,
-                    CouponType = c.CouponType,
-                    Discount = c.Discount,
-                    Storewide = c.Storewide,
-                    StartTime = c.StartTime,
-                    ClaimDeadline = c.ClaimDeadline,
-                    EndTime = c.EndTime,
-                    EventStatus = c.EventStatus
-                }).ToList();
-
-                var model = new PaginatedViewModel<CouponVM>
-                {
-                    CurrentPage = page,
-                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    Items = vm
-                };
-
-                //return new EmptyResult();
-                return PartialView("_IndexCoupons", model);
-
-            }
-        }
-
-        public ActionResult CouponsClosing(int page = 1, int pageSize = 10)
-        {
-            using (db)
-            {
-                var openCoupons = db.Coupons.Where(c => c.EndTime < DateTime.Now);
-                int totalItems = openCoupons.Count();
-                var items = openCoupons
-                   .OrderBy(c => c.CouponId)
-                   .Skip((page - 1) * pageSize)
-                   .Take(pageSize)
-                   .ToList();
-
-                var vm = items.Select(c => new CouponVM
-                {
-                    CouponId = c.CouponId,
-                    SellerId = c.SellerId,
-                    CouponNumber = c.CouponNumber,
-                    CouponName = c.CouponName,
-                    CouponDetails = c.CouponDetails,
-                    Quantity = c.Quantity,
-                    ReceivedQuantity = c.ReceivedQuantity,
-                    CouponTerms = c.CouponTerms,
-                    CouponType = c.CouponType,
-                    Discount = c.Discount,
-                    Storewide = c.Storewide,
-                    StartTime = c.StartTime,
-                    ClaimDeadline = c.ClaimDeadline,
-                    EndTime = c.EndTime,
-                    EventStatus = c.EventStatus
-                }).ToList();
-
-                var model = new PaginatedViewModel<CouponVM>
-                {
-                    CurrentPage = page,
-                    TotalPages = (int)Math.Ceiling(totalItems / (double)pageSize),
-                    Items = vm
-                };
-
-                //return new EmptyResult();
-                return PartialView("_IndexCoupons", model);
-
-            }
-        }
-
+        // GET: Coupons/Create
         public ActionResult Create()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             List<string> CouponsNums = db.Coupons.Select(a => a.CouponNumber).ToList();
 
             var date = DateTime.Now;
@@ -297,6 +124,14 @@ namespace prjEShopping.Controllers
         // GET: Coupons/Edit/5
         public ActionResult Edit(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
