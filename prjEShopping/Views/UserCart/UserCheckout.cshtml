@@ -396,7 +396,7 @@
         document.addEventListener("DOMContentLoaded", async function () {
             const response = await fetch("/UserCart/getCouponName")
             const data = await response.json();
-            console.log(data)
+            //console.log(data)
 
             var couponname = document.querySelector("#couponname");
 
@@ -426,6 +426,7 @@
                     selectedCouponId = 0;
                 }
                 //console.log(selectedCouponId)
+                getcouponPrice()
             })
         })
 

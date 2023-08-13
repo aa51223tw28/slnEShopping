@@ -283,7 +283,7 @@ namespace prjEShopping.Controllers
                 var product = db.Products.FirstOrDefault(x => x.ProductId == item.ProductId);
                 var isDiscounted = IsInDiscountPeriod((int)item.ProductId);//如果有折扣商品判斷時間
                 var discount = db.ADProducts.FirstOrDefault(ad => ad.ProductId == item.ProductId)?.Discount ?? 0;
-                var currentPrice = isDiscounted ? (product.Price * discount/100) : product.Price;
+                var currentPrice = isDiscounted ? Math.Round((decimal)(product.Price * discount / 100), 0, MidpointRounding.AwayFromZero) : product.Price;
 
 
                 var orderDetail = new OrderDetail
@@ -752,7 +752,7 @@ namespace prjEShopping.Controllers
         }
 
         [Authorize]
-        public ActionResult getCouponName()
+        public ActionResult getCouponName()//獲得優惠券名稱
         {
             var customerAccount = User.Identity.Name;
 
@@ -826,14 +826,45 @@ namespace prjEShopping.Controllers
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var cartid = db.ShoppingCarts.Where(x => x.UserId == userid).OrderByDescending(x => x.CartId).Select(x => x.CartId).FirstOrDefault();
+
+            var sellerids = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.AddToOrder == "1")
+                                                    .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                                    {
+                                                        y.SellerId,
+                                                    })
+                                                    .Distinct()
+                                                    .Count();
+
 
             int couponPrice = 0;
-            if (couponId == 0)//是選到請選擇優惠券
+            if (couponId == 0)//是選到 請選擇優惠券
             {
                 couponPrice = 0;
             }
+            else
+            {
+                var couponidselect = db.Coupons.Where(x => x.CouponId == couponId).FirstOrDefault();
+                if (couponidselect.CouponType == "抵用券")
+                {
+                    couponPrice = int.Parse(couponidselect.Discount);
+                }
+                else if (couponidselect.CouponType == "免運券"&& couponidselect.SellerId==0)
+                {
+                    couponPrice = int.Parse(couponidselect.Discount) * sellerids;
+                }
+                else if (couponidselect.CouponType == "免運券" && couponidselect.SellerId != 0)
+                {
+                    couponPrice = int.Parse(couponidselect.Discount);
+                }
+                else if (couponidselect.CouponType == "折價券")
+                {
+                    var subtotal = totalgrandTotal((int)couponidselect.SellerId);
+                    var discount = decimal.Parse(couponidselect.Discount) / 100;
+                    couponPrice = (int)(decimal)(subtotal * (1-discount));
+                }
 
-            var couponidselect=db.Coupons.Where(x=>x.CouponId== couponId).Select(x=>x.CouponId).FirstOrDefault();
+            }           
 
 
             return Json(couponPrice, JsonRequestBehavior.AllowGet);
