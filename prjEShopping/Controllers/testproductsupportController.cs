@@ -177,7 +177,33 @@ namespace prjEShopping.Controllers
         }
 
         public static class SupportChange
-        {            
+        {
+            public static SupportVM Support2VM(Support s)
+            {
+                return new SupportVM
+                {
+                    SupportId = s.SupportId,
+                    SupportNumber = s.SupportNumber,
+                    AdminId = s.AdminId,
+                    SellerId = s.SellerId,
+                    UserId = s.UserId,
+                    ProductId = s.ProductId,
+                    SupportType = s.SupportType,
+                    SupportTitle = s.SupportTitle,
+                    SupportText = s.SupportText,
+                    ReceivedTime = s.ReceivedTime,
+                    SupportStatus = s.SupportStatus,
+                    ImageLink = s.ImageLink,
+                };
+            }
+            public static List<SupportVM> Support2VM(this IEnumerable<Support> source)
+            {
+                if (source == null || source.Count() == 0)
+                {
+                    return Enumerable.Empty<SupportVM>().ToList();
+                }
+                return source.Select(s => Support2VM(s)).ToList();
+            }
             public static Support VM2Support(SupportVM vm)
             {
                 return new Support
