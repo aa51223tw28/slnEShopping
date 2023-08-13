@@ -227,58 +227,61 @@
     <div class="container mt-3 bg-success rounded pb-3">
         <div class="d-flex justify-content-between">
             <h2 class="pt-3 ps-2 fw-bold fs-3 text">折價券專區</h2>
-            <button class="btn btn-warning my-2" type="button">查看全部...</button>
+            @*<button class="btn btn-warning my-2" type="button">查看全部...</button>*@
+            <a href="@Url.Action("UserCouponList", "UserCoupon")">
+                <input type="button" class="btn btn-warning my-2" value="查看全部..." />
+            </a>
         </div>
         <div class="bg-white border-1 d-flex flex-wrap">
-            <div class="d-flex me-2 coupon-item mb-2">
-                <img src="~/img/coupon.png" alt="">
-                <div class="d-flex flex-column p-2 bg-info">
-                    <span>Apple折價券</span>
-                    <span>Apple全館打85折</span>
-                    <span>20230701-20230731</span>
-                    <div class="d-flex">
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
+            @*<div class="d-flex me-2 coupon-item mb-2">
+            <img src="~/img/coupon.png" alt="">
+            <div class="d-flex flex-column p-2 bg-info">
+                <span>Apple折價券</span>
+                <span>Apple全館打85折</span>
+                <span>20230701-20230731</span>
+                <div class="d-flex">
+                    <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                    <button type="button" class="btn btn-secondary ms-3">領取</button>
                 </div>
             </div>
-            <div class="d-flex me-2 coupon-item mb-2">
-                <img src="~/img/coupon.png" alt="">
-                <div class="d-flex flex-column p-2 bg-info">
-                    <span>Apple折價券</span>
-                    <span>Apple全館打85折</span>
-                    <span>20230701-20230731</span>
-                    <div class="d-flex">
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
+        </div>
+        <div class="d-flex me-2 coupon-item mb-2">
+            <img src="~/img/coupon.png" alt="">
+            <div class="d-flex flex-column p-2 bg-info">
+                <span>Apple折價券</span>
+                <span>Apple全館打85折</span>
+                <span>20230701-20230731</span>
+                <div class="d-flex">
+                    <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                    <button type="button" class="btn btn-secondary ms-3">領取</button>
                 </div>
             </div>
-            <div class="d-flex me-2 coupon-item mb-2">
-                <img src="~/img/coupon.png" alt="">
-                <div class="d-flex flex-column p-2 bg-info">
-                    <span>Apple折價券</span>
-                    <span>Apple全館打85折</span>
-                    <span>20230701-20230731</span>
-                    <div class="d-flex">
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
+        </div>
+        <div class="d-flex me-2 coupon-item mb-2">
+            <img src="~/img/coupon.png" alt="">
+            <div class="d-flex flex-column p-2 bg-info">
+                <span>Apple折價券</span>
+                <span>Apple全館打85折</span>
+                <span>20230701-20230731</span>
+                <div class="d-flex">
+                    <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                    <button type="button" class="btn btn-secondary ms-3">領取</button>
                 </div>
             </div>
-            <div class="d-flex me-2 coupon-item mb-2">
-                <img src="~/img/coupon.png" alt="">
-                <div class="d-flex flex-column p-2 bg-info">
-                    <span>Apple折價券</span>
-                    <span>Apple全館打85折</span>
-                    <span>20230701-20230731</span>
-                    <div class="d-flex">
-                        <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
+        </div>
+        <div class="d-flex me-2 coupon-item mb-2">
+            <img src="~/img/coupon.png" alt="">
+            <div class="d-flex flex-column p-2 bg-info">
+                <span>Apple折價券</span>
+                <span>Apple全館打85折</span>
+                <span>20230701-20230731</span>
+                <div class="d-flex">
+                    <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                    <button type="button" class="btn btn-secondary ms-3">領取</button>
                 </div>
             </div>
-
+        </div>*@
+            @Html.Action("CouponListForMain", "Coupons")
         </div>
     </div>
 

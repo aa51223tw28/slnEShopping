@@ -455,6 +455,7 @@
     <Content Include="Views\Support2\CSBReplay.cshtml" />
     <Content Include="Views\Shared\_LayoutAdminelse.cshtml" />
     <Content Include="Views\Coupons\CouponListForSeller.cshtml" />
+    <Content Include="Views\Coupons\CouponListForMain.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -49,6 +49,14 @@ namespace prjEShopping.Controllers
             return RedirectToAction("Index","Main");
         }
 
+        public ActionResult CouponListForMain()
+        { //接主頁面
+            var model = db.Coupons.Where(x => x.EndTime > DateTime.Now).Coupon2VM();
+            var random = new Random();
+            var randomItems = model.OrderBy(x => random.Next()).Take(4).ToList();
+            return View(randomItems);
+        }
+
         // GET: Coupons/Create
         public ActionResult Create()
         {
