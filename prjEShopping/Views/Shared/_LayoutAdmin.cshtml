@@ -143,7 +143,7 @@
                         </a>
                         <ul class="dropdown-menu bg-info" aria-labelledby="dropdownMenuLink">
                             <li>@Html.ActionLink("優惠券設置", "Index", "Coupons", new { area = "" }, new { @class = "nav-link" })</li>
-                            <li><a class="dropdown-item" href="#">商家點數</a></li>
+                            <li>@Html.ActionLink("商家點數", "List", "ADPoints", new { area = "" }, new { @class = "nav-link" })</li>
                             <li><a class="dropdown-item" href="#">商家廣告</a></li>
                             @*<li><a class="dropdown-item" href="#">站內折扣設置</a></li>*@
                             @*<li><a class="dropdown-item" href="@Url.Action("Index", "Coupons", new { id = 123 })">優惠券設置</a></li>*@
