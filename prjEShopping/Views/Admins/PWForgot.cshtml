@@ -15,10 +15,22 @@
             <input type="submit" id="SendEmail" value="送出" class="btn btn-primary my-2" />
             <a href="@Url.Action("Login", "Admins")" class="btn btn-danger my-2">取消</a>
         </form>
+        <button type="button" id="btn1" class="btn btn-info">主管信箱</button>
         @if (ViewBag.Message != null)
         {
             <p class="text-danger">@ViewBag.Message</p>
         }
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#btn1').click(function () {
+                $('#AdminAccount').val('sjh.jason@gmail.com');
+            })
+            });
+
+   </script>
+    }
 
