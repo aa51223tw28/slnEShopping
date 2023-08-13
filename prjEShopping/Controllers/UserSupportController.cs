@@ -9,7 +9,7 @@ namespace prjEShopping.Controllers
     public class UserSupportController : Controller
     {
         // GET: UserSupport
-        public ActionResult Index()
+        public ActionResult UserCSList()
         {
             return View();
         }

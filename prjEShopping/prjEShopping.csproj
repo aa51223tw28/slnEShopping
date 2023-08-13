@@ -444,6 +444,7 @@
     <Content Include="Views\UserECpay\ToECpay.cshtml" />
     <Content Include="Views\UserECpay\PayInfo.cshtml" />
     <Content Include="Views\testproductsupport\UserSingleProduct2.cshtml" />
+    <Content Include="Views\UserSupport\UserCSList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -457,7 +458,6 @@
     <Folder Include="Models\DAOs\" />
     <Folder Include="Views\Google\" />
     <Folder Include="Views\SellerProductCreateApi\" />
-    <Folder Include="Views\UserSupport\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
