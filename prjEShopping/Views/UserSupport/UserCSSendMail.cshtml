@@ -1,0 +1,167 @@
+﻿@model prjEShopping.Controllers.SupportVM
+@*上面的vm要改*@
+
+@{
+    ViewBag.Title = "UserCSSendMail";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="bg-light">
+    <div class="container py-3">
+        <div class="row py-2 gx-5">
+            <div class="col-sm-auto col-md-3 bg-light">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <img src="" class="img-fluid" id="userImagePath" style="width:130px">
+                        <span class="fw-bold ms-3" id="username"></span>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                    <div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    我的帳戶
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="link-blue text-decoration-none fw-bold">個人檔案</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserMembers/UserEditPassword")" class="link-blue text-decoration-none fw-bold">修改密碼</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    我的焦點
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserOrder/UserOrderDetailAll")" class="link-blue text-decoration-none fw-bold">購買清單</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserCoupon/UserCouponList")" class="link-blue text-decoration-none fw-bold">優惠券</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowProduct")" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowSeller")" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserSupport/UserCSList")" class="link-blue text-decoration-none fw-bold">聯絡客服</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                </div>
+            </div>
+
+            <!-- 右邊分頁區 -->
+            <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+                <p class="fs-4 mt-3 fw-bold">用戶支援</p>
+                <hr>
+                <div class="row">
+
+                    @using (Html.BeginForm("UserCSSendMail", "UserSupport", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        
+                        <div class="container">
+                            <input type="text" id="SupportStatus" name="SupportStatus" value="新進單" hidden />
+                            @Html.ValidationMessageFor(model => model.SupportStatus, "", new { @class = "text-danger" })
+                            <input type="datetime" id="ReceivedTime" name="ReceivedTime" value="@DateTime.Now" hidden />
+                            @Html.ValidationMessageFor(model => model.ReceivedTime, "", new { @class = "text-danger" })
+                            <input type="text" class="form-control" id="UserId" name="UserId" value="@ViewBag.UserId" readonly hidden />
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                           
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SupportNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="text" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNum" readonly />
+                                    @Html.ValidationMessageFor(model => model.SupportNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SupportType, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <select class="form-control" id="SupportType" name="SupportType" required>
+                                        <option value="商品投訴">商品投訴</option>
+                                        <option value="商家問題">商家問題</option>
+                                        <option value="會員問題">會員問題</option>
+                                        <option value="平台問題">平台問題</option>
+                                        <option value="其他協助">其他協助</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.SupportType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SupportTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" required />
+                                    @Html.ValidationMessageFor(model => model.SupportTitle, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SupportText, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="SupportText" name="SupportText" style="height:300px" required></textarea>
+                                    @Html.ValidationMessageFor(model => model.SupportText, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ImageLink, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <input class="form-control" type="file" id="ImageFile" name="ImageFile">
+                                    <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="寄出信件" class="btn btn-primary mt-2" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div>
+                        @Html.ActionLink("取消", "UserCSList", null, new { @class = "btn btn-secondary my-2" })
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+
+    </script>
+
+
+}
+
+@section Styles{
+
+}

@@ -445,6 +445,8 @@
     <Content Include="Views\UserECpay\PayInfo.cshtml" />
     <Content Include="Views\testproductsupport\UserSingleProduct2.cshtml" />
     <Content Include="Views\UserSupport\UserCSList.cshtml" />
+    <Content Include="Views\UserSupport\UserCSSendMail.cshtml" />
+    <Content Include="Views\UserSupport\UserCSReplay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

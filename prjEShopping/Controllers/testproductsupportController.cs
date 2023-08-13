@@ -139,7 +139,7 @@ namespace prjEShopping.Controllers
             return View(vm);
         }
 
-        //user 寄送
+        
         public string GenerateSupportNumberU()
         {
             var db = new AppDbContext();
