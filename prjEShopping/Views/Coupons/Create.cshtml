@@ -53,11 +53,11 @@
                 <div class="col-md-6">
                     <select id="CouponTerms" name="CouponTerms" class="form-control" required>
                         <option value="" disabled selected>請選擇</option>
-                        <option>滿2000</option>
-                        <option>滿5000</option>
-                        <option>滿10000</option>
-                        <option>週年慶期間</option>
-                        <option>生日月期間</option>
+                        <option value="2000">滿2000</option>
+                        <option value="5000">滿5000</option>
+                        <option value="10000">滿10000</option>
+                        <option value="years">週年慶期間</option>
+                        <option value="birthday">生日月期間</option>
                     </select>
                     @Html.ValidationMessageFor(model => model.CouponTerms, "", new { @class = "text-danger" })
                 </div>
