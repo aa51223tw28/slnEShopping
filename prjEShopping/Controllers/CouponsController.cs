@@ -28,15 +28,26 @@ namespace prjEShopping.Controllers
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
             if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
             {
-                return RedirectToAction("Login","Admins");
+                return RedirectToAction("Login", "Admins");
             }
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
 
             var model = db.Coupons.Coupon2VM();
             return View(model);
+        }
+
+        public ActionResult CouponListForSeller(int? SellerId)
+        {
+            SellerId = 1;
+            if (SellerId != 0)
+            {
+                var model = db.Coupons.Where(x => x.SellerId == SellerId).Coupon2VM();
+                return View(model);
             }
 
+            return RedirectToAction("Index","Main");
+        }
 
 
         //todo 建立欄位商家專屬優惠券未連結商家資料庫
