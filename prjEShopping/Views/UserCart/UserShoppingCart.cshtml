@@ -458,6 +458,7 @@
         async function getTotalcheckedPrice() {
             const response = await fetch('/UserCart/GetTotalcheckedPrice');
             const price = await response.json();
+            console.log(price)
             
             const formattedPrice = price.toLocaleString();
 

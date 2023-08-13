@@ -705,7 +705,7 @@ namespace prjEShopping.Controllers
                 var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);//有折扣的加總
 
 
-                grandTotal = (decimal)(totalPrice + totalDiscountSubTotal);
+                grandTotal = Math.Round((decimal)(totalPrice + totalDiscountSubTotal), 0, MidpointRounding.AwayFromZero);
             }
             else
             {
@@ -745,7 +745,7 @@ namespace prjEShopping.Controllers
                 var totalDiscountSubTotal = datatotaldis.Sum(x => x.DiscountSubTotal);//有折扣的加總
 
 
-                grandTotal = (decimal)(totalPrice + totalDiscountSubTotal);
+                grandTotal = Math.Round((decimal)(totalPrice + totalDiscountSubTotal), 0, MidpointRounding.AwayFromZero);
             }
             
             return grandTotal;
@@ -773,9 +773,23 @@ namespace prjEShopping.Controllers
                                                 })
                                                 .Where(x=>x.StartTime <= now && x.EndTime >= now)
                                                 .ToList();
-           
 
-            return Json(usercouponNames, JsonRequestBehavior.AllowGet);
+            var usercouponNameslist = new List<dynamic>();//dynamic不指定型別
+
+            foreach (var coupon in usercouponNames)//尋覽購物車中的各商家小計(有無折扣)是否有>=CouponTerms
+            {
+                decimal couponTerms = 0;
+                if(decimal.TryParse(coupon.CouponTerms, out couponTerms))
+                {
+                    decimal subtotal = totalgrandTotal((int)coupon.SellerId);//算出該店小計
+                    if(subtotal>= couponTerms)
+                    {
+                        usercouponNameslist.Add(coupon);
+                    }
+                }
+            }
+
+            return Json(usercouponNameslist, JsonRequestBehavior.AllowGet);
         }
 
        
