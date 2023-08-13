@@ -456,6 +456,14 @@
     <Content Include="Views\Shared\_LayoutAdminelse.cshtml" />
     <Content Include="Views\Coupons\CouponListForSeller.cshtml" />
     <Content Include="Views\Coupons\CouponListForMain.cshtml" />
+    <Content Include="Views\AdminSellers\Details.cshtml" />
+    <Content Include="Views\AdminSellers\Edit.cshtml" />
+    <Content Include="Views\AdminSellers\Index.cshtml" />
+    <Content Include="Views\AdminUsers\Create.cshtml" />
+    <Content Include="Views\AdminUsers\Delete.cshtml" />
+    <Content Include="Views\AdminUsers\Details.cshtml" />
+    <Content Include="Views\AdminUsers\Edit.cshtml" />
+    <Content Include="Views\AdminUsers\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
