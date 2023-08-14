@@ -1071,8 +1071,7 @@ namespace prjEShopping.Controllers
 
             return result.ToString();
         }
-
-        [Authorize]
+        
         public ActionResult PayInfo()
         {
             var customerAccount = User.Identity.Name;
