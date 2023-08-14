@@ -35,7 +35,12 @@
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Index", "ADProducts")">廣告中心</a>
+                                @{ var authCookie = Request.Cookies["AdminLogin"];
+                                    var permissionsId = authCookie?.Values["permissionsId"];}
+                                @if (permissionsId == "1" || permissionsId == "2" || permissionsId == "5")
+                                {
+                                    <a class="nav-link" href="@Url.Action("Index", "ADProducts")">廣告中心</a>
+                                }
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="@Url.Action("CSSList", "Support2")">客服中心</a>

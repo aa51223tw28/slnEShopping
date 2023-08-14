@@ -8,6 +8,10 @@
 <div class="container">
     <h2>客服後台列表</h2>
     @Html.ActionLink("建立信件", "CSSSendMail", new { id = ViewBag.AdminId }, new { @class = "btn btn-primary my-2" })
+    <button id="newMail" class="btn btn-secondary my-2 ms-2">新進單</button>
+    <button id="reMail" class="btn btn-secondary my-2 ms-2">待回覆</button>
+    <button id="replaiedMail" class="btn btn-info my-2 ms-2">已回覆</button>
+    <button id="allMail" class="btn btn-info my-2 ms-2">全信件</button>
     <table class="table table-primary table-bordered" id="myTable">
         <thead>
             <tr>
@@ -51,7 +55,30 @@
                         @Html.DisplayFor(modelItem => item.ReceivedTime)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.SupportStatus)
+                        @if (item.SupportStatus == "新進單")
+                        {
+                            <span class="bg-danger text-white">新進單</span>
+                        }
+                        else if (item.SupportStatus == "待回覆")
+                        {
+                            <span class="bg-secondary">待回覆</span>
+                        }
+                        else if (item.SupportStatus == "已回覆")
+                        {
+                            <span class="bg-info">已回覆</span>
+                        }
+                        else if (item.SupportStatus == "新寄送")
+                        {
+                            <span class="bg-lightyellow">新寄送</span>
+                        }
+                        else if (item.SupportStatus == "已完成")
+                        {
+                            <span class="bg-primary text-white-50">已完成</span>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.SupportStatus)
+                        }
                     </td>
                     <td>
                         @Html.ActionLink("回覆", "CSSReplay", new { id = item.SupportId }, new { @class = "btn btn-primary" })
@@ -85,52 +112,24 @@
                 infoEmpty: "顯示 0 到 0 的 0 筆資料",
                 //下拉選單
                 lengthMenu: "顯示 _MENU_ 筆資料",
-            }
+                }
         });
+            var table = $('#myTable').DataTable();
+            $('#newMail').on('click', function () {
+                table.column(4).search('新進單').draw();
+            });
+            $('#reMail').on('click', function () {
+                table.column(4).search('待回覆').draw();
+            });
+            $('#replaiedMail').on('click', function () {
+                table.column(4).search('已回覆').draw();
+            });
+            $('#allMail').on('click', function () {
+                table.column(4).search('').draw();
+            });
         });
 
-        $(document).ready(function () {
-        $('.change-status-btn').click(function () {
-        var newStatusId = $(this).data('status');
-        var productId = $(this).data('product-id');
-        // AJAX call to server
-        $.ajax({
-        url: '/AdminProducts/ChangeStatus',
-        type: 'POST',
-        data: { id: productId, statusId: newStatusId },
-        success: function (response) {
-        let r = ""
-        if (response.newStatusId == "1")
-        r = "審核中"
-        else if (response.newStatusId == "2")
-        r = "販售中"
-        else if (response.newStatusId == "3")
-        r = "下架中"
 
-        var statusColor;
-        switch (r) {
-        case "審核中":
-        statusColor = "text-white bg-danger";
-        break;
-        case "販售中":
-        statusColor = "text-white bg-primary";
-        break;
-        case "下架中":
-        statusColor = "text-primary bg-secondary";
-        break;
-        default:
-        statusColor = "";  // 或任何你希望的默認樣式
-        break;
-        }
-        // Update the displayed status
-        $('tr').find('.statusDisplay[data-product-id="' + productId + '"]').text(r).attr('class', 'statusDisplay ' + statusColor);
-        },
-        error: function (error) {
-        console.log("Error:", error);
-        }
-        });
-        });
-        });
     </script>
 
 }
