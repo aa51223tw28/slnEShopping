@@ -16,5 +16,7 @@ namespace prjEShopping.Models.EFModels
         public string SpecificationName { get; set; }
 
         public int? SubcategoryId { get; set; }
+
+        public virtual ProductSubCategory ProductSubCategory { get; set; }
     }
 }

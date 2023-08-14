@@ -292,6 +292,7 @@
     <Compile Include="Models\EFModels\ShoppingCartDetail.cs" />
     <Compile Include="Models\EFModels\Support.cs" />
     <Compile Include="Models\EFModels\SupportReplay.cs" />
+    <Compile Include="Models\EFModels\sysdiagram.cs" />
     <Compile Include="Models\EFModels\TrackProduct.cs" />
     <Compile Include="Models\EFModels\TrackSeller.cs" />
     <Compile Include="Models\EFModels\User.cs" />

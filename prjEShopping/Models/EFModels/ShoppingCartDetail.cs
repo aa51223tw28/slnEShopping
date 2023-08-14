@@ -19,5 +19,9 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string AddToOrder { get; set; }
+
+        public virtual Product Product { get; set; }
+
+        public virtual ShoppingCart ShoppingCart { get; set; }
     }
 }

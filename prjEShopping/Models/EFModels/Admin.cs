@@ -45,5 +45,9 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(100)]
         public string EmailCheck { get; set; }
+
+        public virtual AccessRight AccessRight { get; set; }
+
+        public virtual Permission Permission { get; set; }
     }
 }

@@ -28,5 +28,11 @@ namespace prjEShopping.Models.EFModels
         public DateTime? PickDate { get; set; }
 
         public int? ShipmentStatusId { get; set; }
+
+        public virtual Order Order { get; set; }
+
+        public virtual Seller Seller { get; set; }
+
+        public virtual ShipmentStatusDetail ShipmentStatusDetail { get; set; }
     }
 }

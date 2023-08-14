@@ -13,5 +13,9 @@ namespace prjEShopping.Models.EFModels
         public int? UserId { get; set; }
 
         public int? SellerId { get; set; }
+
+        public virtual Seller Seller { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

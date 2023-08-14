@@ -17,9 +17,7 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<ADPoint> ADPoints { get; set; }
         public virtual DbSet<ADProduct> ADProducts { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<ChatroomMember> ChatroomMembers { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
@@ -44,20 +42,29 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<SupportReplay> SupportReplaies { get; set; }
         public virtual DbSet<Support> Supports { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TrackProduct> TrackProducts { get; set; }
         public virtual DbSet<TrackSeller> TrackSellers { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UsersCoupon> UsersCoupons { get; set; }
+        public virtual DbSet<ChatroomMember> ChatroomMembers { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Message>()
-                .Property(e => e.SenderId)
-                .IsFixedLength();
-
             modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.CurrentPrice)
                 .HasPrecision(19, 4);
+
+            modelBuilder.Entity<PaymentMethod>()
+                .HasMany(e => e.Users)
+                .WithOptional(e => e.PaymentMethod)
+                .HasForeignKey(e => e.PaymenyMethodId);
+
+            modelBuilder.Entity<Permission>()
+                .HasMany(e => e.Admins)
+                .WithOptional(e => e.Permission)
+                .HasForeignKey(e => e.PermissionsId);
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)

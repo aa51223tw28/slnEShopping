@@ -20,5 +20,9 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string CouponStatus { get; set; }
+
+        public virtual Coupon Coupon { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

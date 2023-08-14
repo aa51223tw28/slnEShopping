@@ -8,6 +8,16 @@ namespace prjEShopping.Models.EFModels
 
     public partial class Seller
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Seller()
+        {
+            ADPoints1 = new HashSet<ADPoint>();
+            Products = new HashSet<Product>();
+            SellersADs = new HashSet<SellersAD>();
+            Shipments = new HashSet<Shipment>();
+            TrackSellers = new HashSet<TrackSeller>();
+        }
+
         public int SellerId { get; set; }
 
         [StringLength(50)]
@@ -56,5 +66,26 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(100)]
         public string EmailCheck { get; set; }
+
+        public virtual AccessRight AccessRight { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ADPoint> ADPoints1 { get; set; }
+
+        public virtual PaymentMethod PaymentMethod { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
+
+        public virtual ShippingMethod ShippingMethod { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SellersAD> SellersADs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Shipment> Shipments { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TrackSeller> TrackSellers { get; set; }
     }
 }

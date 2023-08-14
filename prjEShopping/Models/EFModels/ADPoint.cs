@@ -21,5 +21,7 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string PaymentStatus { get; set; }
+
+        public virtual Seller Seller { get; set; }
     }
 }

@@ -21,5 +21,7 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string ReplayStatus { get; set; }
+
+        public virtual Rating Rating { get; set; }
     }
 }
