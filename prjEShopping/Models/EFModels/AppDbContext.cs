@@ -17,7 +17,9 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<ADPoint> ADPoints { get; set; }
         public virtual DbSet<ADProduct> ADProducts { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
+        public virtual DbSet<ChatroomMember> ChatroomMembers { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
@@ -49,6 +51,10 @@ namespace prjEShopping.Models.EFModels
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Message>()
+                .Property(e => e.SenderId)
+                .IsFixedLength();
+
             modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.CurrentPrice)
                 .HasPrecision(19, 4);
