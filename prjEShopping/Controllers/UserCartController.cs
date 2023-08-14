@@ -838,7 +838,7 @@ namespace prjEShopping.Controllers
             return Json(couponPrice, JsonRequestBehavior.AllowGet);
         }
 
-        public decimal couponPriceCalculate(int couponId)
+        public decimal couponPriceCalculate(int couponId)//計算優惠券
         {
             var customerAccount = User.Identity.Name;
 
@@ -918,7 +918,48 @@ namespace prjEShopping.Controllers
 
             //優惠券
             var couponid = db.Orders.Where(x => x.OrderId == orderid).Select(x => x.CouponId).FirstOrDefault();            
-            var couponprice = couponPriceCalculate((int)couponid);
+            var couponprice = 0;
+            var couponidselect = db.Coupons.Where(x => x.CouponId == couponid).FirstOrDefault();
+            if (couponidselect.CouponType == "抵用券")
+            {
+                couponprice = int.Parse(couponidselect.Discount);
+            }
+            else if (couponidselect.CouponType == "免運券" && couponidselect.SellerId == 0)
+            {
+                couponprice = int.Parse(couponidselect.Discount) * sellerids;
+            }
+            else if (couponidselect.CouponType == "免運券" && couponidselect.SellerId != 0)
+            {
+                couponprice = int.Parse(couponidselect.Discount);
+            }
+            else if (couponidselect.CouponType == "折價券")
+            {
+                var selleridcoupon = couponidselect.SellerId;
+
+                if (selleridcoupon == 0)
+                {
+                    var subtotal = db.OrderDetails.Where(x => x.OrderId == orderid)                                                
+                                                .Sum(x => x.CurrentPrice * x.Quantity);
+                    var discount = decimal.Parse(couponidselect.Discount) / 100;
+                    couponprice = (int)(decimal)(subtotal * (1 - discount));
+                }
+                else
+                {
+                    var subtotal = db.OrderDetails.Where(x => x.OrderId == orderid)
+                                                .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                                {
+                                                    CurrentPrice = x.CurrentPrice,
+                                                    Quantity = x.Quantity,
+                                                    y.SellerId,
+                                                })
+                                                .Where(x => x.SellerId == selleridcoupon)
+                                                .Sum(x => x.CurrentPrice * x.Quantity);
+                    var discount = decimal.Parse(couponidselect.Discount) / 100;
+                    couponprice = (int)(decimal)(subtotal * (1 - discount));
+                }
+
+                
+            }
 
             //總金額=總價+運費-優惠券
             int total = (int)(totalprice + shipPrice - couponprice);
@@ -933,6 +974,8 @@ namespace prjEShopping.Controllers
                                         })
                                         .Select(x => x.ProductName + "X" + x.Quantity);
             string itemName = string.Join("#", items);
+
+         
 
             //需填入你的網址
             var website = $"https://localhost:44388/";
