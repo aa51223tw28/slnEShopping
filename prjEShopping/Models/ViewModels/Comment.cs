@@ -1,5 +1,4 @@
-﻿using prjEShopping.Models.EFModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Web;
 
 namespace prjEShopping.Models.ViewModels
 {
-    public class UserFeedbackVM
+    public class Comment
     {
         public int RatingId { get; set; }
 
@@ -24,5 +23,9 @@ namespace prjEShopping.Models.ViewModels
 
         [StringLength(50)]
         public string RatingStatus { get; set; }
+        public int RatingReplyId { get; set; }
+        public string ReplayText { get; set; }
+        public DateTime ReplayTime { get; set; }
+        public string ReplayStatus { get; set; }
     }
 }

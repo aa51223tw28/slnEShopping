@@ -287,6 +287,7 @@
     <Compile Include="Models\ViewModels\ADPointVM.cs" />
     <Compile Include="Models\ViewModels\ADProductVM.cs" />
     <Compile Include="Models\ViewModels\CombinedVM.cs" />
+    <Compile Include="Models\ViewModels\Comment.cs" />
     <Compile Include="Models\ViewModels\ProductVM.cs" />
     <Compile Include="Models\ViewModels\RatingDateStringVM.cs" />
     <Compile Include="Models\ViewModels\SellerKeyWordVM.cs" />

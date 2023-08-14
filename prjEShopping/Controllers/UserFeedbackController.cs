@@ -33,7 +33,7 @@ namespace prjEShopping.Controllers
             ViewData["ProductDto"] = productDto;
             ViewData["FeedbackVm"] = feedbackVm;
             ViewData["ProductName"] = productName;
-            return View();
+            return View(feedbackVm);
         }
         [HttpPost]
         public ActionResult SubmitComment(UserFeedbackVM model)
