@@ -24,7 +24,7 @@ namespace prjEShopping.Controllers
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
             if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Admins");
             }
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
@@ -40,7 +40,7 @@ namespace prjEShopping.Controllers
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
             if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Admins");
             }
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
@@ -75,6 +75,14 @@ namespace prjEShopping.Controllers
         //客服端回覆、查看
         public ActionResult CSSReplay(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             var Adminid = 1;
             ViewBag.AdminId = Adminid;
             if (!id.HasValue)
