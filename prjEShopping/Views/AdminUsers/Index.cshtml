@@ -62,21 +62,25 @@
                         var statusColor = "";
                         var AccessRightName = "";
 
-                        if (item.AccessRightId == 1)
-                        { statusColor = "text-white bg-danger";
-                            AccessRightName = "使用中";
-                        }
-                        else if (item.AccessRightId == 2)
+                        switch (item.AccessRightId)
                         {
-                            statusColor = "text-white bg-danger";
-                            AccessRightName = "審核中";
+                            case 1:
+                                statusColor = "text-white bg-primary";
+                                AccessRightName = "使用中";
+                                break;
+                            case 2:
+                                statusColor = "text-primary bg-secondary";
+                                AccessRightName = "審核中";
+                                break;
+                            case 3:
+                                statusColor = "text-white bg-danger";
+                                AccessRightName = "停權中";
+                                break;
+                            default:
+                                statusColor = "";  // 或任何你希望的默認樣式
+                                break;
                         }
-                        else
-                        {
-                            statusColor = "text-primary bg-secondary";
-                            AccessRightName = "停權中";
-                        }
-                        }
+                    }
                     <span class="statusDisplay @statusColor" data-user-id="@item.UserId">@AccessRightName </span>
                 </td>
                 <td>
