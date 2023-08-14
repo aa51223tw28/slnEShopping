@@ -2,153 +2,156 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
 }
 
-<h2>Details</h2>
+<div class="col-10 bg-secondary overflow-auto pt-4">
+    <h2>Details</h2>
 
-<div>
-    <h4>Seller</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerName)
-        </dt>
+    <div>
+        <h4>Seller</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SellerName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SellerName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StoreName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoreName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StoreName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.StoreName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerAccount)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerAccount)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SellerAccount)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SellerAccount)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerPassword)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerPassword)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SellerPassword)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SellerPassword)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerPasswordSalt)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerPasswordSalt)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SellerPasswordSalt)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SellerPasswordSalt)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.GUINumber)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.GUINumber)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.GUINumber)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.GUINumber)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StoreIntro)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.StoreIntro)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StoreIntro)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.StoreIntro)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessRightId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.AccessRightId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AccessRightId)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.AccessRightId)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BankAccount)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.BankAccount)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BankAccount)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.BankAccount)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentMethodId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.PaymentMethodId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.PaymentMethodId)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.PaymentMethodId)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ShippingMethodId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ShippingMethodId)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShippingMethodId)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ShippingMethodId)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ADPoints)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ADPoints)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ADPoints)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ADPoints)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerImagePath)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerImagePath)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.SellerImagePath)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.SellerImagePath)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Role)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Role)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailCheck)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailCheck)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailCheck)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.EmailCheck)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.SellerId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SellerId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

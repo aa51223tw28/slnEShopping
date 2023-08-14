@@ -5,81 +5,84 @@
     Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
 }
 
-<h2>商家列表</h2>
-<table class="table table-primary table-bordered" id="myTable">
-    <thead>
-        <tr>
-            <th>
-               商標
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StoreName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SellerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SellerAccount)
-            </th>
-            <th>
-                權限狀態
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="col-10 bg-secondary overflow-auto pt-4">
+    <h2>商家列表</h2>
+    <hr />
+    <table class="table table-primary table-bordered" id="myTable">
+        <thead>
             <tr>
-                <td>
-                    <img src="~/img/@Html.DisplayFor(modelItem => item.SellerImagePath)" alt="Description" style="height:40px" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StoreName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SellerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SellerAccount)
-                </td>
-                <td>
-                    @{
-                        var statusColor = "";
-                        var AccessRightName = "";
-                        switch (item.AccessRightId)
-                        {
-                            case 1:
-                                statusColor = "text-white bg-primary";
-                                AccessRightName = "使用中";
-                                break;
-                            case 2:
-                                statusColor = "text-primary bg-secondary";
-                                AccessRightName = "審核中";
-                                break;
-                            case 3:
-                                statusColor = "text-white bg-danger";
-                                AccessRightName = "停權中";
-                                break;
-                        }
-                    }
-                    <span class="statusDisplay @statusColor" data-seller-id="@item.SellerId">@AccessRightName </span>
-                </td>
-                <td>
-                    <button data-seller-id="@item.SellerId" data-status="1" class="btn btn-primary change-status-btn">使用中</button>
-                    <button data-seller-id="@item.SellerId" data-status="2" class="btn btn-secondary change-status-btn">審核中</button>
-                    <button data-seller-id="@item.SellerId" data-status="3" class="btn btn-danger change-status-btn">停權中</button>
-                </td>
-                <td>
-                    @Html.ActionLink("修改", "Edit", new { id = item.SellerId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("詳細", "Details", new { id = item.SellerId }, new { @class = "btn btn-primary" })
-                </td>
+                <th>
+                    商標
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StoreName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SellerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SellerAccount)
+                </th>
+                <th>
+                    權限狀態
+                </th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/img/@Html.DisplayFor(modelItem => item.SellerImagePath)" alt="Description" style="height:40px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StoreName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellerAccount)
+                    </td>
+                    <td>
+                        @{
+                            var statusColor = "";
+                            var AccessRightName = "";
+                            switch (item.AccessRightId)
+                            {
+                                case 1:
+                                    statusColor = "text-white bg-primary";
+                                    AccessRightName = "使用中";
+                                    break;
+                                case 2:
+                                    statusColor = "text-primary bg-secondary";
+                                    AccessRightName = "審核中";
+                                    break;
+                                case 3:
+                                    statusColor = "text-white bg-danger";
+                                    AccessRightName = "停權中";
+                                    break;
+                            }
+                        }
+                        <span class="statusDisplay @statusColor" data-seller-id="@item.SellerId">@AccessRightName </span>
+                    </td>
+                    <td>
+                        <button data-seller-id="@item.SellerId" data-status="1" class="btn btn-primary change-status-btn">使用中</button>
+                        <button data-seller-id="@item.SellerId" data-status="2" class="btn btn-secondary change-status-btn">審核中</button>
+                        <button data-seller-id="@item.SellerId" data-status="3" class="btn btn-danger change-status-btn">停權中</button>
+                    </td>
+                    <td>
+                        @Html.ActionLink("修改", "Edit", new { id = item.SellerId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("詳細", "Details", new { id = item.SellerId }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
+</div>
 @section Scripts{
 
     <!-- DataTables BS5版本-->

@@ -435,8 +435,6 @@
     <Content Include="Views\Support\CSSNewMailReplay.cshtml" />
     <Content Include="Views\Support\CSSOldMailList.cshtml" />
     <Content Include="Views\Support\CSSOldMailDetails.cshtml" />
-    <Content Include="Views\AdminProducts\Create.cshtml" />
-    <Content Include="Views\AdminProducts\Delete.cshtml" />
     <Content Include="Views\AdminProducts\Details.cshtml" />
     <Content Include="Views\AdminProducts\Edit.cshtml" />
     <Content Include="Views\AdminProducts\Index.cshtml" />

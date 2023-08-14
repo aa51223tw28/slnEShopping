@@ -21,7 +21,7 @@ namespace prjEShopping.Controllers
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
             if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Admins");
             }
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
@@ -45,6 +45,14 @@ namespace prjEShopping.Controllers
         // GET: AdminSellers/Details/5
         public ActionResult Details(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -60,6 +68,14 @@ namespace prjEShopping.Controllers
         // GET: AdminSellers/Edit/5
         public ActionResult Edit(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
