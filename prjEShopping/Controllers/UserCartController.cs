@@ -378,6 +378,15 @@ namespace prjEShopping.Controllers
 
             db.SaveChanges();
 
+            //要把使用過的優惠券update UsersCoupons UseDate使用日期/CouponStatus改成已使用
+            var usecoupon=db.UsersCoupons.Where(x=>x.UserId== userid&&x.CouponId== selectedCouponId).FirstOrDefault();
+            if (usecoupon != null)
+            {
+                usecoupon.UseDate = DateTime.Now;
+                usecoupon.CouponStatus = "已使用";
+            }
+            db.SaveChanges();
+
             return new EmptyResult();
 
         }
