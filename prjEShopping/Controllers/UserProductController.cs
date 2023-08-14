@@ -226,18 +226,35 @@ namespace prjEShopping.Controllers
             using (var db = new AppDbContext()) // 假設您的 DbContext 名稱為 AppDbContext
             {
                 // 從資料庫中查詢評分資料，假設評分資料存在 Ratings 表中
-                var ratingsList = db.Ratings.Where(r => r.ProductId == productId)
-                    .Join(db.RatingReplaies, x => x.RatingId, y => y.RatingId, (x, y) =>
-                    new RatingDateStringVM
-                    {
-                        RatingId = x.RatingId,
-                        StarRating = (int)x.StarRating,
-                        RatingText = x.RatingText,
-                        PostTime = x.PostTime.ToString(),
-                      ReplayText = y.ReplayText,
-                      ReplayTime = y.ReplayTime.ToString()
+                //var ratingsList = db.Ratings.Where(r => r.ProductId == productId)
+                //    .Select(x =>
+                //    //.Join(db.RatingReplaies, x => x.RatingId, y => y.RatingId, (x, y) =>
+                //    new RatingDateStringVM
+                //    {
+                //        RatingId = x.RatingId,
+                //        StarRating = (int)x.StarRating,
+                //        RatingText = x.RatingText,
+                //        PostTime = x.PostTime.ToString(),
+                //      //ReplayText = y.ReplayText,
+                //      //ReplayTime = y.ReplayTime.ToString()
 
-                }).ToList();
+                //}).ToList();
+
+
+                var ratingsList =( from x in db.Ratings
+                                  join y in db.RatingReplaies
+                                  on x.RatingId equals  y.RatingId into grouping
+                                  from g in grouping.DefaultIfEmpty()
+                                  where x.ProductId == productId
+                                  select new RatingDateStringVM
+                                  {
+                                      RatingId = x.RatingId,
+                                      StarRating = (int)x.StarRating,
+                                      RatingText = x.RatingText,
+                                      PostTime = x.PostTime.ToString(),
+                                      ReplayText = g.ReplayText,
+                                      ReplayTime = g.ReplayTime.ToString()
+                                  }).ToList();
                 return Json(ratingsList, JsonRequestBehavior.AllowGet);
             }
         }

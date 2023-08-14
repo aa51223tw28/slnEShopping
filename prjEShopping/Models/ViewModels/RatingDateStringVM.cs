@@ -8,7 +8,7 @@ namespace prjEShopping.Models.ViewModels
 {
     public class RatingDateStringVM
     {
-        public int RatingId { get; set; }
+        public int? RatingId { get; set; }
         public int StarRating { get; set; }
         public string RatingText { get; set; }
         public string PostTime { get; set; }
