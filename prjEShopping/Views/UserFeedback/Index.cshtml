@@ -73,13 +73,13 @@
 
                     @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
                     <!--讀取到的商品-->
-                <div>
-                    <p>商品ID: @Html.DisplayFor(model => model.ProductViewModel.ProductId)</p>
-                    <hr />
-                    <p>商品名稱: @Html.DisplayFor(model => model.ProductViewModel.ProductName)</p>
-                    <hr />
-                    <!-- Add other product details if available in UserFeedbackVM -->
+                <div style="color:blueviolet;font-size:26px; ">
+                    <p>商品名稱: <span>@ViewData["ProductName"]</span></p>
+                    
                 </div>
+                <hr style="border: 2px solid black;">
+                    <!-- Add other product details if available in UserFeedbackVM -->
+               
 
                     <!--評分-->
                     <div id="starContainer">
@@ -175,8 +175,8 @@
         // 存儲評論內容到隱藏字段 "ratingText"
         $("#ratingText").val($("#RatingText").val());
 
-        var productIdValue = 1;//"(加小老鼠)Model.ProductId"; // 將 Model 中的 ProductId 值轉換成 JavaScript 變數
-        $("#productId").val(productIdValue);
+        //var productIdValue = ;//"(加小老鼠)Model.ProductId"; // 將 Model 中的 ProductId 值轉換成 JavaScript 變數
+        //$("#productId").val(productIdValue);
     });
 
     $(".reset").click(function () {
