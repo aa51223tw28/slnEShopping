@@ -13,9 +13,17 @@ namespace prjEShopping.Controllers
     public class UserFeedbackController : Controller
     {
 
-        public ActionResult Index(int shipmentId)
+        public ActionResult Index(int productId)
         {
-            int? userId = (int?)Session["UserId"];
+            //  int? userId = (int?)Session["UserId"];
+
+            //讀取登入帳號(電子郵件)
+            var customerAccount = User.Identity.Name;
+            //根據登入帳號取得帳號ID
+            var db = new AppDbContext();
+            var userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+
             var productDto = new UserProductIndexDto();
             var feedbackVm = new UserFeedbackVM
             {

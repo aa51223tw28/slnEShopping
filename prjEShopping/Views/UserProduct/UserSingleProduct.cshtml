@@ -539,7 +539,7 @@
         //評論
         $(document).ready(function () {
             $.ajax({
-                url: '@Url.Action("Comment", "UserProduct")',
+                url: '@Url.Action("Comment", "UserProduct", new {productId=Model.ProductId })',
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
@@ -664,7 +664,7 @@
                             ratingall += '<div>' + rating.RatingId + '</div>';
                             ratingall += '<div>評分:' + rating.StarRating + '</div>';
                             ratingall += '<div>評論:' + rating.RatingText + '</div>';
-                            ratingall += '<div>評論時間:' + rating.PostTime + '</div>';
+                            ratingall += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingall += '</div>';
                             ratingall += '</div>';
                             ratingall += '</div>';
@@ -721,6 +721,15 @@
         })
 
 
+        function formatDate(theDate) {
+            let aDate = "";
+            dateArray = theDate.split(" ");
+            console.log(dateArray)
+            aDate = `${dateArray[3]}/${dateArray[0]}/${dateArray[2]} ${dateArray[4]}` 
+
+            return aDate
+
+        }
 
     </script>
 
