@@ -7,119 +7,197 @@
 {
     <script>alert("@TempData["Success"].ToString()")</script>
 }
-        <div class="col-8 col-md-9 col-lg-9 col-xl-10 ">
-            <div class="accordion" id="accordionPanelsStayOpenExample2">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
-                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false"
-                                aria-controls="panelsStayOpen-collapseSeven">
-                            熱賣商品
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse show bg-info"
-                         aria-labelledby="panelsStayOpen-headingSeven">
-                        <div class="accordion-body">
-                            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="Top5">
+
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 ">
+    <div class="accordion" id="accordionPanelsStayOpenExample2">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseSeven">
+                    熱賣商品
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse show bg-info"
+                 aria-labelledby="panelsStayOpen-headingSeven">
+                <div class="accordion-body">
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="Top5">
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingEight">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseEight">
+                        最新訂單
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse show bg-info"
+                     aria-labelledby="panelsStayOpen-headingEight">
+                    <div class="accordion-body">
+                        <table class="table table-striped fw-bold">
+                            <thead>
+                                <tr>
+                                    <th scope="col">訂單日期</th>
+                                    <th scope="col">出貨單號</th>
+                                    <th scope="col">出貨狀態</th>
+                                </tr>
+                            </thead>
+                            <tbody id="Top10Shipments">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingNight">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseNight" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseNight">
+                        特價活動中
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseNight" class="accordion-collapse collapse show bg-info"
+                     aria-labelledby="panelsStayOpen-headingNight">
+                    <div class="accordion-body">
+                        <div class="d-flex p-2">
+                            <div class="card me-3" style="width: 18rem;">
+                                <a href="#">
+                                    <img src="~/img/LG輪播圖.jpg" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">商品名稱</h5>
+                                    <p>
+                                        <span></span>
+                                    </p>
+                                    <P>
+                                        <span>
+                                            剩餘:
+                                        </span>
+                                        <span class="text-danger fw-bold ">
+                                            3小時22分16秒
+                                        </span>
+                                    </P>
+                                </div>
+                            </div>
+                            <div class="card me-3" style="width: 18rem;">
+                                <a href="#">
+                                    <img src="~/img/三星輪播圖.jpg" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">活動2</h5>
+                                    <P>
+                                        <span>
+                                            剩餘:
+                                        </span>
+                                        <span class="text-danger fw-bold ">
+                                            3小時22分16秒
+                                        </span>
+                                    </P>
+                                </div>
+                            </div>
+                            <div class="card me-3" style="width: 18rem;">
+                                <a href="#">
+                                    <img src="~/img/小米輪播圖.jpg" class="card-img-top" alt="...">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">活動3</h5>
+                                    <P>
+                                        <span>
+                                            剩餘:
+                                        </span>
+                                        <span class="text-danger fw-bold ">
+                                            3小時22分16秒
+                                        </span>
+                                    </P>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingEight">
-                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseEight">
-                                最新訂單
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse show bg-info"
-                             aria-labelledby="panelsStayOpen-headingEight">
-                            <div class="accordion-body">
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTen">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseTen">
+                        聊聊
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse show bg-info"
+                     aria-labelledby="panelsStayOpen-headingTen">
+                    <div class="accordion-body">
+                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" >
+                            <div class="row">
                                 <table class="table table-striped fw-bold">
                                     <thead>
                                         <tr>
-                                            <th scope="col">訂單日期</th>
-                                            <th scope="col">出貨單號</th>
-                                            <th scope="col">出貨狀態</th>
+                                            <th scope="col" >聊天名單</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="Top10Shipments">
+                                    <tbody id="chat">
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingNight">
-                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseNight" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseNight">
-                                特價活動中
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseNight" class="accordion-collapse collapse show bg-info"
-                             aria-labelledby="panelsStayOpen-headingNight">
-                            <div class="accordion-body">
-                                <div class="d-flex p-2">
-                                    <div class="card me-3" style="width: 18rem;">
-                                        <a href="#">
-                                            <img src="~/img/LG輪播圖.jpg" class="card-img-top" alt="...">
-                                        </a>
-                                        <div class="card-body">
-                                            <h5 class="card-title">商品名稱</h5>
-                                            <p>
-                                                <span></span>
-                                            </p>
-                                            <P>
-                                                <span>
-                                                    剩餘:
-                                                </span>
-                                                <span class="text-danger fw-bold ">
-                                                    3小時22分16秒
-                                                </span>
-                                            </P>
-                                        </div>
-                                    </div>
-                                    <div class="card me-3" style="width: 18rem;">
-                                        <a href="#">
-                                            <img src="~/img/三星輪播圖.jpg" class="card-img-top" alt="...">
-                                        </a>
-                                        <div class="card-body">
-                                            <h5 class="card-title">活動2</h5>
-                                            <P>
-                                                <span>
-                                                    剩餘:
-                                                </span>
-                                                <span class="text-danger fw-bold ">
-                                                    3小時22分16秒
-                                                </span>
-                                            </P>
-                                        </div>
-                                    </div>
-                                    <div class="card me-3" style="width: 18rem;">
-                                        <a href="#">
-                                            <img src="~/img/小米輪播圖.jpg" class="card-img-top" alt="...">
-                                        </a>
-                                        <div class="card-body">
-                                            <h5 class="card-title">活動3</h5>
-                                            <P>
-                                                <span>
-                                                    剩餘:
-                                                </span>
-                                                <span class="text-danger fw-bold ">
-                                                    3小時22分16秒
-                                                </span>
-                                            </P>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="row">
+                                <input type="text" id="userName" placeholder="User Name" />
+                                <input type="text" id="message" placeholder="Message" />
+                                <button onclick="createRoom()">加入聊天室</button>
+                                <button onclick="leaveRoom()">離開聊天室</button>
+                                <button onclick="sendMessage()">傳送訊息</button>
                             </div>
-
+                            <div class="row">
+                                <div id="chatMessages"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<script src="Scripts/jquery-3.4.1.min.js"></script>
+<script src="Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="signalr/hubs"></script>
+
+<script type="text/javascript">
+    var chat = $.connection.myHub;
+
+    chat.client.receiveMessage = function (name, message) {
+        // 在畫面上顯示訊息
+        var encodedMessage = $('<div />').text(message).html();
+        $('#chatMessages').append('<p><strong>' + name + '</strong>: ' + encodedMessage + '</p>');
+    };
+
+    $.connection.hub.start();
+
+    let roomId = "";
+
+    function createRoom() {
+        roomId = prompt('Enter room name:');
+        if (roomId) {
+            chat.server.createRoom(roomId);
+        }
+    }
+
+    function leaveRoom() {
+        roomId = prompt('Enter room name:');
+        if (roomId) {
+            chat.server.leaveRoom(roomId);
+        }
+    }
+
+    function sendMessage() {
+        var userName = $('#userName').val();
+        var message = $('#message').val();
+
+        chat.server.sendMessageToRoom(roomId, userName, message);
+        $('#message').val('');
+
+    }
+
+</script>
 
 @section Scripts
     {
@@ -129,7 +207,7 @@
 
         function LoadTop5() {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', '@Url.Content("~/SellerStore/getTop5Product")');
+            xhr.open('GET', '@Url.Content("~/SellerMain/getTop5Product")');
             xhr.send();
 
             xhr.addEventListener('load', () => {
@@ -175,5 +253,6 @@
         });
 
 
+
     </script>
-    }
+}
