@@ -113,5 +113,29 @@ namespace prjEShopping.Models.ViewModels
 
             return source.Select(p => AdminUser2VM(p)).ToList();
         }
+
+        public static User VM2AdminUser(AdminUserVM vm)
+        {
+            return new User
+            {
+                UserId = vm.UserId,
+                UserName = vm.UserName,
+                UserAccount = vm.UserAccount,
+                UserPassword = vm.UserPassword,
+                UserPasswordSalt = vm.UserPasswordSalt,
+                Gender = vm.Gender,
+                Phone = vm.Phone,
+                CellPhone = vm.CellPhone,
+                City = vm.City,
+                Address = vm.Address,
+                ShippingMethodId = vm.ShippingMethodId,
+                PaymenyMethodId = vm.PaymenyMethodId,
+                Birthday = vm.Birthday,
+                AccessRightId = vm.AccessRightId,
+                UserImagePath = vm.UserImagePath,
+                Role = vm.Role,
+                EmailCheck = vm.EmailCheck,
+            };
+        }
     }
 }

@@ -1,18 +1,16 @@
-﻿@model prjEShopping.Models.EFModels.User
+﻿@model prjEShopping.Models.ViewModels.AdminUserVM
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
 }
 
-<h2>Edit</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>User</h4>
+        <h2>會員編輯</h2>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserId)
@@ -147,12 +145,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary my-2" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("取消", "Index", null, new {@class= "btn btn-primary my-2" })
 </div>

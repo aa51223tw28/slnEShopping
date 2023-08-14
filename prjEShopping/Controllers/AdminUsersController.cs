@@ -81,11 +81,12 @@ namespace prjEShopping.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
-            if (user == null)
+            var model=AdminUserChange.AdminUser2VM(user);
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(model);
         }
 
         // POST: AdminUsers/Edit/5
@@ -93,15 +94,15 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,UserName,UserAccount,UserPassword,UserPasswordSalt,Gender,Phone,CellPhone,City,Address,ShippingMethodId,PaymenyMethodId,Birthday,AccessRightId,UserImagePath,Role,EmailCheck")] User user)
+        public ActionResult Edit([Bind(Include = "UserId,UserName,UserAccount,UserPassword,UserPasswordSalt,Gender,Phone,CellPhone,City,Address,ShippingMethodId,PaymenyMethodId,Birthday,AccessRightId,UserImagePath,Role,EmailCheck")] AdminUserVM vm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(AdminUserChange.VM2AdminUser(vm)).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View(vm);
         }
 
         protected override void Dispose(bool disposing)
