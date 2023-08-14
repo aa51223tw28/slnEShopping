@@ -220,16 +220,17 @@
     <Compile Include="Controllers\SellerUpdateController.cs" />
     <Compile Include="Controllers\Support2Controller.cs" />
     <Compile Include="Controllers\SupportController.cs" />
+    <Compile Include="Controllers\testproductsupportController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\UserCouponController.cs" />
-    <Compile Include="Controllers\UserECpayController.cs" />
     <Compile Include="Controllers\UserFeedbackController.cs" />
     <Compile Include="Controllers\UserFollowController.cs" />
     <Compile Include="Controllers\UserMembersController.cs" />
     <Compile Include="Controllers\UserOrderController.cs" />
     <Compile Include="Controllers\UserProductController.cs" />
     <Compile Include="Controllers\UsersCouponsController.cs" />
+    <Compile Include="Controllers\UserSupportController.cs" />
     <Compile Include="Controllers\UserTestCommentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -442,6 +443,12 @@
     <Content Include="Views\AdminProducts\Details.cshtml" />
     <Content Include="Views\AdminProducts\Edit.cshtml" />
     <Content Include="Views\AdminProducts\Index.cshtml" />
+    <Content Include="Views\testproductsupport\UserSingleProduct2.cshtml" />
+    <Content Include="Views\UserSupport\UserCSList.cshtml" />
+    <Content Include="Views\UserSupport\UserCSSendMail.cshtml" />
+    <Content Include="Views\UserSupport\UserCSReplay.cshtml" />
+    <Content Include="Views\UserCart\ToECpay.cshtml" />
+    <Content Include="Views\UserCart\PayInfo.cshtml" />
     <Content Include="Views\UserECpay\ToECpay.cshtml" />
     <Content Include="Views\UserECpay\PayInfo.cshtml" />
     <Content Include="Views\Support2\CSSList.cshtml" />
