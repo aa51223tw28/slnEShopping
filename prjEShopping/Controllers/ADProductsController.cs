@@ -24,6 +24,8 @@ namespace prjEShopping.Controllers
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
 
+            var sellersAD = db.SellersADs.Select(x => x.ADProductId).ToList();
+            ViewBag.SellersAD = sellersAD;
             var model = db.ADProducts.ADProduct2VM();
             return View(model);
         }

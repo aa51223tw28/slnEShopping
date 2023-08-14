@@ -5,58 +5,84 @@
     Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
 }
 
-<div class="col-6 bg-secondary overflow-auto">
+<div class="col-10 bg-secondary overflow-auto pt-4">
     <h2>購買廣告</h2>
-
-    <table class="table table-secondary table-bordered">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ADName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ADField)
-            </th>
-            <th>
-                廣告時間
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ADPoint)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <hr />
+    <table class="table table-secondary table-bordered" id="myTable">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADFieldName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADStartDate)~ @Html.DisplayFor(modelItem => item.ADEndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ADPoint)
-                </td>
-                <td>
-                    @Html.ActionLink("購買", "CheckDetail", new { adproductId = item.ADProductId }, new { @class = "btn btn-primary" })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADField)
+                </th>
+                <th>
+                    廣告時間
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADPoint)
+                </th>
+                <th></th>
             </tr>
-        }
-
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADFieldName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADStartDate)~ @Html.DisplayFor(modelItem => item.ADEndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ADPoint)
+                    </td>
+                    <td>
+                        @Html.ActionLink("購買", "CheckDetail", new { adproductId = item.ADProductId }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 
 @section Scripts{
 
-    <script>
+    <!-- DataTables JavaScript -->
+    @*<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>*@
+    <!-- DataTables BS5版本-->
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                pageLength: 10, // 每頁顯示10筆資料
+                language: {
+                    search: "搜尋：",
+                    paginate: {
+                        first: "首頁",
+                        last: "尾頁",
+                        next: "下一頁",
+                        previous: "上一頁"
+                    },
+                    info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
+                    //最下面顯示
+                    infoEmpty: "顯示 0 到 0 的 0 筆資料",
+                    //下拉選單
+                    lengthMenu: "顯示 _MENU_ 筆資料",
+                }
+            });
+        });     
     </script>
+
 }
 
 @section Styles{
-    <style>
-    </style>
+    <!-- DataTables CSS BS5版本 -->
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 }
