@@ -91,7 +91,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.SupportNumber, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    <input type="text" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNum" readonly />
+                                    <input type="text"class="form-control"id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNum" readonly />
                                     @Html.ValidationMessageFor(model => model.SupportNumber, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.SupportType, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    <select class="form-control" id="SupportType" name="SupportType" required>
+                                    <select class="form-select" id="SupportType" name="SupportType" required>
                                         <option value="商品投訴">商品投訴</option>
                                         <option value="商家問題">商家問題</option>
                                         <option value="會員問題">會員問題</option>
