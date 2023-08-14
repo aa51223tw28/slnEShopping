@@ -86,7 +86,7 @@ namespace prjEShopping.Controllers
                     HttpCookie authCookie = new HttpCookie("AdminLogin");
                     authCookie.Values["status"] = "AdminLogin";
                     authCookie.Values["AccessRightId"] = account.AccessRightId.ToString(); //權限=1才開通
-                    authCookie.Values["userId"] = account.AdminId.ToString(); // 將用戶ID存儲在Cookie中
+                    authCookie.Values["userId"] = account.AdminId.ToString();// 將用戶ID存儲在Cookie中
                     authCookie.Values["permissionsId"] = account.PermissionsId.ToString();
                     string encodedName = HttpUtility.UrlEncode(account.AdminName);
                     authCookie.Values["userName"] = encodedName;

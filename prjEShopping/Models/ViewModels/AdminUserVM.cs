@@ -54,11 +54,11 @@ namespace prjEShopping.Models.ViewModels
 
         [DisplayName("貨運方式")]
         [StringLength(50)]
-        public string ShippingMethodId { get; set; }
+        public int? ShippingMethodId { get; set; }
 
         [DisplayName("付款方式")]
         [StringLength(50)]
-        public string PaymenyMethodId { get; set; }
+        public int? PaymenyMethodId { get; set; }
 
         [DisplayName("生日")]
         [Column(TypeName = "date")]
@@ -66,7 +66,7 @@ namespace prjEShopping.Models.ViewModels
 
         [DisplayName("權限")]
         [StringLength(50)]
-        public string AccessRightId { get; set; }
+        public int? AccessRightId { get; set; }
 
         [StringLength(50)]
         public string UserImagePath { get; set; }
