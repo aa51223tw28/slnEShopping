@@ -8,12 +8,6 @@ namespace prjEShopping.Models.EFModels
 
     public partial class Coupon
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Coupon()
-        {
-            UsersCoupons = new HashSet<UsersCoupon>();
-        }
-
         public int CouponId { get; set; }
 
         public int? SellerId { get; set; }
@@ -51,8 +45,5 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string EventStatus { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UsersCoupon> UsersCoupons { get; set; }
     }
 }

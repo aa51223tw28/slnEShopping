@@ -46,9 +46,9 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<TrackProduct> TrackProducts { get; set; }
         public virtual DbSet<TrackSeller> TrackSellers { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UsersCoupon> UsersCoupons { get; set; }
         public virtual DbSet<ChatroomMember> ChatroomMembers { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<UsersCoupon> UsersCoupons { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
