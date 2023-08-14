@@ -214,6 +214,93 @@ namespace prjEShopping.Controllers
                 return View(combinedViewModel);
             }
         }
+
+
+        [Authorize]
+        public ActionResult getshipPriceorder(int orderId)//傳送運費
+        {
+            int shipPriceone = 60;//一家sellerid是60元
+
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            
+            var sellerids = db.OrderDetails.Where(x => x.OrderId == orderId)
+                                            .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                            {
+                                                y.SellerId,
+                                            })
+                                            .Distinct()
+                                            .Count();
+            int shipPrice = shipPriceone * sellerids;
+
+            return Json(shipPrice, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [Authorize]
+        public ActionResult getcouponPriceorder(int orderId)//傳送優惠券
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+
+            var sellerids = db.OrderDetails.Where(x => x.OrderId == orderId)
+                                           .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                           {
+                                               y.SellerId,
+                                           })
+                                           .Distinct()
+                                           .Count();
+
+            var couponid = db.Orders.Where(x => x.OrderId == orderId).Select(x => x.CouponId).FirstOrDefault();
+            var couponprice = 0;
+            var couponidselect = db.Coupons.Where(x => x.CouponId == couponid).FirstOrDefault();
+            if (couponidselect.CouponType == "抵用券")
+            {
+                couponprice = int.Parse(couponidselect.Discount);
+            }
+            else if (couponidselect.CouponType == "免運券" && couponidselect.SellerId == 0)
+            {
+                couponprice = int.Parse(couponidselect.Discount) * sellerids;
+            }
+            else if (couponidselect.CouponType == "免運券" && couponidselect.SellerId != 0)
+            {
+                couponprice = int.Parse(couponidselect.Discount);
+            }
+            else if (couponidselect.CouponType == "折價券")
+            {
+                var selleridcoupon = couponidselect.SellerId;
+
+                if (selleridcoupon == 0)
+                {
+                    var subtotal = db.OrderDetails.Where(x => x.OrderId == orderId)
+                                                .Sum(x => x.CurrentPrice * x.Quantity);
+                    var discount = decimal.Parse(couponidselect.Discount) / 100;
+                    couponprice = (int)(decimal)(subtotal * (1 - discount));
+                }
+                else
+                {
+                    var subtotal = db.OrderDetails.Where(x => x.OrderId == orderId)
+                                                .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                                {
+                                                    CurrentPrice = x.CurrentPrice,
+                                                    Quantity = x.Quantity,
+                                                    y.SellerId,
+                                                })
+                                                .Where(x => x.SellerId == selleridcoupon)
+                                                .Sum(x => x.CurrentPrice * x.Quantity);
+                    var discount = decimal.Parse(couponidselect.Discount) / 100;
+                    couponprice = (int)(decimal)(subtotal * (1 - discount));
+                }
+
+
+            }
+
+            return Json(couponprice, JsonRequestBehavior.AllowGet);
+        }
     }
 
-    }
+}
