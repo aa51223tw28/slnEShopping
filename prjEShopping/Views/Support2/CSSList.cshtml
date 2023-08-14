@@ -1,0 +1,141 @@
+﻿@model IEnumerable<prjEShopping.Models.ViewModels.SupportVM>
+
+@{
+    ViewBag.Title = "CSSList";
+    Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
+}
+
+<div class="container">
+    <h2>客服後台列表</h2>
+    @Html.ActionLink("建立信件", "CSSSendMail", new { id = ViewBag.AdminId }, new { @class = "btn btn-primary my-2" })
+    <button id="newMail" class="btn btn-secondary my-2 ms-2">新進單</button>
+    <button id="reMail" class="btn btn-secondary my-2 ms-2">待回覆</button>
+    <button id="replaiedMail" class="btn btn-info my-2 ms-2">已回覆</button>
+    <button id="allMail" class="btn btn-info my-2 ms-2">全信件</button>
+    <table class="table table-primary table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SupportNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SupportType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SupportTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReceivedTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SupportStatus)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SupportNumber)
+                        <div hidden>
+                            @Html.DisplayFor(modelItem => item.AdminId)
+                            @Html.DisplayFor(modelItem => item.SellerId)
+                            @Html.DisplayFor(modelItem => item.UserId)
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SupportType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SupportTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReceivedTime)
+                    </td>
+                    <td>
+                        @if (item.SupportStatus == "新進單")
+                        {
+                            <span class="bg-danger text-white">新進單</span>
+                        }
+                        else if (item.SupportStatus == "待回覆")
+                        {
+                            <span class="bg-secondary">待回覆</span>
+                        }
+                        else if (item.SupportStatus == "已回覆")
+                        {
+                            <span class="bg-info">已回覆</span>
+                        }
+                        else if (item.SupportStatus == "新寄送")
+                        {
+                            <span class="bg-lightyellow">新寄送</span>
+                        }
+                        else if (item.SupportStatus == "已完成")
+                        {
+                            <span class="bg-primary text-white-50">已完成</span>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.SupportStatus)
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("回覆", "CSSReplay", new { id = item.SupportId }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+@section Scripts{
+
+    <!-- DataTables BS5版本-->
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+
+    <script>
+
+        $(document).ready( function () {
+        $('#myTable').DataTable({
+         pageLength: 10, // 每頁顯示10筆資料
+            language: {
+                search: "搜尋：",
+                paginate: {
+                    first: "首頁",
+                    last: "尾頁",
+                    next: "下一頁",
+                    previous: "上一頁"
+                },
+                info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
+                //最下面顯示
+                infoEmpty: "顯示 0 到 0 的 0 筆資料",
+                //下拉選單
+                lengthMenu: "顯示 _MENU_ 筆資料",
+                }
+        });
+            var table = $('#myTable').DataTable();
+            $('#newMail').on('click', function () {
+                table.column(4).search('新進單').draw();
+            });
+            $('#reMail').on('click', function () {
+                table.column(4).search('待回覆').draw();
+            });
+            $('#replaiedMail').on('click', function () {
+                table.column(4).search('已回覆').draw();
+            });
+            $('#allMail').on('click', function () {
+                table.column(4).search('').draw();
+            });
+        });
+
+
+    </script>
+
+}
+
+@section Styles{
+
+    <!-- DataTables CSS BS5版本 -->
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+}

@@ -30,7 +30,7 @@
                                id="points" name="ADPoints" value="1000" min="1000" max="20000" readonly>
                         <button type="button" increase" onclick="changeValue(500)" class="d-inline btn btn-info">+</button>
                     </div>
- 
+
                     @Html.ValidationMessageFor(model => model.ADPoints, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -42,6 +42,25 @@
             </div>
         </div>
     }
+
+    <!-- 購買確認模態視窗 -->
+    <div class="modal fade" id="confirmPurchaseModal" tabindex="-1" aria-labelledby="confirmPurchaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmPurchaseModalLabel">確認購買</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    廣告點數 <span id="pointsToPurchase">XXXX</span> 點
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="confirmPurchaseButton">購買</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <h2>點數紀錄</h2>
     <div class="text-primary fs-4"> 目前點數 <span class="text-danger">@ViewBag.SellerPoint</span> 點</div>
@@ -87,6 +106,22 @@
                 input.value = newValue;
             }
         }
+
+        
+        $('input[type="submit"]').click(function (e) {
+            e.preventDefault();  // 阻止表單直接提交
+
+            // 更新點數顯示
+            $('#pointsToPurchase').text($('#points').val());
+
+            // 顯示視窗
+            $('#confirmPurchaseModal').modal('show');
+        });
+
+        // 在視窗中點擊購買按鈕時，提交表單
+        $('#confirmPurchaseButton').click(function () {
+            $('form').submit();  // 提交表單
+        });
     </script>
 }
 

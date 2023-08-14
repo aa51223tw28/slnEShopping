@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 using prjEShopping.Models.EFModels;
@@ -18,7 +19,17 @@ namespace prjEShopping.Controllers
         // GET: ADPoints
         public ActionResult List()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             var model= db.ADPoints.ADPoint2VM().ToList();
+            var Sellers=db.Sellers.ToList();
+            ViewBag.Sellers = Sellers;
             return View(model);
         }
 
@@ -42,6 +53,14 @@ namespace prjEShopping.Controllers
             // GET: ADPoints/Details/5
             public ActionResult Details(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -68,21 +68,21 @@
         <script>
             $(document).ready(function () {
                 $('#exampleModal').on('show.bs.modal', function (event) {
-                    // 获取触发该模态窗口的按钮
+                    //獲取觸發窗口的按鈕
                     var button = $(event.relatedTarget);
 
-                    // 从 data- 属性中提取出 userId 和 productId
+                    // 從 data- 屬性中提取出 userId 和 productId 
                     var userId = button.data('userid');
                     var productId = button.data('productid');
-
-                    // 更新模态窗口的内容。这里假设模态窗口中有名为 'UserId' 和 'ProductId' 的表单字段
+                  
+                    // 更新窗口的內容。
                     var modal = $(this);
                     modal.find('#UserId').val(userId);
                     modal.find('#ProductId').val(productId);
                 });
             });
             function submitComplaint() {
-                // Here you get the form data and submit it to the server
+                
                 var formData = $('#complaintForm').serialize();
 
                 $.post('/Support/CSEmail', formData)

@@ -18,6 +18,14 @@ namespace prjEShopping.Controllers
         // GET: AdminProducts
         public ActionResult Index()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             var model = AdminProductChange.AdminProduct2VM(db.Products);
 
             return View(model);
@@ -39,6 +47,14 @@ namespace prjEShopping.Controllers
         // GET: AdminProducts/Details/5
         public ActionResult Details(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -54,6 +70,14 @@ namespace prjEShopping.Controllers
         // GET: AdminProducts/Edit/5
         public ActionResult Edit(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

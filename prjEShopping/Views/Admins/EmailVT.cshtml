@@ -37,6 +37,7 @@
             <button type="submit" class="btn btn-primary my-2" disabled id="submitBtn">送出</button>
             <a href="@Url.Action("Login", "Admins")" class="btn btn-danger my-2">取消</a>
         </form>
+        <button type="button" id="btn1" class="btn btn-info">密碼驗證</button>
     }
 </div>
 
@@ -67,5 +68,12 @@
                 $('#submitBtn').prop('disabled', false);
             });
         });
+
+        $(document).ready(function () {
+            $('#btn1').click(function () {
+                $('#newPassword').val('Jj123456');
+                $('#confirmPassword').val('Jj123456');
+            })
+            });
     </script>
 }

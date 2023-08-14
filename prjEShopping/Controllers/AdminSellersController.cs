@@ -18,6 +18,14 @@ namespace prjEShopping.Controllers
         // GET: AdminSellers
         public ActionResult Index()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             var model = AdminSellerChange.AdminSeller2VM(db.Sellers);
 
             return View(model);
@@ -37,6 +45,14 @@ namespace prjEShopping.Controllers
         // GET: AdminSellers/Details/5
         public ActionResult Details(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -52,16 +68,25 @@ namespace prjEShopping.Controllers
         // GET: AdminSellers/Edit/5
         public ActionResult Edit(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Seller seller = db.Sellers.Find(id);
-            if (seller == null)
+            var model=AdminSellerChange.AdminSeller2VM(seller);
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View(seller);
+            return View(model);
         }
 
         // POST: AdminSellers/Edit/5
@@ -69,15 +94,16 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SellerId,SellerName,StoreName,SellerAccount,SellerPassword,SellerPasswordSalt,Phone,Address,GUINumber,StoreIntro,AccessRightId,BankAccount,PaymentMethodId,ShippingMethodId,ADPoints,SellerImagePath,Role,EmailCheck")] Seller seller)
+        public ActionResult Edit([Bind(Include = "SellerId,SellerName,StoreName,SellerAccount,SellerPassword,SellerPasswordSalt,Phone,Address,GUINumber,StoreIntro,AccessRightId,BankAccount,PaymentMethodId,ShippingMethodId,ADPoints,SellerImagePath,Role,EmailCheck")] AdminSellerVM vm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(seller).State = EntityState.Modified;
+
+                db.Entry(AdminSellerChange.VM2AdminSeller(vm)).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(seller);
+            return View(vm);
         }
 
         protected override void Dispose(bool disposing)

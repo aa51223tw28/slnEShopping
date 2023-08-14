@@ -57,7 +57,14 @@
                             <div class="collapse navbar-collapse">
                                 <ul class="navbar-nav me-auto">                                   
                                     <li class="nav-item">
+                                        @if (@ViewBag.AdminName != null)
+                                        {
+                                            <a class="nav-link" href="@Url.Action("Login", "Admins")">@ViewBag.AdminName</a>
+                                        }
+                                        else
+                                        {
                                         <a>@Html.ActionLink("管理者登入", "Login", "Admins", new { area = "" }, new { @class = "nav-link" })</a>
+                                        }
                                     </li>                                  
                                     <li class="nav-item">
                                         <a>@Html.ActionLink("賣家註冊", "Create", "SellerRegister", new { area = "" }, new { @class = "nav-link" })</a>

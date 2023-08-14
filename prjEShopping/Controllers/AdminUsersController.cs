@@ -18,6 +18,14 @@ namespace prjEShopping.Controllers
         // GET: AdminUsers
         public ActionResult Index()
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             var model = AdminUserChange.AdminUser2VM(db.Users);
 
             return View(model);
@@ -37,6 +45,14 @@ namespace prjEShopping.Controllers
         // GET: AdminUsers/Details/5
         public ActionResult Details(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -46,45 +62,31 @@ namespace prjEShopping.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
-        }
-
-        // GET: AdminUsers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: AdminUsers/Create
-        // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
-        // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserId,UserName,UserAccount,UserPassword,UserPasswordSalt,Gender,Phone,CellPhone,City,Address,ShippingMethodId,PaymenyMethodId,Birthday,AccessRightId,UserImagePath,Role,EmailCheck")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
             return View(user);
         }
 
         // GET: AdminUsers/Edit/5
         public ActionResult Edit(int? id)
         {
+            HttpCookie authCookie = Request.Cookies["AdminLogin"];
+            if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+            string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
+            ViewBag.AdminName = decodedName;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
-            if (user == null)
+            var model=AdminUserChange.AdminUser2VM(user);
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View(model);
         }
 
         // POST: AdminUsers/Edit/5
@@ -92,41 +94,15 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserId,UserName,UserAccount,UserPassword,UserPasswordSalt,Gender,Phone,CellPhone,City,Address,ShippingMethodId,PaymenyMethodId,Birthday,AccessRightId,UserImagePath,Role,EmailCheck")] User user)
+        public ActionResult Edit([Bind(Include = "UserId,UserName,UserAccount,UserPassword,UserPasswordSalt,Gender,Phone,CellPhone,City,Address,ShippingMethodId,PaymenyMethodId,Birthday,AccessRightId,UserImagePath,Role,EmailCheck")] AdminUserVM vm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(AdminUserChange.VM2AdminUser(vm)).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
-        }
-
-        // GET: AdminUsers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: AdminUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View(vm);
         }
 
         protected override void Dispose(bool disposing)

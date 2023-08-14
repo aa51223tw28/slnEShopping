@@ -1,4 +1,5 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -64,6 +65,63 @@ namespace prjEShopping.Models.ViewModels
         [Display(Name = "活動狀態")]
         [StringLength(50)]
         public string EventStatus { get; set; }
+    }
+
+    public static class CouponChange
+    {
+        public static CouponVM Coupon2VM(Coupon c)
+        {
+            return new CouponVM
+            {
+                CouponId = c.CouponId,
+                SellerId = c.SellerId,
+                CouponNumber = c.CouponNumber,
+                CouponName = c.CouponName,
+                CouponDetails = c.CouponDetails,
+                Quantity = c.Quantity,
+                ReceivedQuantity = c.ReceivedQuantity,
+                CouponTerms = c.CouponTerms,
+                CouponType = c.CouponType,
+                Discount = c.Discount,
+                Storewide = c.Storewide,
+                StartTime = c.StartTime,
+                ClaimDeadline = c.ClaimDeadline,
+                EndTime = c.EndTime,
+                EventStatus = c.EventStatus
+            };
+        }
+
+        public static List<CouponVM> Coupon2VM(this IEnumerable<Coupon> source)
+        {
+            if (source == null || source.Count() == 0)
+            {
+                return Enumerable.Empty<CouponVM>().ToList();
+            }
+
+            return source.Select(p => Coupon2VM(p)).ToList();
+        }
+
+        public static Coupon VM2Coupon(CouponVM c)
+        {
+            return new Coupon
+            {
+                CouponId = c.CouponId,
+                SellerId = c.SellerId,
+                CouponNumber = c.CouponNumber,
+                CouponName = c.CouponName,
+                CouponDetails = c.CouponDetails,
+                Quantity = c.Quantity,
+                ReceivedQuantity = c.ReceivedQuantity,
+                CouponTerms = c.CouponTerms,
+                CouponType = c.CouponType,
+                Discount = c.Discount,
+                Storewide = c.Storewide,
+                StartTime = c.StartTime,
+                ClaimDeadline = c.ClaimDeadline,
+                EndTime = c.EndTime,
+                EventStatus = c.EventStatus
+            };
+        }
     }
 
 }
