@@ -35,8 +35,61 @@ namespace prjEShopping.Controllers
         {
             int id = (int)Session["SellerId"];
             var db = new AppDbContext();
-            var coupons = db.Coupons.Where(x => x.SellerId == id && x.EndTime > DateTime.Now).OrderBy(x => x.EndTime).Take(3);
+            //var coupons = db.Coupons.Where(x => x.SellerId == id && x.EndTime > DateTime.Now).OrderBy(x => x.EndTime).Take(3);
+            var coupons = db.Coupons.Where(x => x.SellerId == id);
             return Json(coupons,JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getTop5Product()
+        {
+            int sellerid = (int)Session["SellerId"];
+            var db = new AppDbContext();
+            var products = db.Products.Where(x => x.SellerId == sellerid && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+                x.ProductId,
+                x.ProductImagePathOne,
+                x.ProductName,
+                x.Price,
+                y.QuantitySold,
+                x.SubcategoryId,
+            }).OrderByDescending(x => x.QuantitySold).Take(5);
+
+            return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getPromoted()
+        {
+            int sellerid = (int)Session["SellerId"];
+            var db = new AppDbContext();
+            var products = db.Products.Where(x => x.SellerId == sellerid && x.ProductStatusId == 2 && x.Promote != null).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            {
+                x.ProductId,
+                x.ProductImagePathOne,
+                x.ProductName,
+                x.Price,
+                y.QuantitySold,
+                x.SubcategoryId,
+            });
+            return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getTop10Shipments()
+        {
+            int sellerid = (int)Session["SellerId"];
+            var db = new AppDbContext();
+            var top10Shipments = db.Shipments.Where(x => x.SellerId == sellerid && x.ShipmentStatusId == 1)
+                            .Join(db.ShipmentStatusDetails, x => x.ShipmentStatusId, y => y.ShipmentStatusId, (x, y) => new
+                            {
+                                shipmentdate = x.ShipmentDate,
+                                shipmentnumber = x.ShipmentNumber,
+                                shipmentstatus = y.ShipmentStatus,
+                            }).OrderByDescending(x => x.shipmentdate).Take(10).ToList().Select(x => new
+                            {
+                                shipmentdate = x.shipmentdate.ToString(),
+                                shipmentnumber = x.shipmentnumber,
+                                shipmentstatus = x.shipmentstatus,
+                            });
+            return Json(top10Shipments, JsonRequestBehavior.AllowGet);
         }
     }
 }

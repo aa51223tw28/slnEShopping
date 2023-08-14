@@ -8,6 +8,17 @@ namespace prjEShopping.Models.EFModels
 
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            OrderDetails = new HashSet<OrderDetail>();
+            ProductInventories = new HashSet<ProductInventory>();
+            ProductStocks = new HashSet<ProductStock>();
+            Ratings = new HashSet<Rating>();
+            ShoppingCartDetails = new HashSet<ShoppingCartDetail>();
+            TrackProducts = new HashSet<TrackProduct>();
+        }
+
         public int ProductId { get; set; }
 
         public int? SellerId { get; set; }
@@ -54,5 +65,33 @@ namespace prjEShopping.Models.EFModels
         public string OptionIdFive { get; set; }
 
         public int? Promote { get; set; }
+
+        public virtual Brand Brand { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductInventory> ProductInventories { get; set; }
+
+        public virtual ProductMainCategory ProductMainCategory { get; set; }
+
+        public virtual ProductStatusDetail ProductStatusDetail { get; set; }
+
+        public virtual ProductSubCategory ProductSubCategory { get; set; }
+
+        public virtual Seller Seller { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductStock> ProductStocks { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Rating> Ratings { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShoppingCartDetail> ShoppingCartDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TrackProduct> TrackProducts { get; set; }
     }
 }

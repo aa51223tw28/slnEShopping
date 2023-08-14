@@ -254,7 +254,7 @@ namespace prjEShopping.Controllers
                 var db = new AppDbContext();
                 var usernewpw=db.Users.FirstOrDefault(x=>x.UserAccount==useraccount); 
                 usernewpw.UserPassword = newPassword;
-                usernewpw.AccessRightId = "2";
+                usernewpw.AccessRightId = 2;
                 db.SaveChanges();
                 return true;
             }
@@ -346,7 +346,7 @@ namespace prjEShopping.Controllers
             var usertoken=db.Users.FirstOrDefault(x=>x.EmailCheck==token);
             if (usertoken != null)
             {
-                usertoken.AccessRightId = "1";
+                usertoken.AccessRightId = 1;
                 usertoken.EmailCheck = null;
                 db.SaveChanges();
 
@@ -421,9 +421,9 @@ namespace prjEShopping.Controllers
                 Gender = vm.Gender,
                 Birthday = vm.Birthday,
                 Role = "User",
-                AccessRightId = "2",//審核中
-                ShippingMethodId = "1",
-                PaymenyMethodId = "1",    
+                AccessRightId = 2,//審核中
+                ShippingMethodId = 1,
+                PaymenyMethodId = 1,    
                 UserImagePath=fileName,
             };
             db.Users.Add(newUser);
@@ -490,7 +490,7 @@ namespace prjEShopping.Controllers
             var usertoken = db.Users.FirstOrDefault(x => x.EmailCheck == token);
             if (usertoken != null)
             {
-                usertoken.AccessRightId = "1";
+                usertoken.AccessRightId = 1;
                 usertoken.EmailCheck = null;
                 db.SaveChanges();
 

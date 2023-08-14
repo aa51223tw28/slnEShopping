@@ -19,5 +19,7 @@ namespace prjEShopping.Models.EFModels
         public int? QuantitySold { get; set; }
 
         public int? StockQuantity { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }

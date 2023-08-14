@@ -28,7 +28,7 @@ namespace prjEShopping.Controllers
             // 找出已有的CouponId
             var usersCouponIds = db.UsersCoupons
                 .Where(u => u.UserId == userId)
-                .Select(uc => uc.CouponId.Value);
+                .Select(uc => uc.CouponId);
 
             // 剔除相同的優惠券
             var couponsToDisplay = _coupons.Except(usersCouponIds);

@@ -32,7 +32,7 @@ namespace prjEShopping.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeAccessRightId(int id, string AccessRightId)
+        public ActionResult ChangeAccessRightId(int id, int AccessRightId)
         {
             var user = db.Users.Find(id);
             user.AccessRightId = AccessRightId;

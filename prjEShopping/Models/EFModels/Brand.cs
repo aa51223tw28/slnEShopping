@@ -8,10 +8,19 @@ namespace prjEShopping.Models.EFModels
 
     public partial class Brand
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Brand()
+        {
+            Products = new HashSet<Product>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int BrandId { get; set; }
 
         [StringLength(50)]
         public string BrandName { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

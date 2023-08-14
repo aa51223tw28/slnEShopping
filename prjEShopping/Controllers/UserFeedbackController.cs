@@ -13,9 +13,17 @@ namespace prjEShopping.Controllers
     public class UserFeedbackController : Controller
     {
 
-        public ActionResult Index(int shipmentId)
+        public ActionResult Index(int productId)
         {
-            int? userId = (int?)Session["UserId"];
+            //  int? userId = (int?)Session["UserId"];
+
+            //讀取登入帳號(電子郵件)
+            var customerAccount = User.Identity.Name;
+            //根據登入帳號取得帳號ID
+            var db = new AppDbContext();
+            var userId = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var productName = db.Products.Where(p => p.ProductId == productId).Select(p => p.ProductName).FirstOrDefault();
+
             var productDto = new UserProductIndexDto();
             var feedbackVm = new UserFeedbackVM
             {
@@ -24,8 +32,8 @@ namespace prjEShopping.Controllers
            
             ViewData["ProductDto"] = productDto;
             ViewData["FeedbackVm"] = feedbackVm;
-
-            return View();
+            ViewData["ProductName"] = productName;
+            return View(feedbackVm);
         }
         [HttpPost]
         public ActionResult SubmitComment(UserFeedbackVM model)
@@ -36,7 +44,7 @@ namespace prjEShopping.Controllers
                 var db = new AppDbContext();
                 var feedback = new Rating
                 {
-                    UserId = 2,
+                    UserId = model.UserId,
                     ProductId = model.ProductId,
                     StarRating = model.StarRating,
                     RatingText = model.RatingText,

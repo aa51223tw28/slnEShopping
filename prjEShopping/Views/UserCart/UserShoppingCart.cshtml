@@ -81,9 +81,21 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-2 d-flex align-items-center">
-                                <span>@Math.Round(item.Price).ToString("C0")</span>
-                            </div>
+
+                            @if (item.DiscountPrice != item.Price)//要寫判斷式 有折扣
+                            {
+                                <div class="col-2 d-flex flex-column justify-content-center">
+                                    <span class="text-decoration-line-through">@Math.Round(item.Price).ToString("C0")</span>@*單價*@
+                                    <span class="text-danger">@Math.Round(item.DiscountPrice).ToString("C0")</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-2 d-flex flex-column justify-content-center">
+                                    <span>@Math.Round(item.Price).ToString("C0")</span>@*單價*@
+                                </div>
+                            }
+
                             <div class="col-2 d-flex align-items-center">
                                 <div class="input-group" style="width: 120px;">
                                     @*加減數量*@
@@ -92,10 +104,22 @@
                                     <button class="btn btn-outline-primary plusBtn" type="button" data-id="@item.ProductId" data-qty="@item.Quantity" data-stockqty="@item.ProductStock">+</button>
                                 </div>
                             </div>
-                            <div class="col-2 d-flex align-items-center">
-                                @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
-                                <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
-                            </div>
+
+                            @if (item.DiscountPrice != item.Price)//要寫判斷式 有折扣
+                            {
+                                <div class="col-2 d-flex align-items-center">
+                                    @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                    <span class="text-danger fw-bold">@Math.Round(item.DiscountSubTotal).ToString("C0")</span>@*小計*@
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-2 d-flex align-items-center">
+                                    @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                    <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>@*小計*@
+                                </div>
+                            }
+                            
                             <div class="col-2 d-flex align-items-center">
                                 <button class="btn btn-danger delete2cart" data-id="@item.ProductId">刪除</button>
                                 <span hidden data-cartid="@item.CartId" id="cartid"></span>@*為了獲得購物車編號*@
@@ -363,7 +387,7 @@
                 productCheckbox.checked = this.checked
             })
             
-            const result = await $.get("/UserCart/checkedBuyAllProductsapi");//全選 編輯ShoppingCartDetails的AddToOrder=1
+            const result = await $.get("/UserCart/checkedBuyAllProductsapi");//全選 
             getTotalcheckedCount();
             getTotalcheckedPrice();
         })
@@ -396,7 +420,7 @@
             productCheckbox.addEventListener('change', async function () {
                 var productId = $(this).attr("data-id");
                 //console.log(productId)
-                const result = await $.get("/UserCart/checkedBuyOneProductapi?productId=" + productId);//單勾選商品編輯ShoppingCartDetails的AddToOrder=1
+                const result = await $.get("/UserCart/checkedBuyOneProductapi?productId=" + productId);//單勾選商品
 
                  // 檢查是否有商品沒有勾選，如果有，取消全選的勾選
                 const isAnyProductUnchecked = Array.from(productCheckboxes).some(productCheckbox => !productCheckbox.checked)
@@ -408,7 +432,7 @@
                 //獲取商品所屬的商家勾選框
                 const sellerCheckbox = this.closest('.row.bg-success.rounded.py-3.mb-3').querySelector('.sellercheckbox');
 
-                //檢查商家下的所有商品是否有未選中的
+                //檢查商家下的所有商品是否有未選中的，如果有，取消商家的勾選
                 const productGroup = this.closest('.row.bg-success.rounded.py-3.mb-3');
                 const productCheckboxesInGroup = productGroup.querySelectorAll('.productcheckbox');
                 const isAllProductsUnchecked = Array.from(productCheckboxesInGroup).some(productCheckbox => !productCheckbox.checked);
@@ -430,9 +454,11 @@
             });
         }
 
+        //總金額-有判斷是否有折扣
         async function getTotalcheckedPrice() {
             const response = await fetch('/UserCart/GetTotalcheckedPrice');
             const price = await response.json();
+            console.log(price)
             
             const formattedPrice = price.toLocaleString();
 

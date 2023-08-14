@@ -8,6 +8,12 @@ namespace prjEShopping.Models.EFModels
 
     public partial class Permission
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Permission()
+        {
+            Admins = new HashSet<Admin>();
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int PermissionId { get; set; }
 
@@ -30,5 +36,8 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string SupportPermission { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Admin> Admins { get; set; }
     }
 }

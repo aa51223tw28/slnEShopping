@@ -8,11 +8,16 @@ namespace prjEShopping.Models.EFModels
 
     public partial class UsersCoupon
     {
+        [Key]
+        [Column(Order = 0)]
         public int UsersCouponId { get; set; }
 
         public int? UserId { get; set; }
 
-        public int? CouponId { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int CouponId { get; set; }
 
         public DateTime? GetDate { get; set; }
 
@@ -20,5 +25,7 @@ namespace prjEShopping.Models.EFModels
 
         [StringLength(50)]
         public string CouponStatus { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

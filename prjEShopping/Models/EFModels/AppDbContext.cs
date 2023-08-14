@@ -42,9 +42,12 @@ namespace prjEShopping.Models.EFModels
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<SupportReplay> SupportReplaies { get; set; }
         public virtual DbSet<Support> Supports { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TrackProduct> TrackProducts { get; set; }
         public virtual DbSet<TrackSeller> TrackSellers { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ChatroomMember> ChatroomMembers { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<UsersCoupon> UsersCoupons { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -52,6 +55,16 @@ namespace prjEShopping.Models.EFModels
             modelBuilder.Entity<OrderDetail>()
                 .Property(e => e.CurrentPrice)
                 .HasPrecision(19, 4);
+
+            modelBuilder.Entity<PaymentMethod>()
+                .HasMany(e => e.Users)
+                .WithOptional(e => e.PaymentMethod)
+                .HasForeignKey(e => e.PaymenyMethodId);
+
+            modelBuilder.Entity<Permission>()
+                .HasMany(e => e.Admins)
+                .WithOptional(e => e.Permission)
+                .HasForeignKey(e => e.PermissionsId);
 
             modelBuilder.Entity<Product>()
                 .Property(e => e.Price)

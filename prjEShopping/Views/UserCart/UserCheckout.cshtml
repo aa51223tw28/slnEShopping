@@ -52,16 +52,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <span>@Math.Round(item.Price).ToString("C0")</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            <span>@item.Quantity</span>
-                        </div>
-                        <div class="col-2 d-flex align-items-center">
-                            @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
-                            <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
-                        </div>
+
+                        @if (item.DiscountPrice != item.Price)//有折扣
+                        {
+                            <div class="col-2 d-flex flex-column justify-content-center">
+                                <span class="text-decoration-line-through">@Math.Round(item.Price).ToString("C0")</span>@*單價*@
+                                <span class="text-danger">@Math.Round(item.DiscountPrice).ToString("C0")</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <span>@item.Quantity</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                <span class="text-danger fw-bold">@Math.Round(item.DiscountSubTotal).ToString("C0")</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-2 d-flex align-items-center">
+                                <span>@Math.Round(item.Price).ToString("C0")</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <span>@item.Quantity</span>
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                @*<span class="text-danger fw-bold">$@string.Format("{0:n0}", Math.Round((decimal)item.SubTotal))</span>*@
+                                <span class="text-danger fw-bold">@Math.Round(item.SubTotal).ToString("C0")</span>
+                            </div>
+                        }
+
+
+
+
                     </div>
                 }
             </div>
@@ -77,10 +99,8 @@
                 <span class="fw-bold">優惠券</span>
             </div>
             <div class="col-4 d-flex align-items-center">
-                <select id="counpon" class="form-select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                <select id="couponname" class="form-select">
+                    
                 </select>
                 @*<div class="d-flex flex-column">
             <div class="my-1">
@@ -219,26 +239,35 @@
                     <span>商品價格小計：</span>
                     <div class="d-flex">
                         <span>NT$</span>
-                        <span class="totalItemcheckedPrice"></span>
+                        <span class="totaloldPrice"></span>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
                     <span>運費：</span>
-                    <span></span>
+                    <div class="d-flex">
+                        <span>NT$</span>
+                        <span class="shipPrice"></span>
+                    </div>                        
+                 </div>
+                    @*<div class="d-flex justify-content-between">
+            <span class="text-danger">運費折扣小計：</span>
+            <span class="text-danger"></span>
+        </div>*@
+                    <div class="d-flex justify-content-between">
+                        <span class="text-danger">已使用賣場優惠券：</span>
+                        <div class="d-flex">
+                            <span class="text-danger">NT$-</span>
+                            <span class="text-danger couponPrice"></span>
+                        </div>  
+                    </div>                    
+                    <div class="d-flex border-top border-2 border-dark pt-2 mt-2 justify-content-between">
+                        <span>付款金額：</span>
+                        <div class="d-flex">
+                            <span>NT$</span>
+                            <span class="endtotalPrice"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <span class="text-danger">運費折扣小計：</span>
-                    <span class="text-danger"></span>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <span class="text-danger">已使用賣場優惠券：</span>
-                    <span class="text-danger"></span>
-                </div>
-                <div class="d-flex border-top border-2 border-dark pt-2 mt-2 justify-content-between">
-                    <span>付款金額：</span>
-                    <span></span>
-                </div>
-            </div>
             <button class="btn btn-secondary btn-lg add2order" @*type="submit"*@>下訂單</button>
         </div>
         @*</form>*@
@@ -282,13 +311,122 @@
 
 
 @section Scripts{
-    <script>
+    <script>       
+        
 
+        /*demo測試權限區*/
+        const receiver = document.querySelector('#receiver')
+        const receiverAddress = document.querySelector('#receiverAddress')
+
+        const btnReceiver = document.querySelector('#btnReceiver')
+
+        btnReceiver.addEventListener('click', () => {
+            receiver.value = "黃先生"
+            receiverAddress.value = "台北市永和區..."
+        })
+
+        var selectedCouponId = 0;
+
+        //-----------------------呼叫優惠-券內容-------------------------
+        document.addEventListener("DOMContentLoaded", async function () {
+            const response = await fetch("/UserCart/getCouponName")
+            const data = await response.json();
+            //console.log(data)
+
+            var couponname = document.querySelector("#couponname");
+
+            //先新增一個預設的空選項
+            var defaultOption = document.createElement("option");
+            defaultOption.value = "請選擇優惠券";
+            defaultOption.text = "請選擇優惠券";
+            couponname.appendChild(defaultOption);
+
+            data.forEach(function (value) {
+                var option = document.createElement("option")
+                //console.log(value)
+                option.value = value.couponName;
+                option.text = value.couponName;
+                couponname.appendChild(option)
+            })
+
+            //選中哪個            
+            couponname.addEventListener("change", function () {
+                var selectedCouponName = couponname.value;
+                var selectedCoupon = data.find(function (coupon) {
+                    return coupon.couponName === selectedCouponName;
+                })
+                if (selectedCoupon) {
+                    selectedCouponId = selectedCoupon.couponId;                   
+                } else {
+                    selectedCouponId = 0;
+                }
+                //console.log(selectedCouponId)
+                getcouponPrice()
+            })
+        })
+
+
+
+
+
+        //-----------------計算價格-------------------------
+        const totaloldPrice = document.querySelector('.totaloldPrice');//商品有折扣
+        const shipPriceid = document.querySelector('.shipPrice');//運費
+        const couponPriceid = document.querySelector('.couponPrice');//優惠券        
+        const endtotalPrice = document.querySelector('.endtotalPrice');//付款金額
+
+
+        //計算：商品有折扣+運費-使用優惠券=付款金額
+        function calculateTotal() {
+            const totalPrice = parseFloat(totaloldPrice.textContent.replace(/,/g, '')) + parseFloat(shipPriceid.textContent.replace(/,/g, ''))
+                                 - parseFloat(couponPriceid.textContent.replace(/,/g, ''));
+            const formattedtotalPrice = totalPrice.toLocaleString();
+            endtotalPrice.textContent = formattedtotalPrice;
+        }
+
+        //總金額-有判斷是否有折扣
+        async function getTotalcheckedPrice() {
+            const response = await fetch('/UserCart/GetTotalcheckedPrice');
+            const oldPrice = await response.json();
+
+            const formattedoldPrice = oldPrice.toLocaleString();//加千元符號
+
+            totaloldPrice.textContent = formattedoldPrice;
+            calculateTotal()
+        }
+        getTotalcheckedPrice()
+
+
+        //運費
+        async function getshipPrice() {
+            const response = await fetch('/UserCart/getshipPrice')
+            const shipPrice = await response.json();
+
+            const formattedshipPrice = shipPrice.toLocaleString();
+            shipPriceid.textContent = formattedshipPrice;
+            calculateTotal()
+        }
+        getshipPrice()
+
+
+        //優惠券
+        async function getcouponPrice() {
+            const response = await fetch("/UserCart/getcouponPrice?couponId=" + selectedCouponId)
+            const couponPrice = await response.json();
+            const formattedcouponPrice = couponPrice.toLocaleString();
+            couponPriceid.textContent=formattedcouponPrice
+            calculateTotal()
+        }
+        getcouponPrice()
+
+
+        
         //呼叫寫進order的api
         $(document).ready(function () {
             $(".add2order").each(function () {
                 $(this).on('click', async function () {
-                    const result = await $.get("/UserCart/UserCheckoutapi");
+                    //console.log(selectedCouponId)
+                    const result = await $.get("/UserCart/UserCheckoutapi?selectedCouponId=" + selectedCouponId);
 
                     var shippingMethod = document.getElementById("shippingMethod").value;
                     var paymentMethod = document.getElementById("paymentMethod").value;
@@ -305,7 +443,7 @@
                     $("#add2orderpayModal").modal("show");//去繳費
 
                     $("#add2orderpayconfirmButton").on('click', () => {
-                        window.location.href = "/UserECpay/ToECpay";
+                        window.location.href = "/UserCart/ToECpay";
                     })
 
                     //$("#add2orderModal").modal("show");//modal-購買完成
@@ -350,29 +488,6 @@
 
         })
 
-        /*demo測試權限區*/
-        const receiver = document.querySelector('#receiver')
-        const receiverAddress = document.querySelector('#receiverAddress')
-
-        const btnReceiver = document.querySelector('#btnReceiver')
-
-        btnReceiver.addEventListener('click', () => {
-            receiver.value = "黃先生"
-            receiverAddress.value = "台北市永和區..."
-        })
-
-        //商品原價小計
-        const totalItemcheckedPrice = document.querySelector('.totalItemcheckedPrice')
-
-        async function getTotalcheckedPrice() {
-            const response = await fetch('/UserCart/GetTotalcheckedPrice');
-            const price = await response.json();
-
-            const formattedPrice = price.toLocaleString();
-
-            totalItemcheckedPrice.textContent = formattedPrice;
-        }
-        getTotalcheckedPrice()
     </script>
 
 }

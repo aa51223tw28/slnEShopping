@@ -46,7 +46,7 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult AddReply(int commentId, int starRating, string ratingText, string replyText)
         {
-            int productId = 1;//先寫死productId=1;
+            //先寫死productId=1;
             //int userId = 1;
             // 在這裡將回覆資料儲存到 RatingReplaies 資料庫
             // 建立 RatingReplaies 物件並填入資料
@@ -62,14 +62,14 @@ namespace prjEShopping.Controllers
             db.RatingReplaies.Add(ratingReply); // 將回覆資料加入資料庫
             db.SaveChanges(); // 儲存變更
              
-            // 同時將ProductId和BuyerId填入Rating資料表中
-            var rating = db.Ratings.FirstOrDefault(r => r.RatingId == commentId);
-            if (rating != null)
-            {
-                rating.ProductId = productId;
-                //rating.UserId = userId;之後有值要改
-                db.SaveChanges();
-            }
+            //// 同時將ProductId和BuyerId填入Rating資料表中
+            //var rating = db.Ratings.FirstOrDefault(r => r.RatingId == commentId);
+            //if (rating != null)
+            //{
+            //    rating.ProductId = productId;
+            //    //rating.UserId = userId;之後有值要改
+            //    db.SaveChanges();
+            //}
             TempData["ReplySuccess"] = "回覆成功";
             // 執行完儲存後，你可以將使用者重新導向到回覆頁面或是刷新當前頁面
             // 這裡假設重新導向至回覆頁面
