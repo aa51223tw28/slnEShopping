@@ -30,7 +30,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SupportType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select class="form-control" id="SupportType" name="SupportType" required>                  
+                <select class="form-select" id="SupportType" name="SupportType" required>
+                    <option selected disabled value="">申訴類型</option>
                     <option value="商品投訴">商品投訴</option>
                     <option value="商家問題">商家問題</option>
                     <option value="會員問題">會員問題</option>
