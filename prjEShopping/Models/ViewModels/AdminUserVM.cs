@@ -66,7 +66,7 @@ namespace prjEShopping.Models.ViewModels
 
         [DisplayName("權限")]
         [StringLength(50)]
-        public int? AccessRightId { get; set; }
+        public int AccessRightId { get; set; }
 
         [StringLength(50)]
         public string UserImagePath { get; set; }

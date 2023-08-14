@@ -61,22 +61,22 @@
                     @{
                         var statusColor = "";
                         var AccessRightName = "";
-                        switch (item.AccessRightId)
-                        {
-                            case 1:
-                                statusColor = "text-white bg-primary";
-                                AccessRightName = "使用中";
-                                break;
-                            case 2:
-                                statusColor = "text-primary bg-secondary";
-                                AccessRightName = "審核中";
-                                break;
-                            case 3:
-                                statusColor = "text-white bg-danger";
-                                AccessRightName = "停權中";
-                                break;
+
+                        if (item.AccessRightId == 1)
+                        { statusColor = "text-white bg-danger";
+                            AccessRightName = "使用中";
                         }
-                    }
+                        else if (item.AccessRightId == 2)
+                        {
+                            statusColor = "text-white bg-danger";
+                            AccessRightName = "審核中";
+                        }
+                        else
+                        {
+                            statusColor = "text-primary bg-secondary";
+                            AccessRightName = "停權中";
+                        }
+                        }
                     <span class="statusDisplay @statusColor" data-user-id="@item.UserId">@AccessRightName </span>
                 </td>
                 <td>
@@ -141,15 +141,15 @@
                         var statusColor;
                         let AccessRightName = "";
                         switch (response.newAccessRightId) {
-                            case "1":
+                            case 1:
                                 statusColor = "text-white bg-primary";
                                 AccessRightName = "使用中"
                                 break;
-                            case "2":
+                            case 2:
                                 statusColor = "text-primary bg-secondary";
                                 AccessRightName = "審核中"
                                 break;
-                            case "3":
+                            case 3:
                                 statusColor = "text-white bg-danger";
                                 AccessRightName = "停權中"
                                 break;
