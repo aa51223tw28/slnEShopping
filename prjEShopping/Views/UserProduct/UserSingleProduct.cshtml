@@ -547,8 +547,13 @@
                             ratingone += '<div>評分:' + rating.StarRating + '</div>';
                             ratingone += '<div>評論:' + rating.RatingText + '</div>';
                             ratingone += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingone += '<div>賣家評論:' + sellerComment  + '</div>';
-                            ratingone += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            if (sellerComment !== "") {
+                                ratingone += '<div>賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime !== "") {
+                                ratingone += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            }
                             ratingone += '</div>';
                             ratingone += '</div>';
                             ratingone += '</div>';
@@ -573,8 +578,13 @@
                             ratingtwo += '<div>評分:' + rating.StarRating + '</div>';
                             ratingtwo += '<div>評論:' + rating.RatingText + '</div>';
                             ratingtwo += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingtwo += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingtwo += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            if (sellerComment !== "") {
+                                ratingtwo += '<div>賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime !== "") {
+                                ratingtwo += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            }
                             ratingtwo += '</div>';
                             ratingtwo += '</div>';
                             ratingtwo += '</div>';
@@ -599,8 +609,13 @@
                             ratingthree += '<div>評分:' + rating.StarRating + '</div>';
                             ratingthree += '<div>評論:' + rating.RatingText + '</div>';
                             ratingthree += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingthree += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingthree += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            if (sellerComment !== "") {
+                                ratingthree += '<div>賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime !== "") {
+                                ratingthree += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            }
                             ratingthree += '</div>';
                             ratingthree += '</div>';
                             ratingthree += '</div>';
@@ -625,8 +640,12 @@
                             ratingfour += '<div>評分:' + rating.StarRating + '</div>';
                             ratingfour += '<div>評論:' + rating.RatingText + '</div>';
                             ratingfour += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingfour += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingfour += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            if (sellerComment !== "") {
+                                ratingfour += '<div>賣家評論:' + sellerComment + '</div>';
+                            }
+                            if (sellerCommentTime !== "") {
+                                ratingfour += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            }
                             ratingfour += '</div>';
                             ratingfour += '</div>';
                             ratingfour += '</div>';
@@ -651,8 +670,13 @@
                             ratingfive += '<div>評分:' + rating.StarRating + '</div>';
                             ratingfive += '<div>評論:' + rating.RatingText + '</div>';
                             ratingfive += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingfive += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingfive += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            if (sellerComment) { // Check for non-null value
+                                ratingfive += '<div>賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime) { // Check for non-null value
+                                ratingfive += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            }
                             ratingfive += '</div>';
                             ratingfive += '</div>';
                             ratingfive += '</div>';
@@ -677,8 +701,13 @@
                             ratingall += '<div>評分:' + rating.StarRating + '</div>';
                             ratingall += '<div>評論:' + rating.RatingText + '</div>';
                             ratingall += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingall += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingall += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            if (sellerComment) { // Check for non-null value
+                                ratingall += '<div>賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime) { // Check for non-null value
+                                ratingall += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            }
                             ratingall += '</div>';
                             ratingall += '</div>';
                             ratingall += '</div>';
