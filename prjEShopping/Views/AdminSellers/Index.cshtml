@@ -26,8 +26,10 @@
                 <th>
                     權限狀態
                 </th>
-                <th></th>
-                <th></th>
+                <th>調整權限</th>
+                <th>
+                    資料編輯
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -75,7 +77,6 @@
                     </td>
                     <td>
                         @Html.ActionLink("修改", "Edit", new { id = item.SellerId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("詳細", "Details", new { id = item.SellerId }, new { @class = "btn btn-primary" })
                     </td>
                 </tr>
             }

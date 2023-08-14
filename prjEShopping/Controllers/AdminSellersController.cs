@@ -81,11 +81,12 @@ namespace prjEShopping.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Seller seller = db.Sellers.Find(id);
-            if (seller == null)
+            var model=AdminSellerChange.AdminSeller2VM(seller);
+            if (model == null)
             {
                 return HttpNotFound();
             }
-            return View(seller);
+            return View(model);
         }
 
         // POST: AdminSellers/Edit/5
@@ -93,15 +94,16 @@ namespace prjEShopping.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SellerId,SellerName,StoreName,SellerAccount,SellerPassword,SellerPasswordSalt,Phone,Address,GUINumber,StoreIntro,AccessRightId,BankAccount,PaymentMethodId,ShippingMethodId,ADPoints,SellerImagePath,Role,EmailCheck")] Seller seller)
+        public ActionResult Edit([Bind(Include = "SellerId,SellerName,StoreName,SellerAccount,SellerPassword,SellerPasswordSalt,Phone,Address,GUINumber,StoreIntro,AccessRightId,BankAccount,PaymentMethodId,ShippingMethodId,ADPoints,SellerImagePath,Role,EmailCheck")] AdminSellerVM vm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(seller).State = EntityState.Modified;
+
+                db.Entry(AdminSellerChange.VM2AdminSeller(vm)).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(seller);
+            return View(vm);
         }
 
         protected override void Dispose(bool disposing)

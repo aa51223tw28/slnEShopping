@@ -112,5 +112,30 @@ namespace prjEShopping.Models.ViewModels
 
             return source.Select(s => AdminSeller2VM(s)).ToList();
         }
+
+        public static Seller VM2AdminSeller(AdminSellerVM vm)
+        {
+            return new Seller
+            {
+                SellerId = vm.SellerId,
+                SellerName = vm.SellerName,
+                StoreName = vm.StoreName,
+                SellerAccount = vm.SellerAccount,
+                SellerPassword = vm.SellerPassword,
+                SellerPasswordSalt = vm.SellerPasswordSalt,
+                Phone = vm.Phone,
+                Address = vm.Address,
+                GUINumber = vm.GUINumber,
+                StoreIntro = vm.StoreIntro,
+                AccessRightId = vm.AccessRightId,
+                BankAccount = vm.BankAccount,
+                PaymentMethodId = vm.PaymentMethodId,
+                ShippingMethodId = vm.ShippingMethodId,
+                ADPoints = vm.ADPoints,
+                SellerImagePath = vm.SellerImagePath,
+                Role = vm.Role,
+                EmailCheck = vm.EmailCheck,
+            };
+        }
     }
 }
