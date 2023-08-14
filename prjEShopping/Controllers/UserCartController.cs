@@ -241,7 +241,7 @@ namespace prjEShopping.Controllers
 
 
         [Authorize]       
-        public ActionResult UserCheckoutapi()//寫進資料庫
+        public ActionResult UserCheckoutapi(int selectedCouponId)//寫進資料庫
         {
             //這四行會一直重複待待之後優化
             var customerAccount = User.Identity.Name;
@@ -266,7 +266,7 @@ namespace prjEShopping.Controllers
             var datas = new Order()
             {
                 UserId = userid,
-                CouponId = 1,//先寫死
+                CouponId = selectedCouponId,
                 OrderDate = OrderDate,
                 OrderNumber = OrderNumber,
             };

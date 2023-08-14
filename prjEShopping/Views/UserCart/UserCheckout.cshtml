@@ -311,73 +311,8 @@
 
 
 @section Scripts{
-    <script>
-
-        //呼叫寫進order的api
-        $(document).ready(function () {
-            $(".add2order").each(function () {
-                $(this).on('click', async function () {
-                    const result = await $.get("/UserCart/UserCheckoutapi");
-
-                    var shippingMethod = document.getElementById("shippingMethod").value;
-                    var paymentMethod = document.getElementById("paymentMethod").value;
-                    var receiverValue = $("#receiver").val();
-                    var receiverAddressValue = $("#receiverAddress").val();
-
-                    const result2 = await $.post("/UserCart/UserCheckoutDataapi", {
-                        shippingMethod: shippingMethod,
-                        paymentMethod: paymentMethod,
-                        receiverValue: receiverValue,
-                        receiverAddressValue: receiverAddressValue
-                    });
-
-                    $("#add2orderpayModal").modal("show");//去繳費
-
-                    $("#add2orderpayconfirmButton").on('click', () => {
-                        window.location.href = "/UserECpay/ToECpay";
-                    })
-
-                    //$("#add2orderModal").modal("show");//modal-購買完成
-
-                    //$("#add2orderconfirmButton").on('click', () => {
-                    //    window.location.href = "/UserOrder/UserOrderDetailAll";
-                    //})
-                });
-            });
-        });
-
-        //呼叫運送方式的api
-        document.addEventListener("DOMContentLoaded", async function () {
-            const response = await fetch("/UserCart/getShippingMethodName");
-
-            const data = await response.json();
-
-            var shippingMethodSelect = document.getElementById("shippingMethod");
-
-            data.forEach(function (value) {
-                var option = document.createElement("option")
-                option.value = value;
-                option.text = value;
-                shippingMethodSelect.appendChild(option);
-            })
-        })
-
-        //呼叫顯示付款方式的api
-        document.addEventListener("DOMContentLoaded", async function () {
-            const response = await fetch("/UserCart/getPaymentMethodName");
-
-            const data = await response.json();
-
-            var paymentMethodSelect = document.getElementById("paymentMethod");
-
-            data.forEach(function (value) {
-                var option = document.createElement("option")
-                option.value = value;
-                option.text = value;
-                paymentMethodSelect.appendChild(option);
-            })
-
-        })
+    <script>       
+        
 
         /*demo測試權限區*/
         const receiver = document.querySelector('#receiver')
@@ -484,7 +419,74 @@
         }
         getcouponPrice()
 
-       
+
+        
+        //呼叫寫進order的api
+        $(document).ready(function () {
+            $(".add2order").each(function () {
+                $(this).on('click', async function () {
+                    //console.log(selectedCouponId)
+                    const result = await $.get("/UserCart/UserCheckoutapi?selectedCouponId=" + selectedCouponId);
+
+                    var shippingMethod = document.getElementById("shippingMethod").value;
+                    var paymentMethod = document.getElementById("paymentMethod").value;
+                    var receiverValue = $("#receiver").val();
+                    var receiverAddressValue = $("#receiverAddress").val();
+
+                    const result2 = await $.post("/UserCart/UserCheckoutDataapi", {
+                        shippingMethod: shippingMethod,
+                        paymentMethod: paymentMethod,
+                        receiverValue: receiverValue,
+                        receiverAddressValue: receiverAddressValue
+                    });
+
+                    $("#add2orderpayModal").modal("show");//去繳費
+
+                    $("#add2orderpayconfirmButton").on('click', () => {
+                        window.location.href = "/UserECpay/ToECpay";
+                    })
+
+                    //$("#add2orderModal").modal("show");//modal-購買完成
+
+                    //$("#add2orderconfirmButton").on('click', () => {
+                    //    window.location.href = "/UserOrder/UserOrderDetailAll";
+                    //})
+                });
+            });
+        });
+
+        //呼叫運送方式的api
+        document.addEventListener("DOMContentLoaded", async function () {
+            const response = await fetch("/UserCart/getShippingMethodName");
+
+            const data = await response.json();
+
+            var shippingMethodSelect = document.getElementById("shippingMethod");
+
+            data.forEach(function (value) {
+                var option = document.createElement("option")
+                option.value = value;
+                option.text = value;
+                shippingMethodSelect.appendChild(option);
+            })
+        })
+
+        //呼叫顯示付款方式的api
+        document.addEventListener("DOMContentLoaded", async function () {
+            const response = await fetch("/UserCart/getPaymentMethodName");
+
+            const data = await response.json();
+
+            var paymentMethodSelect = document.getElementById("paymentMethod");
+
+            data.forEach(function (value) {
+                var option = document.createElement("option")
+                option.value = value;
+                option.text = value;
+                paymentMethodSelect.appendChild(option);
+            })
+
+        })
 
     </script>
 
