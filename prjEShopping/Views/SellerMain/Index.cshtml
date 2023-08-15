@@ -129,7 +129,7 @@
                      aria-labelledby="panelsStayOpen-headingTen">
                     <div class="accordion-body">
                         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" >
-                            <div class="row">
+                            <div class="row col-3">
                                 <table class="table table-striped fw-bold">
                                     <thead>
                                         <tr>
@@ -140,13 +140,13 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
+                            <div class="row col-3">
                                 <input type="hidden" id="userName"  value="@Model.SellerAccount" placeholder="User Name" />
                                 <input type="text" id="message" placeholder="Message" height="200"/>
                                 <button onclick="sendMessage()" class="btn btn-light">傳送訊息</button>
                             </div>
-                            <div class="row">
-                                <div id="chatMessages"></div>
+                            <div class="row col-6">
+                                <div id="chatMessages" style="height: 208px; width:stretch; overflow: auto"></div>
                             </div>
                         </div>
                     </div>
