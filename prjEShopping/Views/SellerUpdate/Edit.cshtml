@@ -5,12 +5,14 @@
 }
 
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
-    
+
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
     <hr>
-    @using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
-       new { enctype = "multipart/form-data" }))
-    {
+    @*@using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
+           new { enctype = "multipart/form-data" }))
+        {*@
+    <form method="post" enctype="multipart/form-data" action="Edit" id="sellerEditForm">
+
         <div class="row col-md-6 bg-warning rounded" style="float:right">
             <div class="col-3">
                 賣場照片:
@@ -20,12 +22,10 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-10">
-                        <input class="form-control" type="file" id="photo" name="photo">
+                        <img src="" class="img-fluid" id="sellerImagePaths" style="width:130px">
+                        <label for="formFile" class="form-label"></label>
+                        <input class="form-control" type="file" name="SellerImageFile" id="formFile">
                     </div>
-                    <div id="div-preivew">
-                        <img src="" id="preview" alt="預覽圖" />
-                    </div>
-                </div>
             </div>
 
             <div class="col-3"></div>
@@ -38,7 +38,7 @@
                         <span>商家姓名：</span>
                     </div>
                     <div class="col-7">
-                        @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="text" class="form-control" value="@Model.StoreName" name="StoreName">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -46,7 +46,7 @@
                         <span>負責人姓名：</span>
                     </div>
                     <div class="col-7">
-                        @Html.EditorFor(model => model.SellerName, new { htmlAttributes = new { @class = "form-control", name = "SellerName" } })
+                        <input type="text" class="form-control" value="@Model.SellerName" name="SellerName">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -54,7 +54,7 @@
                         <span>統編：</span>
                     </div>
                     <div class="col-7">
-                        @Html.DisplayFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
+                        <input type="text" class="form-control" value="@Model.GUINumber" name="GUINumber" readonly>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -62,7 +62,7 @@
                         <span>使用者帳號<br />(電子郵件)：</span>
                     </div>
                     <div class="col-7">
-                        @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control", name = "SellerAccount" } })
+                        <input type="text" class="form-control" value="@Model.SellerAccount" name="SellerAccount" readonly>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -70,7 +70,7 @@
                         <span>住址：</span>
                     </div>
                     <div class="col-7">
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", name = "Address" } })
+                        <input type="text" class="form-control" value="@Model.Address" name="Address">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -78,7 +78,7 @@
                         <span>手機號碼：</span>
                     </div>
                     <div class="col-7">
-                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", name = "Phone" } })
+                        <input type="text" class="form-control" value="@Model.Phone" name="Phone">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -86,7 +86,7 @@
                         <span>銀行帳戶：</span>
                     </div>
                     <div class="col-7">
-                        @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control", name = "BankAccount" } })
+                        <input type="text" class="form-control" value="@Model.BankAccount" name="BankAccount">
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -120,14 +120,14 @@
                         <span>商城介紹：</span>
                     </div>
                     <div class="col-7">
-                        @Html.EditorFor(model => model.StoreIntro, new { htmlAttributes = new { @class = "form-control", name = "StoreIntro" } })
+                        <input type="text" class="form-control" value="@Model.StoreIntro" name="StoreIntro">
                     </div>
                 </div>
                 <br />
                 <div class="form-group">
                     請輸入密碼:
                     <div class="col-md-12">
-                        @Html.PasswordFor(model => model.SellerPassword, new { @class = "form-control" })
+                        <input type="text" class="form-control" value="@Model.SellerPassword" name="SellerPassword">
                     </div>
                 </div>
                 @if (TempData["Fail"] != null)
@@ -138,15 +138,30 @@
                 <br />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="修改" class="btn btn-secondary" style="float:right" />
+                        <button type="submit" class="btn btn-secondary mb-sm-3 mb-md-0" id="savebutton">儲存</button>
                     </div>
                 </div>
-
+                </div>
             </div>
         </div>
-    }
+        </form>
 </div>
-
+@*修改資料完成。*@
+<div class="modal" id="savemodal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                修改個人檔案完成。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section Styles{
     <style>
         #div-preivew {
@@ -165,27 +180,64 @@
 }
 @section Scripts{
     <script>
-        const xhr = new XMLHttpRequest();
-        const input = document.getElementById("photo")
-        console.log(document.formUpload)
-        input.addEventListener('change', () => { //有變動的狀況
+            $(document).ready(async function () {
 
-            if (input.files.length === 0) {
-                //無上傳檔案，div不顯示
-                $("#div-preivew").css("visibility", "hidden")
-            } else {
-                //有上傳檔案，div顯示，圖片顯示
+            //先顯示圖片
+            const result = await $.get("/UserMembers/UserPhotoName")
 
-                var reader = new FileReader();
-                reader.readAsDataURL(input.files[0])
-                reader.addEventListener('load', (e) => {
-                    $("#div-preivew").css("visibility", "visible")
+                const sellerImagePath = result.SellerImagePath;
+                const img = document.querySelector("#sellerImagePaths");
+            const baseUrl = window.location.origin;
+            img.src = `${baseUrl}/img/${sellerImagePath}`;    
 
-                    $("#preview").attr("src", e.target.result)
-                })
+            //預覽圖片
+            $("#formFile").change(function () {
+                readURL(this);
+            })
 
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#sellerImagePaths").attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0])
+                }
             }
+
+            //等按下確認後再submit
+                $("#savebutton").on('click', function (event) {
+                event.preventDefault();
+                $("#savemodal").modal("show")
+            })
+
+            $("#confirmButton").on("click", function () {
+                $("#savemodal").modal("hide")
+                $("#sellerEditForm").submit();
+            })
         })
+
+        //const xhr = new XMLHttpRequest();
+        //const input = document.getElementById("photo")
+        //console.log(document.formUpload)
+        //input.addEventListener('change', () => { //有變動的狀況
+
+        //    if (input.files.length === 0) {
+        //        //無上傳檔案，div不顯示
+        //        $("#div-preivew").css("visibility", "hidden")
+        //    } else {
+        //        //有上傳檔案，div顯示，圖片顯示
+
+        //        var reader = new FileReader();
+        //        reader.readAsDataURL(input.files[0])
+        //        reader.addEventListener('load', (e) => {
+        //            $("#div-preivew").css("visibility", "visible")
+
+        //            $("#preview").attr("src", e.target.result)
+        //        })
+
+        //    }
+        //})
 
         function redirectToResetPassword() {
         window.location.href = '@Url.Content("~/SellerLogin/ResetPassword")';

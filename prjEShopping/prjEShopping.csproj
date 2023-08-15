@@ -320,6 +320,7 @@
     <Compile Include="Models\ViewModels\RatingDateStringVM.cs" />
     <Compile Include="Models\ViewModels\SellerKeyWordVM.cs" />
     <Compile Include="Models\ViewModels\SellerPasswordChangeVM.cs" />
+    <Compile Include="Models\ViewModels\SellerUpdateVM.cs" />
     <Compile Include="Models\ViewModels\UserAllStoreListVM.cs" />
     <Compile Include="Models\ViewModels\ChatMessageVM.cs" />
     <Compile Include="Models\ViewModels\CombinedSupportsVM.cs" />
@@ -504,6 +505,7 @@
     <Content Include="Views\SellerActivities\ADOwner.cshtml" />
     <Content Include="Views\Shared\_LayoutMainPayInfo.cshtml" />
     <Content Include="Views\Main\MaleSale.cshtml" />
+    <Content Include="Views\SellerRegister\SellerRegisterEmail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

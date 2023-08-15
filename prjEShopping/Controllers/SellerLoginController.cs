@@ -104,47 +104,163 @@ namespace prjEShopping.Controllers
             }
             return View();
         }
-        public ActionResult ResetPassword(string seller)
+
+
+        public ActionResult ResetPassword()
         {
-            ViewBag.Account = seller;
             return View();
         }
 
+        [Authorize]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(string Account, string newPassword, string confirmPassword)
+        public ActionResult ResetPassword(SellerPasswordChangeVM vm)
         {
-          
-                var seller = db.Sellers.FirstOrDefault(s => s.SellerAccount == Account);
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
 
-                if (seller != null)
-                { 
-                if (newPassword == confirmPassword)
-                {
-                    seller.SellerPassword = newPassword;
-                    seller.EmailCheck = null; // 清空 token
-                    db.SaveChanges();
+            //驗證舊密碼邏輯
+            var customerAccount = User.Identity.Name;
+            if (!ValidateOldPassword(customerAccount, vm.OldPassword))
+            {
+                ModelState.AddModelError("", "舊密碼輸入錯誤");
+                TempData["ErrorMessage"] = "舊密碼輸入錯誤"; // 将错误消息保存到 TempData
+                return View(vm);
+            }
 
-                    ViewBag.SuccessMessage = "密碼已重設成功！請使用新密碼登入。";
-                    return View();
-                }
+            //更新密碼邏輯
+            if (!UpdatePassword(customerAccount, vm.NewPassword))
+            {
+                ModelState.AddModelError("", "密碼格式錯誤，新密碼需至少包含一個英文大寫，一個英文小寫，一個數字，一個符號，且至少8個字元");
+                TempData["ErrorMessage"] = "密碼格式錯誤，新密碼需至少包含一個英文大寫，一個英文小寫，一個數字，一個符號，且至少8個字元"; // 将错误消息保存到 TempData
+                return View(vm);
+            }
+
+            //發送驗證郵件
+            SendVerificationEmail(customerAccount);
+            TempData["SuccessMessage"] = "驗證郵件已發送，請查收並完成驗證，5秒後自動登出頁面";
+            return View(vm);
+            //return RedirectToAction("UserLogin");
+        }
+
+        private bool ValidateOldPassword(string selleraccount, string oldPassword)//驗證舊密碼邏輯
+        {
+            var db = new AppDbContext();
+            var seller = db.Sellers.FirstOrDefault(x => x.SellerAccount == selleraccount);
+            var sellerpw= db.Sellers.Where(x => x.SellerAccount == selleraccount).Select(x => x.SellerPassword).FirstOrDefault();
+
+
+            if (sellerpw == oldPassword)
+            {
+                return true;
             }
             else
             {
-                ViewBag.ErrorMessage = "請確認新密碼和確認密碼相符。";
+                return false;
             }
 
-            ViewBag.ErrorMessage = "重設密碼失敗，請重新操作。";
-            return View();
         }
 
-        private bool CheckEmailExists(string sellerAccount)
+        private bool UpdatePassword(string selleraccount, string newPassword)//更新密碼邏輯
         {
-            using (var dbContext = new AppDbContext()) // 替换为你的 DbContext
+            if (IsPasswordValid(newPassword))
             {
-                return dbContext.Sellers.Any(u => u.SellerAccount == sellerAccount);
+                var db = new AppDbContext();
+                var sellernewPassword = db.Sellers.FirstOrDefault(x => x.SellerAccount == selleraccount);
+                sellernewPassword.SellerPassword = newPassword;
+                sellernewPassword.AccessRightId = 2;
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        private bool IsPasswordValid(string password)
+        {
+            //密碼長度至少為8個字符
+            if (password.Length < 8)
+            {
+                return false;
+            }
+
+            //一個英文大寫 一個英文小寫 一個數字 一個符號
+            bool hasUpperCase = false;
+            bool hasLowerCase = false;
+            bool hasDigit = false;
+            bool hasSymbol = false;
+            foreach (char c in password)
+            {
+                if (char.IsUpper(c))
+                {
+                    hasUpperCase = true;
+                }
+                else if (char.IsLower(c))
+                {
+                    hasLowerCase = true;
+                }
+                else if (char.IsDigit(c))//檢查數字
+                {
+                    hasDigit = true;
+                }
+                else if (char.IsSymbol(c) || char.IsPunctuation(c))//檢查符號
+                {
+                    hasSymbol = true;
+                }
+
+            }
+            return hasUpperCase && hasLowerCase && hasDigit && hasSymbol;
+        }
+
+        private void SendVerificationEmail(string sellerAccount)//發送驗證郵件
+        {
+            //生成驗證連結
+            var db = new AppDbContext();
+            var selleraccount = db.Sellers.FirstOrDefault(x => x.SellerAccount == sellerAccount);
+            if (selleraccount != null)
+            {
+                string verificationToken = Guid.NewGuid().ToString();
+                selleraccount.EmailCheck = verificationToken;
+                db.SaveChanges();
+
+                //string verificationLink = "https://localhost:44388/UserMembers/UserVerifyEmail?token=" + verificationToken;
+                string relativeUrl = Url.Action("UserVerifyEmail", "UserMembers", new { token = verificationToken });
+                string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
+
+
+                var fromAddress = new MailAddress("Eshopping17go@gmail.com", "E起購");
+                var toAddress = new MailAddress(sellerAccount);
+                string subject = "E起購修改密碼驗證信";
+                string body = $"<html><body><h3>請點擊以下連結驗證您的電子郵件:<a href=\"{absoluteUrl}\">驗證</a></h3></body></html>";
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                {
+                    Credentials = new NetworkCredential("Eshopping17go@gmail.com", "ayakelsjzapfbtil"),
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network
+                };
+
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true//可以吃到html標籤
+                })
+                {
+                    smtpClient.Send(message);
+                }
             }
         }
+        //    private bool CheckEmailExists(string sellerAccount)
+        //{
+        //    using (var dbContext = new AppDbContext()) // 替换为你的 DbContext
+        //    {
+        //        return dbContext.Sellers.Any(u => u.SellerAccount == sellerAccount);
+        //    }
+        //}
         public ActionResult Logout()
         {
             Session.Abandon();
