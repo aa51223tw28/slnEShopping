@@ -1,8 +1,129 @@
-﻿
+﻿@model prjEShopping.Models.ViewModels.ADPointVM
 @{
     ViewBag.Title = "MyPointList";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
-<h2>MyPointList</h2>
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
 
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>購買廣告點數</h4>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="text" id="SellerId" name="SellerId" value="@Html.DisplayFor(model => model.SellerId)" hidden />
+                    <input type="text" id="PurchaseTime" name="PurchaseTime" value="@DateTime.Now" hidden />
+                    <input type="text" id="PaymentStatus" name="PaymentStatus" value="1" hidden />
+                    <input type="text" id="GUINumber" name="GUINumber" value="@Html.DisplayFor(model => model.GUINumber)" hidden />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    @*<div>*@
+                    <div class="input-group">
+                        <button type="button" id="decrease" onclick="changeValue(-500)" class="d-inline btn btn-info">-</button>
+                        <input type="number" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username with two button addons"
+                               id="points" name="ADPoints" value="1000" min="1000" max="20000" readonly>
+                        <button type="button" increase" onclick="changeValue(500)" class="d-inline btn btn-info">+</button>
+                    </div>
+
+                    @Html.ValidationMessageFor(model => model.ADPoints, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="購買" class="btn btn-primary my-2" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- 購買確認模態視窗 -->
+    <div class="modal fade" id="confirmPurchaseModal" tabindex="-1" aria-labelledby="confirmPurchaseModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmPurchaseModalLabel">確認購買</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    廣告點數 <span id="pointsToPurchase">XXXX</span> 點
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="confirmPurchaseButton">購買</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>點數紀錄</h2>
+    <div class="text-primary fs-4"> 目前點數 <span class="text-danger">@ViewBag.SellerPoint</span> 點</div>
+    <table class="table">
+        <tr>
+            <th>
+                <p>購買時間</p>
+            </th>
+            <th>
+                <p>廣告點數</p>
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in ViewBag.List)
+        {
+            <tr>
+                <td>
+                    @item.PurchaseTime
+                </td>
+                <td>
+                    @item.ADPoints
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    <div>
+        @Html.ActionLink("返回主頁", "Index", null, new { @class = "btn btn-primary my-2" })
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function changeValue(amount) {
+            var input = document.getElementById('points');
+            var newValue = parseInt(input.value) + amount;
+
+            // 賦予新值，並同時檢查是否在範圍內
+            if (newValue >= 1000 && newValue <= 20000) {
+                input.value = newValue;
+            }
+        }
+
+
+        $('input[type="submit"]').click(function (e) {
+            e.preventDefault();  // 阻止表單直接提交
+
+            // 更新點數顯示
+            $('#pointsToPurchase').text($('#points').val());
+
+            // 顯示視窗
+            $('#confirmPurchaseModal').modal('show');
+        });
+
+        // 在視窗中點擊購買按鈕時，提交表單
+        $('#confirmPurchaseButton').click(function () {
+            $('form').submit();  // 提交表單
+        });
+    </script>
+}
+
+@section Styles{
+}

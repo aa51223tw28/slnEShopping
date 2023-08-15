@@ -1,4 +1,5 @@
 ﻿@model prjEShopping.Models.ViewModels.ADProductVM
+@using Newtonsoft.Json
 
 @{
     ViewBag.Title = "CreateAD";
@@ -13,84 +14,84 @@
     {
         @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.ADField, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <select id="ADField" name="ADField" class="form-control" required onchange="setDateBasedOnQuantity()">
-                <option selected disabled>請選擇</option>
-                <option value="1">進版全頁</option>
-                <option value="2">限時廣告A欄</option>
-                <option value="3">限時廣告B欄</option>
-                <option value="4">限時廣告C欄</option>
-                <option value="5">限時廣告D欄</option>
-                <option value="6">限時廣告E欄</option>
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ADField, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="ADField" name="ADField" class="form-control" required onchange="setDateBasedOnQuantity()">
+                        <option selected disabled>請選擇</option>
+                        <option value="1">進版全頁</option>
+                        <option value="2">限時廣告A欄</option>
+                        <option value="3">限時廣告B欄</option>
+                        <option value="4">限時廣告C欄</option>
+                        <option value="5">限時廣告D欄</option>
+                        <option value="6">限時廣告E欄</option>
 
-            </select>
-            @Html.ValidationMessageFor(model => model.ADField, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ADName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="text" name="ADName" id="ADName" class="form-control" />
-            @Html.ValidationMessageFor(model => model.ADName, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.ADField, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ADName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" name="ADName" id="ADName" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.ADName, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ADPoint, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="number" name="ADPoint" id="ADPoint" class="form-control" />
-            @Html.ValidationMessageFor(model => model.ADPoint, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ADPoint, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="number" name="ADPoint" id="ADPoint" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.ADPoint, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ADStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" readonly />
-            @Html.ValidationMessageFor(model => model.ADStartDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ADStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.ADStartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ADEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="date" name="ADEndDate" id="ADEndDate" class="form-control" />
-            @Html.ValidationMessageFor(model => model.ADEndDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ADEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="date" name="ADEndDate" id="ADEndDate" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.ADEndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="text" name="ADImagePath" id="ADImagePath" hidden />
-            @Html.ValidationMessageFor(model => model.ADImagePath, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="text" name="ADImagePath" id="ADImagePath" hidden />
+                    @Html.ValidationMessageFor(model => model.ADImagePath, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="text" name="ProductId" id="ProductId" hidden />
-            @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="text" name="ProductId" id="ProductId" hidden />
+                    @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="text" name="Discount" id="Discount" hidden />
-            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="text" name="Discount" id="Discount" hidden />
+                    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="新增" class="btn btn-primary mt-2" />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="新增" class="btn btn-primary mt-2" />
+                </div>
+            </div>
         </div>
-    </div>
-</div>
     }
 
     <div>
@@ -117,6 +118,7 @@
         });
 
         var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON
+        @*var jsonData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.JsonData));*@
         var data = JSON.parse(jsonData);
 
       function setDateBasedOnQuantity() {
@@ -180,11 +182,11 @@
                 } else {
                     tomorrow.setDate(tomorrow.getDate() + 1);
                 }
-                adEndDateInput.valueAsDate = tomorrow;  
-                adEndDateInput.min = tomorrow.toISOString().slice(0, 10); 
-            }           
+                adEndDateInput.valueAsDate = tomorrow;
+                adEndDateInput.min = tomorrow.toISOString().slice(0, 10);
+            }
         }
-       
+
     </script>
 }
 

@@ -7,6 +7,7 @@ using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 
@@ -28,26 +29,8 @@ namespace prjEShopping.Controllers
             ViewBag.AdminName = decodedName;
 
             var model= db.ADPoints.ADPoint2VM().ToList();
-            var Sellers=db.Sellers.ToList();
-            ViewBag.Sellers = Sellers;
+       
             return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult List(string search)
-        {
-
-            int sellerId;
-            if (int.TryParse(search, out sellerId))
-            {
-                var model = db.ADPoints.Where(x => x.SellerId == sellerId).ADPoint2VM().ToList();
-                return View(model);
-            }
-
-            else
-            {
-                return RedirectToAction("List");
-            }
         }
 
             // GET: ADPoints/Details/5

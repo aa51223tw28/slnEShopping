@@ -1,8 +1,242 @@
-﻿
+﻿@model prjEShopping.Models.ViewModels.CouponVM
 @{
     ViewBag.Title = "CouponCreate";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
-<h2>CouponCreate</h2>
 
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+    <h2>新增優惠券</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <input type="text" id="CouponNumber" name="CouponNumber" value="@ViewBag.CouponNum" class="form-control" readonly />
+                    @Html.ValidationMessageFor(model => model.CouponNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <input type="text" id="CouponName" name="CouponName" class="form-control" required />
+                    @Html.ValidationMessageFor(model => model.CouponName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponDetails, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" id="CouponDetails" name="CouponDetails" class="form-control" required>
+                    @Html.ValidationMessageFor(model => model.CouponDetails, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <input type="number" id="Quantity" name="Quantity" class="form-control" value="99999" required />
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponTerms, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <select id="CouponTerms" name="CouponTerms" class="form-control" required>
+                        <option value="" disabled selected>請選擇</option>
+                        <option value="2000">滿2000</option>
+                        <option value="5000">滿5000</option>
+                        <option value="10000">滿10000</option>
+                        <option value="years">週年慶期間</option>
+                        <option value="birthday">生日月期間</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.CouponTerms, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CouponType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <select id="CouponType" name="CouponType" class="form-control" required>
+                        <option value="" disabled selected>請選擇</option>
+                        <option value="折價券">折價券</option>
+                        <option value="抵用券">抵用券</option>
+                        <option value="免運券">免運券</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.CouponType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <input type="text" id="Discount" name="Discount" class="form-control" hidden />
+                    <div id="discontType"></div>
+                    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Storewide, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <label>商家:</label>
+                    <input type="text" id="StorewideSeller" name="Storewide" value="@ViewBag.StoreName" readonly />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <input type="date" id="StartTime" name="StartTime" class="form-control" required />
+                    @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClaimDeadline, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <input type="date" id="ClaimDeadline" name="ClaimDeadline" class="form-control" required />
+                    @Html.ValidationMessageFor(model => model.ClaimDeadline, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6">
+                    <input type="date" id="EndTime" name="EndTime" class="form-control" required />
+                    @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input type="radio" id="EventStatus" name="EventStatus" value="open" checked hidden />
+                    <input type="radio" id="EventStatus" name="EventStatus" value="close" hidden />
+                    @Html.ValidationMessageFor(model => model.EventStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="新增優惠券" class="btn btn-primary my-2" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("取消", "CouponList", null, new { @class = "btn btn-primary my-2" })
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+        //折扣類型對應
+        $(document).ready(function () {
+            $('#CouponType').change(function () {
+                var selectedValue = $(this).val();
+                var fieldHtml = '';
+
+                if (selectedValue === '折價券') {
+                    fieldHtml = '<input type="number" id="discountValue" name="discountValue" class="my-2" min="1.0" max="9.9" step="0.1" value="8.5"/><label class="fs-5"> 折(1~9.9折)</label>';
+                    $('#Discount').val(85);
+                }
+                else if (selectedValue === '抵用券') {
+                    fieldHtml = '<label>折抵</label><input type="number" id="discountedValue" name="discountedValue" class="my-2" min="100" max="10000" step="100" value="500"/><label class="fs-5"> 元(100~10000)</label>';
+                    $('#Discount').val(500);
+                }
+                else if (selectedValue === '免運券') {
+                    fieldHtml = '<label>免運抵</label><input type="text" value="60" readonly id="shippingValue" name="shippingValue" /><label> 元</label>';
+                    $('#Discount').val(60);
+                }
+                $('#discontType').html(fieldHtml);
+            });
+        });
+
+        //延遲時間
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        //折價券 1.0~9.9的值  抵用券100~10000
+        $(document).ready(function () {
+            $(document).on('input', '#discountValue', async function () {
+                var value = $(this).val();
+                if (value < 1) {
+                    alert('請輸入大於等於1的數字');
+                    value = 1;
+                } else if (value > 9.9) {
+                    alert('請輸入小於等於9.9的數字');
+                    value = 9.9;
+                }
+                $(this).val(value);
+                await delay(500); // delay 500ms (0.5 seconds)
+                $('#Discount').val(value * 10);
+
+            });
+
+            $(document).on('input', '#discountedValue', async function () {
+                var value = $(this).val();
+                if (value < 100) {
+                    alert('請輸入大於等於100的數字');
+                    value = 100;
+                } else if (value > 10000) {
+                    alert('請輸入小於等於10000的數字');
+                    value = 10000;
+                }
+                $(this).val(value);
+                await delay(500); // delay 500ms (0.5 seconds)
+                $('#Discount').val(value);
+            });
+
+        });
+
+        //時間設定
+
+        $(document).ready(function () {
+            // Set today's date for StartTime
+            let today = new Date();
+            let dateStr = today.toISOString().split('T')[0];
+            $("#StartTime").attr("min", dateStr);
+            $("#StartTime").val(dateStr);
+
+            // Set tomorrow's date for ClaimDeadline
+            let tomorrow = new Date();
+            tomorrow.setDate(today.getDate() + 1);
+            let tomorrowStr = tomorrow.toISOString().split('T')[0];
+            $("#ClaimDeadline").attr("min", tomorrowStr);
+            $("#EndTime").attr("min", tomorrowStr);
+            $("#ClaimDeadline").val(tomorrowStr);
+            $("#EndTime").val(tomorrowStr);
+        });
+
+        $("#StartTime").change(function () {
+            $("#ClaimDeadline").val("");
+            $("#EndTime").val("");
+            let selectedDate = new Date(this.value);
+            selectedDate.setDate(selectedDate.getDate() + 1);
+            let nextDateStr = selectedDate.toISOString().split('T')[0];
+            $("#ClaimDeadline").attr("min", nextDateStr);
+        });
+
+        $("#ClaimDeadline").change(function () {
+            $("#EndTime").val("");
+            let selectedDate = new Date(this.value);
+            selectedDate.setDate(selectedDate.getDate());
+            let nextDateStr = selectedDate.toISOString().split('T')[0];
+            $("#EndTime").attr("min", nextDateStr);
+        });
+
+    </script>
+}

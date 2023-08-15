@@ -61,19 +61,23 @@
                     @{
                         var statusColor = "";
                         var AccessRightName = "";
+
                         switch (item.AccessRightId)
                         {
-                            case "1":
+                            case 1:
                                 statusColor = "text-white bg-primary";
                                 AccessRightName = "使用中";
                                 break;
-                            case "2":
+                            case 2:
                                 statusColor = "text-primary bg-secondary";
                                 AccessRightName = "審核中";
                                 break;
-                            case "3":
+                            case 3:
                                 statusColor = "text-white bg-danger";
                                 AccessRightName = "停權中";
+                                break;
+                            default:
+                                statusColor = "";  // 或任何你希望的默認樣式
                                 break;
                         }
                     }
@@ -141,15 +145,15 @@
                         var statusColor;
                         let AccessRightName = "";
                         switch (response.newAccessRightId) {
-                            case "1":
+                            case 1:
                                 statusColor = "text-white bg-primary";
                                 AccessRightName = "使用中"
                                 break;
-                            case "2":
+                            case 2:
                                 statusColor = "text-primary bg-secondary";
                                 AccessRightName = "審核中"
                                 break;
-                            case "3":
+                            case 3:
                                 statusColor = "text-white bg-danger";
                                 AccessRightName = "停權中"
                                 break;

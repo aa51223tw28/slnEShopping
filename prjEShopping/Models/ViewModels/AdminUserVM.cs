@@ -54,11 +54,11 @@ namespace prjEShopping.Models.ViewModels
 
         [DisplayName("貨運方式")]
         [StringLength(50)]
-        public string ShippingMethodId { get; set; }
+        public int? ShippingMethodId { get; set; }
 
         [DisplayName("付款方式")]
         [StringLength(50)]
-        public string PaymenyMethodId { get; set; }
+        public int? PaymenyMethodId { get; set; }
 
         [DisplayName("生日")]
         [Column(TypeName = "date")]
@@ -66,7 +66,7 @@ namespace prjEShopping.Models.ViewModels
 
         [DisplayName("權限")]
         [StringLength(50)]
-        public string AccessRightId { get; set; }
+        public int AccessRightId { get; set; }
 
         [StringLength(50)]
         public string UserImagePath { get; set; }
@@ -94,10 +94,10 @@ namespace prjEShopping.Models.ViewModels
                 CellPhone = u.CellPhone,
                 City = u.City,
                 Address = u.Address,
-                //ShippingMethodId = u.ShippingMethodId,
-                //PaymenyMethodId = u.PaymenyMethodId,
+                ShippingMethodId = u.ShippingMethodId,
+                PaymenyMethodId = u.PaymenyMethodId,
                 Birthday = u.Birthday,
-                //AccessRightId = u.AccessRightId,
+                AccessRightId = (int)u.AccessRightId,
                 UserImagePath = u.UserImagePath,
                 Role = u.Role,
                 EmailCheck = u.EmailCheck,
@@ -128,10 +128,10 @@ namespace prjEShopping.Models.ViewModels
                 CellPhone = vm.CellPhone,
                 City = vm.City,
                 Address = vm.Address,
-                //ShippingMethodId = vm.ShippingMethodId,
-                //PaymenyMethodId = vm.PaymenyMethodId,
+                ShippingMethodId = vm.ShippingMethodId,
+                PaymenyMethodId = vm.PaymenyMethodId,
                 Birthday = vm.Birthday,
-                //AccessRightId = vm.AccessRightId,
+                AccessRightId = vm.AccessRightId,
                 UserImagePath = vm.UserImagePath,
                 Role = vm.Role,
                 EmailCheck = vm.EmailCheck,

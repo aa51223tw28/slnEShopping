@@ -3,6 +3,8 @@ using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Web;
@@ -42,12 +44,30 @@ namespace prjEShopping.Controllers
 
             var ad=new ADProduct();
             ADProductVM model = ADProductChange.ADProduct2VM(ad);
-            
+
             var data = db.ADProducts.ToList(); // 取得資料庫內容
-            var jsonData = JsonConvert.SerializeObject(data); // 轉換成JSON
+            var adProducts = db.ADProducts.ToList();
+
+            //不能代整個List 會死掉
+            var adProductDtos = adProducts.Select(p => new ADProductDto
+            {
+                ADProductId = p.ADProductId,
+                ADField = p.ADName,
+                ADStartDate=p.ADStartDate,
+                ADEndDate=p.ADEndDate,
+            }).ToList();
+         
+            var jsonData = JsonConvert.SerializeObject(adProductDtos);
             ViewBag.JsonData = jsonData;
 
             return View(model);
+        }
+        public class ADProductDto
+        {
+            public int ADProductId { get; set; }
+            public string ADField { get; set; }
+            public DateTime? ADStartDate { get; set; }
+            public DateTime? ADEndDate { get; set; }
         }
 
         [HttpPost]

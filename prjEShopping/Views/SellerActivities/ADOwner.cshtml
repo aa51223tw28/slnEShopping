@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<prjEShopping.Models.ViewModels.ADProductVM>
 
 @{
-    ViewBag.Title = "ADList";
-    Layout = "~/Views/Shared/_LayoutAdminLogin.cshtml";
+    ViewBag.Title = "ADOwner";
+    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
-<div class="col-6 bg-secondary overflow-auto">
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <h2>已購買廣告</h2>
 
     <p>
-        @Html.ActionLink("購買廣告", "List", null, new {@class="btn btn-primary"})
+        @Html.ActionLink("購買廣告", "ADList", null, new { @class = "btn btn-primary" })
     </p>
     <table class="table table-primary table-bordered">
         <tr>
@@ -45,8 +45,8 @@
                     @Html.DisplayFor(modelItem => item.ADEndDate)
                 </td>
                 @*<td>
-                    @Html.ActionLink("修改", "Edit", new { id = item.ADProductId }, new {@class="btn btn-info"})
-                </td>*@
+                        @Html.ActionLink("修改", "Edit", new { id = item.ADProductId }, new {@class="btn btn-info"})
+                    </td>*@
             </tr>
         }
 
@@ -64,3 +64,4 @@
     <style>
     </style>
 }
+
