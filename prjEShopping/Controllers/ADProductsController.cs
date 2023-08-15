@@ -43,9 +43,9 @@ namespace prjEShopping.Controllers
             var ad=new ADProduct();
             ADProductVM model = ADProductChange.ADProduct2VM(ad);
             
-            var data = db.ADProducts.ToList(); // 取得資料庫內容
-            var jsonData = JsonConvert.SerializeObject(data); // 轉換成JSON
-            ViewBag.JsonData = jsonData;
+            //var data = db.ADProducts.ToList(); // 取得資料庫內容
+           
+            //ViewBag.JsonData = data;
 
             return View(model);
         }
