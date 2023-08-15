@@ -24,6 +24,8 @@ namespace prjEShopping.Controllers
 
             var products = db.Products.ToList();
 
+            
+
             foreach (var item in products)
             {
                 var orderQuantity = db.ProductStocks.Where(x => x.ProductId == item.ProductId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;
