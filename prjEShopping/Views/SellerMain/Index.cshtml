@@ -204,6 +204,8 @@
     <script>
         const selTop5 = document.querySelector('#Top5');
         const selTop10Shipments = document.querySelector('#Top10Shipments');
+        const selchat = document.querySelector('#chat');
+
 
         function LoadTop5() {
             const xhr = new XMLHttpRequest();
@@ -245,13 +247,34 @@
                 })
                 selTop10Shipments.innerHTML = Top10Shipments.join("");
             })
-          };
+        };
+
 
         $(document).ready(function () {
             LoadTop5();
             LoadTop10Shipments();
+            LoadChatList();
+            
         });
 
+        function LoadChatList() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '@Url.Content("~/SellerMain/getChatMembers")');
+            xhr.send();
+
+            xhr.addEventListener('load', () => {
+                const datas = JSON.parse(xhr.responseText);
+                let chatLists = datas.map(chatlist => {
+                    return (`<tr class="clicktodetail"><td>${chatlist.UserName}<input type="hidden" value=${chat.ChatroomId}/></td></tr>`)
+                })
+                selchat.innerHTML = chatLists.join("");
+            })
+        };
+        const selclicked = document.querySelectorAll('.clicktodetail');
+        console.log(selclicked);
+        $(".clicktodetail").click(function(){
+           
+        });
 
 
     </script>
