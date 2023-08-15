@@ -34,7 +34,7 @@
                     <div class="card-body">
                         <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProductName)</h5>
                         <p class="card-text text-danger fw-bold"><del>@Math.Round((double)item.Price).ToString("C0")</del>@Math.Round((double)item.DiscountPrice).ToString("C0")</p>
-                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                        <a href="@Url.Action("UserSingleProduct", "UserProduct", new {productid=item.ProductId})" class="btn btn-secondary">了解更多...</a>
                     </div>
                 </div>
             </div>

@@ -81,9 +81,23 @@
                     <div class="col-3 d-flex align-items-center">
                         <span>價格：</span>
                     </div>
-                    <div class="col-9">
+                    @*<div class="col-9">
                         <span class="fs-1 fw-bold text-danger">@Math.Round(Model.Price).ToString("C0")</span>
-                    </div>
+                    </div>*@
+
+                    @if (Model.DiscountPrice != Model.Price)//要寫判斷式 有折扣
+                    {
+                        <div class="col-9 d-flex">
+                            <span class="fs-1 fw-bold text-decoration-line-through">@Math.Round(Model.Price).ToString("C0")</span>@*單價*@
+                            <span class="fs-1 fw-bold text-danger">@Math.Round(Model.DiscountPrice).ToString("C0")</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-9 d-flex flex-column justify-content-center">
+                            <span class="fs-1 fw-bold text-danger">@Math.Round(Model.Price).ToString("C0")</span>@*單價*@
+                        </div>
+                    }
                 </div>
                 @*<div class="row mt-3">
                         <div class="col-3 d-flex align-items-center">

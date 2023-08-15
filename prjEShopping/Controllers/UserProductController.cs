@@ -152,6 +152,11 @@ namespace prjEShopping.Controllers
 
                 CategoryName = categoryName,
                 SubcategoryName = subcategoryName,
+
+                
+                Discount = db.ADProducts.FirstOrDefault(ad => ad.ProductId == product.ProductId)?.Discount ?? 0,
+                //要判斷折價商品的時間
+                DiscountPrice = IsInDiscountPeriod((int)product.ProductId) ? (decimal)product.Price * (db.ADProducts.FirstOrDefault(ad => ad.ProductId == product.ProductId)?.Discount ?? 0) / 100 : (decimal)product.Price,
             };
             //現在購物車該使用者該購物車id該商品的數量
             var qua = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == productId).Select(x => x.Quantity).FirstOrDefault();
@@ -169,6 +174,13 @@ namespace prjEShopping.Controllers
             return View(datas);
         }
 
+
+        private bool IsInDiscountPeriod(int productId)//判斷折價價格期限
+        {
+            var now = DateTime.Now;
+            var db = new AppDbContext();
+            return db.ADProducts.Any(ad => ad.ProductId == productId && ad.ADStartDate <= now && ad.ADEndDate >= now);
+        }
 
         [HttpPost]
         //客戶端寄信
