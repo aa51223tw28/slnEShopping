@@ -1008,7 +1008,7 @@ namespace prjEShopping.Controllers
                 { "ReturnURL",  $"{website}api/Ecpay/AddPayInfo"},//目前沒用到
                 
                 //使用者於綠界 付款完成後，綠界將會轉址至 此URL
-                { "OrderResultURL", $"{website}UserCart/PayInfo"},
+                { "OrderResultURL", $"{website}UserCart/PayInfo?userid={userid}"},
                 
                 //付款方式為 ATM 時，當使用者於綠界操作結束時，綠界回傳 虛擬帳號資訊至 此URL
                 { "PaymentInfoURL",  $"{website}/api/Ecpay/AddAccountInfo"},//目前沒用到
@@ -1071,13 +1071,10 @@ namespace prjEShopping.Controllers
 
             return result.ToString();
         }
-        [Authorize]
-        public ActionResult PayInfo()
-        {
-            var customerAccount = User.Identity.Name;
-
-            var db = new AppDbContext();
-            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+        
+        public ActionResult PayInfo(int userid)
+        {          
+            var db = new AppDbContext();          
             var orderdbNum = db.Orders.Where(x => x.UserId == userid).OrderByDescending(x => x.OrderId).Select(x => x.OrderNumber).FirstOrDefault();
             ViewBag.OrderNumber = orderdbNum;
             return View();
