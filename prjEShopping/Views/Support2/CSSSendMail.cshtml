@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
 }
 
-
 @using (Html.BeginForm("CSSSendMail", "Support2", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
