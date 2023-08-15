@@ -552,7 +552,7 @@
                             }
 
                             if (sellerCommentTime) {
-                                ratingone += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
+                                ratingone += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
                             }
                             ratingone += '</div>';
                             ratingone += '</div>';
@@ -583,7 +583,7 @@
                             }
 
                             if (sellerCommentTime) {
-                                ratingtwo += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
+                                ratingtwo += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
                             }
                             ratingtwo += '</div>';
                             ratingtwo += '</div>';
@@ -614,7 +614,7 @@
                             }
 
                             if (sellerCommentTime) {
-                                ratingthree += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
+                                ratingthree += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
                             }
                             ratingthree += '</div>';
                             ratingthree += '</div>';
@@ -644,7 +644,7 @@
                                 ratingfour += '<div class="seller">賣家評論:' + sellerComment + '</div>';
                             }
                             if (sellerCommentTime) {
-                                ratingfour += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
+                                ratingfour += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
                             }
 
                             ratingfour += '</div>';
@@ -676,7 +676,7 @@
                             }
 
                             if (sellerCommentTime) { // Check for non-null value
-                                ratingfive += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
+                                ratingfive += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
                             }
                             ratingfive += '</div>';
                             ratingfive += '</div>';
@@ -707,7 +707,7 @@
                             }
 
                             if (sellerCommentTime) { // Check for non-null value
-                                ratingall += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
+                                ratingall += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
                             }
                             ratingall += '</div>';
                             ratingall += '</div>';
@@ -765,23 +765,23 @@
                 }
             })
         })
-        function formatDateTime(dateTimeString) {
-            var dateTime = new Date(dateTimeString);
-            var year = dateTime.getFullYear();
-            var month = ('0' + (dateTime.getMonth() + 1)).slice(-2);
-            var day = ('0' + dateTime.getDate()).slice(-2);
-            var hours = ('0' + dateTime.getHours()).slice(-2);
-            var minutes = ('0' + dateTime.getMinutes()).slice(-2);
-            var seconds = ('0' + dateTime.getSeconds()).slice(-2);
-
-            return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-        }
-
         function formatDate(theDate) {
+            console.log("Original Date:", theDate);
             let aDate = "";
             dateArray = theDate.split(" ");
+            // Remove empty elements from the array
+            dateArray = dateArray.filter(item => item !== '');
+
+            // Reorder the date parts [2][0][1][3]
+            const year = dateArray[2];
+            const month = parseInt(dateArray[0]).toString();
+            const day = dateArray[1];
+            const time = dateArray[3];
+
+
+            aDate = `${year}/${month}/${day} ${time}`;
             console.log(dateArray)
-            aDate = `${dateArray[3]}/${dateArray[0]}/${dateArray[2]} ${dateArray[4]}`
+            //aDate = `${dateArray[3]}/${dateArray[0]}/${dateArray[2]} ${dateArray[4]}`
             return aDate
 
         }
