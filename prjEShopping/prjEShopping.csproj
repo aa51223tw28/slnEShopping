@@ -243,6 +243,7 @@
     <Compile Include="Controllers\testproductsupportController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\UserChatController.cs" />
     <Compile Include="Controllers\UserCouponController.cs" />
     <Compile Include="Controllers\UserFeedbackController.cs" />
     <Compile Include="Controllers\UserFollowController.cs" />
@@ -498,6 +499,7 @@
     <Content Include="Views\AdminUsers\Details.cshtml" />
     <Content Include="Views\AdminUsers\Edit.cshtml" />
     <Content Include="Views\AdminUsers\Index.cshtml" />
+    <Content Include="Views\UserChat\UserChat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

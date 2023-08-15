@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "UserChat";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <table class="table table-striped fw-bold">
+            <thead>
+                <tr>
+                    <th scope="col">聊天名單</th>
+                </tr>
+            </thead>
+            <tbody id="chat">
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <input type="text" id="userName" placeholder="User Name" />
+        <input type="text" id="message" placeholder="Message" />
+        <button onclick="createRoom()">加入聊天室</button>
+        <button onclick="leaveRoom()">離開聊天室</button>
+        <button onclick="sendMessage()">傳送訊息</button>
+    </div>
+    <div class="row">
+        <div id="chatMessages"></div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+
+<script type="text/javascript">
+    var chat = $.connection.myHub;
+
+    chat.client.receiveMessage = function (name, message) {
+        // 在畫面上顯示訊息
+        var encodedMessage = $('<div />').text(message).html();
+        $('#chatMessages').append('<p><strong>' + name + '</strong>: ' + encodedMessage + '</p>');
+    };
+
+    $.connection.hub.start();
+
+
+
+    function createRoom() {
+        roomId = prompt('Enter room name:');
+        if (roomId) {
+            chat.server.createRoom(roomId);
+        }
+    }
+
+    function leaveRoom() {
+        roomId = prompt('Enter room name:');
+        if (roomId) {
+            chat.server.leaveRoom(roomId);
+        }
+    }
+
+    function sendMessage() {
+        var userName = $('#userName').val();
+        var message = $('#message').val();
+
+        chat.server.sendMessageToRoom(roomId, userName, message);
+        $('#message').val('');
+
+    }
+
+</script>
+
+

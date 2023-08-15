@@ -172,17 +172,16 @@
 
     $.connection.hub.start();
 
-    let roomId = "";
+    
 
-    function createRoom() {
-        roomId = prompt('Enter room name:');
+    function createRoom(roomId) {
         if (roomId) {
             chat.server.createRoom(roomId);
         }
     }
 
-    function leaveRoom() {
-        roomId = prompt('Enter room name:');
+    function leaveRoom(roomId) {
+        
         if (roomId) {
             chat.server.leaveRoom(roomId);
         }
@@ -257,6 +256,8 @@
             
         });
 
+        let roomId = "";
+        
         function LoadChatList() {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', '@Url.Content("~/SellerMain/getChatMembers")');
@@ -265,16 +266,22 @@
             xhr.addEventListener('load', () => {
                 const datas = JSON.parse(xhr.responseText);
                 let chatLists = datas.map(chatlist => {
-                    return (`<tr class="clicktodetail"><td>${chatlist.UserName}<input type="hidden" value=${chat.ChatroomId}/></td></tr>`)
+                    return (`<tr><btn class="btn-secondary">${chatlist.UserName}<input type="hidden" value=${chatlist.ChatroomId}></btn></tr>`)
                 })
+                 
                 selchat.innerHTML = chatLists.join("");
+
+                const selclicked = document.querySelectorAll('.btn-secondary');
+                $(selclicked).click(function () {
+                    $('#chatMessages').empty();
+                    leaveRoom(roomId);
+                    roomId = ($(this).find('input').val().toString());
+                    createRoom(roomId);
+                    
+                });
             })
-        };
-        const selclicked = document.querySelectorAll('.clicktodetail');
-        console.log(selclicked);
-        $(".clicktodetail").click(function(){
-           
-        });
+        }
+
 
 
     </script>
