@@ -14,9 +14,9 @@ namespace prjEShopping.Models.EFModels
 
         public int? UserId { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[Key]
+        //[Column(Order = 1)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CouponId { get; set; }
 
         public DateTime? GetDate { get; set; }

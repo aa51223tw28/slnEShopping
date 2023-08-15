@@ -24,37 +24,64 @@ namespace prjEShopping.Controllers
         }
 
         [HttpPost]
-        public ActionResult ProductCreate(SellerProductCreateVM vm , HttpPostedFileBase photo1, HttpPostedFileBase photo2 , HttpPostedFileBase photo3)
+        public ActionResult ProductCreate(SellerProductCreateVM vm , HttpPostedFileBase photo1)
         {
             int sellerid = (int)Session["SellerId"];
             var db = new AppDbContext();
             var product = new Product();
-            
-            if (vm.photo1 != null)
-            { 
-                string filename1 = Guid.NewGuid().ToString() + ".jpg";
-                string imagePath1 = Server.MapPath("~/img/" + filename1);
-                vm.photo1.SaveAs(imagePath1);
-                product.ProductImagePathOne = filename1;
-            }
 
-            if (vm.photo2 != null)
+            if (vm.photo1.Length > 0 && vm.photo1 != null)
             {
-                string filename2 = Guid.NewGuid().ToString() + ".jpg";
-                string imagePath2 = Server.MapPath("~/img/" + filename2);
-                vm.photo1.SaveAs(imagePath2);
-                product.ProductImagePathTwo = filename2;
+                for( int i = 0; i < vm.photo1.Length; i++)
+                {
+
+                    string filename = Guid.NewGuid().ToString() + ".jpg";
+                    string imagePath = Server.MapPath("~/img/" + filename);
+                    vm.photo1[i].SaveAs(imagePath);
+                    
+                    if ( i == 0) 
+                    {
+                        product.ProductImagePathOne = filename;
+                    }
+
+                    if (i == 1)
+                    {
+                        product.ProductImagePathTwo = filename;
+                    }
+
+                    if (i == 2)
+                    {
+                        product.ProductImagePathThree = filename;
+                    }
+
+                }
             }
 
-            if (vm.photo3 != null)
-            {
-                string filename3 = Guid.NewGuid().ToString() + ".jpg";
-                string imagePath3 = Server.MapPath("~/img/" + filename3);
-                vm.photo1.SaveAs(imagePath3);
-                product.ProductImagePathThree = filename3;
-            }
+            //if (vm.photo1 != null)
+            //{
+            //    string filename1 = Guid.NewGuid().ToString() + ".jpg";
+            //    string imagePath1 = Server.MapPath("~/img/" + filename1);
+            //    vm.photo1.SaveAs(imagePath1);
+            //    product.ProductImagePathOne = filename1;
+            //}
 
-                product.ProductName = vm.ProductName;
+            //if (vm.photo2 != null)
+            //{
+            //    string filename2 = Guid.NewGuid().ToString() + ".jpg";
+            //    string imagePath2 = Server.MapPath("~/img/" + filename2);
+            //    vm.photo2.SaveAs(imagePath2);
+            //    product.ProductImagePathTwo = filename2;
+            //}
+
+            //if (vm.photo3 != null)
+            //{
+            //    string filename3 = Guid.NewGuid().ToString() + ".jpg";
+            //    string imagePath3 = Server.MapPath("~/img/" + filename3);
+            //    vm.photo3.SaveAs(imagePath3);
+            //    product.ProductImagePathThree = filename3;
+            //}
+
+            product.ProductName = vm.ProductName;
                 product.ProductDescription = vm.ProductDescription;
                 product.Price = vm.Price;
                 product.BrandId = (db.Brands.Where(x => x.BrandName == vm.BrandName).SingleOrDefault()).BrandId;
