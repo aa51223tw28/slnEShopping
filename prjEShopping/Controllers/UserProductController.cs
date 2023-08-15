@@ -24,7 +24,7 @@ namespace prjEShopping.Controllers
 
             var products = db.Products.ToList();
 
-            
+            var discountedProductIds=db.ADProducts.Select(x => x.ProductId).ToList();
 
             foreach (var item in products)
             {
@@ -36,7 +36,7 @@ namespace prjEShopping.Controllers
                 var productstatus = products.Where(x => x.ProductId == item.ProductId).Select(x => x.ProductStatusId).FirstOrDefault();
                 
 
-                if (stockQuantity - orderQuantity > 0&& productstatus==2)
+                if (!discountedProductIds .Contains(item.ProductId)&& stockQuantity - orderQuantity > 0&& productstatus==2)
                 {
                     var data = new UserProductIndexDto()
                     {
