@@ -276,7 +276,7 @@
         <div class="collapse" id="onestar">
         </div>
     </div>
-</div> 
+</div>
 
 @*加入購物車跳出視窗*@
 <div class="modal" id="addToCartModal" tabindex="-1">
@@ -514,7 +514,7 @@
         });
 
 
-      
+
 
         //評論
         $(document).ready(function () {
@@ -540,15 +540,20 @@
                             ratingone += '<div class="card card-body">';
                             ratingone += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
                             ratingone += '<div class="col">';
-                            ratingone += '<img src="~/img/comment.jpeg">';
+                            ratingone += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingone += '</div>';
                             ratingone += '<div class="col d-flex flex-column">';
-                            ratingone += '<div>' + rating.RatingId + '</div>';
-                            ratingone += '<div>評分:' + rating.StarRating + '</div>';
-                            ratingone += '<div>評論:' + rating.RatingText + '</div>';
-                            ratingone += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingone += '<div>賣家評論:' + sellerComment  + '</div>';
-                            ratingone += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            ratingone += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
+                            ratingone += '<div class="user">評論:' + rating.RatingText + '</div>';
+                            ratingone += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
+                            ratingone += '<div class="dashed-line"></div>';
+                            if (sellerComment) {
+                                ratingone += '<div class="seller">賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime) {
+                                ratingone += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
+                            }
                             ratingone += '</div>';
                             ratingone += '</div>';
                             ratingone += '</div>';
@@ -559,22 +564,27 @@
                     }
                     for (var i = 0; i < data.length; i++) {
                         var rating = data[i];
-                     
+
                         if (rating.StarRating === 2) {
                             var sellerComment = rating.ReplayText; // 取得賣家評論，如果有的話
                             var sellerCommentTime = rating.ReplayTime; // 取得賣家評論時間，如果有的話
                             ratingtwo += '<div class="card card-body">';
                             ratingtwo += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
                             ratingtwo += '<div class="col">';
-                            ratingtwo += '<img src="~/img/comment.jpeg">';
+                            ratingtwo += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingtwo += '</div>';
                             ratingtwo += '<div class="col d-flex flex-column">';
-                            ratingtwo += '<div>' + rating.RatingId + '</div>';
-                            ratingtwo += '<div>評分:' + rating.StarRating + '</div>';
-                            ratingtwo += '<div>評論:' + rating.RatingText + '</div>';
-                            ratingtwo += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingtwo += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingtwo += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            ratingtwo += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
+                            ratingtwo += '<div class="user">評論:' + rating.RatingText + '</div>';
+                            ratingtwo += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
+                            ratingtwo += '<div class="dashed-line"></div>';
+                            if (sellerComment) {
+                                ratingtwo += '<div class="seller">賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime) {
+                                ratingtwo += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
+                            }
                             ratingtwo += '</div>';
                             ratingtwo += '</div>';
                             ratingtwo += '</div>';
@@ -585,22 +595,27 @@
                     }
                     for (var i = 0; i < data.length; i++) {
                         var rating = data[i];
-                  
+
                         if (rating.StarRating === 3) {
                             var sellerComment = rating.ReplayText; // 取得賣家評論，如果有的話
                             var sellerCommentTime = rating.ReplayTime; // 取得賣家評論時間，如果有的話
                             ratingthree += '<div class="card card-body">';
                             ratingthree += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
                             ratingthree += '<div class="col">';
-                            ratingthree += '<img src="~/img/comment.jpeg">';
+                            ratingthree += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingthree += '</div>';
                             ratingthree += '<div class="col d-flex flex-column">';
-                            ratingthree += '<div>' + rating.RatingId + '</div>';
-                            ratingthree += '<div>評分:' + rating.StarRating + '</div>';
-                            ratingthree += '<div>評論:' + rating.RatingText + '</div>';
-                            ratingthree += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingthree += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingthree += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            ratingthree += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
+                            ratingthree += '<div class="user">評論:' + rating.RatingText + '</div>';
+                            ratingthree += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
+                            ratingthree += '<div class="dashed-line"></div>';
+                            if (sellerComment) {
+                                ratingthree += '<div class="seller">賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime) {
+                                ratingthree += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
+                            }
                             ratingthree += '</div>';
                             ratingthree += '</div>';
                             ratingthree += '</div>';
@@ -611,22 +626,27 @@
                     }
                     for (var i = 0; i < data.length; i++) {
                         var rating = data[i];
-                    
+
                         if (rating.StarRating === 4) {
                             var sellerComment = rating.ReplayText; // 取得賣家評論，如果有的話
                             var sellerCommentTime = rating.ReplayTime; // 取得賣家評論時間，如果有的話
                             ratingfour += '<div class="card card-body">';
                             ratingfour += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
                             ratingfour += '<div class="col">';
-                            ratingfour += '<img src="~/img/comment.jpeg">';
+                            ratingfour += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingfour += '</div>';
                             ratingfour += '<div class="col d-flex flex-column">';
-                            ratingfour += '<div>' + rating.RatingId + '</div>';
-                            ratingfour += '<div>評分:' + rating.StarRating + '</div>';
-                            ratingfour += '<div>評論:' + rating.RatingText + '</div>';
-                            ratingfour += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingfour += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingfour += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            ratingfour += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
+                            ratingfour += '<div class="user">評論:' + rating.RatingText + '</div>';
+                            ratingfour += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
+                            ratingfour += '<div class="dashed-line"></div>';
+                            if (sellerComment) {
+                                ratingfour += '<div class="seller">賣家評論:' + sellerComment + '</div>';
+                            }
+                            if (sellerCommentTime) {
+                                ratingfour += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
+                            }
+
                             ratingfour += '</div>';
                             ratingfour += '</div>';
                             ratingfour += '</div>';
@@ -636,23 +656,28 @@
 
                     }
                     for (var i = 0; i < data.length; i++) {
-                        var rating = data[i];                      
-                    
+                        var rating = data[i];
+
                         if (rating.StarRating === 5) {
                             var sellerComment = rating.ReplayText; // 取得賣家評論，如果有的話
                             var sellerCommentTime = rating.ReplayTime; // 取得賣家評論時間，如果有的話
                             ratingfive += '<div class="card card-body">';
                             ratingfive += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
                             ratingfive += '<div class="col">';
-                            ratingfive += '<img src="~/img/comment.jpeg" alt="">';
+                            ratingfive += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingfive += '</div>';
                             ratingfive += '<div class="col d-flex flex-column">';
-                            ratingfive += '<div>' + rating.RatingId + '</div>';
-                            ratingfive += '<div>評分:' + rating.StarRating + '</div>';
-                            ratingfive += '<div>評論:' + rating.RatingText + '</div>';
-                            ratingfive += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingfive += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingfive += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            ratingfive += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
+                            ratingfive += '<div class="user">評論:' + rating.RatingText + '</div>';
+                            ratingfive += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
+                            ratingfive += '<div class="dashed-line"></div>';
+                            if (sellerComment) { // Check for non-null value
+                                ratingfive += '<div class="seller">賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime) { // Check for non-null value
+                                ratingfive += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
+                            }
                             ratingfive += '</div>';
                             ratingfive += '</div>';
                             ratingfive += '</div>';
@@ -670,15 +695,20 @@
                             ratingall += '<div class="card card-body">';
                             ratingall += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
                             ratingall += '<div class="col">';
-                            ratingall += '<img src="~/img/comment.jpeg">';
+                            ratingall += '<img src="../img/' + rating.UserImagePath +'" alt="User Photo" class="user-photo">';
                             ratingall += '</div>';
                             ratingall += '<div class="col d-flex flex-column">';
-                            ratingall += '<div>' + rating.RatingId + '</div>';
-                            ratingall += '<div>評分:' + rating.StarRating + '</div>';
-                            ratingall += '<div>評論:' + rating.RatingText + '</div>';
-                            ratingall += '<div>評論時間:' + formatDate(rating.PostTime) + '</div>';
-                            ratingall += '<div>賣家評論:' + sellerComment + '</div>';
-                            ratingall += '<div>賣家評論時間:' + sellerCommentTime + '</div>';
+                            ratingall += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
+                            ratingall += '<div class="user">評論:' + rating.RatingText + '</div>';
+                            ratingall += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
+                            ratingall += '<div class="dashed-line"></div>';
+                            if (sellerComment) { // Check for non-null value
+                                ratingall += '<div class="seller">賣家評論:' + sellerComment + '</div>';
+                            }
+
+                            if (sellerCommentTime) { // Check for non-null value
+                                ratingall += '<div class="seller">賣家評論時間:' + formatDate(sellerCommentTime) + '</div>';
+                            }
                             ratingall += '</div>';
                             ratingall += '</div>';
                             ratingall += '</div>';
@@ -700,7 +730,7 @@
                     var threestarCount = 0;
                     var fourstarCount = 0;
                     var fivestarCount = 0;
-                    var allstarCount = 0; 
+                    var allstarCount = 0;
                     var totalRatings = data.length;
                     var totalStarRating = 0;
 
@@ -721,7 +751,12 @@
                         totalStarRating += data[i].StarRating;
 
                     }
-                    var averageStarRating = totalStarRating / totalRatings;
+                    var averageStarRating;
+                    if (totalRatings === 0) {
+                        averageStarRating = 0;
+                    } else {
+                        averageStarRating = totalStarRating / totalRatings;
+                    }
 
                     // 更新一星评价的数量显示
                     $('#onestarCount').text(onestarCount);
@@ -735,18 +770,54 @@
                 }
             })
         })
-
-
         function formatDate(theDate) {
+            console.log("Original Date:", theDate);
             let aDate = "";
             dateArray = theDate.split(" ");
-            console.log(dateArray)
-            aDate = `${dateArray[3]}/${dateArray[0]}/${dateArray[2]} ${dateArray[4]}` 
+            // Remove empty elements from the array
+            dateArray = dateArray.filter(item => item !== '');
 
+            // Reorder the date parts [2][0][1][3]
+            const year = dateArray[2];
+            const month = parseInt(dateArray[0]).toString();
+            const day = dateArray[1];
+            const time = dateArray[3];
+
+
+            aDate = `${year}/${month}/${day} ${time}`;
+            console.log(dateArray)
+            //aDate = `${dateArray[3]}/${dateArray[0]}/${dateArray[2]} ${dateArray[4]}`
             return aDate
 
         }
-
+        function generateStarIcons(starRating) {
+            var starIcons = '';
+            for (var i = 0; i < starRating; i++) {
+                starIcons += '<img src="../img/goldstar.png" alt="Star" class="star-icon">';
+            }
+            return starIcons;
+        }
     </script>
-
+    <style>
+        .dashed-line {
+            border-bottom: 1px dashed #ccc; /* 虛線樣式 */
+            margin: 8px 0; /* 虛線下方的間距 */
+        }
+        .seller {
+            color:#8020b4
+        }
+        .user {
+            color: #e96cd7
+        }
+        .user-photo {
+            width: 50px; /* 設定寬度 */
+            height: 50px; /* 設定高度 */
+            border-radius: 50%; /* 設定圓角使圖像呈現圓形 */
+        }
+        .star-icon {
+            width: 24px; /* 設定圖片寬度 */
+            height: 24px; /* 設定圖片高度 */
+            vertical-align: middle; /* 垂直對齊以使圖片與文字居中對齊 */
+        }
+    </style>
 }
