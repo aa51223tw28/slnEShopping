@@ -141,11 +141,9 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <input type="text" id="userName" placeholder="User Name" />
-                                <input type="text" id="message" placeholder="Message" />
-                                <button onclick="createRoom()">加入聊天室</button>
-                                <button onclick="leaveRoom()">離開聊天室</button>
-                                <button onclick="sendMessage()">傳送訊息</button>
+                                <input type="hidden" id="userName"  value="@Model.SellerAccount" placeholder="User Name" />
+                                <input type="text" id="message" placeholder="Message" height="200"/>
+                                <button onclick="sendMessage()" class="btn btn-light">傳送訊息</button>
                             </div>
                             <div class="row">
                                 <div id="chatMessages"></div>
@@ -266,7 +264,7 @@
             xhr.addEventListener('load', () => {
                 const datas = JSON.parse(xhr.responseText);
                 let chatLists = datas.map(chatlist => {
-                    return (`<tr><btn class="btn-secondary">${chatlist.UserName}<input type="hidden" value=${chatlist.ChatroomId}></btn></tr>`)
+                    return (`<tr class="mt-2"><td><btn class="btn-secondary">${chatlist.UserName}<input type="hidden" value=${chatlist.ChatroomId}></btn></td></tr>`)
                 })
                  
                 selchat.innerHTML = chatLists.join("");

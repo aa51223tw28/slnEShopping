@@ -332,6 +332,7 @@
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
     <Compile Include="Models\ViewModels\SellerReplyVM.cs" />
     <Compile Include="Models\ViewModels\UserChangePasswordVM.cs" />
+    <Compile Include="Models\ViewModels\UserChatVM.cs" />
     <Compile Include="Models\ViewModels\UserFeedbackVM.cs" />
     <Compile Include="Models\ViewModels\UserFollowProductVM.cs" />
     <Compile Include="Models\ViewModels\UserFollowSellerVM.cs" />

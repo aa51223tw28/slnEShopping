@@ -1,4 +1,6 @@
-﻿using System;
+﻿using prjEShopping.Models.EFModels;
+using prjEShopping.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +12,21 @@ namespace prjEShopping.Controllers
     {
         // GET: UserChat
         public ActionResult UserChat()
+        {
+            var db = new AppDbContext();
+            var customerAccount = User.Identity.Name;
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            //userid待加*2地方
+
+            var chatMembersList = db.ChatroomMembers.Where(x => x.UserId == 1).Join(db.Sellers,x => x.SellerId,y => y.SellerId, (x, y) => new UserChatVM{
+                SellerId = y.SellerId,
+                SellerName = y.SellerAccount,
+                ChatroomId = (x.ChatroomId.ToString()),
+            }).ToList();
+            return View(chatMembersList);
+        }
+
+        public ActionResult getChatList() 
         {
             return View();
         }
