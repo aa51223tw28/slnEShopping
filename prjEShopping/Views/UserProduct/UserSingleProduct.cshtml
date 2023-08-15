@@ -543,8 +543,7 @@
                             ratingone += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingone += '</div>';
                             ratingone += '<div class="col d-flex flex-column">';
-                            ratingone += '<div>' + rating.RatingId + '</div>';
-                            ratingone += '<div class="user">評分:' + rating.StarRating + '</div>';
+                            ratingone += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
                             ratingone += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingone += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingone += '<div class="dashed-line"></div>';
@@ -575,8 +574,7 @@
                             ratingtwo += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingtwo += '</div>';
                             ratingtwo += '<div class="col d-flex flex-column">';
-                            ratingtwo += '<div>' + rating.RatingId + '</div>';
-                            ratingtwo += '<div class="user">評分:' + rating.StarRating + '</div>';
+                            ratingtwo += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
                             ratingtwo += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingtwo += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingtwo += '<div class="dashed-line"></div>';
@@ -607,8 +605,7 @@
                             ratingthree += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingthree += '</div>';
                             ratingthree += '<div class="col d-flex flex-column">';
-                            ratingthree += '<div>' + rating.RatingId + '</div>';
-                            ratingthree += '<div class="user">評分:' + rating.StarRating + '</div>';
+                            ratingthree += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
                             ratingthree += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingthree += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingthree += '<div class="dashed-line"></div>';
@@ -639,17 +636,17 @@
                             ratingfour += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingfour += '</div>';
                             ratingfour += '<div class="col d-flex flex-column">';
-                            ratingfour += '<div>' + rating.RatingId + '</div>';
-                            ratingfour += '<div class="user">評分:' + rating.StarRating + '</div>';
+                            ratingfour += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
                             ratingfour += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingfour += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingfour += '<div class="dashed-line"></div>';
-                            if (sellerComment !== "") {
+                            if (sellerComment) {
                                 ratingfour += '<div class="seller">賣家評論:' + sellerComment + '</div>';
                             }
-                            if (sellerCommentTime !== "") {
+                            if (sellerCommentTime) {
                                 ratingfour += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
                             }
+
                             ratingfour += '</div>';
                             ratingfour += '</div>';
                             ratingfour += '</div>';
@@ -670,8 +667,7 @@
                             ratingfive += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingfive += '</div>';
                             ratingfive += '<div class="col d-flex flex-column">';
-                            ratingfive += '<div>' + rating.RatingId + '</div>';
-                            ratingfive += '<div class="user">評分:' + rating.StarRating + '</div>';
+                            ratingfive += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
                             ratingfive += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingfive += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingfive += '<div class="dashed-line"></div>';
@@ -702,8 +698,7 @@
                             ratingall += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
                             ratingall += '</div>';
                             ratingall += '<div class="col d-flex flex-column">';
-                            ratingall += '<div>' + rating.RatingId + '</div>';
-                            ratingall += '<div class="user">評分:' + rating.StarRating + '</div>';
+                            ratingall += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
                             ratingall += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingall += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingall += '<div class="dashed-line"></div>';
@@ -781,7 +776,13 @@
             return aDate
 
         }
-
+        function generateStarIcons(starRating) {
+            var starIcons = '';
+            for (var i = 0; i < starRating; i++) {
+                starIcons += '<img src="../img/goldstar.png" alt="Star" class="star-icon">';
+            }
+            return starIcons;
+        }
     </script>
     <style>
         .dashed-line {
@@ -798,6 +799,11 @@
             width: 50px; /* 設定寬度 */
             height: 50px; /* 設定高度 */
             border-radius: 50%; /* 設定圓角使圖像呈現圓形 */
+        }
+        .star-icon {
+            width: 24px; /* 設定圖片寬度 */
+            height: 24px; /* 設定圖片高度 */
+            vertical-align: middle; /* 垂直對齊以使圖片與文字居中對齊 */
         }
     </style>
 }
