@@ -146,8 +146,11 @@ namespace prjEShopping.Controllers
 
             ViewBag.PD = PD;
 
-            var enterwall = db.ADProducts.Where(x => AD.Contains(x.ADProductId) && x.ADField == 1 && x.ADStartDate < DateTime.Now && x.ADEndDate > DateTime.Now).FirstOrDefault().ADImagePath.ToString();
+            var product = db.ADProducts.Where(x => AD.Contains(x.ADProductId) && x.ADField == 1 && x.ADStartDate < DateTime.Now && x.ADEndDate > DateTime.Now)
+                .FirstOrDefault();
+            var enterwall = product?.ADImagePath?.ToString();
             ViewBag.Wall = enterwall;
+
             return View(model);
         }
 
