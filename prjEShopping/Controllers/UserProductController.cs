@@ -239,12 +239,15 @@ namespace prjEShopping.Controllers
                 //      //ReplayTime = y.ReplayTime.ToString()
 
                 //}).ToList();
+                var customerAccount = User.Identity.Name;
+                var userphoto = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserImagePath).FirstOrDefault();
 
-
-                var ratingsList =( from x in db.Ratings
+                var ratingsList =(from x in db.Ratings
                                   join y in db.RatingReplaies
-                                  on x.RatingId equals  y.RatingId into grouping
+                                  on x.RatingId equals y.RatingId into grouping
                                   from g in grouping.DefaultIfEmpty()
+                                  join u in db.Users
+                                  on x.UserId equals u.UserId // Assuming there's a UserId field in Ratings table
                                   where x.ProductId == productId
                                   select new RatingDateStringVM
                                   {
@@ -253,7 +256,8 @@ namespace prjEShopping.Controllers
                                       RatingText = x.RatingText,
                                       PostTime = x.PostTime.ToString(),
                                       ReplayText = g.ReplayText,
-                                      ReplayTime = g.ReplayTime.ToString()
+                                      ReplayTime = g.ReplayTime.ToString(),
+                                      UserImagePath = u.UserImagePath // Assuming there's a UserImagePath field in Users table
                                   }).ToList();
                 return Json(ratingsList, JsonRequestBehavior.AllowGet);
             }
