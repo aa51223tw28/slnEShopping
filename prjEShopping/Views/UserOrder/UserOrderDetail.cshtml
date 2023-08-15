@@ -81,7 +81,8 @@
                             <div class="card-body d-flex align-items-center">
                                 <span class="fs-5">訂單編號：</span>
                                 <span class="fs-5">@Model.FirstOrDefault().OrderNumber</span>
-                                <button type="button" class="btn btn-blue ms-2">再買一次</button>
+                                <span class="fs-5" data-orderid="@Model.FirstOrDefault().OrderId" id="orderid"></span>
+                                @*<button type="button" class="btn btn-blue ms-2">再買一次</button>*@
                             </div>
                         </div>
                     </div>
@@ -119,28 +120,38 @@
                             </div>
                         }
 
-                    }                    
+                    }
 
                     <div class="bg-light py-3 px-3">
                         <div class="d-flex justify-content-between">
                             <span>商品價格小計：</span>
-                            <span>@Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
+                            <span id="totaloldPrice" data-TotalPrice="@(ViewBag.TotalPrice)">@Math.Round(ViewBag.TotalPrice).ToString("C0")</span>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span>運費：</span>
-                            <span></span>
+                            <div class="d-flex">
+                                <span>NT$</span>
+                                <span class="shipPrice"></span>
+                            </div>
+                            
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <span class="text-danger">運費折扣小計：</span>
-                            <span class="text-danger"></span>
+                        @*<div class="d-flex justify-content-between">
+                                <span class="text-danger">運費折扣小計：</span>
+                                <span class="text-danger"></span>
+                            </div>*@
+                    <div class="d-flex justify-content-between">
+                        <span class="text-danger">已使用賣場優惠券：</span>                       
+                        <div class="d-flex">
+                            <span class="text-danger">NT$-</span>
+                            <span class="text-danger couponPrice"></span>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <span class="text-danger">已使用賣場優惠券：</span>
-                            <span class="text-danger"></span>
-                        </div>
+                    </div>
                         <div class="d-flex border-top border-2 border-dark pt-2 mt-2 justify-content-between">
                             <span>訂單金額：</span>
-                            <span></span>
+                            <div class="d-flex">
+                                <span>NT$</span>
+                                <span class="endtotalPrice"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,3 +162,58 @@
 
 
 
+@section Scripts{
+    <script>
+        var totaloldPrice = $("#totaloldPrice").attr("data-TotalPrice");
+       
+
+        //-----------------計算價格-------------------------
+        
+        const shipPriceid = document.querySelector('.shipPrice');//運費
+        const couponPriceid = document.querySelector('.couponPrice');//優惠券
+        const endtotalPrice = document.querySelector('.endtotalPrice');//付款金額
+
+        
+
+        //計算：商品有折扣+運費-使用優惠券=付款金額
+        function calculateTotal() {
+            const totalPrice = totaloldPrice
+                
+                - parseFloat(couponPriceid.textContent.replace(/,/g, ''))
+                + parseFloat(shipPriceid.textContent.replace(/,/g, ''));
+            
+            const formattedtotalPrice = totalPrice.toLocaleString();
+            endtotalPrice.textContent = formattedtotalPrice;
+        }
+       
+        var orderId = $("#orderid").attr("data-orderid");
+        //console.log(orderId)
+        //運費
+        async function getshipPrice() {
+            const response = await fetch('/UserOrder/getshipPriceorder?orderId=' + orderId)
+            const shipPrice = await response.json();
+
+            const formattedshipPrice = shipPrice.toLocaleString();
+            shipPriceid.textContent = formattedshipPrice;
+            calculateTotal()
+            
+        }
+        getshipPrice()
+
+
+        //優惠券
+        async function getcouponPrice() {
+            const response = await fetch('/UserOrder/getcouponPriceorder?orderId=' + orderId)
+            const couponPrice = await response.json();
+            const formattedcouponPrice = couponPrice.toLocaleString();
+            couponPriceid.textContent=formattedcouponPrice
+            calculateTotal()
+          
+        }
+        getcouponPrice()
+
+
+
+    </script>
+
+}

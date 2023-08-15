@@ -838,7 +838,7 @@ namespace prjEShopping.Controllers
             return Json(couponPrice, JsonRequestBehavior.AllowGet);
         }
 
-        public decimal couponPriceCalculate(int couponId)
+        public decimal couponPriceCalculate(int couponId)//計算優惠券
         {
             var customerAccount = User.Identity.Name;
 
@@ -918,7 +918,48 @@ namespace prjEShopping.Controllers
 
             //優惠券
             var couponid = db.Orders.Where(x => x.OrderId == orderid).Select(x => x.CouponId).FirstOrDefault();            
-            var couponprice = couponPriceCalculate((int)couponid);
+            var couponprice = 0;
+            var couponidselect = db.Coupons.Where(x => x.CouponId == couponid).FirstOrDefault();
+            if (couponidselect.CouponType == "抵用券")
+            {
+                couponprice = int.Parse(couponidselect.Discount);
+            }
+            else if (couponidselect.CouponType == "免運券" && couponidselect.SellerId == 0)
+            {
+                couponprice = int.Parse(couponidselect.Discount) * sellerids;
+            }
+            else if (couponidselect.CouponType == "免運券" && couponidselect.SellerId != 0)
+            {
+                couponprice = int.Parse(couponidselect.Discount);
+            }
+            else if (couponidselect.CouponType == "折價券")
+            {
+                var selleridcoupon = couponidselect.SellerId;
+
+                if (selleridcoupon == 0)
+                {
+                    var subtotal = db.OrderDetails.Where(x => x.OrderId == orderid)                                                
+                                                .Sum(x => x.CurrentPrice * x.Quantity);
+                    var discount = decimal.Parse(couponidselect.Discount) / 100;
+                    couponprice = (int)(decimal)(subtotal * (1 - discount));
+                }
+                else
+                {
+                    var subtotal = db.OrderDetails.Where(x => x.OrderId == orderid)
+                                                .Join(db.Products, x => x.ProductId, y => y.ProductId, (x, y) => new
+                                                {
+                                                    CurrentPrice = x.CurrentPrice,
+                                                    Quantity = x.Quantity,
+                                                    y.SellerId,
+                                                })
+                                                .Where(x => x.SellerId == selleridcoupon)
+                                                .Sum(x => x.CurrentPrice * x.Quantity);
+                    var discount = decimal.Parse(couponidselect.Discount) / 100;
+                    couponprice = (int)(decimal)(subtotal * (1 - discount));
+                }
+
+                
+            }
 
             //總金額=總價+運費-優惠券
             int total = (int)(totalprice + shipPrice - couponprice);
@@ -933,6 +974,8 @@ namespace prjEShopping.Controllers
                                         })
                                         .Select(x => x.ProductName + "X" + x.Quantity);
             string itemName = string.Join("#", items);
+
+         
 
             //需填入你的網址
             var website = $"https://localhost:44388/";
@@ -965,7 +1008,7 @@ namespace prjEShopping.Controllers
                 { "ReturnURL",  $"{website}api/Ecpay/AddPayInfo"},//目前沒用到
                 
                 //使用者於綠界 付款完成後，綠界將會轉址至 此URL
-                { "OrderResultURL", $"{website}UserCart/PayInfo"},
+                { "OrderResultURL", $"{website}UserCart/PayInfo?userid={userid}"},
                 
                 //付款方式為 ATM 時，當使用者於綠界操作結束時，綠界回傳 虛擬帳號資訊至 此URL
                 { "PaymentInfoURL",  $"{website}/api/Ecpay/AddAccountInfo"},//目前沒用到
@@ -1028,14 +1071,10 @@ namespace prjEShopping.Controllers
 
             return result.ToString();
         }
-
-        [Authorize]
-        public ActionResult PayInfo()
-        {
-            var customerAccount = User.Identity.Name;
-
-            var db = new AppDbContext();
-            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+        
+        public ActionResult PayInfo(int userid)
+        {          
+            var db = new AppDbContext();          
             var orderdbNum = db.Orders.Where(x => x.UserId == userid).OrderByDescending(x => x.OrderId).Select(x => x.OrderNumber).FirstOrDefault();
             ViewBag.OrderNumber = orderdbNum;
             return View();

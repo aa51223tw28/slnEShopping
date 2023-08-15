@@ -91,5 +91,17 @@ namespace prjEShopping.Controllers
                             });
             return Json(top10Shipments, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult getChatMembers()
+        {
+            int sellerid = (int)Session["SellerId"];
+            var db = new AppDbContext();
+            var chatLists = db.ChatroomMembers.Where(x => x.SellerId == sellerid).Join(db.Users, x =>x.UserId,y =>y.UserId,(x,y) => new {
+            UserId = x.UserId,
+            UserName = y.UserName,
+            ChatroomId = x.ChatroomId,
+            }).ToList();
+            return Json(chatLists, JsonRequestBehavior.AllowGet);
+        }
     }
 }

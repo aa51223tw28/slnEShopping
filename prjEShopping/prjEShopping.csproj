@@ -243,6 +243,7 @@
     <Compile Include="Controllers\testproductsupportController.cs" />
     <Compile Include="Controllers\UserCartController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\UserChatController.cs" />
     <Compile Include="Controllers\UserCouponController.cs" />
     <Compile Include="Controllers\UserFeedbackController.cs" />
     <Compile Include="Controllers\UserFollowController.cs" />
@@ -331,6 +332,7 @@
     <Compile Include="Models\ViewModels\SellerRegisterVM.cs" />
     <Compile Include="Models\ViewModels\SellerReplyVM.cs" />
     <Compile Include="Models\ViewModels\UserChangePasswordVM.cs" />
+    <Compile Include="Models\ViewModels\UserChatVM.cs" />
     <Compile Include="Models\ViewModels\UserFeedbackVM.cs" />
     <Compile Include="Models\ViewModels\UserFollowProductVM.cs" />
     <Compile Include="Models\ViewModels\UserFollowSellerVM.cs" />
@@ -498,7 +500,10 @@
     <Content Include="Views\AdminUsers\Details.cshtml" />
     <Content Include="Views\AdminUsers\Edit.cshtml" />
     <Content Include="Views\AdminUsers\Index.cshtml" />
+    <Content Include="Views\UserChat\UserChat.cshtml" />
     <Content Include="Views\SellerActivities\ADOwner.cshtml" />
+    <Content Include="Views\Shared\_LayoutMainPayInfo.cshtml" />
+    <Content Include="Views\Main\MaleSale.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

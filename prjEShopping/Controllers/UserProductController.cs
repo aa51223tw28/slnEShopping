@@ -3,6 +3,7 @@ using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,6 +25,8 @@ namespace prjEShopping.Controllers
 
             var products = db.Products.ToList();
 
+            var discountedProductIds=db.ADProducts.Select(x => x.ProductId).ToList();
+
             foreach (var item in products)
             {
                 var orderQuantity = db.ProductStocks.Where(x => x.ProductId == item.ProductId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;
@@ -32,9 +35,9 @@ namespace prjEShopping.Controllers
 
                 //商品狀態 1審核中/2販售中/3下架中
                 var productstatus = products.Where(x => x.ProductId == item.ProductId).Select(x => x.ProductStatusId).FirstOrDefault();
-                
 
-                if (stockQuantity - orderQuantity > 0&& productstatus==2)
+
+                if (!discountedProductIds .Contains(item.ProductId)&& stockQuantity - orderQuantity > 0&& productstatus==2)
                 {
                     var data = new UserProductIndexDto()
                     {
@@ -43,9 +46,9 @@ namespace prjEShopping.Controllers
                         Price = (decimal)item.Price,
                         ProductImagePathOne = item.ProductImagePathOne,
                         ProductStock = stockQuantity - orderQuantity,
-                        QuantitySold= (int)db.ProductStocks.FirstOrDefault(x => x.ProductId == item.ProductId).QuantitySold,
-                        SubcategoryId= (int)products.FirstOrDefault(x=>x.ProductId== item.ProductId).SubcategoryId,
-                        BrandId=(int)item.BrandId,
+                        QuantitySold = (int)db.ProductStocks.FirstOrDefault(x => x.ProductId == item.ProductId).QuantitySold,
+                        SubcategoryId = (int)products.FirstOrDefault(x => x.ProductId == item.ProductId).SubcategoryId,
+                        BrandId = (int)item.BrandId,
                         //BrandName=db.Brands.FirstOrDefault(x=>x.BrandId== item.BrandId).BrandName,
                     };
 
@@ -69,8 +72,8 @@ namespace prjEShopping.Controllers
             var product = db.Products.FirstOrDefault(x => x.ProductId == productId);
 
             //剩餘多少數量計算式為ProductStocks table=StockQuantity-OrderQuantity
-            var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x=>x.OrderQuantity).FirstOrDefault() ?? 0;
-            var stockQuantity= db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
+            var orderQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.OrderQuantity).FirstOrDefault() ?? 0;
+            var stockQuantity = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.StockQuantity).FirstOrDefault() ?? 0;
 
             //售出數量ProductStocks中的QuantitySold
             var quantitySold = db.ProductStocks.Where(x => x.ProductId == productId).Select(x => x.QuantitySold).FirstOrDefault();
@@ -78,7 +81,7 @@ namespace prjEShopping.Controllers
             //一堆規格
             //品牌
             var brandId = db.Products.Where(x => x.ProductId == productId).Select(x => x.BrandId).FirstOrDefault();
-            var brandName = db.Brands.Where(x => x.BrandId == brandId).Select(x => x.BrandName).FirstOrDefault();                     
+            var brandName = db.Brands.Where(x => x.BrandId == brandId).Select(x => x.BrandName).FirstOrDefault();
 
             //選項內容
             var optionIdOne = db.Products.Where(x => x.ProductId == productId).Select(x => x.OptionIdOne).FirstOrDefault();
@@ -95,7 +98,7 @@ namespace prjEShopping.Controllers
 
 
             var optionNameOne = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdOne).Select(x => x.OptionName).FirstOrDefault();
-            var optionNameTwo = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdTwo) .Select(x => x.OptionName).FirstOrDefault();
+            var optionNameTwo = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdTwo).Select(x => x.OptionName).FirstOrDefault();
             var optionNameThree = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdThree).Select(x => x.OptionName).FirstOrDefault();
             var optionNameFour = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdFour).Select(x => x.OptionName).FirstOrDefault();
             var optionNameFive = db.ProductOptions.Where(x => x.OptionId == parsedOptionIdFive).Select(x => x.OptionName).FirstOrDefault();
@@ -107,7 +110,7 @@ namespace prjEShopping.Controllers
             var SpecificationIdFour = db.ProductOptions.Where(x => x.OptionName == optionNameFour).Select(x => x.SpecificationId).FirstOrDefault();
             var SpecificationIdOFive = db.ProductOptions.Where(x => x.OptionName == optionNameFive).Select(x => x.SpecificationId).FirstOrDefault();
 
-            var SpecificationNameOne=db.ProductSpecifications.Where(x=>x.SpecificationId== SpecificationIdOne).Select(x => x.SpecificationName).FirstOrDefault();
+            var SpecificationNameOne = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdOne).Select(x => x.SpecificationName).FirstOrDefault();
             var SpecificationNameTwo = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdTwo).Select(x => x.SpecificationName).FirstOrDefault();
             var SpecificationNameThree = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdThree).Select(x => x.SpecificationName).FirstOrDefault();
             var SpecificationNameFour = db.ProductSpecifications.Where(x => x.SpecificationId == SpecificationIdFour).Select(x => x.SpecificationName).FirstOrDefault();
@@ -115,11 +118,11 @@ namespace prjEShopping.Controllers
 
             //大分類名稱
             var categoryId = db.Products.Where(x => x.ProductId == productId).Select(x => x.CategoryId).FirstOrDefault();
-            var categoryName=db.ProductMainCategories.Where(x=>x.CategoryId== categoryId).Select(x => x.CategoryName).FirstOrDefault();
+            var categoryName = db.ProductMainCategories.Where(x => x.CategoryId == categoryId).Select(x => x.CategoryName).FirstOrDefault();
 
             //小分類名稱
-            var subcategoryId=db.Products.Where(x=>x.ProductId== productId).Select(x=>x.SubcategoryId).FirstOrDefault();
-            var subcategoryName=db.ProductSubCategories.Where(x=>x.SubcategoryId== subcategoryId).Select(x=>x.SubcategoryName).FirstOrDefault();
+            var subcategoryId = db.Products.Where(x => x.ProductId == productId).Select(x => x.SubcategoryId).FirstOrDefault();
+            var subcategoryName = db.ProductSubCategories.Where(x => x.SubcategoryId == subcategoryId).Select(x => x.SubcategoryName).FirstOrDefault();
 
             var datas = new UserProductIndexDto()
             {
@@ -130,11 +133,11 @@ namespace prjEShopping.Controllers
                 ProductImagePathOne = product.ProductImagePathOne,
                 ProductImagePathTwo = product.ProductImagePathTwo,
                 ProductImagePathThree = product.ProductImagePathThree,
-                ProductStock= stockQuantity- orderQuantity,
-                QuantitySold= (int)quantitySold,
+                ProductStock = stockQuantity - orderQuantity,
+                QuantitySold = (int)quantitySold,
 
                 //一堆規格
-                BrandName= brandName,
+                BrandName = brandName,
                 SpecificationNameOne = SpecificationNameOne,
                 SpecificationNameTwo = SpecificationNameTwo,
                 SpecificationNameThree = SpecificationNameThree,
@@ -142,27 +145,84 @@ namespace prjEShopping.Controllers
                 SpecificationNameFive = SpecificationNameFive,
 
                 OptionNameOne = optionNameOne,
-                OptionNameTwo= optionNameTwo,
-                OptionNameThree= optionNameThree,
-                OptionNameFour= optionNameFour,
-                OptionNameFive= optionNameFive,
+                OptionNameTwo = optionNameTwo,
+                OptionNameThree = optionNameThree,
+                OptionNameFour = optionNameFour,
+                OptionNameFive = optionNameFive,
 
-                CategoryName= categoryName,
+                CategoryName = categoryName,
                 SubcategoryName = subcategoryName,
             };
             //現在購物車該使用者該購物車id該商品的數量
             var qua = db.ShoppingCartDetails.Where(x => x.CartId == cartid && x.ProductId == productId).Select(x => x.Quantity).FirstOrDefault();
-            if(qua != null)
+            if (qua != null)
             {
                 ViewBag.TotalQuantity = qua;
             }
             else
             {
                 ViewBag.TotalQuantity = 0;
-            }            
+            }
+            ViewBag.SupportNum = GenerateSupportNumberU();
+            ViewBag.UserId = userid;
+
             return View(datas);
         }
 
+
+        [HttpPost]
+        //客戶端寄信
+        public ActionResult CSSendMail(SupportVM vm)
+        {
+            var db = new AppDbContext();
+            if (vm != null)
+            {   //存圖..
+                imageAdd(vm);
+                var s = new Support();
+                s = SupportChange.VM2Support(vm);
+                db.Supports.Add(s);
+                db.SaveChanges();
+                return new EmptyResult();
+            }
+            return View(vm);
+        }
+
+
+        public string GenerateSupportNumberU()
+        {
+            var db = new AppDbContext();
+            var today = DateTime.Now;
+            // 獲取當前日期的格式化字符串 "230812"
+            var datePart = today.ToString("yyMMdd");
+
+            // 查詢當天已有多少條記錄
+            var countForToday = db.Supports
+                                  .Where(s => s.SupportNumber.StartsWith("US" + datePart))
+                                  .Count();
+            // 生成下一個編號
+            var numberPart = (countForToday + 1).ToString("D4"); // 四位數，不足前面補0
+
+            return "US" + datePart + numberPart;
+        }
+
+        //存圖範例
+        private void imageAdd(SupportVM vm)
+        {
+            if (vm.ImageFile != null && vm.ImageFile.ContentLength > 0)
+            {
+                // 生成一個唯一的檔案名稱
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(vm.ImageFile.FileName);
+
+                // 指定檔案的保存路徑
+                var path = Path.Combine(Server.MapPath("~/img/"), fileName);
+
+                // 儲存檔案
+                vm.ImageFile.SaveAs(path);
+
+                // 將檔案名稱保存到Support模型的相應欄位
+                vm.ImageLink = fileName;
+            }
+        }
 
 
         [Authorize]
@@ -172,8 +232,8 @@ namespace prjEShopping.Controllers
 
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
-            
-            var trackproductId=db.TrackProducts.FirstOrDefault(x=>x.ProductId == productId && x.UserId == userid);
+
+            var trackproductId = db.TrackProducts.FirstOrDefault(x => x.ProductId == productId && x.UserId == userid);
 
             if (trackproductId == null)
             {
@@ -189,7 +249,7 @@ namespace prjEShopping.Controllers
             else
             {
                 var trackProductIdToDelete = trackproductId.TrackProductId;
-                var trackProductToDelete = db.TrackProducts.FirstOrDefault(x => x.TrackProductId == trackProductIdToDelete&&x.ProductId== productId);
+                var trackProductToDelete = db.TrackProducts.FirstOrDefault(x => x.TrackProductId == trackProductIdToDelete && x.ProductId == productId);
                 if (trackProductToDelete != null)
                 {
                     db.TrackProducts.Remove(trackProductToDelete);
@@ -208,14 +268,14 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
 
-            var trackproductId = db.TrackProducts.FirstOrDefault(x => x.ProductId == productId&&x.UserId== userid);
+            var trackproductId = db.TrackProducts.FirstOrDefault(x => x.ProductId == productId && x.UserId == userid);
 
             if (trackproductId == null)
-            {               
+            {
                 return Content("noTrackProduct");
             }
             else
-            {                
+            {
                 return Content("TrackProduct");
             }
         }
@@ -223,45 +283,36 @@ namespace prjEShopping.Controllers
         //評論api
         public ActionResult Comment(int productId)
         {
-            using (var db = new AppDbContext()) // 假設您的 DbContext 名稱為 AppDbContext
+            using (var db = new AppDbContext())
             {
-                // 從資料庫中查詢評分資料，假設評分資料存在 Ratings 表中
-                //var ratingsList = db.Ratings.Where(r => r.ProductId == productId)
-                //    .Select(x =>
-                //    //.Join(db.RatingReplaies, x => x.RatingId, y => y.RatingId, (x, y) =>
-                //    new RatingDateStringVM
-                //    {
-                //        RatingId = x.RatingId,
-                //        StarRating = (int)x.StarRating,
-                //        RatingText = x.RatingText,
-                //        PostTime = x.PostTime.ToString(),
-                //      //ReplayText = y.ReplayText,
-                //      //ReplayTime = y.ReplayTime.ToString()
+                var customerAccount = User.Identity.Name;
+                var userphoto = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserImagePath).FirstOrDefault();
 
-                //}).ToList();
-
-
-                var ratingsList =( from x in db.Ratings
-                                  join y in db.RatingReplaies
-                                  on x.RatingId equals  y.RatingId into grouping
-                                  from g in grouping.DefaultIfEmpty()
-                                  where x.ProductId == productId
-                                  select new RatingDateStringVM
-                                  {
-                                      RatingId = x.RatingId,
-                                      StarRating = (int)x.StarRating,
-                                      RatingText = x.RatingText,
-                                      PostTime = x.PostTime.ToString(),
-                                      ReplayText = g.ReplayText,
-                                      ReplayTime = g.ReplayTime.ToString()
-                                  }).ToList();
+                var ratingsList = (from x in db.Ratings
+                                   join y in db.RatingReplaies
+                                   on x.RatingId equals y.RatingId into grouping
+                                   from g in grouping.DefaultIfEmpty()
+                                   join u in db.Users
+                                   on x.UserId equals u.UserId // Assuming there's a UserId field in Ratings table
+                                   where x.ProductId == productId
+                                   select new RatingDateStringVM
+                                   {
+                                       RatingId = x.RatingId,
+                                       StarRating = (int)x.StarRating,
+                                       RatingText = x.RatingText,
+                                       PostTime = x.PostTime.ToString(),
+                                       ReplayText = g.ReplayText,
+                                       ReplayTime = g.ReplayTime.ToString(),
+                                       UserImagePath = u.UserImagePath // Assuming there's a UserImagePath field in Users table
+                                   }).ToList();
                 return Json(ratingsList, JsonRequestBehavior.AllowGet);
             }
         }
+    
 
         private Dictionary<int, string> GetSellerReplies(List<int> ratingIds)
         {
-            using (var db = new AppDbContext()) // 假設您的 DbContext 名稱為 AppDbContext
+            using (var db = new AppDbContext()) 
             {
                 // 根據評分的 RatingId 查詢 RatingReply 的 ReplayText，並存儲在 Dictionary 中
                 var sellerReplies = db.RatingReplaies

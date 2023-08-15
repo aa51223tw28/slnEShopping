@@ -141,11 +141,9 @@
                                 </table>
                             </div>
                             <div class="row">
-                                <input type="text" id="userName" placeholder="User Name" />
-                                <input type="text" id="message" placeholder="Message" />
-                                <button onclick="createRoom()">加入聊天室</button>
-                                <button onclick="leaveRoom()">離開聊天室</button>
-                                <button onclick="sendMessage()">傳送訊息</button>
+                                <input type="hidden" id="userName"  value="@Model.SellerAccount" placeholder="User Name" />
+                                <input type="text" id="message" placeholder="Message" height="200"/>
+                                <button onclick="sendMessage()" class="btn btn-light">傳送訊息</button>
                             </div>
                             <div class="row">
                                 <div id="chatMessages"></div>
@@ -172,17 +170,16 @@
 
     $.connection.hub.start();
 
-    let roomId = "";
+    
 
-    function createRoom() {
-        roomId = prompt('Enter room name:');
+    function createRoom(roomId) {
         if (roomId) {
             chat.server.createRoom(roomId);
         }
     }
 
-    function leaveRoom() {
-        roomId = prompt('Enter room name:');
+    function leaveRoom(roomId) {
+        
         if (roomId) {
             chat.server.leaveRoom(roomId);
         }
@@ -204,6 +201,8 @@
     <script>
         const selTop5 = document.querySelector('#Top5');
         const selTop10Shipments = document.querySelector('#Top10Shipments');
+        const selchat = document.querySelector('#chat');
+
 
         function LoadTop5() {
             const xhr = new XMLHttpRequest();
@@ -245,12 +244,41 @@
                 })
                 selTop10Shipments.innerHTML = Top10Shipments.join("");
             })
-          };
+        };
+
 
         $(document).ready(function () {
             LoadTop5();
             LoadTop10Shipments();
+            LoadChatList();
+            
         });
+
+        let roomId = "";
+        
+        function LoadChatList() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '@Url.Content("~/SellerMain/getChatMembers")');
+            xhr.send();
+
+            xhr.addEventListener('load', () => {
+                const datas = JSON.parse(xhr.responseText);
+                let chatLists = datas.map(chatlist => {
+                    return (`<tr class="mt-2"><td><btn class="btn-secondary">${chatlist.UserName}<input type="hidden" value=${chatlist.ChatroomId}></btn></td></tr>`)
+                })
+                 
+                selchat.innerHTML = chatLists.join("");
+
+                const selclicked = document.querySelectorAll('.btn-secondary');
+                $(selclicked).click(function () {
+                    $('#chatMessages').empty();
+                    leaveRoom(roomId);
+                    roomId = ($(this).find('input').val().toString());
+                    createRoom(roomId);
+                    
+                });
+            })
+        }
 
 
 

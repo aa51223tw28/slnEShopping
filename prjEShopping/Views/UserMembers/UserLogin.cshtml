@@ -10,60 +10,63 @@
     @Html.AntiForgeryToken()@*以防護CSRF攻擊*@
 
 
-    <div class="bg-light py-5">
-        <div class="container pt-2">
-            <div class="row">
-                <div class="col-3"></div>
-                <div class="col-6 bg-success rounded ">
-                    <p class="mt-5 fs-3 fw-bold text-center">買家登入</p>
-                    @*<input class="form-control mt-3" type="text" placeholder="請輸入Email" id="UserAccount">
-                        <input class="form-control mt-3" type="password" placeholder="請輸入密碼" id="UserPassword">*@
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.EditorFor(model => model.UserAccount, new { htmlAttributes = new { @class = "form-control mt-5", placeholder = "請輸入Email", id = "UserAccount" } })
-                    @Html.ValidationMessageFor(model => model.UserAccount, "", new { @class = "text-danger" })
-                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control mt-3", placeholder = "請輸入密碼", id = "UserPassword" } })
-                    @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+<div class="bg-light py-5">
+    <div class="container pt-2">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6 bg-success rounded " style="height:500px">
+                <p class="mt-5 fs-3 fw-bold text-center">買家登入</p>
+                @*<input class="form-control mt-3" type="text" placeholder="請輸入Email" id="UserAccount">
+                    <input class="form-control mt-3" type="password" placeholder="請輸入密碼" id="UserPassword">*@
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.UserAccount, new { htmlAttributes = new { @class = "form-control mt-5", placeholder = "請輸入Email", id = "UserAccount" } })
+                @Html.ValidationMessageFor(model => model.UserAccount, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control mt-3", placeholder = "請輸入密碼", id = "UserPassword" } })
+                @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
 
-                    <div class="d-grid gap-2 mb-3">
-                        <input type="submit" value="登入" class="btn btn-secondary mt-3"/>
-                    </div>
-
-
-                    @*<a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>*@
-                    <div class="d-flex justify-content-end gap-2">
-                        @*<div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>*@
-                        <div class="btn btn-light border border-3" id="btnerror">demo錯誤帳密</div>
-                        <div class="btn btn-light border border-3" id="btnerrorright">demo權限問題</div>
-                    </div>
-                    <div class="d-flex gap-2">
-                            <div class="btn btn-light border border-3" id="btnUser1">User1</div>
-                            <div class="btn btn-light border border-3" id="btnUser1new">User1新密碼</div>
-                    </div>
-                    <div class="gap-2 mt-3 d-flex flex-column" style="width:100px">                        
-                        <div class="btn btn-light border border-3" id="btnregisterUser">新註冊</div>
-                        <div class="btn btn-light border border-3" id="btnUser2">User2</div>
-                        <div class="btn btn-light border border-3" id="btnUser3">User3</div>
-                    </div>
-                    @*<div class="d-flex justify-content-end gap-2 mt-3">
-                        <div class="btn btn-light border border-3" id="btnSeller">Seller</div>
-                        <div class="btn btn-light border border-3" id="btnAdmin">Admin</div>
-
-                    </div>*@
-                    @*<hr>*@
-                    @*<div class="row g-2 mb-3">
-                        <div class="col-5 btn btn-info mt-3" type="submit">GOOGLE</div>
-                        <div class="col-2"></div>
-                        <div class="col-5 btn btn-info mt-3" type="submit">LINE</div>
-                    </div>*@
-                    @*<div class="mb-3">
-                        <span>還沒註冊嗎？</span>
-                        <a href="#" class="link-blue text-decoration-none fw-bold">註冊</a>
-                    </div>*@
+                <div class="d-grid gap-2 mt-5">
+                    <input type="submit" value="登入" class="btn btn-secondary mt-3" />
                 </div>
-                <div class="col-3"></div>
+
+
+
             </div>
+            <div class="col-3"></div>
         </div>
     </div>
+    @*<a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>*@
+    <div class="d-flex justify-content-end gap-2 mb-2">
+        @*<div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>*@
+        <div class="btn btn-light border border-3" id="btnerror">demo錯誤帳密</div>
+        <div class="btn btn-light border border-3" id="btnerrorright">demo權限問題</div>
+
+    </div>
+    <div class="d-flex justify-content-end gap-2 mb-2">
+        <div class="btn btn-light border border-3" id="btnUser1">User1</div>
+        <div class="btn btn-light border border-3" id="btnUser1new">User1新密碼</div>
+    </div>
+    <div class="d-flex justify-content-end gap-2">
+        <div class="btn btn-light border border-3" id="btnregisterUser">新註冊</div>
+        <div class="btn btn-light border border-3" id="btnUser2">User2</div>
+        <div class="btn btn-light border border-3" id="btnUser3">User3</div>
+    </div>
+   
+    @*<div class="d-flex justify-content-end gap-2 mt-3">
+            <div class="btn btn-light border border-3" id="btnSeller">Seller</div>
+            <div class="btn btn-light border border-3" id="btnAdmin">Admin</div>
+
+        </div>*@
+    @*<hr>*@
+    @*<div class="row g-2 mb-3">
+            <div class="col-5 btn btn-info mt-3" type="submit">GOOGLE</div>
+            <div class="col-2"></div>
+            <div class="col-5 btn btn-info mt-3" type="submit">LINE</div>
+        </div>*@
+    @*<div class="mb-3">
+            <span>還沒註冊嗎？</span>
+            <a href="#" class="link-blue text-decoration-none fw-bold">註冊</a>
+        </div>*@
+</div>
 }
 
 

@@ -40,6 +40,7 @@ namespace prjEShopping.Models.DTOs
         public int SubcategoryId { get; set; }//為了篩選小分類
         public string SubcategoryName { get; set; }
 
-       
+        public int Discount { get; set; }
+        public decimal DiscountPrice { get; set; }
     }
 }
