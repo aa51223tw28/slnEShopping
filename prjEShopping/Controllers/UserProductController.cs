@@ -223,22 +223,8 @@ namespace prjEShopping.Controllers
         //評論api
         public ActionResult Comment(int productId)
         {
-            using (var db = new AppDbContext()) // 假設您的 DbContext 名稱為 AppDbContext
+            using (var db = new AppDbContext()) 
             {
-                // 從資料庫中查詢評分資料，假設評分資料存在 Ratings 表中
-                //var ratingsList = db.Ratings.Where(r => r.ProductId == productId)
-                //    .Select(x =>
-                //    //.Join(db.RatingReplaies, x => x.RatingId, y => y.RatingId, (x, y) =>
-                //    new RatingDateStringVM
-                //    {
-                //        RatingId = x.RatingId,
-                //        StarRating = (int)x.StarRating,
-                //        RatingText = x.RatingText,
-                //        PostTime = x.PostTime.ToString(),
-                //      //ReplayText = y.ReplayText,
-                //      //ReplayTime = y.ReplayTime.ToString()
-
-                //}).ToList();
                 var customerAccount = User.Identity.Name;
                 var userphoto = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserImagePath).FirstOrDefault();
 
@@ -265,7 +251,7 @@ namespace prjEShopping.Controllers
 
         private Dictionary<int, string> GetSellerReplies(List<int> ratingIds)
         {
-            using (var db = new AppDbContext()) // 假設您的 DbContext 名稱為 AppDbContext
+            using (var db = new AppDbContext()) 
             {
                 // 根據評分的 RatingId 查詢 RatingReply 的 ReplayText，並存儲在 Dictionary 中
                 var sellerReplies = db.RatingReplaies

@@ -547,11 +547,11 @@
                             ratingone += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingone += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingone += '<div class="dashed-line"></div>';
-                            if (sellerComment !== "") {
+                            if (sellerComment) {
                                 ratingone += '<div class="seller">賣家評論:' + sellerComment + '</div>';
                             }
 
-                            if (sellerCommentTime !== "") {
+                            if (sellerCommentTime) {
                                 ratingone += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
                             }
                             ratingone += '</div>';
@@ -578,11 +578,11 @@
                             ratingtwo += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingtwo += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingtwo += '<div class="dashed-line"></div>';
-                            if (sellerComment !== "") {
+                            if (sellerComment) {
                                 ratingtwo += '<div class="seller">賣家評論:' + sellerComment + '</div>';
                             }
 
-                            if (sellerCommentTime !== "") {
+                            if (sellerCommentTime) {
                                 ratingtwo += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
                             }
                             ratingtwo += '</div>';
@@ -609,11 +609,11 @@
                             ratingthree += '<div class="user">評論:' + rating.RatingText + '</div>';
                             ratingthree += '<div class="user">評論時間:' + formatDate(rating.PostTime) + '</div>';
                             ratingthree += '<div class="dashed-line"></div>';
-                            if (sellerComment !== "") {
+                            if (sellerComment) {
                                 ratingthree += '<div class="seller">賣家評論:' + sellerComment + '</div>';
                             }
 
-                            if (sellerCommentTime !== "") {
+                            if (sellerCommentTime) {
                                 ratingthree += '<div class="seller">賣家評論時間:' + sellerCommentTime + '</div>';
                             }
                             ratingthree += '</div>';
@@ -695,7 +695,7 @@
                             ratingall += '<div class="card card-body">';
                             ratingall += '<div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">';
                             ratingall += '<div class="col">';
-                            ratingall += '<img src="../img/' + rating.UserImagePath + '" alt="User Photo" class="user-photo">'; // 加入大頭貼圖像
+                            ratingall += '<img src="../img/' + rating.UserImagePath +'" alt="User Photo" class="user-photo">';
                             ratingall += '</div>';
                             ratingall += '<div class="col d-flex flex-column">';
                             ratingall += '<div class="star">評分:' + generateStarIcons(rating.StarRating) + '</div>';
@@ -765,14 +765,23 @@
                 }
             })
         })
+        function formatDateTime(dateTimeString) {
+            var dateTime = new Date(dateTimeString);
+            var year = dateTime.getFullYear();
+            var month = ('0' + (dateTime.getMonth() + 1)).slice(-2);
+            var day = ('0' + dateTime.getDate()).slice(-2);
+            var hours = ('0' + dateTime.getHours()).slice(-2);
+            var minutes = ('0' + dateTime.getMinutes()).slice(-2);
+            var seconds = ('0' + dateTime.getSeconds()).slice(-2);
 
+            return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        }
 
         function formatDate(theDate) {
             let aDate = "";
             dateArray = theDate.split(" ");
             console.log(dateArray)
             aDate = `${dateArray[3]}/${dateArray[0]}/${dateArray[2]} ${dateArray[4]}`
-
             return aDate
 
         }
