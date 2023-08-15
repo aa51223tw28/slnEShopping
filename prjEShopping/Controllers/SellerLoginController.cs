@@ -88,14 +88,16 @@ namespace prjEShopping.Controllers
             return View();
         }
 
-        public ActionResult EmailVerify(string token)
+        public ActionResult SellerRegisterEmail(string token)
         {
-            var sellertoken = db.Sellers.FirstOrDefault(s => s.EmailCheck == token);
+            var db = new AppDbContext();
+            var sellertoken = db.Sellers.FirstOrDefault(x => x.EmailCheck == token);
             if (sellertoken != null)
             {
                 sellertoken.AccessRightId = 1;
                 sellertoken.EmailCheck = null;
                 db.SaveChanges();
+
                 TempData["SuccessMessage"] = "您的郵箱已成功驗證";
             }
             else
@@ -227,7 +229,7 @@ namespace prjEShopping.Controllers
                 db.SaveChanges();
 
                 //string verificationLink = "https://localhost:44388/UserMembers/UserVerifyEmail?token=" + verificationToken;
-                string relativeUrl = Url.Action("UserVerifyEmail", "UserMembers", new { token = verificationToken });
+                string relativeUrl = Url.Action("SellerRegisterEmail", "SellerLogin", new { token = verificationToken });
                 string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
 
 
