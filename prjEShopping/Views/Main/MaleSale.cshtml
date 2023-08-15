@@ -1,0 +1,71 @@
+﻿@model List<prjEShopping.Models.DTOs.UserProductIndexDto>
+
+<style>
+    .border-colorful {
+        border: 3px solid;
+        border-image: linear-gradient(to right, red, yellow, green, blue, violet);
+        border-image-slice: 1;
+    }
+
+    .time-sale-banner {
+        position: absolute;
+        top: 10%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: rgba(255, 0, 0, 0.6); /* 红色背景，透明度60% */
+        color: white;
+        padding: 5px 0;
+    }
+</style>
+
+        @{
+            int counter = 0; // 新增計數器
+        }
+        @foreach (var item in Model)
+        {
+            var cardClass =  "border-colorful border-5" ;
+        
+            var timerId = "countdownTimer" + counter; // 為每個計時器創建唯一ID
+            <div class="col">
+                <div class="card w-100 @cardClass" style="position: relative;">
+                    <div class="time-sale-banner"id="@timerId"></div> <!-- 使用唯一ID -->
+                    <img src="~/img/hot1.jpg" class="card-img-top px-4 pt-4" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ProductName)</h5>
+                        <p class="card-text text-danger fw-bold"><del>@Math.Round((double)item.Price).ToString("C0")</del>@Math.Round((double)item.DiscountPrice).ToString("C0")</p>
+                        <a href="#" class="btn btn-secondary">了解更多...</a>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+
+                function countdown(endTime, elementId) {
+                    var x = setInterval(function () {
+                        var now = new Date().getTime();
+                        var distance = endTime - now;
+
+                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        document.getElementById(elementId).innerHTML = "限時特賣 " + hours + ":" + minutes + ":" + seconds;
+
+                        if (distance < 0) {
+                            clearInterval(x);
+                            document.getElementById(elementId).innerHTML = "特賣已結束";
+                        }
+                    }, 1000);
+                }
+
+             // 設置倒計時的結束時間
+            var endTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24小時後
+            countdown(endTime, "@timerId"); // 使用唯一ID
+            </script>
+            counter++; // 增加計數器
+        }
+
+@section Scripts{
+    
+}

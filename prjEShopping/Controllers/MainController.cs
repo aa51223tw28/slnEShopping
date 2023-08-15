@@ -1,4 +1,5 @@
-﻿using prjEShopping.Models.EFModels;
+﻿using prjEShopping.Models.DTOs;
+using prjEShopping.Models.EFModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace prjEShopping.Controllers
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
             //---Admin coolie 登入紀錄---
+
+           
 
             return View();
         }
@@ -50,6 +53,30 @@ namespace prjEShopping.Controllers
                                         .Where(x=>x.StockQuantity>= x.OrderQuantity)//庫存>訂單量
                                         .OrderByDescending(x => x.QuantitySold).Take(5);
             return Json(products, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult MaleSale()//限時特賣
+        {
+            var db = new AppDbContext();
+            
+            var model = db.Products.Join(db.ADProducts,x => x.ProductId,y => y.ProductId, (x, y) => 
+                                        new UserProductIndexDto
+                                        {
+                                            ProductId = x.ProductId,
+                                            ProductName = x.ProductName,
+                                            Price = (decimal)x.Price,
+                                            Discount = (int)y.Discount,                                            
+                                            ProductImagePathOne = x.ProductImagePathOne
+                                        }).ToList();
+
+            foreach (var item in model)
+            {               
+                var discountedPrice = (item.Price*(item.Discount))/100;
+                item.DiscountPrice = discountedPrice;
+            }
+
+            return View(model);
         }
     }
 }
