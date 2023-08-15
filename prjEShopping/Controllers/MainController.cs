@@ -67,8 +67,11 @@ namespace prjEShopping.Controllers
                                             ProductName = x.ProductName,
                                             Price = (decimal)x.Price,
                                             Discount = (int)y.Discount,                                            
-                                            ProductImagePathOne = x.ProductImagePathOne
-                                        }).ToList();
+                                            ProductImagePathOne = x.ProductImagePathOne,
+                                            ADStartDate=(DateTime)y.ADStartDate,
+                                            ADEndDate=(DateTime)y.ADEndDate,
+                                            ADField=(int)y.ADField,
+                                        }).Where(t=>t.ADStartDate<DateTime.Now&&t.ADEndDate>DateTime.Now&&t.ADField!=1).ToList();
 
             foreach (var item in model)
             {               
