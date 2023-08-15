@@ -36,7 +36,6 @@
                 <th scope="col">單價</th>
                 <th scope="col">數量</th>
                 <th scope="col">金額</th>
-                <th scope="col">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -56,7 +55,6 @@
                         <td>@Html.DisplayFor(modelItem => item.Price)</td>
                         <td><input type="text" class="input-group-text" size="4" value="@item.Quantity" name="Quantity" readonly /></td>
                         <td>@Html.DisplayFor(modelItem => item.ItemPrice)</td>
-                        <td><input type="checkbox" class="form-check-input" /></td>
                     </tr>
                 }
                 int total = pay + @ViewBag.Freight;

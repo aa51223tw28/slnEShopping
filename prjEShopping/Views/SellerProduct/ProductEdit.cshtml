@@ -115,7 +115,7 @@
                         <span class="fw-bold text-primary">單價：</span>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="Price" value="@Model.Price">
+                        <input type="text" name="Price" value="@string.Format("{0:0.##}", Model.Price)">
                     </div>
                     <div class="col-4"></div>
                 </div>
