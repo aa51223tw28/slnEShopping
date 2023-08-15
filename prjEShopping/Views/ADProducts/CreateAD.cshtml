@@ -117,9 +117,9 @@
             });
         });
 
-        @*var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON*@
-        @*var jsonData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.JsonData));
-        var data = JSON.parse(jsonData);*@
+        var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON
+        @*var jsonData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.JsonData));*@
+        var data = JSON.parse(jsonData);
 
       function setDateBasedOnQuantity() {
           var selectedQuantity = document.getElementById('ADField').value;
