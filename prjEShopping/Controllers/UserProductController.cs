@@ -246,8 +246,8 @@ namespace prjEShopping.Controllers
                                   join y in db.RatingReplaies
                                   on x.RatingId equals y.RatingId into grouping
                                   from g in grouping.DefaultIfEmpty()
-                                  join u in db.Users
-                                  on x.UserId equals u.UserId // Assuming there's a UserId field in Ratings table
+                                  //join u in db.Users
+                                  //on x.UserId equals u.UserId // Assuming there's a UserId field in Ratings table
                                   where x.ProductId == productId
                                   select new RatingDateStringVM
                                   {
@@ -257,7 +257,7 @@ namespace prjEShopping.Controllers
                                       PostTime = x.PostTime.ToString(),
                                       ReplayText = g.ReplayText,
                                       ReplayTime = g.ReplayTime.ToString(),
-                                      UserImagePath = u.UserImagePath // Assuming there's a UserImagePath field in Users table
+                                      UserImagePath = userphoto // Assuming there's a UserImagePath field in Users table
                                   }).ToList();
                 return Json(ratingsList, JsonRequestBehavior.AllowGet);
             }
