@@ -134,6 +134,12 @@
                             加入追蹤
                         </button>
                     </div>
+                    <div class="col">
+                        <button class="btn-outline-primary btn rounded-pill btn-lg" data-bs-toggle="modal" data-bs-target="#reportModal" data-productId="@(Model.ProductId)" data-userid="@ViewBag.UserId">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            投訴
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -347,9 +353,129 @@
     </div>
 </div>
 
+@*投訴*@
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">商品投訴單</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="complaintForm">
+                    <div class="form-group">
+                        <label for="complaintNumber">客訴單號：</label>
+                        <input type="text" class="form-control" id="SupportNumber" name="SupportNumber" value="@ViewBag.SupportNum" readonly>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="UserId" name="UserId" value="" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="complaintType">投訴類別：</label>
+                        <input type="text" class="form-control" id="SupportType" name="SupportType" value="商品投訴" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="complaintProduct">投訴商品：</label>
+                        <input type="text" class="form-control" id="complaintProduct" value="@Model.ProductName" readonly>
+                        <input type="text" class="form-control" id="ProductId" name="ProductId" value="" readonly hidden>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">標題：</label>
+                        <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">內容：</label>
+                        <textarea class="form-control" id="SupportText" name="SupportText" rows="5" maxlength="500"></textarea>
+                        <input class="form-control" type="file" id="ImageFile" name="ImageFile">
+                        <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
+                        <input type="datetime" class="form-control" id="ReceivedTime" name="ReceivedTime" readonly value="@DateTime.Now" hidden>
+                        <input type="text" class="form-control" id="SupportStatus" name="SupportStatus" value="新進單" readonly hidden>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="submitComplaint()">寄出</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*投訴單已寄出*@
+<div class="modal" id="supportsendmodal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                投訴單已寄出。
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButtonsuppor">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts{
     <script>
+
+        //投訴
+        $(document).ready(function () {
+            $('#reportModal').on('show.bs.modal', function (event) {
+                //獲取觸發窗口的按鈕
+                var button = $(event.relatedTarget);
+
+                // 從 data- 屬性中提取出 userId 和 productId
+                var userId = button.data('userid');
+                var productId = button.data('productid');
+
+                // 更新窗口的內容。
+                var modal = $(this);
+                modal.find('#UserId').val(userId);
+                modal.find('#ProductId').val(productId);
+            });
+        });
+        function submitComplaint() {
+            var formData = new FormData($('#complaintForm')[0]);
+
+            $.ajax({
+                url: '/testproductsupport/CSSendMail',
+                type: 'POST',
+                data: formData,
+                processData: false,  // 告訴jQuery不要處理傳送的數據
+                contentType: false,  // 告訴jQuery不要設置contentType
+                success: function (data) {
+                    //alert('投訴單已寄出');
+                    $("#supportsendmodal").modal("show");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('寄送失敗');
+                },
+                complete: function () {
+                    $('#reportModal').modal('hide');
+                }
+            });
+        }
+
+        //看圖片用
+        $(document).ready(function () {
+            $('#ImageFile').change(function (e) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // 顯示圖片預覽
+                    $('#imagePreview').attr('src', e.target.result);
+                    $('#imagePreview').removeAttr('hidden');
+                }
+
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
 
         //商品評價要用js判斷只留最新按的按紐
         let activeCollapse = null;
@@ -803,17 +929,21 @@
             border-bottom: 1px dashed #ccc; /* 虛線樣式 */
             margin: 8px 0; /* 虛線下方的間距 */
         }
+
         .seller {
-            color:#8020b4
+            color: #8020b4
         }
+
         .user {
             color: #e96cd7
         }
+
         .user-photo {
             width: 50px; /* 設定寬度 */
             height: 50px; /* 設定高度 */
             border-radius: 50%; /* 設定圓角使圖像呈現圓形 */
         }
+
         .star-icon {
             width: 24px; /* 設定圖片寬度 */
             height: 24px; /* 設定圖片高度 */

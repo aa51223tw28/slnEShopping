@@ -3,6 +3,7 @@ using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -162,9 +163,66 @@ namespace prjEShopping.Controllers
             {
                 ViewBag.TotalQuantity = 0;
             }
+            ViewBag.SupportNum = GenerateSupportNumberU();
+            ViewBag.UserId = userid;
+
             return View(datas);
         }
 
+
+        [HttpPost]
+        //客戶端寄信
+        public ActionResult CSSendMail(SupportVM vm)
+        {
+            var db = new AppDbContext();
+            if (vm != null)
+            {   //存圖..
+                imageAdd(vm);
+                var s = new Support();
+                s = SupportChange.VM2Support(vm);
+                db.Supports.Add(s);
+                db.SaveChanges();
+                return new EmptyResult();
+            }
+            return View(vm);
+        }
+
+
+        public string GenerateSupportNumberU()
+        {
+            var db = new AppDbContext();
+            var today = DateTime.Now;
+            // 獲取當前日期的格式化字符串 "230812"
+            var datePart = today.ToString("yyMMdd");
+
+            // 查詢當天已有多少條記錄
+            var countForToday = db.Supports
+                                  .Where(s => s.SupportNumber.StartsWith("US" + datePart))
+                                  .Count();
+            // 生成下一個編號
+            var numberPart = (countForToday + 1).ToString("D4"); // 四位數，不足前面補0
+
+            return "US" + datePart + numberPart;
+        }
+
+        //存圖範例
+        private void imageAdd(SupportVM vm)
+        {
+            if (vm.ImageFile != null && vm.ImageFile.ContentLength > 0)
+            {
+                // 生成一個唯一的檔案名稱
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(vm.ImageFile.FileName);
+
+                // 指定檔案的保存路徑
+                var path = Path.Combine(Server.MapPath("~/img/"), fileName);
+
+                // 儲存檔案
+                vm.ImageFile.SaveAs(path);
+
+                // 將檔案名稱保存到Support模型的相應欄位
+                vm.ImageLink = fileName;
+            }
+        }
 
 
         [Authorize]
