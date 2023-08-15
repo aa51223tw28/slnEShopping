@@ -9,6 +9,9 @@
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <h2>購買廣告</h2>
     <hr />
+
+    <h3>點數紀錄</h3>
+    <div class="text-primary fs-4"> 目前點數 <span class="text-danger ">@ViewBag.SellerPoint</span> 點</div>
     <table class="table table-secondary table-bordered" id="myTable">
         <thead>
             <tr>
@@ -44,7 +47,15 @@
                         @Html.DisplayFor(modelItem => item.ADPoint)
                     </td>
                     <td>
-                        @Html.ActionLink("購買", "ADCreate", new { adproductId = item.ADProductId }, new { @class = "btn btn-primary" })
+                        @if ((int)ViewBag.SellerPoint >= item.ADPoint)
+                        {
+                            @Html.ActionLink("購買", "ADCreate", new { adproductId = item.ADProductId }, new { @class = "btn btn-primary" })
+                        }
+                        else
+                        {
+                            <span class="text-danger">餘額不足</span>
+                            @Html.ActionLink("購買點數", "MyPointList", new { Id = @ViewBag.SellerId }, new { @class = "btn btn-secondary mx-2" })
+                        }
                     </td>
                 </tr>
             }

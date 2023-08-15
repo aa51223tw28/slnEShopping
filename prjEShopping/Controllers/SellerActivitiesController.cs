@@ -17,6 +17,12 @@ namespace prjEShopping.Controllers
         // GET: SellerActivities
         public ActionResult ADList()
         { // 廣告-1 購買廣告列表
+            int? sellerId = Session["SellerId"] as int?;
+            if (sellerId == null)
+            { return RedirectToAction("Login", "SellerLogin"); }
+            else
+            { sellerId = (int)Session["SellerId"]; }
+            ViewBag.SellerId = sellerId;
             // 獲取所有在SellersAD中存在的ADProductId
             var existingADProductIds = db.SellersADs.Select(sa => sa.ADProductId).ToList();
 
@@ -25,6 +31,8 @@ namespace prjEShopping.Controllers
                          .Where(ap => !existingADProductIds.Contains(ap.ADProductId)&&ap.ADStartDate>DateTime.Now)
                          .ToList()
                          .ADProduct2VM(); //從ADProduct列表轉換為VM的方法
+
+            ViewBag.SellerPoint = db.Sellers.Where(s => s.SellerId == sellerId).Select(p => p.ADPoints).FirstOrDefault();
 
             return View(model);
         }
