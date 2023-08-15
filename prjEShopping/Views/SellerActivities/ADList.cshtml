@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
+
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
     <h2>購買廣告</h2>
     <hr />
@@ -49,41 +50,41 @@
             }
         </tbody>
     </table>
-    @Html.ActionLink("回列表", "ADOwner", null, new { @class = "btn btn-info" })
-</div> 
+    @Html.ActionLink("回列表", "ADOwner", null, new { @class = "btn btn-info my-2" })
+</div>
 @section Scripts{
 
-        <!-- DataTables JavaScript -->
-        @*<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>*@
-        <!-- DataTables BS5版本-->
-        <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+    <!-- DataTables JavaScript -->
+    @*<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>*@
+    <!-- DataTables BS5版本-->
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 
-        <script>
-            $(document).ready(function () {
-                $('#myTable').DataTable({
-                    pageLength: 10, // 每頁顯示10筆資料
-                    language: {
-                        search: "搜尋：",
-                        paginate: {
-                            first: "首頁",
-                            last: "尾頁",
-                            next: "下一頁",
-                            previous: "上一頁"
-                        },
-                        info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
-                        //最下面顯示
-                        infoEmpty: "顯示 0 到 0 的 0 筆資料",
-                        //下拉選單
-                        lengthMenu: "顯示 _MENU_ 筆資料",
-                    }
-                });
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                pageLength: 10, // 每頁顯示10筆資料
+                language: {
+                    search: "搜尋：",
+                    paginate: {
+                        first: "首頁",
+                        last: "尾頁",
+                        next: "下一頁",
+                        previous: "上一頁"
+                    },
+                    info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
+                    //最下面顯示
+                    infoEmpty: "顯示 0 到 0 的 0 筆資料",
+                    //下拉選單
+                    lengthMenu: "顯示 _MENU_ 筆資料",
+                }
             });
-        </script>
+        });
+    </script>
 
-    }
+}
 
-    @section Styles{
-        <!-- DataTables CSS BS5版本 -->
-        <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
-    }
+@section Styles{
+    <!-- DataTables CSS BS5版本 -->
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+}
 
