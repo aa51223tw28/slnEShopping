@@ -95,25 +95,41 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 
     <script>
+        $.fn.dataTable.ext.type.order['custom-sort-pre'] = function (data) {
+            switch (data) {
+                case '新進單': return 1;
+                case '待回覆': return 2;
+                case '新寄送': return 3;
+                case '已回覆': return 4;
+                case '已完成': return 4;
+                default: return 5; // 如果有不在列表中的值，將它們放在最後
+            }
+        };
 
-        $(document).ready( function () {
-        $('#myTable').DataTable({
-         pageLength: 10, // 每頁顯示10筆資料
-            language: {
-                search: "搜尋：",
-                paginate: {
-                    first: "首頁",
-                    last: "尾頁",
-                    next: "下一頁",
-                    previous: "上一頁"
-                },
-                info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
-                //最下面顯示
-                infoEmpty: "顯示 0 到 0 的 0 筆資料",
-                //下拉選單
-                lengthMenu: "顯示 _MENU_ 筆資料",
+
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                order: [[0, 'dsc']],
+                order: [[4, 'dsc']], // 假設需要排序的欄位是第一個
+                columnDefs: [
+                    { type: 'custom-sort', targets: [0] }
+                ],
+                pageLength: 10, // 每頁顯示10筆資料
+                language: {
+                    search: "搜尋：",
+                    paginate: {
+                        first: "首頁",
+                        last: "尾頁",
+                        next: "下一頁",
+                        previous: "上一頁"
+                    },
+                    info: "顯示 _START_ 到 _END_ 的 _TOTAL_ 筆資料",
+                    //最下面顯示
+                    infoEmpty: "顯示 0 到 0 的 0 筆資料",
+                    //下拉選單
+                    lengthMenu: "顯示 _MENU_ 筆資料",
                 }
-        });
+            });
             var table = $('#myTable').DataTable();
             $('#newMail').on('click', function () {
                 table.column(4).search('新進單').draw();

@@ -35,7 +35,7 @@ namespace prjEShopping.Controllers
         }
 
         //客服端寄信
-        public ActionResult CSSSendMail(int? SellerId = null, int? UserId = null)
+        public ActionResult CSSSendMail(string name,int? SellerId = null, int? UserId = null)
         {
             HttpCookie authCookie = Request.Cookies["AdminLogin"];
             if (authCookie == null || authCookie.Values["status"] != "AdminLogin" || authCookie.Values["AccessRightId"] != "1")
@@ -51,6 +51,7 @@ namespace prjEShopping.Controllers
             ViewBag.AdminId = AdminId;
             ViewBag.SellerId = SellerId;
             ViewBag.UserId = UserId;
+            ViewBag.Name=name;
             //編號生成
             ViewBag.SupportNum = GenerateSupportNumber();
             return View(model);
