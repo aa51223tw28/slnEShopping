@@ -751,7 +751,12 @@
                         totalStarRating += data[i].StarRating;
 
                     }
-                    var averageStarRating = totalStarRating / totalRatings;
+                    var averageStarRating;
+                    if (totalRatings === 0) {
+                        averageStarRating = 0;
+                    } else {
+                        averageStarRating = totalStarRating / totalRatings;
+                    }
 
                     // 更新一星评价的数量显示
                     $('#onestarCount').text(onestarCount);
