@@ -48,6 +48,7 @@ namespace prjEShopping.Controllers
             var data = db.ADProducts.ToList(); // 取得資料庫內容
             var adProducts = db.ADProducts.ToList();
 
+            //不能代整個List 會死掉
             var adProductDtos = adProducts.Select(p => new ADProductDto
             {
                 ADProductId = p.ADProductId,
@@ -55,7 +56,7 @@ namespace prjEShopping.Controllers
                 ADStartDate=p.ADStartDate,
                 ADEndDate=p.ADEndDate,
             }).ToList();
-
+         
             var jsonData = JsonConvert.SerializeObject(adProductDtos);
             ViewBag.JsonData = jsonData;
 
