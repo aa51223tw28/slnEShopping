@@ -505,8 +505,8 @@
     <Content Include="Views\Shared\_LayoutMainPayInfo.cshtml" />
     <Content Include="Views\Main\MaleSale.cshtml" />
     <Content Include="Views\SellerRegister\SellerRegisterEmail.cshtml" />
-    <Content Include="Views\SellerLogin\SellerRegisterEmail.cshtml" />
     <Content Include="Views\SellerUpdate\Edit.cshtml" />
+    <Content Include="Views\SellerLogin\SellerVerifyEmail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

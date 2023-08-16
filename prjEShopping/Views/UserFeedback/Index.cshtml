@@ -70,19 +70,19 @@
                 {
                     @Html.HiddenFor(model => model.StarRating, new { @id = "starRating" })
 
-                    @Html.HiddenFor(model => model.UserId, new { @id = "userId"})
+                    @Html.HiddenFor(model => model.UserId, new { @id = "userId" })
 
                     @Html.HiddenFor(model => model.ProductId, new { @id = "productId" }) <!-- 新增隱藏字段來儲存 ProductId -->
 
                     @*@Html.HiddenFor(model => model.RatingText, new { @id = "ratingText" })*@ <!-- 新增隱藏字段，用於存儲RatingText -->
                     <!--讀取到的商品-->
-                <div style="color:blueviolet;font-size:26px; ">
-                    <p>商品名稱: <span>@ViewData["ProductName"]</span></p>
-                    
-                </div>
-                <hr style="border: 2px solid black;">
+                    <div style="color:blueviolet;font-size:26px; ">
+                        <p>商品名稱: <span>@ViewData["ProductName"]</span></p>
+
+                    </div>
+                    <hr style="border: 2px solid black;">
                     <!-- Add other product details if available in UserFeedbackVM -->
-               
+
 
                     <!--評分-->
                     <div id="starContainer">
@@ -103,7 +103,7 @@
                         @Html.TextAreaFor(model => model.RatingText, new { @class = "form-control", rows = 4 })
                     </div>
                     <br />
-                    <button type="submit" class="btn btn-primary" style="float:right" >提交評分留言</button>
+                    <button type="submit" class="btn btn-primary" style="float:right" id="submitButton">提交評分留言</button>
                 }
                 <br />
                 <div class="modal" tabindex="-1" role="dialog" id="replyModal">
@@ -224,4 +224,17 @@
             });
         });
     });
+                $(document).ready(function () {
+                    $("#submitButton").click(function () {
+                        // 执行提交操作
+
+                        // 显示模态框
+                        $("#replyModal").modal("show");
+                    });
+
+                    // 模态框关闭事件
+                    $("#confirmButtonstock").click(function () {
+                        $("#replyModal").modal("hide");
+                    });
+                });
             </script>

@@ -34,19 +34,69 @@ namespace prjEShopping.Controllers
 
         public ActionResult Create(SellerRegisterVM vm/* HttpPostedFileBase photo*/)
         {
-            if (!ModelState.IsValid)
-            {
-                // 驗證失敗，返回原始的註冊視圖並顯示錯誤訊息
-                return View(vm);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    // 驗證失敗，返回原始的註冊視圖並顯示錯誤訊息
+            //    return View(vm);
+            //}
             var db = new AppDbContext();
             //檢查是否有相同的UserAccount
-            if (db.Sellers.Any(x => x.SellerAccount == vm.SellerAccount))
+            var newAccount = db.Sellers.FirstOrDefault(x => x.SellerAccount == vm.SellerAccount);
+            if (newAccount != null)
             {
-                ModelState.AddModelError("SellerAccount", $"{vm.SellerAccount}該使用者帳號已經被註冊過");
+                TempData["Fail"] = "此帳號已經被註冊！";
                 return View(vm);
             }
-
+            if (!IsStrongPassword(vm.SellerPassword))
+            {
+                TempData["Fail"] = "密碼需至少包含一個英文大寫、一個英文小寫、一個數字、一個符號，且至少8個字元！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.GUINumber))
+            {
+                TempData["Fail"] = "統編為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.SellerName))
+            {
+                TempData["Fail"] = "負責人姓名為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.StoreName))
+            {
+                TempData["Fail"] = "商家姓名為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.SellerAccount))
+            {
+                TempData["Fail"] = "電子郵件為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.SellerPassword))
+            {
+                TempData["Fail"] = "使用者密碼為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.Address))
+            {
+                TempData["Fail"] = "住址為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.Phone))
+            {
+                TempData["Fail"] = "手機號碼為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.BankAccount))
+            {
+                TempData["Fail"] = "銀行帳戶為必填欄位！";
+                return View(vm);
+            }
+            if (String.IsNullOrEmpty(vm.StoreIntro))
+            {
+                TempData["Fail"] = "商城介紹為必填欄位！";
+                return View(vm);
+            }
             string fileName = "";
             if (vm.SellerImagePath != null && vm.SellerImagePath.ContentLength > 0)
             {
@@ -70,7 +120,7 @@ namespace prjEShopping.Controllers
                 ShippingMethodId = vm.ShippingMethodId,
                 PaymentMethodId = vm.PaymentMethodId,
                 SellerImagePath = fileName,
-                Role = "User",
+                Role = "Seller",
             };
             db.Sellers.Add(newSeller);
             db.SaveChanges();//先存進資料庫已讓有新的userId
@@ -196,7 +246,7 @@ namespace prjEShopping.Controllers
                 selleraccount.EmailCheck = verificationToken;
                 db.SaveChanges();
 
-                string relativeUrl = Url.Action("SellerRegisterEmail", "SellerLogin", new { token = verificationToken });
+                string relativeUrl = Url.Action("SellerRegisterEmail", "SellerRegister", new { token = verificationToken });
                 string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
 
                 var fromAddress = new MailAddress("Eshopping17go@gmail.com", "E起購");

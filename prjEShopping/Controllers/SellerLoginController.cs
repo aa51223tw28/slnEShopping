@@ -229,7 +229,7 @@ namespace prjEShopping.Controllers
                 db.SaveChanges();
 
                 //string verificationLink = "https://localhost:44388/UserMembers/UserVerifyEmail?token=" + verificationToken;
-                string relativeUrl = Url.Action("SellerRegisterEmail", "SellerLogin", new { token = verificationToken });
+                string relativeUrl = Url.Action("SellerVerifyEmail", "SellerLogin", new { token = verificationToken });
                 string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
 
 
@@ -256,13 +256,24 @@ namespace prjEShopping.Controllers
                 }
             }
         }
-        //    private bool CheckEmailExists(string sellerAccount)
-        //{
-        //    using (var dbContext = new AppDbContext()) // 替换为你的 DbContext
-        //    {
-        //        return dbContext.Sellers.Any(u => u.SellerAccount == sellerAccount);
-        //    }
-        //}
+        public ActionResult SellerVerifyEmail(string token)
+        {
+            var db = new AppDbContext();
+            var sellertoken = db.Sellers.FirstOrDefault(x => x.EmailCheck == token);
+            if (sellertoken != null)
+            {
+                sellertoken.AccessRightId = 1;
+                sellertoken.EmailCheck = null;
+                db.SaveChanges();
+
+                TempData["SuccessMessage"] = "您的郵箱已成功驗證";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "驗證已失敗";
+            }
+            return View();
+        }
         public ActionResult Logout()
         {
             Session.Abandon();

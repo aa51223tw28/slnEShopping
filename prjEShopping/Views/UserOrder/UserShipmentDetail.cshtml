@@ -185,11 +185,11 @@
                             <span class="text-muted">@Model.FirstOrDefault().CompletionDate.ToString("yyyy-MM-dd")</span>
                             <span class="text-muted">@Model.FirstOrDefault().CompletionDate.ToString("HH:mm:ss")</span>
                         </div>
-                        <div class="col-2 d-flex flex-column align-items-center">
+                        @*<div class="col-2 d-flex flex-column align-items-center">
                             <img src="~/img/feedback128px.png" alt="" style="max-width: 80px;">
-                            <span class="fs-5">已評價</span>                            
-                            <a href="@Url.Action("Index", "UserFeedback", new {shipmentId=Model.FirstOrDefault().ShipmentId})" class="btn btn-blue">去評價</a>
-                        </div>
+                            <span class="fs-5 feedback-status">已評價</span>
+                            <a href="@Url.Action("Index", "UserFeedback", new { shipmentId = Model.FirstOrDefault().ShipmentId })" class="btn btn-blue feedback-link">去評價</a>
+                        </div>*@
                     }
                 </div>
 
@@ -229,7 +229,7 @@
                             <div class="col-md-3 d-flex align-items-center justify-content-center">
                                 <div class="card-body">
                                     <h5 class="card-title">@Math.Round(item.SubTotal).ToString("C0")</h5>
-                                    <a href="@Url.Action("Index", "UserFeedback", new {shipmentId=Model.FirstOrDefault().ShipmentId, productId=item.ProductId})" class="btn btn-blue">去評價</a>
+                                    <a href="@Url.Action("Index", "UserFeedback", new { shipmentId = Model.FirstOrDefault().ShipmentId, productId = item.ProductId })" class="btn btn-blue feedback-link" data-feedback-button="@item.ProductId">去評價</a>
                                 </div>
                             </div>
 
@@ -260,7 +260,6 @@
                 })
             })
         })
-       
     </script>
 
 }

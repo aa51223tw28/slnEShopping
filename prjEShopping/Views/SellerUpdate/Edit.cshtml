@@ -3,7 +3,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
-
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
 
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
@@ -139,6 +138,12 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="修改" class="btn btn-secondary" style="float:right" />
+                        <div id="successMessage" class="alert alert-success" style="display: none;">
+                            @if (TempData["Success"] != null)
+                            {
+                                @TempData["Success"]
+                            }
+                        </div>
                     </div>
                 </div>
 
@@ -190,5 +195,16 @@
         function redirectToResetPassword() {
         window.location.href = '@Url.Content("~/SellerLogin/ResetPassword")';
     }
+   $(document).ready(function () {
+    // 检查是否有成功消息，并在有消息时显示它
+    var successMessage = $("#successMessage").text().trim();
+    if (successMessage !== "") {
+        $("#successMessage").fadeIn();
+        setTimeout(function () {
+            $("#successMessage").fadeOut("slow");
+        }, 5000); // 5秒后隐藏成功消息
+    }
+});
+
     </script>
 }
