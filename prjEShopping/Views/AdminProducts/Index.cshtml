@@ -121,7 +121,7 @@
             });
 
             $(document).ready(function () {
-                $('.change-status-btn').click(function () {
+                $('#myTable tbody').on('click', '.change-status-btn', function () {
                     var newStatusId = $(this).data('status');
                     var productId = $(this).data('product-id');
                     // AJAX call to server
