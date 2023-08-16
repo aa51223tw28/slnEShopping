@@ -1,4 +1,4 @@
-﻿
+﻿@model prjEShopping.Models.ViewModels.SellerUpdateVM
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
@@ -95,13 +95,13 @@
                         </div>
                         <div class="col-7">
                             @*@Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(new List<SelectListItem>
-                            {
-                                new SelectListItem { Value = "1", Text = "現金" },
-                                new SelectListItem { Value = "2", Text = "信用卡" }
-                            }, "Value", "Text"), "請選擇", new { @class = "form-control" })*@
+                                {
+                                    new SelectListItem { Value = "1", Text = "現金" },
+                                    new SelectListItem { Value = "2", Text = "信用卡" }
+                                }, "Value", "Text"), "請選擇", new { @class = "form-control" })*@
                             <select class="form-select" name="PaymentMethodId">
-                                <option value="現金" @(Model.PaymentMethodId == "現金" ? "selected" : "")>現金</option>
-                                <option value="信用卡" @(Model.PaymentMethodId == "信用卡" ? "selected" : "")>信用卡</option>
+                                <option value="1" @(Model.PaymentMethodId?.ToString() == "1" ? "selected" : "")>現金</option>
+                                <option value="2" @(Model.PaymentMethodId?.ToString() == "2" ? "selected" : "")>信用卡</option>
                             </select>
                         </div>
                     </div>
@@ -111,15 +111,15 @@
                         </div>
                         <div class="col-7">
                             @*@Html.DropDownListFor(model => model.ShippingMethodId, new SelectList(new List<SelectListItem>
-                            {
-                                new SelectListItem { Value = "1", Text = "超商取貨" },
-                                new SelectListItem { Value = "2", Text = "宅配到府" },
-                                new SelectListItem { Value = "3", Text = "黑貓宅急便" }
-                            }, "Value", "Text"), "請選擇", new { @class = "form-control" })*@
+                                {
+                                    new SelectListItem { Value = "1", Text = "超商取貨" },
+                                    new SelectListItem { Value = "2", Text = "宅配到府" },
+                                    new SelectListItem { Value = "3", Text = "黑貓宅急便" }
+                                }, "Value", "Text"), "請選擇", new { @class = "form-control" })*@
                             <select class="form-select" name="ShippingMethodId">
-                                <option value="超商取貨" @(Model.ShippingMethodId == "超商取貨" ? "selected" : "")>超商取貨</option>
-                                <option value="宅配到府" @(Model.ShippingMethodId == "宅配到府" ? "selected" : "")>宅配到府</option>
-                                <option value="黑貓宅急便" @(Model.ShippingMethodId == "黑貓宅急便" ? "selected" : "")>黑貓宅急便</option>
+                                <option value="1" @(Model.ShippingMethodId?.ToString() == "1" ? "selected" : "")>超商取貨</option>
+                                <option value="2" @(Model.ShippingMethodId?.ToString() == "2" ? "selected" : "")>宅配到府</option>
+                                <option value="3" @(Model.ShippingMethodId?.ToString() == "3" ? "selected" : "")>黑貓宅急便</option>
                             </select>
                         </div>
                     </div>
@@ -170,22 +170,22 @@
         </div>
     </div>
 </div>
-@section Styles{
-    <style>
-        #div-preivew {
-            width: 300px;
-            height: 200px;
-            visibility: hidden;
-            margin: 10px;
-        }
+@*@section Styles{
+        <style>
+            #div-preivew {
+                width: 300px;
+                height: 200px;
+                visibility: hidden;
+                margin: 10px;
+            }
 
-        #preview {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-}
+            #preview {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+    }*@
 @section Scripts{
     <script>
             $(document).ready(async function () {
@@ -252,6 +252,7 @@
     }
     </script>
 }
+
 
 
 

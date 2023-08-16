@@ -41,17 +41,12 @@ namespace prjEShopping.Models.ViewModels
         [StringLength(50)]
         public string Address { get; set; }
 
-
-
         [DisplayName("商家統編")]
         public string GUINumber { get; set; }
 
         [DisplayName("商店介紹")]
         [StringLength(4000)]
         public string StoreIntro { get; set; }
-
-        [DisplayName("訪問權")]
-        public int? AccessRightId { get; set; }
 
         [DisplayName("銀行帳戶")]
         public string BankAccount { get; set; }
@@ -62,8 +57,6 @@ namespace prjEShopping.Models.ViewModels
         [DisplayName("取貨方式")]
         public int? ShippingMethodId { get; set; }
 
-        [DisplayName("紅利點數")]
-        public int? ADPoints { get; set; }
 
         [DisplayName("商家圖片")]
         public string SellerImagePath { get; set; }

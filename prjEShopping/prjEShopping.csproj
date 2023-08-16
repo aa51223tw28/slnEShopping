@@ -387,7 +387,6 @@
     <Content Include="Views\SellerProductCreate\ProductCreate.cshtml" />
     <Content Include="Views\Shared\_LayoutUserLogin.cshtml" />
     <Content Include="Views\UserProduct\UserProdutList.cshtml" />
-    <Content Include="Views\SellerUpdate\Edit.cshtml" />
     <Content Include="Views\SellerShipment\ShipmentDetail.cshtml" />
     <Content Include="Views\UserProduct\UserSingleProduct.cshtml" />
     <Content Include="Views\SellerLogin\Login.cshtml" />
@@ -507,6 +506,7 @@
     <Content Include="Views\Main\MaleSale.cshtml" />
     <Content Include="Views\SellerRegister\SellerRegisterEmail.cshtml" />
     <Content Include="Views\SellerLogin\SellerRegisterEmail.cshtml" />
+    <Content Include="Views\SellerUpdate\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
