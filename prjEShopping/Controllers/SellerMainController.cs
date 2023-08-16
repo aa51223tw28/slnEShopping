@@ -169,19 +169,26 @@ namespace prjEShopping.Controllers
                     db.Messages.Add(addMessageToDb);
                     db.SaveChanges();
                 }
-                if (((int?)Session["SellerId"]).HasValue) 
+                if (((int?)Session["SellerId"]).HasValue)
                 {
-                    senderId = "S"+((int)Session["SellerId"]).ToString();
-
+                    senderId = "S" + ((int)Session["SellerId"]).ToString();
+                    addMessageToDb.ChatroomId = Int32.Parse(roomId);
+                    addMessageToDb.Text = text;
+                    addMessageToDb.Timestamp = DateTime.Now;
+                    addMessageToDb.SenderId = senderId;
+                    db.Messages.Add(addMessageToDb);
+                    db.SaveChanges();
                 }
-                
+                else 
                 {
-                    ChatroomId = Int32.Parse(roomId),
-                    Text = text,
-                    Timestamp = DateTime.Now,
-                    SenderId = 
+                    addMessageToDb.ChatroomId = Int32.Parse(roomId);
+                    addMessageToDb.Text = text;
+                    addMessageToDb.Timestamp = DateTime.Now;
+                    addMessageToDb.SenderId = "U1";
+                    db.Messages.Add(addMessageToDb);
+                    db.SaveChanges();
                 }
-            return Json()
+                return Json(1, JsonRequestBehavior.AllowGet);
             }
             
         }

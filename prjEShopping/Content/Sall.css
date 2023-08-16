@@ -1700,18 +1700,18 @@ progress {
   }
 }
 .table {
-  --bs-table-bg:#3F5D45;
-  --bs-table-striped-color: #FFFFFF;
-  --bs-table-striped-bg: #8DA291;
-  --bs-table-active-color: #212529;
-  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
-  --bs-table-hover-color: #212529;
-  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
-  width: 100%;
-  margin-bottom: 1rem;
-  color:#FFFFFF;
-  vertical-align: top;
-  border-color: #dee2e6;
+    --bs-table-bg: transparent;
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: #8DA291;
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: #8DA291;
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: #8DA291;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6;
 }
 .table > :not(caption) > * > * {
   padding: 0.5rem 0.5rem;

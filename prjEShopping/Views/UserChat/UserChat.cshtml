@@ -17,7 +17,7 @@
                         @{
                             foreach (var item in Model)
                             {
-                                <tr><td class="btn-secondary"><btn>@item.SellerName<input type="hidden" value="@item.ChatroomId" /></btn></td></tr>
+                                <tr><td class="btn-secondary"><btn>@item.StoreName<input type="hidden" value="@item.ChatroomId" /></btn></td></tr>
                             }
                         }
                     </tbody>
@@ -32,7 +32,7 @@
             <div class="row">
                 <input type="hidden" value="@User.Identity.Name" id="userName" placeholder="User Name" />
                 <input type="text" id="message" placeholder="Message" />
-                <button onclick="sendMessage()">傳送訊息</button>
+                <button onclick="save(),sendMessage()">傳送訊息</button>
             </div>
         </div>
     </div>
@@ -74,6 +74,12 @@
         chat.server.sendMessageToRoom(roomId, userName, message);
         $('#message').val('');
 
+    }
+
+    function save() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '@Url.Content("~/SellerMain/saveMessage?roomId=")' + roomId + '&text=' + $('#message').val());
+        xhr.send();
     }
 
 </script>

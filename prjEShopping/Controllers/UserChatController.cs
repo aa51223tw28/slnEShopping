@@ -20,7 +20,7 @@ namespace prjEShopping.Controllers
 
             var chatMembersList = db.ChatroomMembers.Where(x => x.UserId == 1).Join(db.Sellers,x => x.SellerId,y => y.SellerId, (x, y) => new UserChatVM{
                 SellerId = y.SellerId,
-                SellerName = y.SellerAccount,
+                StoreName = y.StoreName,
                 ChatroomId = (x.ChatroomId.ToString()),
             }).ToList();
             return View(chatMembersList);
