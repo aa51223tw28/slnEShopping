@@ -45,9 +45,5 @@ namespace prjEShopping.Controllers
             return RedirectToAction("UserChat");
         }
 
-        public ActionResult getChatList() 
-        {
-            return View();
-        }
     }
 }

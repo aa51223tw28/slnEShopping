@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace prjEShopping.Controllers
 {
@@ -102,5 +103,49 @@ namespace prjEShopping.Controllers
             }).ToList();
             return Json(chatLists, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult getChatDetail(string roomId) 
+        {
+            int RoomId = Int32.Parse(roomId);
+            var db = new AppDbContext();
+
+            var sellerid = db.ChatroomMembers.FirstOrDefault(x => x.ChatroomId == RoomId).SellerId;
+            var userid = db.ChatroomMembers.FirstOrDefault(x => x.ChatroomId == RoomId).UserId;
+            string selleridToString ="S"+sellerid.ToString();
+            string useridToString ="U"+userid.ToString();
+
+            var userChatDetail = db.Messages.Where(x => x.ChatroomId == RoomId && x.SenderId == useridToString).OrderByDescending(x => x.Timestamp)
+                                            .Take(5).ToList().Select(x => 
+                                            new {
+                                                SenderId = Convert.ToInt32(x.SenderId.Substring(1)),
+                                                Text = x.Text,
+                                                Timestamp = x.Timestamp,
+                                            }).ToList();
+            var getUserNameChatDetail = userChatDetail.Join(db.Users,x => x.SenderId,y => y.UserId,(x,y)
+                                         => new { 
+                                                    SenderName = y.UserName,
+                                                    Text = x.Text,
+                                                    Timestamp = x.Timestamp,
+                                                }).ToList() ;
+
+            var sellerChatDetail = db.Messages.Where(x => x.ChatroomId == RoomId && x.SenderId == selleridToString).OrderByDescending(x => x.Timestamp)
+                                            .Take(5).ToList().Select(x =>
+                                            new {
+                                                SenderId = Int32.Parse(x.SenderId.Substring(1)),
+                                                Text = x.Text,
+                                                Timestamp = x.Timestamp,
+                                            }).ToList();
+            var getSellerNameChatDetail = sellerChatDetail.Join(db.Sellers, x => x.SenderId, y => y.SellerId, (x, y)
+                                         => new {
+                                             SenderName = y.StoreName,
+                                             Text = x.Text,
+                                             Timestamp = x.Timestamp,
+                                         }).ToList();
+
+            var chatDetail = getUserNameChatDetail.Concat(getSellerNameChatDetail).OrderBy(x => x.Timestamp).ToList();
+            return Json(chatDetail, JsonRequestBehavior.AllowGet);
+        }
+
+        
     }
 }
