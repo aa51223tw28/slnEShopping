@@ -58,7 +58,7 @@
                             <span>@sellerGroup.FirstOrDefault().SellerName</span>
                         </div>
                         <div class="col-2 d-flex align-items-center">
-                            <button class="btn btn-blue">聊聊</button>
+                            @Html.ActionLink("聊聊", "FindChatroom", "UserChat", new { sellerid =@sellerGroup.FirstOrDefault().SellerId }, new { @class = "text-decoration-none btn btn-blue" })
                         </div>
                     </div>
                     @foreach (var item in sellerGroup)
