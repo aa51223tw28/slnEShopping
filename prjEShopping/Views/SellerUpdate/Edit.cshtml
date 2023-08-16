@@ -1,6 +1,6 @@
-﻿@model prjEShopping.Models.ViewModels.SellerUpdateVM
+﻿@model prjEShopping.Models.ViewModels.SellerRegisterVM
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
@@ -8,11 +8,9 @@
 
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
     <hr>
-    @*@using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
-           new { enctype = "multipart/form-data" }))
-        {*@
-    <form method="post" enctype="multipart/form-data" action="Edit" id="sellerEditForm">
-
+    @using (Html.BeginForm("Edit", "SellerUpdate", FormMethod.Post,
+       new { enctype = "multipart/form-data" }))
+    {
         <div class="row col-md-6 bg-warning rounded" style="float:right">
             <div class="col-3">
                 賣場照片:
@@ -22,239 +20,175 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-10">
-                        <img src="" class="img-fluid" id="sellerImagePaths" style="width:130px">
-                        <label for="formFile" class="form-label"></label>
-                        <input class="form-control" type="file" name="SellerImageFile" id="formFile">
+                        <input class="form-control" type="file" id="photo" name="photo">
                     </div>
-                </div>
-
-                <div class="col-3"></div>
-            </div>
-            <div class="row col-md-6 bg-warning rounded justify-content:end">
-
-                <div class="col-sm-9">
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>商家姓名：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.StoreName" name="StoreName">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>負責人姓名：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.SellerName" name="SellerName">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>統編：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.GUINumber" name="GUINumber" readonly>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>使用者帳號<br />(電子郵件)：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.SellerAccount" name="SellerAccount" readonly>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>住址：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.Address" name="Address">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>手機號碼：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.Phone" name="Phone">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>銀行帳戶：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.BankAccount" name="BankAccount">
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>支付方式：</span>
-                        </div>
-                        <div class="col-7">
-                            @*@Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(new List<SelectListItem>
-                                {
-                                    new SelectListItem { Value = "1", Text = "現金" },
-                                    new SelectListItem { Value = "2", Text = "信用卡" }
-                                }, "Value", "Text"), "請選擇", new { @class = "form-control" })*@
-                            <select class="form-select" name="PaymentMethodId">
-                                <option value="1" @(Model.PaymentMethodId?.ToString() == "1" ? "selected" : "")>現金</option>
-                                <option value="2" @(Model.PaymentMethodId?.ToString() == "2" ? "selected" : "")>信用卡</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>取貨方式：</span>
-                        </div>
-                        <div class="col-7">
-                            @*@Html.DropDownListFor(model => model.ShippingMethodId, new SelectList(new List<SelectListItem>
-                                {
-                                    new SelectListItem { Value = "1", Text = "超商取貨" },
-                                    new SelectListItem { Value = "2", Text = "宅配到府" },
-                                    new SelectListItem { Value = "3", Text = "黑貓宅急便" }
-                                }, "Value", "Text"), "請選擇", new { @class = "form-control" })*@
-                            <select class="form-select" name="ShippingMethodId">
-                                <option value="1" @(Model.ShippingMethodId?.ToString() == "1" ? "selected" : "")>超商取貨</option>
-                                <option value="2" @(Model.ShippingMethodId?.ToString() == "2" ? "selected" : "")>宅配到府</option>
-                                <option value="3" @(Model.ShippingMethodId?.ToString() == "3" ? "selected" : "")>黑貓宅急便</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-5 d-flex align-items-center">
-                            <span>商城介紹：</span>
-                        </div>
-                        <div class="col-7">
-                            <input type="text" class="form-control" value="@Model.StoreIntro" name="StoreIntro">
-                        </div>
-                    </div>
-                    <br />
-                    <div class="form-group">
-                        請輸入密碼:
-                        <div class="col-md-12">
-                            <input type="text" class="form-control" value="@Model.SellerPassword" name="SellerPassword">
-                        </div>
-                    </div>
-                    @if (TempData["Fail"] != null)
-                    {
-                        <div class="alert alert-danger">@TempData["Fail"]</div>
-                    }
-                    <input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()" />
-                    <br />
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <button type="submit" class="btn btn-secondary mb-sm-3 mb-md-0" id="savebutton">儲存</button>
-                        </div>
+                    <div id="div-preivew">
+                        <img src="" id="preview" alt="預覽圖" />
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
-@*修改資料完成。*@
-<div class="modal" id="savemodal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                修改個人檔案完成。
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmButton">確定</button>
-            </div>
-        </div>
-    </div>
-</div>
-@*@section Styles{
-        <style>
-            #div-preivew {
-                width: 300px;
-                height: 200px;
-                visibility: hidden;
-                margin: 10px;
-            }
 
-            #preview {
-                object-fit: cover;
-                width: 100%;
-                height: 100%;
-            }
-        </style>
-    }*@
+            <div class="col-3"></div>
+        </div>
+        <div class="row col-md-6 bg-warning rounded justify-content:end">
+
+            <div class="col-sm-9">
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>商家姓名：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>負責人姓名：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.SellerName, new { htmlAttributes = new { @class = "form-control", name = "SellerName" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>統編：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.DisplayFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>使用者帳號<br />(電子郵件)：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control", name = "SellerAccount" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>住址：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", name = "Address" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>手機號碼：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", name = "Phone" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>銀行帳戶：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.BankAccount, new { htmlAttributes = new { @class = "form-control", name = "BankAccount" } })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>支付方式：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.DropDownListFor(model => model.PaymentMethodId, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = "1", Text = "現金" },
+                            new SelectListItem { Value = "2", Text = "信用卡" }
+                        }, "Value", "Text"), "請選擇", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>取貨方式：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.DropDownListFor(model => model.ShippingMethodId, new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Value = "1", Text = "超商取貨" },
+                            new SelectListItem { Value = "2", Text = "宅配到府" },
+                            new SelectListItem { Value = "3", Text = "黑貓宅急便" }
+                        }, "Value", "Text"), "請選擇", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-5 d-flex align-items-center">
+                        <span>商城介紹：</span>
+                    </div>
+                    <div class="col-7">
+                        @Html.EditorFor(model => model.StoreIntro, new { htmlAttributes = new { @class = "form-control", name = "StoreIntro" } })
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    請輸入密碼:
+                    <div class="col-md-12">
+                        @Html.PasswordFor(model => model.SellerPassword, new { @class = "form-control" })
+                    </div>
+                </div>
+                @if (TempData["Fail"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Fail"]</div>
+                }
+                <input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()" />
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="修改" class="btn btn-secondary" style="float:right" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+@section Styles{
+    <style>
+        #div-preivew {
+            width: 300px;
+            height: 200px;
+            visibility: hidden;
+            margin: 10px;
+        }
+
+        #preview {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+}
 @section Scripts{
     <script>
-            $(document).ready(async function () {
+        const xhr = new XMLHttpRequest();
+        const input = document.getElementById("photo")
+        console.log(document.formUpload)
+        input.addEventListener('change', () => { //有變動的狀況
 
-            //先顯示圖片
-            const result = await $.get("/UserMembers/UserPhotoName")
+            if (input.files.length === 0) {
+                //無上傳檔案，div不顯示
+                $("#div-preivew").css("visibility", "hidden")
+            } else {
+                //有上傳檔案，div顯示，圖片顯示
 
-                const sellerImagePath = result.SellerImagePath;
-                const img = document.querySelector("#sellerImagePaths");
-            const baseUrl = window.location.origin;
-            img.src = `${baseUrl}/img/${sellerImagePath}`;
+                var reader = new FileReader();
+                reader.readAsDataURL(input.files[0])
+                reader.addEventListener('load', (e) => {
+                    $("#div-preivew").css("visibility", "visible")
 
-            //預覽圖片
-            $("#formFile").change(function () {
-                readURL(this);
-            })
+                    $("#preview").attr("src", e.target.result)
+                })
 
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $("#sellerImagePaths").attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0])
-                }
             }
-
-            //等按下確認後再submit
-                $("#savebutton").on('click', function (event) {
-                event.preventDefault();
-                $("#savemodal").modal("show")
-            })
-
-            $("#confirmButton").on("click", function () {
-                $("#savemodal").modal("hide")
-                $("#sellerEditForm").submit();
-            })
         })
-
-        //const xhr = new XMLHttpRequest();
-        //const input = document.getElementById("photo")
-        //console.log(document.formUpload)
-        //input.addEventListener('change', () => { //有變動的狀況
-
-        //    if (input.files.length === 0) {
-        //        //無上傳檔案，div不顯示
-        //        $("#div-preivew").css("visibility", "hidden")
-        //    } else {
-        //        //有上傳檔案，div顯示，圖片顯示
-
-        //        var reader = new FileReader();
-        //        reader.readAsDataURL(input.files[0])
-        //        reader.addEventListener('load', (e) => {
-        //            $("#div-preivew").css("visibility", "visible")
-
-        //            $("#preview").attr("src", e.target.result)
-        //        })
-
-        //    }
-        //})
 
         function redirectToResetPassword() {
         window.location.href = '@Url.Content("~/SellerLogin/ResetPassword")';
     }
     </script>
 }
-
-
-
-
-
-
