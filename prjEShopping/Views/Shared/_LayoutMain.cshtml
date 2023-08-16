@@ -12,9 +12,11 @@
 </head>
 <body>
 
-    @if (@ViewBag.AdminName==null)
+    @if (@ViewBag.AdminName == null)
     {
+
         @Html.Action("ADWall", "Main")
+
     }
 
     <header class="bg-primary sticky-top">
