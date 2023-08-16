@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
     //主頁
@@ -282,5 +281,37 @@
             maintop5.innerHTML = top5products.join("");
         })
 
+        $(document).ready(function () {
+            // Show the modal when the page loads
+            $('#adModal').modal('show');
+
+            // Hide the modal when the image is clicked
+            $('#adImage').click(function () {
+                $('#adModal').modal('hide');
+            });
+
+            // Set a timeout to hide the modal after 5 seconds
+            setTimeout(function () {
+                $('#adModal').modal('hide');
+            }, 5000);
+        });
     </script>
+}
+@section Styles{
+    <style>
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.7); /* 半透明的黑色背景 */
+            border: none;
+        }
+
+        .modal-body {
+            padding: 30px; /* 黑色邊框的大小 */
+        }
+
+        #adImage {
+            width: 100%; /* 圖片寬度調至最大 */
+            height: auto; /* 高度自動調整以保持原始的長寬比 */
+            max-height: calc(100% - 60px); /* 保留上下各30px的黑色邊框 */
+        }
+    </style>
 }

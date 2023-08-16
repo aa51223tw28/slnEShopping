@@ -17,7 +17,9 @@ namespace prjEShopping.Models.DTOs
         public int ProductStock { get; set; }
         public int QuantitySold { get; set; }
 
-
+        public DateTime ADStartDate { get; set; }
+        public DateTime ADEndDate { get; set; }
+        public int ADField { get; set; }
 
         //一堆規格        
         public int BrandId { get; set; }

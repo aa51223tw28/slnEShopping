@@ -10,7 +10,24 @@
                 @Html.DisplayFor(modelItem => item.Storewide)
                 @if (item.CouponType == "折價券")
                 {
-                    <text>@Html.DisplayFor(modelItem => item.Discount)折</text>
+                    int discountValue;
+                    bool isConvertible = Int32.TryParse(item.Discount, out discountValue);
+
+                    if (isConvertible) // 確保轉換是成功的
+                    {
+                        if (discountValue % 10 == 0 && discountValue >= 10 && discountValue <= 90)
+                        {
+                            <text>@(discountValue / 10)折</text>
+                        }
+                        else
+                        {
+                            <text>@discountValue 折</text>
+                        }
+                    }
+                    else
+                    {
+                        <text>@item.Discount 折</text> // 或其他錯誤消息
+                    }
                 }
                 else if (item.CouponType == "抵用券")
                 {

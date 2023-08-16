@@ -67,8 +67,11 @@ namespace prjEShopping.Controllers
                                             ProductName = x.ProductName,
                                             Price = (decimal)x.Price,
                                             Discount = (int)y.Discount,                                            
-                                            ProductImagePathOne = x.ProductImagePathOne
-                                        }).ToList();
+                                            ProductImagePathOne = x.ProductImagePathOne,
+                                            ADStartDate=(DateTime)y.ADStartDate,
+                                            ADEndDate=(DateTime)y.ADEndDate,
+                                            ADField=(int)y.ADField,
+                                        }).Where(t=>t.ADStartDate<DateTime.Now&&t.ADEndDate>DateTime.Now&&t.ADField!=1).ToList();
 
             foreach (var item in model)
             {               
@@ -76,6 +79,18 @@ namespace prjEShopping.Controllers
                 item.DiscountPrice = discountedPrice;
             }
 
+            return View(model);
+        }
+
+        public ActionResult ADWall()
+        {
+            var db = new AppDbContext();
+            var model = db.Products.Where(x => x.SellerId == 1).ToList();           
+            var AD = db.SellersADs.Where(x => x.SellerId == 1).Select(x => x.ADProductId).ToList();
+            var product = db.ADProducts.Where(x => AD.Contains(x.ADProductId) && x.ADField == 1 && x.ADStartDate < DateTime.Now && x.ADEndDate > DateTime.Now)
+                .FirstOrDefault();
+            var enterwall = product?.ADImagePath?.ToString();
+            ViewBag.Wall = enterwall;
             return View(model);
         }
     }

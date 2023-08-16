@@ -91,6 +91,7 @@
 
                 <td>
                     @Html.ActionLink("編輯", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("寄信", "CSSSendMail","Support2", new { UserId = item.UserId, Name= item.UserName }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }

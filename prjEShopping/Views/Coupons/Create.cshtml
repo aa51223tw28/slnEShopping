@@ -145,6 +145,7 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="新增優惠券" class="btn btn-primary my-2" />
+                    <button type="button" id="btn1" class="btn btn-info">Demo</button>
                 </div>
             </div>
         </div>
@@ -267,6 +268,16 @@
             selectedDate.setDate(selectedDate.getDate());
             let nextDateStr = selectedDate.toISOString().split('T')[0];
             $("#EndTime").attr("min", nextDateStr);
+        });
+
+       // Demo
+        $(document).ready(function () {
+            $('#btn1').click(function () {
+                $('#CouponName').val('父親月');
+                $('#CouponDetails').val('父親月8折!');
+                $('#Quantity').val('999');
+                $('#CouponTerms').val('5000');
+            });
         });
 
     </script>
