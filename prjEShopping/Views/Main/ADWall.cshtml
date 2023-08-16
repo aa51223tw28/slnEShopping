@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "ADWall";
+}
+@if (@ViewBag.Wall != null)
+{
+    <div class="modal fade" id="adModal" tabindex="-1" role="dialog" aria-labelledby="adModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
+            <div class="modal-content">
+                <div class="modal-body d-flex justify-content-center align-items-center">
+                    <!-- Your Ad Content Here -->
+                    <img src="@ViewBag.Wall" alt="Advertisement" class="img-fluid cursor-pointer" id="adImage">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            // Show the modal when the page loads
+            $('#adModal').modal('show');
+
+            // Hide the modal when the image is clicked
+            $('#adImage').click(function () {
+                $('#adModal').modal('hide');
+            });
+
+            // Set a timeout to hide the modal after 5 seconds
+            setTimeout(function () {
+                $('#adModal').modal('hide');
+            }, 5000);
+        });
+    </script>
+}
+
+@section Styles{
+    <style>
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.7); /* 半透明的黑色背景 */
+            border: none;
+        }
+
+        .modal-body {
+            padding: 30px; /* 黑色邊框的大小 */
+        }
+
+        #adImage {
+            width: 100%; /* 圖片寬度調至最大 */
+            height: auto; /* 高度自動調整以保持原始的長寬比 */
+            max-height: calc(100% - 60px); /* 保留上下各30px的黑色邊框 */
+        }
+    </style>
+}
+

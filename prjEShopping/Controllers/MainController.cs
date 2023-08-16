@@ -81,5 +81,17 @@ namespace prjEShopping.Controllers
 
             return View(model);
         }
+
+        public ActionResult ADWall()
+        {
+            var db = new AppDbContext();
+            var model = db.Products.Where(x => x.SellerId == 1).ToList();           
+            var AD = db.SellersADs.Where(x => x.SellerId == 1).Select(x => x.ADProductId).ToList();
+            var product = db.ADProducts.Where(x => AD.Contains(x.ADProductId) && x.ADField == 1 && x.ADStartDate < DateTime.Now && x.ADEndDate > DateTime.Now)
+                .FirstOrDefault();
+            var enterwall = product?.ADImagePath?.ToString();
+            ViewBag.Wall = enterwall;
+            return View(model);
+        }
     }
 }
