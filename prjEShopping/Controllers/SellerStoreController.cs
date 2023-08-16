@@ -21,9 +21,13 @@ namespace prjEShopping.Controllers
 
             var userid = db.Users.Where(x => x.UserAccount == User.Identity.Name).Select(x => x.UserId).FirstOrDefault();
 
-            ViewBag.AllRatingStar = db.Products.Where(x => x.SellerId == sellerid).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.StarRating).Sum();
-            ViewBag.RatingCount = db.Products.Where(x => x.SellerId == sellerid).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.RatingId).Count(); 
-            ViewBag.AvgRating = ((double)(ViewBag.AllRatingStar)/ (ViewBag.RatingCount)).ToString("F1");
+            var AllRatingStar = db.Products.Where(x => x.SellerId == sellerid).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.StarRating).Sum();
+            int? RatingCount = db.Products.Where(x => x.SellerId == sellerid).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.RatingId).Count();
+
+            ViewBag.AllRatingStar = AllRatingStar.HasValue ? AllRatingStar.Value : 0;
+            ViewBag.RatingCount = RatingCount > 0 ? RatingCount : 0;
+            var AvgRating = ((AllRatingStar > 0 && RatingCount > 0) ? ((double)(AllRatingStar) / (RatingCount)) : 0);
+            ViewBag.AvgRating = string.Format("{0:F1}", AvgRating);
             ViewBag.Storename = db.Sellers.FirstOrDefault(x => x.SellerId == sellerid).SellerName;
             ViewBag.StoreIntro = db.Sellers.FirstOrDefault(x => x.SellerId == sellerid).StoreIntro;
             ViewBag.SellerId = sellerid;
