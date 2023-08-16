@@ -125,7 +125,20 @@
         <div class="bg-white border-1">
             <div class="container p-0 px-md-3">
                 <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
-                    <a href="#" class="mb-3 col">
+                    @{
+                        var storeList = ViewBag.StoreList as List<prjEShopping.Models.EFModels.Seller>;
+                   
+                         foreach (var item in storeList)
+                            {
+                            <a href="~/SellerStore/StoreMain?sellerid=@item.SellerId" class="mb-3 col">
+                                <div class="card">
+
+                                    <img src="~/img/@item.SellerImagePath" class="card-img-top p-2" alt="...">
+                                    <h5 class="card-title text-blue text-center fw-bold">@item.StoreName</h5>
+                                </div>
+                                </a>
+                            } }
+                    @*<a href="#" class="mb-3 col">
                         <div class="card">
                             <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
                             <h5 class="card-title text-blue text-center fw-bold">小米</h5>
@@ -166,28 +179,14 @@
                             <img src="~/img/sampo128px.png" class="card-img-top p-2" alt="...">
                             <h5 class="card-title text-blue text-center fw-bold">SAMPO</h5>
                         </div>
-                    </a>
+                    </a>*@
                 </div>
             </div>
         </div>
     </div>
-                    @{
-                        var storeList = ViewBag.StoreList as List<prjEShopping.Models.EFModels.Seller>;
-                   
-                         foreach (var item in storeList)
-                            {
-                            <a href="~/SellerStore/StoreMain?sellerid=@item.SellerId" class="mb-3 col">
-                                <div class="card">
-
-                                    <img src="~/img/@item.SellerImagePath" class="card-img-top p-2" alt="...">
-                                    <h5 class="card-title text-blue text-center fw-bold">@item.StoreName</h5>
-                                </div>
-                                </a>
-                            } }
-                </div>
-            </div>
-        </div>
-    </div>
+                    
+</div>
+    
 
 
 
@@ -265,7 +264,7 @@
 
         </div>
     </div>
-</div>
+
 
 
 @section Scripts
