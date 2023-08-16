@@ -228,17 +228,19 @@
                             </div>
                             <div class="col-md-3 d-flex align-items-center justify-content-center">
                                 <div class="card-body">
-                                    <h5 class="card-title">@Math.Round(item.SubTotal).ToString("C0")</h5>
-                                    <a href="@Url.Action("Index", "UserFeedback", new { shipmentId = Model.FirstOrDefault().ShipmentId, productId = item.ProductId })" class="btn btn-blue feedback-link" data-feedback-button="@item.ProductId">去評價</a>
+                                    <h5 class="card-title"></h5>
+                                    @if(Model.FirstOrDefault().CompletionDate != DateTime.MinValue)
+                                    {
+                                        <a href="@Url.Action("Index", "UserFeedback", new { shipmentId = Model.FirstOrDefault().ShipmentId, productId = item.ProductId })" class="btn btn-blue feedback-link" data-feedback-button="@item.ProductId">去評價</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="fs-5"></span>
+                                    }
                                 </div>
                             </div>
-
                         </div>
-                        <!-- 出貨單號1 -->
                     }
-
-
-
                 </div>
 
             </div>

@@ -154,6 +154,7 @@ namespace prjEShopping.Controllers
                     ArrivalTimeDate = shipment?.ArrivalTimeDate ?? DateTime.MinValue,
                     PickDate = shipment?.PickDate ?? DateTime.MinValue,
                     CompletionDate = shipment?.CompletionDate ?? DateTime.MinValue,
+
                 };
                 datas.Add(data);
             }
