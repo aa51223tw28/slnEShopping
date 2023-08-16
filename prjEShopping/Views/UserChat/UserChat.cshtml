@@ -49,15 +49,16 @@
         // 在畫面上顯示訊息
         var encodedMessage = $('<div />').text(message).html();
         $('#chatMessages').append('<p><strong>' + name + '</strong>: ' + encodedMessage + '</p>');
+        $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);//卷軸放置最底部
     };
 
     $.connection.hub.start();
 
     let roomId = "";
 
-    function createRoom() {
+    function joinRoom() {
         if (roomId) {
-            chat.server.createRoom(roomId);
+            chat.server.joinRoom(roomId);
         }
     }
 
@@ -87,7 +88,7 @@
                 leaveRoom(roomId);
                 roomId = ($(this).find('input').val().toString());
                 console.log(roomId);
-                createRoom(roomId);
+                joinRoom(roomId);
 
             });
         });
