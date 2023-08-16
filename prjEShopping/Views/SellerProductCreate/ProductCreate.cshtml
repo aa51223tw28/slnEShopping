@@ -90,13 +90,13 @@
         <div class="row d-flex col-sm-6 col-xl-6 ">
             <div class="row">
                 <div class="d-flex flex-column align-items-start  ms-2 ">
-                    <img src="" alt="" class="img-fluid align-items-start row" width="200" id="img1">
+                    <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img1">
                 </div>
                 <div class="d-flex flex-column align-items-start  ms-2 ">
-                    <img src="" alt="" class="img-fluid align-items-start row" width="200" id="img2">
+                    <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img2">
                 </div>
                 <div class="d-flex flex-column align-items-start  ms-2 ">
-                    <img src="" alt="" class="img-fluid align-items-start row" width="200" id="img3">
+                    <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img3">
                 </div>
             </div>
             <div class="row">
@@ -252,7 +252,29 @@
             }, 500);
         })
 
-        
+        $(document).ready( function () { 
+            //預覽圖片
+            $("#imges").change(function () {
+                readURLs(this);
+            });
+
+            function readURLs(input) {
+                if (input.files && input.files.length > 0) {
+                    $(".img-fluid").empty(); // 清空預覽容器
+
+                    for (let i = 0; i < input.files.length; i++) {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            let image = $("<img>").attr("src", e.target.result);
+                            image.addClass("img-fluid align-items-start row"); // 添加類別
+                            image.attr("width", 170);
+                            $(".d-flex.flex-column.align-items-start.ms-2").eq(i).empty().append(image); // 將圖片附加到對應的容器
+                        };
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            }
+        });
 
 
     </script>
