@@ -15,20 +15,28 @@ namespace prjEShopping.Controllers
     {
         // GET: SellerStore
         
-        public ActionResult StoreMain()
+        public ActionResult StoreMain(int sellerid)
         {
             var db = new AppDbContext();
-            ViewBag.AllRatingStar = db.Products.Where(x => x.SellerId == 1).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.StarRating).Sum();
-            ViewBag.RatingCount = db.Products.Where(x => x.SellerId == 1).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.RatingId).Count(); 
-            ViewBag.AvgRating = ((double)(ViewBag.AllRatingStar)/ (ViewBag.RatingCount)).ToString("F1");
-            ViewBag.Storename = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerName;
-            ViewBag.StoreIntro = db.Sellers.FirstOrDefault(x => x.SellerId == 1).StoreIntro;
-            ViewBag.SellerId = 1;
-            ViewBag.StoreImage = db.Sellers.FirstOrDefault(x => x.SellerId == 1).SellerImagePath;
-            ViewBag.TrackSeller = db.TrackSellers.Any(x => x.SellerId == 1 && x.UserId == 1);
-            ViewBag.TrackCount = db.TrackSellers.Where(x => x.SellerId == 1).Count();
 
-            var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            var userid = db.Users.Where(x => x.UserAccount == User.Identity.Name).Select(x => x.UserId).FirstOrDefault();
+
+            var AllRatingStar = db.Products.Where(x => x.SellerId == sellerid).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.StarRating).Sum();
+            int? RatingCount = db.Products.Where(x => x.SellerId == sellerid).Join(db.Ratings, x => x.ProductId, y => y.ProductId, (x, y) => y.RatingId).Count();
+
+            ViewBag.AllRatingStar = AllRatingStar.HasValue ? AllRatingStar.Value : 0;
+            ViewBag.RatingCount = RatingCount > 0 ? RatingCount : 0;
+            var AvgRating = ((AllRatingStar > 0 && RatingCount > 0) ? ((double)(AllRatingStar) / (RatingCount)) : 0);
+            ViewBag.AvgRating = string.Format("{0:F1}", AvgRating);
+            ViewBag.Storename = db.Sellers.FirstOrDefault(x => x.SellerId == sellerid).SellerName;
+            ViewBag.StoreIntro = db.Sellers.FirstOrDefault(x => x.SellerId == sellerid).StoreIntro;
+            ViewBag.SellerId = sellerid;
+            ViewBag.UserId = userid;
+            ViewBag.StoreImage = db.Sellers.FirstOrDefault(x => x.SellerId == sellerid).SellerImagePath;
+            ViewBag.TrackSeller = db.TrackSellers.Any(x => x.SellerId == sellerid && x.UserId == userid);
+            ViewBag.TrackCount = db.TrackSellers.Where(x => x.SellerId == sellerid).Count();
+
+            var products = db.Products.Where(x => x.SellerId == sellerid && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 ProductId = x.ProductId,
                 ProductName = x.ProductName,
@@ -85,10 +93,10 @@ namespace prjEShopping.Controllers
             return View(products);
         }
 
-        public ActionResult getTop5Product() 
+        public ActionResult getTop5Product(int sellerid) 
         {
             var db = new AppDbContext();
-            var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new 
+            var products = db.Products.Where(x => x.SellerId == sellerid && x.ProductStatusId == 2).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new 
                         {
                             x.ProductId,
                             x.ProductImagePathOne,
@@ -101,10 +109,10 @@ namespace prjEShopping.Controllers
             return Json(products, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult getPromoted() 
+        public ActionResult getPromoted(int sellerid) 
         {
             var db = new AppDbContext();
-            var products = db.Products.Where(x => x.SellerId == 1 && x.ProductStatusId == 2 && x.Promote != null).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
+            var products = db.Products.Where(x => x.SellerId == sellerid && x.ProductStatusId == 2 && x.Promote != null).Join(db.ProductStocks, x => x.ProductId, y => y.ProductId, (x, y) => new
             {
                 x.ProductId,
                 x.ProductImagePathOne,

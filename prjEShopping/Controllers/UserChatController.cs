@@ -26,9 +26,24 @@ namespace prjEShopping.Controllers
             return View(chatMembersList);
         }
 
-        public ActionResult getChatList() 
+        public ActionResult FindChatroom(int sellerid) 
         {
-            return View();
+            var db = new AppDbContext();
+            var customerAccount = User.Identity.Name;
+            var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var findChatroom = db.ChatroomMembers.FirstOrDefault(x => x.UserId == userid && x.SellerId == sellerid);
+            if (findChatroom == null) 
+            {
+                var addToChatroom = new ChatroomMember
+                {
+                    SellerId = sellerid,
+                    UserId = userid,
+                };
+                db.ChatroomMembers.Add(addToChatroom);
+                db.SaveChanges();
+            }
+            return RedirectToAction("UserChat");
         }
+
     }
 }

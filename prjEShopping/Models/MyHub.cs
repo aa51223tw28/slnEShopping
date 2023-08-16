@@ -9,7 +9,7 @@ namespace prjEShopping.Models
 {
     public class MyHub : Hub
     {
-        public async Task CreateRoom(string roomId)
+        public async Task JoinRoom(string roomId)
         {
             await Groups.Add(Context.ConnectionId, roomId);
         }

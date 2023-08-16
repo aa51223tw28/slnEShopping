@@ -1,13 +1,8 @@
-﻿@model prjEShopping.Models.EFModels.Seller
+﻿
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
-@if (TempData["Success"] != null)
-{
-    <script>alert("@TempData["Success"].ToString()")</script>
-}
-
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 ">
     <div class="accordion" id="accordionPanelsStayOpenExample2">
         <div class="accordion-item">
@@ -128,8 +123,8 @@
                 <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse show bg-info"
                      aria-labelledby="panelsStayOpen-headingTen">
                     <div class="accordion-body">
-                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" >
-                            <div class="row">
+                        <div class="row g-3" >
+                            <div class="col-3">
                                 <table class="table table-striped fw-bold">
                                     <thead>
                                         <tr>
@@ -140,13 +135,11 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row">
-                                <input type="hidden" id="userName"  value="@Model.SellerAccount" placeholder="User Name" />
-                                <input type="text" id="message" placeholder="Message" height="200"/>
-                                <button onclick="sendMessage()" class="btn btn-light">傳送訊息</button>
-                            </div>
-                            <div class="row">
-                                <div id="chatMessages"></div>
+                            <div class="col-9">
+                                <div id="chatMessages" style="height: 208px; overflow: auto"></div>
+                                <input type="hidden" id="userName" value="@Model.SellerAccount" placeholder="User Name" />
+                                <input type="text" id="message" placeholder="Message" height="200" class="form-control"/>
+                                <button onclick="sendMessage()" class="btn btn-light ">傳送訊息</button>
                             </div>
                         </div>
                     </div>
@@ -166,15 +159,17 @@
         // 在畫面上顯示訊息
         var encodedMessage = $('<div />').text(message).html();
         $('#chatMessages').append('<p><strong>' + name + '</strong>: ' + encodedMessage + '</p>');
+        $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);//卷軸放置最底部
     };
 
     $.connection.hub.start();
 
     
 
-    function createRoom(roomId) {
+    function joinRoom(roomId) {
         if (roomId) {
-            chat.server.createRoom(roomId);
+            chat.server.joinRoom(roomId);
+
         }
     }
 
@@ -202,7 +197,7 @@
         const selTop5 = document.querySelector('#Top5');
         const selTop10Shipments = document.querySelector('#Top10Shipments');
         const selchat = document.querySelector('#chat');
-
+        const selmessages = document.querySelector('#chatMessages');
 
         function LoadTop5() {
             const xhr = new XMLHttpRequest();
@@ -251,11 +246,11 @@
             LoadTop5();
             LoadTop10Shipments();
             LoadChatList();
-            
+
         });
 
         let roomId = "";
-        
+
         function LoadChatList() {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', '@Url.Content("~/SellerMain/getChatMembers")');
@@ -266,21 +261,37 @@
                 let chatLists = datas.map(chatlist => {
                     return (`<tr class="mt-2"><td><btn class="btn-secondary">${chatlist.UserName}<input type="hidden" value=${chatlist.ChatroomId}></btn></td></tr>`)
                 })
-                 
+
                 selchat.innerHTML = chatLists.join("");
 
                 const selclicked = document.querySelectorAll('.btn-secondary');
                 $(selclicked).click(function () {
-                    $('#chatMessages').empty();
                     leaveRoom(roomId);
-                    roomId = ($(this).find('input').val().toString());
-                    createRoom(roomId);
-                    
+                    $('#chatMessages').empty();
+                    setTimeout(() => { 
+                        roomId = ($(this).find('input').val().toString());
+                        joinRoom(roomId);
+                        LoadChatDetail();
+                    }, 100);
                 });
             })
         }
 
+        function LoadChatDetail() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '@Url.Content("~/SellerMain/getChatDetail?roomId=")' + roomId);
+            xhr.send();
 
+                xhr.addEventListener('load', () => {
+                const datas = JSON.parse(xhr.responseText);
+                    let chatdetails = datas.map(chatlist => {
+                        return (`<p><strong>  ${chatlist.SenderName}  </strong>:   ${chatlist.Text}  </p>`)
+                    })
+                    selmessages.innerHTML = chatdetails.join("");
+                    $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
+                })
+        };
+        
 
     </script>
 }

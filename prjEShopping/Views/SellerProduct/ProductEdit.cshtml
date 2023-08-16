@@ -115,7 +115,7 @@
                         <span class="fw-bold text-primary">單價：</span>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="Price" value="@Model.Price">
+                        <input type="text" name="Price" value="@string.Format("{0:0.##}", Model.Price)">
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -131,18 +131,20 @@
             </div>
 
         </div>
-        <div class="d-flex col-sm-6 col-xl-6 ">
-            <div class="d-flex flex-column align-items-start  ms-2">
-                <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid align-items-start" width="130">
-                <input type="file" name="photo1" class="btn btn-secondary mt-2">
+        <div class="row d-flex col-sm-6 col-xl-6 ">
+            <div class="row">
+                <div class="d-flex flex-column align-items-start  ms-2 ">
+                    <img src="~/img/@Model.ProductImagePathOne" alt="" class="img-fluid align-items-start row" width="200" id="img1">
+                </div>
+                <div class="d-flex flex-column align-items-start  ms-2 ">
+                    <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid align-items-start row" width="200" id="img2">
+                </div>
+                <div class="d-flex flex-column align-items-start  ms-2 ">
+                    <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid align-items-start row" width="200" id="img3">
+                </div>
             </div>
-            <div class="d-flex flex-column align-items-start  ms-2 " >
-                <img src="~/img/@Model.ProductImagePathTwo" alt="" class="img-fluid align-items-start" width="130">
-                <input type="file" name="photo2" class="btn btn-secondary mt-2">
-            </div>
-            <div class="d-flex flex-column align-items-start  ms-2 " >
-                <img src="~/img/@Model.ProductImagePathThree" alt="" class="img-fluid align-items-start" width="130">
-                <input type="file" name="photo3" class="btn btn-secondary mt-2">
+            <div class="row">
+                <input type="file" name="photo1" class="btn btn-secondary mt-2" multiple id="imges">
             </div>
         </div>
         <div class="container">
@@ -150,4 +152,26 @@
         </div>
     </form>
 </div>
+@section Styles
+    {
+        
+    }
+@section Scripts
+    {
+        <script>
+            //預覽圖片
+            $("#imges").change(function () {
+                readURL(this)
+            })
 
+            function readURL(input) {
+                if (input.files && (input.files).lengh > 0) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#userImagePaths").attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }     
+        </script>
+    }

@@ -17,7 +17,7 @@
                         @{
                             foreach (var item in Model)
                             {
-                                <tr><td class="btn-secondary"><btn>@item.SellerName<input type="hidden" value="@item.SellerId.ToString()" /></btn></td></tr>
+                                <tr><td class="btn-secondary"><btn>@item.SellerName<input type="hidden" value="@item.ChatroomId" /></btn></td></tr>
                             }
                         }
                     </tbody>
@@ -33,7 +33,6 @@
                 <input type="hidden" value="@User.Identity.Name" id="userName" placeholder="User Name" />
                 <input type="text" id="message" placeholder="Message" />
                 <button onclick="sendMessage()">傳送訊息</button>
-                <button onclick="createRoom()">加入</button>
             </div>
         </div>
     </div>
@@ -49,15 +48,16 @@
         // 在畫面上顯示訊息
         var encodedMessage = $('<div />').text(message).html();
         $('#chatMessages').append('<p><strong>' + name + '</strong>: ' + encodedMessage + '</p>');
+        $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);//卷軸放置最底部
     };
 
     $.connection.hub.start();
 
     let roomId = "";
 
-    function createRoom() {
+    function joinRoom() {
         if (roomId) {
-            chat.server.createRoom(roomId);
+            chat.server.joinRoom(roomId);
         }
     }
 
@@ -79,18 +79,37 @@
 </script>
 @section Scripts{
     <script>
+        const selmessages = document.querySelector('#chatMessages');
+
         $(document).ready(function () {
-            
+
             const selclicked = document.querySelectorAll('.btn-secondary');
             $(selclicked).click(function () {
-                $('#chatMessages').empty();
                 leaveRoom(roomId);
-                roomId = ($(this).find('input').val().toString());
-                console.log(roomId);
-                createRoom(roomId);
+                $('#chatMessages').empty();
+                setTimeout(() => {
+                    roomId = $(this).find('input').val();
+                    joinRoom(roomId);
+                    LoadChatDetail();
+                }, 100);
 
             });
         });
+
+        function LoadChatDetail() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '@Url.Content("~/SellerMain/getChatDetail?roomId=")' + roomId);
+            xhr.send();
+
+                xhr.addEventListener('load', () => {
+                const datas = JSON.parse(xhr.responseText);
+                    let chatdetails = datas.map(chatlist => {
+                        return (`<p><strong>  ${chatlist.SenderName}  </strong>:   ${chatlist.Text}  </p>`)
+                    })
+                    selmessages.innerHTML = chatdetails.join("");
+                    $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
+                })
+        };
     </script>
 }
 

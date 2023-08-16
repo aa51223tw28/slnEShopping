@@ -19,13 +19,13 @@ namespace prjEShopping.Models.ViewModels
         public string BrandName { get; set; }
 
         public string ProductImagePathOne { get; set; }
-        public HttpPostedFileBase photo1 { get; set; }
+        public HttpPostedFileBase[] photo1 { get; set; }
 
         public string ProductImagePathTwo { get; set; }
-        public HttpPostedFileBase photo2 { get; set; }
+        //public HttpPostedFileBase photo2 { get; set; }
 
         public string ProductImagePathThree { get; set; }
-        public HttpPostedFileBase photo3 { get; set; }
+        //public HttpPostedFileBase photo3 { get; set; }
 
         public int? Quantity { get; set; }
 

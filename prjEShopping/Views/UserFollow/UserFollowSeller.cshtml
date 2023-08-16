@@ -76,7 +76,7 @@
                     @foreach (var item in Model)
                     {
                         <div class="mb-3 col card p-2 bg-lightyellow me-3">
-                            <a href="#">
+                            <a href="~/SellerStore/StoreMain?sellerid=@item.SellerId">
                                 @*要再放賣家主頁連結*@
                                 <div class="card">
                                     <img src="~/img/@Html.DisplayFor(modelItem => item.SellerImagePath)" class="card-img-top p-2" alt="...">

@@ -19,7 +19,6 @@
             <table class="table table-primary table-bordered " style="width:1300px" id="myTable">
                 <thead>
                     <tr>
-                        <td style="width:100px">票券設定</td>
                         <td style="width:100px">券號</td>
                         <td style="width:320px">優惠券</td>
                         <td style="width:100px">使用條件</td>
@@ -32,11 +31,11 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
+                            @*<td>
                                 @Html.ActionLink("修改", "Edit", new { id = item.CouponId }, new { @class = "btn btn-secondary my-1" })
-                                @*用不到刪除功能還在*@
-                                @*@Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })*@
-                            </td>
+                                用不到刪除功能還在
+                                @Html.ActionLink("刪除", "Delete", new { id = item.CouponId }, new { @class = "btn btn-danger my-1" })
+                            </td>*@
                             <td>@Html.DisplayFor(modelItem => item.CouponNumber)</td>
                             <td>
                                 <div class="d-flex me-2 coupon-item mb-2">
@@ -60,10 +59,10 @@
                                         </span>
                                         @*<span>使用期限 @Html.DisplayFor(modelItem => item.StartTime)</span>*@
                                         <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
-                                        <div class="d-flex">
+                                        @*<div class="d-flex">
                                             <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
                                             <button type="button" class="btn btn-secondary ms-3">領取</button>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </td>

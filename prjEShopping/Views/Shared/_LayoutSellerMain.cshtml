@@ -153,13 +153,13 @@
                                 <div class="accordion-body bg-primary">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                            <a href="#" class="text-decoration-none">平台廣告方案</a>
+                                            @Html.ActionLink("平台廣告方案", "ADOwner", "SellerActivities", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="text-decoration-none">我的活動</a>
+                                            @Html.ActionLink("我的點數", "MyPointList", "SellerActivities", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="text-decoration-none">優惠券</a>
+                                            @Html.ActionLink("優惠券", "CouponList", "SellerActivities", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                     </ul>
                                 </div>

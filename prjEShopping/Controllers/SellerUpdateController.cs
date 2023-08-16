@@ -20,26 +20,26 @@ namespace prjEShopping.Controllers
             if (id == null)
                 return RedirectToAction("List");
             var db = new AppDbContext();
-            
+
             var data = db.Sellers.FirstOrDefault(x => x.SellerId == id);
             if (data == null)
                 return RedirectToAction("List");
             var viewModel = new SellerRegisterVM
             {
-                GUINumber=data.GUINumber,
+                GUINumber = data.GUINumber,
                 SellerName = data.SellerName,
                 StoreName = data.StoreName,
-                SellerImagePath = data.SellerImagePath,
-                Phone=data.Phone,
-                SellerAccount=data.SellerAccount,
-                 SellerPassword=data.SellerPassword,
-                Address=data.Address,
-                BankAccount=data.BankAccount,
-                PaymentMethodId=data.PaymentMethodId,
+               // SellerImagePath = data.SellerImagePath,
+                Phone = data.Phone,
+                SellerAccount = data.SellerAccount,
+                SellerPassword = data.SellerPassword,
+                Address = data.Address,
+                BankAccount = data.BankAccount,
+                PaymentMethodId = data.PaymentMethodId,
                 ShippingMethodId = data.ShippingMethodId,
-                StoreIntro =data.StoreIntro
+                StoreIntro = data.StoreIntro
             };
-            return View(viewModel);    
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -74,7 +74,7 @@ namespace prjEShopping.Controllers
                 db.SaveChanges();
                 TempData["Success"] = "您已修改完成！";
                 return RedirectToAction("Index", "SellerMain");
-            } 
+            }
             return View("~/Views/SellerMain/Index.cshtml");
         }
     }

@@ -320,12 +320,18 @@
     { 
     <script>
         const selpromote = document.querySelector('#prmoted');
-         const selTop5 = document.querySelector('#Top5');
+        const selTop5 = document.querySelector('#Top5');
 
+        //待接2種id
+        const userid = @Html.Raw(Json.Encode(ViewBag.UserId));
+        const sellerid = @Html.Raw(Json.Encode(ViewBag.SellerId));
+
+        console.log(userid);
+        console.log(sellerid);
          function LoadTop5()
          {
              const xhr = new XMLHttpRequest();
-             xhr.open('GET', '@Url.Content("~/SellerStore/getTop5Product")');
+             xhr.open('GET', '@Url.Content("~/SellerStore/getTop5Product?sellerid=")' + sellerid);
              xhr.send();
 
              xhr.addEventListener('load', () => {
@@ -350,7 +356,8 @@
         function LoadPromoted()
         {
             const xhr = new XMLHttpRequest();
-             xhr.open('GET', '@Url.Content("~/SellerStore/getPromoted")');
+            
+                xhr.open('GET', '@Url.Content("~/SellerStore/getPromoted?sellerid=")'+sellerid);
              xhr.send();
 
              xhr.addEventListener('load', () => {
@@ -376,6 +383,7 @@
         $(document).ready( function () {
             LoadTop5();
             LoadPromoted();
+
 
                 var products = @Html.Raw(Json.Encode(Model)); // 將 Model 序列化為 JSON 字串
                 $("#btnAll").css({ "background-color": "#0D47A1", "color": "white" })//預設樣式被點選
@@ -451,21 +459,20 @@
 
         var trackBtn = document.getElementById("track-btn");
         var trackBtnContent = document.getElementById("track-btn-content");
-        var trackNumber = document.getElementById("TrackCount"); 
+        var trackNumber = document.getElementById("TrackCount");
 
         var isTracked = @Html.Raw(Json.Encode(ViewBag.TrackSeller));
 
 
         trackBtn.addEventListener("click", function () {
+            
             //先讓按鈕失效避免短時間重複按壓
             trackBtn.disabled = true;
             trackBtnContent.disabled = true;
-            //待接2種id
-            const userid = 1;
-            const sellid = 1;
+
 
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `@Url.Content("~/SellerStore/SaveOrClearFavorite?sellerid=")${userid}&userid=${sellid}`);
+            xhr.open('GET', `@Url.Content("~/SellerStore/SaveOrClearFavorite?sellerid=")${userid}&userid=${sellerid}`);
             xhr.send()
 
             xhr.addEventListener('load', () =>
