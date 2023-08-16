@@ -45,14 +45,13 @@ namespace prjEShopping.Controllers
             var ad=new ADProduct();
             ADProductVM model = ADProductChange.ADProduct2VM(ad);
 
-            var data = db.ADProducts.ToList(); // 取得資料庫內容
-            var adProducts = db.ADProducts.ToList();
+            var adProducts = db.ADProducts.ToList();// 取得資料庫內容
 
             //不能代整個List 會死掉
             var adProductDtos = adProducts.Select(p => new ADProductDto
             {
                 ADProductId = p.ADProductId,
-                ADField = p.ADName,
+                ADField = (int)p.ADField,
                 ADStartDate=p.ADStartDate,
                 ADEndDate=p.ADEndDate,
             }).ToList();
@@ -65,7 +64,7 @@ namespace prjEShopping.Controllers
         public class ADProductDto
         {
             public int ADProductId { get; set; }
-            public string ADField { get; set; }
+            public int ADField { get; set; }
             public DateTime? ADStartDate { get; set; }
             public DateTime? ADEndDate { get; set; }
         }

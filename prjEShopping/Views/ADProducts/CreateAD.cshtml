@@ -52,7 +52,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ADStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" />
+                    <input type="datetime-local" name="ADStartDate" id="ADStartDate" class="form-control" />
                     @Html.ValidationMessageFor(model => model.ADStartDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -117,8 +117,7 @@
             });
         });
 
-        var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON
-        @*var jsonData = @Html.Raw(JsonConvert.SerializeObject(ViewBag.JsonData));*@
+        var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON      
         var data = JSON.parse(jsonData);
 
       function setDateBasedOnQuantity() {
