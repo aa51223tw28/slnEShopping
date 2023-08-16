@@ -225,6 +225,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\GoogleController.cs" />
+    <Compile Include="Controllers\PowerBIController.cs" />
     <Compile Include="Controllers\RobotController.cs" />
     <Compile Include="Controllers\SellerActivitiesController.cs" />
     <Compile Include="Controllers\SellerLoginController.cs" />
@@ -508,6 +509,7 @@
     <Content Include="Views\SellerRegister\SellerRegisterEmail.cshtml" />
     <Content Include="Views\SellerUpdate\Edit.cshtml" />
     <Content Include="Views\SellerLogin\SellerVerifyEmail.cshtml" />
+    <Content Include="Views\PowerBI\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
