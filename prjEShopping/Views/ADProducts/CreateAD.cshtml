@@ -52,7 +52,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ADStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="date" name="ADStartDate" id="ADStartDate" class="form-control" />
+                    <input type="datetime-local" name="ADStartDate" id="ADStartDate" class="form-control" />
                     @Html.ValidationMessageFor(model => model.ADStartDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -60,7 +60,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.ADEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="date" name="ADEndDate" id="ADEndDate" class="form-control" />
+                    <input type="datetime-local" name="ADEndDate" id="ADEndDate" class="form-control" />
                     @Html.ValidationMessageFor(model => model.ADEndDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -110,81 +110,101 @@
                 if (selectedOption == "1") {
                     $("#ADName").val("全版廣告");
                     $("#ADPoint").val(5000);
-                } else if (selectedOption != "1") {
-                    $("#ADName").val("限時廣告");
-                    $("#ADPoint").val(500);
+                } else if (selectedOption == "2") {
+                    $("#ADName").val("限時廣告(8)");
+                    $("#ADPoint").val(800);
+                } else if (selectedOption == "3") {
+                    $("#ADName").val("限時廣告(12)");
+                    $("#ADPoint").val(1000);
+                } else if (selectedOption == "4") {
+                    $("#ADName").val("限時廣告(16)");
+                    $("#ADPoint").val(1200);
+                } else if (selectedOption == "5") {
+                    $("#ADName").val("限時廣告(24)");
+                    $("#ADPoint").val(1500);
+                } else if (selectedOption == "6") {
+                    $("#ADName").val("限時廣告(24)");
+                    $("#ADPoint").val(1500);
                 }
             });
         });
 
-        var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON      
+        var jsonData = '@Html.Raw(ViewBag.JsonData)'; // 從ViewBag讀取JSON
         var data = JSON.parse(jsonData);
-      function setDateBasedOnQuantity() {
-          var selectedQuantity = document.getElementById('ADField').value;
-    var lastEndDate = null;
-
-    // 倒序遍历找到最后一个匹配的ADEndDate
-    for (var i = data.length - 1; i >= 0; i--) {
-        if (data[i].ADField.toString() === selectedQuantity) {
-            lastEndDate = new Date(data[i].ADEndDate);
-            break; // 找到就退出循环
-        }
-    }
-
-    var adStartDateInput = document.getElementById('ADStartDate');
-
-    if (lastEndDate) {
-        lastEndDate.setDate(lastEndDate.getDate() + 1);
-        adStartDateInput.valueAsDate = lastEndDate;
-    } else {
-        var tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        adStartDateInput.valueAsDate = tomorrow;
-    }
-}
-
         function setDateBasedOnQuantity() {
             var selectedQuantity = document.getElementById('ADField').value;
             var lastEndDate = null;
 
-            // 倒序遍历找到最后一个匹配的ADEndDate
             for (var i = data.length - 1; i >= 0; i--) {
                 if (data[i].ADField.toString() === selectedQuantity) {
+                    // 轉換時區
                     lastEndDate = new Date(data[i].ADEndDate);
-                    break; // 找到就退出循环
+                    lastEndDate.setHours(lastEndDate.getHours()-24);
+                    break;
                 }
             }
 
             var adStartDateInput = document.getElementById('ADStartDate');
-            var adEndDateInput = document.getElementById('ADEndDate'); // 假设你的结束日期输入框ID是'ADEndDate'
+            var adEndDateInput = document.getElementById('ADEndDate');
 
-            if (lastEndDate) {
-                lastEndDate.setDate(lastEndDate.getDate() + 1);
-                adStartDateInput.valueAsDate = lastEndDate;
+            if (lastEndDate && lastEndDate.getTime() > Date.now()) { // 使用 getTime() 和 Date.now() 比较时间戳
+                lastEndDate.setHours(lastEndDate.getHours() + 24); // 下一天
+                adStartDateInput.value = formatDateTimeInputValue(lastEndDate);
 
-                // 根据ADQuantity设置ADEndDate
                 if (selectedQuantity === "1") {
-                    lastEndDate.setDate(lastEndDate.getDate() + 3);
-                } else {
-                    lastEndDate.setDate(lastEndDate.getDate() + 1);
+                    lastEndDate.setHours(lastEndDate.getHours() + 72); // 加3天
                 }
-                adEndDateInput.valueAsDate = lastEndDate;
-                adEndDateInput.min = lastEndDate.toISOString().slice(0, 10);
+                else if (selectedQuantity === "2") {
+                    lastEndDate.setHours(lastEndDate.getHours() + 8); 
+                }
+                else if (selectedQuantity === "3")
+                {
+                    lastEndDate.setHours(lastEndDate.getHours() + 12);
+                }
+                else if (selectedQuantity === "4") {
+                    lastEndDate.setHours(lastEndDate.getHours() + 16);
+                }
+                else
+                {
+                    lastEndDate.setHours(lastEndDate.getHours() + 24); // 加1天
+                }
+                adEndDateInput.value = formatDateTimeInputValue(lastEndDate);
+                adEndDateInput.min = formatDateTimeInputValue(lastEndDate);
             } else {
                 var tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                adStartDateInput.valueAsDate = tomorrow;
+                tomorrow.setDate(tomorrow.getDate() + 1); // 下一天
+                tomorrow.setHours(0, 0, 0, 0); // 00:00:00.000
+                adStartDateInput.value = formatDateTimeInputValue(tomorrow);
 
                 if (selectedQuantity === "1") {
-                    tomorrow.setDate(tomorrow.getDate() + 3);
-                } else {
-                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    tomorrow.setHours(tomorrow.getHours() + 72); // 加3天
                 }
-                adEndDateInput.valueAsDate = tomorrow;
-                adEndDateInput.min = tomorrow.toISOString().slice(0, 10);
+                else if (selectedQuantity === "2")
+                {
+                    tomorrow.setHours(lastEndDate.getHours() + 8);
+                }
+                else if (selectedQuantity === "3")
+                {
+                    tomorrow.setHours(lastEndDate.getHours() + 12);
+                }
+                else if (selectedQuantity === "4") {
+                    tomorrow.setHours(lastEndDate.getHours() + 16);
+                }
+                else
+                {
+                    tomorrow.setHours(tomorrow.getHours() + 24); // 加1天
+                }
+                adEndDateInput.value = formatDateTimeInputValue(tomorrow);
+                adEndDateInput.min = formatDateTimeInputValue(tomorrow);
             }
         }
 
+        function formatDateTimeInputValue(dateObj) {
+            // 轉換時區
+            var tzoffset = (new Date()).getTimezoneOffset() * 60000;
+            var localISOTime = (new Date(dateObj - tzoffset)).toISOString().slice(0, 16);
+            return localISOTime;
+        }
     </script>
 }
 

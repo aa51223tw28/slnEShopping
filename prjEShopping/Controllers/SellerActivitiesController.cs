@@ -28,7 +28,7 @@ namespace prjEShopping.Controllers
 
             // 從ADProducts中獲取不在existingADProductIds中的產品
             var model = db.ADProducts
-                         .Where(ap => !existingADProductIds.Contains(ap.ADProductId)&&ap.ADStartDate>DateTime.Now)
+                         .Where(ap => !existingADProductIds.Contains(ap.ADProductId)&&ap.ADEndDate>DateTime.Now)
                          .ToList()
                          .ADProduct2VM(); //從ADProduct列表轉換為VM的方法
 
