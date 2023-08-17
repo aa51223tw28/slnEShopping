@@ -16,7 +16,9 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             var customerAccount = User.Identity.Name;
-            int id = (int)Session["SellerId"];
+            int? id = (int?)Session["SellerId"];
+            if(!id.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             // 根據賣家的 ID 從資料庫中讀取賣家資料
             var db = new AppDbContext();
             var seller = db.Sellers.FirstOrDefault(x => x.SellerId == id);
