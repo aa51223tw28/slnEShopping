@@ -12,5 +12,7 @@ namespace prjEShopping.Models.ViewModels
         public string StoreName { get; set; }
 
         public string ChatroomId { get; set; }
+
+        public string UserName { get; set; }
     }
 }
