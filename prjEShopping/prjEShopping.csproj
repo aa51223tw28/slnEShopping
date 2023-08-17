@@ -510,6 +510,7 @@
     <Content Include="Views\SellerUpdate\Edit.cshtml" />
     <Content Include="Views\SellerLogin\SellerVerifyEmail.cshtml" />
     <Content Include="Views\PowerBI\Index.cshtml" />
+    <Content Include="Views\SellerLogin\NewPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -59,6 +59,9 @@
                                         <li class="nav-item">
                                             <a href="@Url.Content("~/UserSupport/UserCSList")" class="link-blue text-decoration-none fw-bold">聯絡客服</a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserChat/UserChat")" class="link-blue text-decoration-none fw-bold">聯絡商家</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -174,9 +177,10 @@
                                     </div>
                                     <div class="col-md-2 d-flex align-items-center justify-content-center">
                                         @*<div class="card-body">*@
-                                            <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
-                                            @*<button type="button" class="btn btn-secondary mb-2">聊聊</button>
-                                            <button type="button" class="btn btn-secondary">查看賣場</button>*@
+                                        <a href="@Url.Action("UserShipmentDetail", "UserOrder", new {shipmentId=item.ShipmentId,sellerid=item.SellerId})" class="btn btn-secondary mb-2">出貨狀態</a>
+                                        @Html.ActionLink("聊聊", "FindChatroom", "UserChat", new { sellerid = item.SellerId }, new { @class = "btn btn-secondary mb-2 mx-1" })
+                                        @*<button type="button" class="btn btn-secondary mb-2 mx-1">聊聊</button>*@
+                                        @*<button type="button" class="btn btn-secondary">查看賣場</button>*@
                                         @*</div>*@
                                     </div>
                                 </div>

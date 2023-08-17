@@ -26,7 +26,7 @@
                 <br />
                 <label class="error">@Html.DisplayFor(model => model.LoginErrorMessage)</label>
                 <div class="d-grid gap-2 mb-3">
-                    <input type="submit" value="登入" class="btn btn-secondary mt-3"  id="loginButton"/>
+                    <input type="submit" value="登入" class="btn btn-secondary mt-3" id="loginButton" />
                     <input type="reset" value="取消" class="btn btn-secondary mt-3" />
                 </div>
                 @*<a target="_blank" href="@ViewBag.response" class="btn btn-danger">Google 登入</a>*@
@@ -42,6 +42,7 @@
         </div>
     </div>
 </div>
+<div class="btn btn-light border border-3" id="btndemoLogin">SellerDemo</div>
 <!-- 模态框 -->
 <div class="modal" id="errorModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
@@ -58,11 +59,29 @@
         </div>
     </div>
 </div>
-@if (ViewBag.ShowErrorModal == true)
-{
+
+
+
+
+@section Scripts{
     <script>
-        $(function () {
-            $('#errorModal').modal('show');
+        //$(function () {
+        //    $('#errorModal').modal('show');
+        //});
+
+        const SellerAccount = document.querySelector('#SellerAccount');
+        const SellerPassword = document.querySelector('#SellerPassword');
+
+        const btndemoLogin = document.querySelector('#btndemoLogin');
+
+        btndemoLogin.addEventListener('click', () => {
+            SellerAccount.value = "Apple@gmail.com";
+            SellerPassword.value = "Aa12345$";
         });
     </script>
+
 }
+
+
+
+

@@ -9,8 +9,10 @@ namespace prjEShopping.Models.ViewModels
     {
         public int SellerId { get; set; }
 
-        public string SellerName { get; set; }
+        public string StoreName { get; set; }
 
         public string ChatroomId { get; set; }
+
+        public string UserName { get; set; }
     }
 }

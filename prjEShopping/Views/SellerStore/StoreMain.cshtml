@@ -469,10 +469,11 @@
             //先讓按鈕失效避免短時間重複按壓
             trackBtn.disabled = true;
             trackBtnContent.disabled = true;
+            trackBtnContent.innerText = "處理中..";
 
-
+            setTimeout(() => {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `@Url.Content("~/SellerStore/SaveOrClearFavorite?sellerid=")${userid}&userid=${sellerid}`);
+            xhr.open('GET', `@Url.Content("~/SellerStore/SaveOrClearFavorite?sellerid=")${sellerid}`);
             xhr.send()
 
             xhr.addEventListener('load', () =>
@@ -494,6 +495,7 @@
                 trackBtn.disabled = false;
                 trackBtnContent.disabled = false;
             })
+            }, 2000);
         });
 
     </script>

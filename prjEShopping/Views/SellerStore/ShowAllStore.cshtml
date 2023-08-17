@@ -15,11 +15,12 @@
                       <div class="col">
                         <div class="card w-100">
                           <img src="~/img/@item.SellerImagePath" class="card-img-top px-4 pt-4" alt="...">
-                            <div class="card-body">
-                            <h5 class="card-title">@item.StoreName</h5>
-                            <p class="card-text text-danger fw-bold">追蹤數:@item.TrackCount</p>
-                            <a href="#" class="btn btn-secondary">前往商家...</a>
-                         </div>
+                          <div class="card-body">
+                              <h5 class="card-title">@item.StoreName</h5>
+                              <p class="card-text text-danger fw-bold">追蹤數:@item.TrackCount</p>
+                              @Html.ActionLink("前往商家...", "StoreMain", "SellerStore", new { sellerid = item.SellerId }, new { Class = "btn btn-secondary " })
+                              @*<a href="#" class="btn btn-secondary">前往商家...</a>*@
+                          </div>
                        </div>
                       </div>
                 }}

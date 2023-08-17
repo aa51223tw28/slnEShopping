@@ -16,12 +16,14 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             var customerAccount = User.Identity.Name;
             var userid = db.Users.Where(x => x.UserAccount == customerAccount).Select(x => x.UserId).FirstOrDefault();
+            var username = db.Users.FirstOrDefault(x => x.UserAccount == customerAccount).UserName;
             //userid待加*2地方
 
-            var chatMembersList = db.ChatroomMembers.Where(x => x.UserId == 1).Join(db.Sellers,x => x.SellerId,y => y.SellerId, (x, y) => new UserChatVM{
+            var chatMembersList = db.ChatroomMembers.Where(x => x.UserId == userid).Join(db.Sellers,x => x.SellerId,y => y.SellerId, (x, y) => new UserChatVM{
                 SellerId = y.SellerId,
-                SellerName = y.SellerAccount,
+                StoreName = y.StoreName,
                 ChatroomId = (x.ChatroomId.ToString()),
+                UserName = username,
             }).ToList();
             return View(chatMembersList);
         }

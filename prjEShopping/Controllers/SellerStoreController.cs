@@ -124,9 +124,10 @@ namespace prjEShopping.Controllers
             return Json(products, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SaveOrClearFavorite(int sellerid, int userid)
+        public ActionResult SaveOrClearFavorite(int sellerid)
         {
             var db = new AppDbContext();
+            var userid = db.Users.Where(x => x.UserAccount == User.Identity.Name).Select(x => x.UserId).FirstOrDefault();
             var isInFavorite = db.TrackSellers.FirstOrDefault(x => x.SellerId == sellerid && x.UserId == userid);
             if (isInFavorite != null)
             {
