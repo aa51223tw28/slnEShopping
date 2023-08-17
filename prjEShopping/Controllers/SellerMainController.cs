@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using static System.Net.Mime.MediaTypeNames;
@@ -198,5 +199,72 @@ namespace prjEShopping.Controllers
             }
             
         }
+
+        public ActionResult recordEnterTime(string roomId) 
+        {
+            var db = new AppDbContext();
+            var setRecord = new Message();
+            if (!string.IsNullOrEmpty(User.Identity.Name)) 
+            {
+                setRecord.SenderId = "U0";
+                setRecord.ChatroomId = Int32.Parse(roomId);
+                setRecord.Text = "EnterChat";
+                setRecord.Timestamp = DateTime.Now;
+                db.Messages.Add(setRecord);
+                db.SaveChanges();
+            }
+            if (((int?)Session["SellerId"]).HasValue) 
+            {
+                setRecord.SenderId = "S0";
+                setRecord.ChatroomId = Int32.Parse(roomId);
+                setRecord.Text = "EnterChat";
+                setRecord.Timestamp = DateTime.Now;
+                db.Messages.Add(setRecord);
+                db.SaveChanges();
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult recordExitTime(string roomId)
+        {
+            var db = new AppDbContext();
+            var setRecord = new Message();
+            if (!string.IsNullOrEmpty(User.Identity.Name))
+            {
+                setRecord.SenderId = "U0";
+                setRecord.ChatroomId = Int32.Parse(roomId);
+                setRecord.Text = "ExitChat";
+                setRecord.Timestamp = DateTime.Now;
+                db.Messages.Add(setRecord);
+                db.SaveChanges();
+            }
+            if (((int?)Session["SellerId"]).HasValue)
+            {
+                setRecord.SenderId = "S0";
+                setRecord.ChatroomId = Int32.Parse(roomId);
+                setRecord.Text = "ExitChat";
+                setRecord.Timestamp = DateTime.Now;
+                db.Messages.Add(setRecord);
+                db.SaveChanges();
+            }
+            return Json(1, JsonRequestBehavior.AllowGet);
+        }
+        //待計算存在與訊息數
+        public ActionResult isInChatroom() 
+        {
+            var db = new AppDbContext();
+            bool inOrOut = true;
+
+            return Json(inOrOut, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult unreadCount()
+        {
+            var db = new AppDbContext();
+            var unreadCount = 0;
+
+            return Json(unreadCount, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
