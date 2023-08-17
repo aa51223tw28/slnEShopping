@@ -179,15 +179,15 @@ namespace prjEShopping.Controllers
                     db.Messages.Add(addMessageToDb);
                     db.SaveChanges();
                 }
-                else 
-                {
-                    addMessageToDb.ChatroomId = Int32.Parse(roomId);
-                    addMessageToDb.Text = text;
-                    addMessageToDb.Timestamp = DateTime.Now;
-                    addMessageToDb.SenderId = "U1";
-                    db.Messages.Add(addMessageToDb);
-                    db.SaveChanges();
-                }
+                //else 
+                //{
+                //    addMessageToDb.ChatroomId = Int32.Parse(roomId);
+                //    addMessageToDb.Text = text;
+                //    addMessageToDb.Timestamp = DateTime.Now;
+                //    addMessageToDb.SenderId = "U1";
+                //    db.Messages.Add(addMessageToDb);
+                //    db.SaveChanges();
+                //}
                 return Json(1, JsonRequestBehavior.AllowGet);
             }
             

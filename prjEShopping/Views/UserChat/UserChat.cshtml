@@ -90,7 +90,7 @@
                                     @{
                                         foreach (var item in Model)
                                         {
-                                            <tr><td class="btn-secondary"><btn>@item.SellerName<input type="hidden" value="@item.ChatroomId" /></btn></td></tr>
+                                            <tr><td class="btn-secondary"><btn>@item.StoreName<input type="hidden" value="@item.ChatroomId" /></btn></td></tr>
                                         }
                                     }
                                 </tbody>
@@ -103,9 +103,9 @@
                             </div>
                         </div>
                         <div class="row">
-                            <input type="hidden" value="@User.Identity.Name" id="userName" placeholder="User Name" />
+                            <input type="hidden" value="@Model.FirstOrDefault().UserName" id="userName" placeholder="User Name" />
                             <input type="text" id="message" placeholder="Message" class="form-control"/>
-                            <button onclick="sendMessage()" class="btn btn-secondary mt-3">傳送訊息</button>
+                            <button onclick="save(),sendMessage()" class="btn btn-info mt-3">傳送訊息</button>
                         </div>
                     </div>
                 </div>
