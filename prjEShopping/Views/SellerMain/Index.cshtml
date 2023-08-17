@@ -123,12 +123,12 @@
                 <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse show bg-info"
                      aria-labelledby="panelsStayOpen-headingTen">
                     <div class="accordion-body">
-                        <div class="row g-3" >
+                        <div class="row g-3">
                             <div class="col-3">
                                 <table class="table table-striped fw-bold">
                                     <thead>
                                         <tr>
-                                            <th scope="col" >聊天名單</th>
+                                            <th scope="col">聊天名單</th>
                                         </tr>
                                     </thead>
                                     <tbody id="chat">
@@ -138,12 +138,29 @@
                             <div class="col-9">
                                 <div id="chatMessages" style="height: 208px; overflow: auto"></div>
                                 <input type="hidden" id="userName" value="@Model.StoreName" placeholder="User Name" />
-                                <input type="text" id="message" placeholder="Message" height="200" class="form-control"/>
-                                <button onclick="save(),sendMessage()" class="btn btn-light ">傳送訊息</button>
+                                <input type="text" id="message" placeholder="Message" height="200" class="form-control" />
+                                <button onclick="save(),sendMessage()" class="btn btn-light  mt-1">傳送訊息</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@**@
+<div class="modal" id="chatModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                請先選擇聊天對象!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="confirmButton">確定</button>
             </div>
         </div>
     </div>
@@ -181,12 +198,17 @@
     }
 
     function sendMessage() {
-        var userName = $('#userName').val();
-        var message = $('#message').val();
+        if (roomId === "" || null) {
+            //alert("請先選擇聊天對象");
+            $("#chatModal").modal("show");
+        }
+        else {
+            var userName = $('#userName').val();
+            var message = $('#message').val();
 
-        chat.server.sendMessageToRoom(roomId, userName, message);
-        $('#message').val('');
-
+            chat.server.sendMessageToRoom(roomId, userName, message);
+            $('#message').val('');
+        }
     }
 
     function save() {
@@ -274,7 +296,7 @@
                 $(selclicked).click(function () {
                     leaveRoom(roomId);
                     $('#chatMessages').empty();
-                    setTimeout(() => { 
+                    setTimeout(() => {
                         roomId = ($(this).find('input').val().toString());
                         joinRoom(roomId);
                         LoadChatDetail();
@@ -297,7 +319,7 @@
                     $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
                 })
         };
-        
+
 
     </script>
 }
