@@ -229,7 +229,7 @@ namespace prjEShopping.Controllers
                 selleraccount.EmailCheck = verificationToken;
                 db.SaveChanges();
 
-                string relativeUrl = Url.Action("NewPassword", "SellerLogin", new { token = verificationToken });
+                string relativeUrl = Url.Action("NewPassword", "SellerLogin", new { token = verificationToken , account = sellerAccount });
                 string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
 
 
@@ -282,9 +282,9 @@ namespace prjEShopping.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewPassword(string Account, string newPassword)
+        public ActionResult NewPassword(string Accounts, string newPassword)
         {
-            var seller = db.Sellers.FirstOrDefault(a => a.SellerAccount == Account);
+            var seller = db.Sellers.FirstOrDefault(a => a.SellerAccount == Accounts);
             if (seller != null)
             {
                 seller.SellerPassword = newPassword;
