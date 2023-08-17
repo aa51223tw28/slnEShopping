@@ -274,29 +274,6 @@ namespace prjEShopping.Controllers
             }
             return View();
         }
-
-        public ActionResult NewPassword(string account)
-        {
-            ViewBag.Account = account;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult NewPassword(string Accounts, string newPassword)
-        {
-            var seller = db.Sellers.FirstOrDefault(a => a.SellerAccount == Accounts);
-            if (seller != null)
-            {
-                seller.SellerPassword = newPassword;
-                db.SaveChanges();
-
-                ViewBag.SuccessMessage = "儲存成功！即將在三秒後跳轉到登入頁面...";
-                return View();
-            }
-
-            ViewBag.ErrorMessage = "存取失敗，請重新操作。";
-            return View();
-        }
         public ActionResult Logout()
         {
             Session.Abandon();
