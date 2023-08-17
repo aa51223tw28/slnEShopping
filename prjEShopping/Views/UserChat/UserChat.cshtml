@@ -3,40 +3,118 @@
     ViewBag.Title = "UserChat";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
-<div class="container">
-    <div class="row">
-        <div class="col-3">
-            <div class="row">
-                <table class="table table-striped fw-bold">
-                    <thead>
-                        <tr>
-                            <th scope="col">聊天名單</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            foreach (var item in Model)
-                            {
-                                <tr><td class="btn-secondary"><btn>@item.SellerName<input type="hidden" value="@item.ChatroomId" /></btn></td></tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-9">
-            <div class="row">
-                <div id="chatMessages" style="height:256px;width:stretch;overflow:auto">
+
+<div class="bg-light">
+    <div class="container py-3">
+        <div class="row py-2 gx-5">
+            <div class="col-sm-auto col-md-3 bg-light">
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <img src="" class="img-fluid" id="userImagePath" style="width:130px">
+                        <span class="fw-bold ms-3" id="username"></span>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
+                    <div class="accordion mt-3" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    我的帳戶
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserMembers/UserEditProfile")" class="link-blue text-decoration-none fw-bold">個人檔案</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserMembers/UserEditPassword")" class="link-blue text-decoration-none fw-bold">修改密碼</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                    我的焦點
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                                <div class="accordion-body">
+                                    <ul class="navbar-nav me-auto">
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserOrder/UserOrderDetailAll")" class="link-blue text-decoration-none fw-bold">購買清單</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserCoupon/UserCouponList")" class="link-blue text-decoration-none fw-bold">優惠券</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowProduct")" class="link-blue text-decoration-none fw-bold">追蹤商品</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserFollow/UserFollowSeller")" class="link-blue text-decoration-none fw-bold">追蹤店家</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserSupport/UserCSList")" class="link-blue text-decoration-none fw-bold">聯絡客服</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="@Url.Content("~/UserChat/UserChat")" class="link-blue text-decoration-none fw-bold">聯絡商家</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 手風琴左邊選項區 -->
                 </div>
             </div>
-            <div class="row">
-                <input type="hidden" value="@User.Identity.Name" id="userName" placeholder="User Name" />
-                <input type="text" id="message" placeholder="Message" />
-                <button onclick="sendMessage()">傳送訊息</button>
+
+
+            <!-- 右邊分頁區 -->
+            <div class="col-sm-auto mt-sm-3 col-md-9 bg-warning mt-lg-0 rounded">
+                <p class="fs-4 mt-3 fw-bold">聯絡商家</p>
+                <hr>
+
+
+                <div class="row">
+                    <div class="col-3">
+                        <div class="row">
+                            <table class="table table-striped fw-bold">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">聊天名單</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (var item in Model)
+                                        {
+                                            <tr><td class="btn-secondary"><btn>@item.SellerName<input type="hidden" value="@item.ChatroomId" /></btn></td></tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                            <div id="chatMessages" style="height:256px;width:stretch;overflow:auto">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="hidden" value="@User.Identity.Name" id="userName" placeholder="User Name" />
+                            <input type="text" id="message" placeholder="Message" class="form-control"/>
+                            <button onclick="sendMessage()" class="btn btn-secondary mt-3">傳送訊息</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
 <script src="~/signalr/hubs"></script>
@@ -77,39 +155,41 @@
     }
 
 </script>
+
+
 @section Scripts{
-    <script>
-        const selmessages = document.querySelector('#chatMessages');
+<script>
+const selmessages = document.querySelector('#chatMessages');
 
-        $(document).ready(function () {
+$(document).ready(function () {
 
-            const selclicked = document.querySelectorAll('.btn-secondary');
-            $(selclicked).click(function () {
-                leaveRoom(roomId);
-                $('#chatMessages').empty();
-                setTimeout(() => {
-                    roomId = $(this).find('input').val();
-                    joinRoom(roomId);
-                    LoadChatDetail();
-                }, 100);
+const selclicked = document.querySelectorAll('.btn-secondary');
+$(selclicked).click(function () {
+leaveRoom(roomId);
+$('#chatMessages').empty();
+setTimeout(() => {
+    roomId = $(this).find('input').val();
+    joinRoom(roomId);
+    LoadChatDetail();
+}, 100);
 
-            });
-        });
+});
+});
 
-        function LoadChatDetail() {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', '@Url.Content("~/SellerMain/getChatDetail?roomId=")' + roomId);
-            xhr.send();
+function LoadChatDetail() {
+const xhr = new XMLHttpRequest();
+xhr.open('GET', '@Url.Content("~/SellerMain/getChatDetail?roomId=")' + roomId);
+xhr.send();
 
-                xhr.addEventListener('load', () => {
-                const datas = JSON.parse(xhr.responseText);
-                    let chatdetails = datas.map(chatlist => {
-                        return (`<p><strong>  ${chatlist.SenderName}  </strong>:   ${chatlist.Text}  </p>`)
-                    })
-                    selmessages.innerHTML = chatdetails.join("");
-                    $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
-                })
-        };
-    </script>
+xhr.addEventListener('load', () => {
+const datas = JSON.parse(xhr.responseText);
+    let chatdetails = datas.map(chatlist => {
+        return (`<p><strong>  ${chatlist.SenderName}  </strong>:   ${chatlist.Text}  </p>`)
+    })
+    selmessages.innerHTML = chatdetails.join("");
+    $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
+})
+};
+</script>
 }
 
