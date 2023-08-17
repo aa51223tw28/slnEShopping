@@ -11,48 +11,67 @@ else
 {
     foreach (var item in Model)
     {
-        <div class="d-flex me-5 coupon-item mb-5">
-            <img src="~/img/coupon.png" alt="">
-            <div class="d-flex flex-column p-2 bg-info">
-                <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
-                <span>
-                    @Html.DisplayFor(modelItem => item.Storewide)
-                    @if (item.CouponType == "折價券")
-                    {
-                        int discountValue;
-                        bool isConvertible = Int32.TryParse(item.Discount, out discountValue);
+<div class="d-flex me-5 coupon-item mb-5">
 
-                        if (isConvertible) // 確保轉換是成功的
-                        {
-                            if (discountValue % 10 == 0 && discountValue >= 10 && discountValue <= 90)
-                            {
-                                <text>@(discountValue / 10)折</text>
-                            }
-                            else
-                            {
-                                <text>@discountValue 折</text>
-                            }
-                        }
-                        else
-                        {
-                            <text>@item.Discount 折</text> // 或其他錯誤消息
-                        }
-                    }
-                    else if (item.CouponType == "抵用券")
+    @if (item.SellerId == 0)
+    {
+        <img src="~/img/couponall.png" />
+    }
+    else
+    {
+        var imgList = (List<prjEShopping.Models.ViewModels.ImgDto>)ViewBag.Img;
+
+        var imgLink = imgList.Where(x => x.SellerId == item.SellerId).Select(x => x.SellerImagePath).FirstOrDefault();
+
+        <img src="~/img/@imgLink" />
+    }
+    <div class="d-flex flex-column p-2 bg-info">
+        <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
+        <span>
+            @Html.DisplayFor(modelItem => item.Storewide)
+            @if (item.CouponType == "折價券")
+            {
+                int discountValue;
+                bool isConvertible = Int32.TryParse(item.Discount, out discountValue);
+
+                if (isConvertible) // 確保轉換是成功的
+                {
+                    if (discountValue % 10 == 0 && discountValue >= 10 && discountValue <= 90)
                     {
-                        <text>@Html.DisplayFor(modelItem => item.Discount)元</text>
+                        <text>@(discountValue / 10)折</text>
                     }
-                    else if (item.CouponType == "免運券")
+                    else
                     {
-                        <text>免運</text>
+                        <text>@discountValue 折</text>
                     }
-                </span>
-                <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
-                <div class="d-flex">
-                    <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
-                    <button type="button" class="btn btn-info ms-3">已使用</button>
-                </div>
-            </div>
+                }
+                else
+                {
+                    <text>@item.Discount 折</text> // 或其他錯誤消息
+                }
+            }
+            else if (item.CouponType == "抵用券")
+            {
+                <text>@Html.DisplayFor(modelItem => item.Discount)元</text>
+            }
+            else if (item.CouponType == "免運券")
+            {
+                <text>免運</text>
+            }
+        </span>
+        <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
+        <div class="d-flex">
+            @if (item.SellerId != 0)
+            {
+                <a href="@Url.Action("StoreMain", "SellerStore", new { sellerId = item.SellerId })">查看賣場</a>
+            }
+            else
+            {
+                <a href="#">查看賣場</a>
+            }
+            <button type="button" class="btn btn-info ms-3">已使用</button>
         </div>
+    </div>
+</div>
     }
 }
