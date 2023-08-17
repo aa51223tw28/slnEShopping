@@ -137,9 +137,9 @@
                             </div>
                             <div class="col-9">
                                 <div id="chatMessages" style="height: 208px; overflow: auto"></div>
-                                <input type="hidden" id="userName" value="@Model.SellerAccount" placeholder="User Name" />
+                                <input type="hidden" id="userName" value="@Model.StoreName" placeholder="User Name" />
                                 <input type="text" id="message" placeholder="Message" height="200" class="form-control"/>
-                                <button onclick="sendMessage()" class="btn btn-light ">傳送訊息</button>
+                                <button onclick="save(),sendMessage()" class="btn btn-light ">傳送訊息</button>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
 
     $.connection.hub.start();
 
-    
+
 
     function joinRoom(roomId) {
         if (roomId) {
@@ -174,7 +174,7 @@
     }
 
     function leaveRoom(roomId) {
-        
+
         if (roomId) {
             chat.server.leaveRoom(roomId);
         }
@@ -187,6 +187,12 @@
         chat.server.sendMessageToRoom(roomId, userName, message);
         $('#message').val('');
 
+    }
+
+    function save() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '@Url.Content("~/SellerMain/saveMessage?roomId=")' + roomId + '&text=' + $('#message').val());
+        xhr.send();
     }
 
 </script>
@@ -259,7 +265,7 @@
             xhr.addEventListener('load', () => {
                 const datas = JSON.parse(xhr.responseText);
                 let chatLists = datas.map(chatlist => {
-                    return (`<tr class="mt-2"><td><btn class="btn-secondary">${chatlist.UserName}<input type="hidden" value=${chatlist.ChatroomId}></btn></td></tr>`)
+                    return (`<tr class="mt-2"><td class="btn-secondary"><btn>${chatlist.UserName}<input type="hidden" value=${chatlist.ChatroomId}></btn></td></tr>`)
                 })
 
                 selchat.innerHTML = chatLists.join("");

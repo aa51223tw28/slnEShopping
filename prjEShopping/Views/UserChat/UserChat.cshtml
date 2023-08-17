@@ -154,6 +154,12 @@
 
     }
 
+    function save() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '@Url.Content("~/SellerMain/saveMessage?roomId=")' + roomId + '&text=' + $('#message').val());
+        xhr.send();
+    }
+
 </script>
 
 

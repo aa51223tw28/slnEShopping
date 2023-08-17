@@ -3,6 +3,7 @@ using prjEShopping.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
 using static System.Net.Mime.MediaTypeNames;
@@ -26,6 +27,7 @@ namespace prjEShopping.Controllers
             {
                 SellerName = x.SellerName,
                 SellerAccount = x.SellerAccount,
+                StoreName = x.StoreName,
                 Phone = x.Phone
             }).FirstOrDefault();
             // 將賣家資料傳遞給 SellerMain 頁面
@@ -146,6 +148,49 @@ namespace prjEShopping.Controllers
             return Json(chatDetail, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public ActionResult saveMessage(string roomId,string text) 
+        {
+            if (string.IsNullOrEmpty(roomId) || string.IsNullOrEmpty(text))
+            {
+                return Content("請輸入訊息");
+            }
+            else 
+            {
+                var db = new AppDbContext();
+                var addMessageToDb = new Message();
+                var senderId = "";
+                if (!string.IsNullOrEmpty(User.Identity.Name)) 
+                {
+                    senderId ="U"+(db.Users.Where(x => x.UserAccount == User.Identity.Name).Select(x => x.UserId).FirstOrDefault()).ToString();
+                    addMessageToDb.ChatroomId = Int32.Parse(roomId);
+                    addMessageToDb.Text = text;
+                    addMessageToDb.Timestamp = DateTime.Now;
+                    addMessageToDb.SenderId = senderId;
+                    db.Messages.Add(addMessageToDb);
+                    db.SaveChanges();
+                }
+                if (((int?)Session["SellerId"]).HasValue)
+                {
+                    senderId = "S" + ((int)Session["SellerId"]).ToString();
+                    addMessageToDb.ChatroomId = Int32.Parse(roomId);
+                    addMessageToDb.Text = text;
+                    addMessageToDb.Timestamp = DateTime.Now;
+                    addMessageToDb.SenderId = senderId;
+                    db.Messages.Add(addMessageToDb);
+                    db.SaveChanges();
+                }
+                else 
+                {
+                    addMessageToDb.ChatroomId = Int32.Parse(roomId);
+                    addMessageToDb.Text = text;
+                    addMessageToDb.Timestamp = DateTime.Now;
+                    addMessageToDb.SenderId = "U1";
+                    db.Messages.Add(addMessageToDb);
+                    db.SaveChanges();
+                }
+                return Json(1, JsonRequestBehavior.AllowGet);
+            }
+            
+        }
     }
 }

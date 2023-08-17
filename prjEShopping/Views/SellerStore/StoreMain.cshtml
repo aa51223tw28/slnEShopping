@@ -472,7 +472,7 @@
 
 
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', `@Url.Content("~/SellerStore/SaveOrClearFavorite?sellerid=")${userid}&userid=${sellerid}`);
+            xhr.open('GET', `@Url.Content("~/SellerStore/SaveOrClearFavorite?sellerid=")${sellerid}`);
             xhr.send()
 
             xhr.addEventListener('load', () =>
