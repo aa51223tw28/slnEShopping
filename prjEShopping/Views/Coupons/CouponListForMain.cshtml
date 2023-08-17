@@ -41,9 +41,16 @@
             @*<span>使用期限 @Html.DisplayFor(modelItem => item.StartTime)</span>*@
             <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
             <div class="d-flex">
-                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                @if (item.SellerId != 0)
+                {
+                    <a href="@Url.Action("StoreMain", "SellerStore", new { sellerId = item.SellerId })">查看賣場</a>
+                }
+                else
+                {
+                    <a href="#">查看賣場</a>
+                }
                 <a href="@Url.Action("UserCouponList", "UserCoupon")">
-                    <input type="button" class="btn btn-secondary ms-3" value="領取"/>
+                    <input type="button" class="btn btn-secondary ms-3" value="領取" />
                 </a>
             </div>
         </div>
