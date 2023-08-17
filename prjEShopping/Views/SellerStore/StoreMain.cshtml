@@ -107,214 +107,220 @@
                 <h2 class="pt-3 ps-2 fw-bold fs-3 text">折價券專區</h2>
             </div>
             <div class="bg-white border-1 d-flex flex-wrap">
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="~/img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
-                </div>
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="~/img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
-                </div>
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="~/img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
-                </div>
-                <div class="d-flex me-2 coupon-item mb-2">
-                    <img src="~/img/coupon.png" alt="">
-                    <div class="d-flex flex-column p-2 bg-info">
-                        <p>Apple折價券</p>
-                        <p>Apple全館打85折</p>
-                        <button type="button" class="btn btn-secondary ms-3">領取</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container mt-3 bg-success rounded pb-3">
-            <h2 class="pt-3 ps-2 fw-bold fs-3 text">推薦商品</h2>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="prmoted">
-            </div>
-        </div>
-        <div class="container mt-3 bg-success rounded pb-3" >
-            <h2 class="pt-3 ps-2 fw-bold fs-3 text">熱賣商品</h2>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="Top5"> 
-            </div>
-        </div>
-        <div class="row py-2">
-            <div class="col-3 d-flex flex-column">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <i class="fa-solid fa-bars"></i>
-                        <span class="ms-2">所有分類</span>
-                    </div>
-                    <button class="btn btn-secondary mt-2" id="isSelected">搜尋</button>
-                </div>
-                    @{ 
-                                var a = ViewBag.CategoriesGroupDetails as List<prjEShopping.Models.DTOs.SellerStoreGroupByCategoryIdDto>;
-                                var b = a.GroupBy(item => item.CategoryId);
-                                foreach (var itemCate in b)
-                                {
-                                    <div class="fs-5">
-                                        <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">@itemCate.FirstOrDefault().CategoryName</a>
-                                    </div>
-                                    var distinctSubcateNames = itemCate.Select(x => new{ x.SubcateName ,x.SubcategoryId} ).Distinct();
-                                    foreach ( var itemSub in distinctSubcateNames)
-                                    {
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="@itemSub.SubcategoryId" id="@itemSub.SubcategoryId" >
-                                                <label class="form-check-label">
-                                                    @itemSub.SubcateName
-                                                </label>
-                                            </div>
-                                        }
-                                }
+                @if (ViewBag.SellerId != null)
+                {
+                    @Html.Action("CouponListForSeller", "Coupons", new { SellerId = ViewBag.SellerId })
                 }
-                <hr>
-                <div class="d-flex align-items-center">
-                    <i class="fa-solid fa-bars"></i><span class="ms-2">品牌</span>
+            </div>
+                @*<div class="bg-white border-1 d-flex flex-wrap">
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
                 </div>
-                @{
-                        foreach (var item in ViewBag.Brands)
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+                <div class="d-flex me-2 coupon-item mb-2">
+                    <img src="~/img/coupon.png" alt="">
+                    <div class="d-flex flex-column p-2 bg-info">
+                        <p>Apple折價券</p>
+                        <p>Apple全館打85折</p>
+                        <button type="button" class="btn btn-secondary ms-3">領取</button>
+                    </div>
+                </div>
+            </div>*@
+            </div>
+            <div class="container mt-3 bg-success rounded pb-3">
+                <h2 class="pt-3 ps-2 fw-bold fs-3 text">推薦商品</h2>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="prmoted">
+                </div>
+            </div>
+            <div class="container mt-3 bg-success rounded pb-3">
+                <h2 class="pt-3 ps-2 fw-bold fs-3 text">熱賣商品</h2>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="Top5">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-3 d-flex flex-column">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <i class="fa-solid fa-bars"></i>
+                            <span class="ms-2">所有分類</span>
+                        </div>
+                        <button class="btn btn-secondary mt-2" id="isSelected">搜尋</button>
+                    </div>
+                    @{
+                        var a = ViewBag.CategoriesGroupDetails as List<prjEShopping.Models.DTOs.SellerStoreGroupByCategoryIdDto>;
+                        var b = a.GroupBy(item => item.CategoryId);
+                        foreach (var itemCate in b)
                         {
+                            <div class="fs-5">
+                                <i class="fa-solid fa-caret-down"></i><a href="#" class="link-blue text-decoration-none fw-bold">@itemCate.FirstOrDefault().CategoryName</a>
+                            </div>
+                            var distinctSubcateNames = itemCate.Select(x => new { x.SubcateName, x.SubcategoryId }).Distinct();
+                            foreach (var itemSub in distinctSubcateNames)
+                            {
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="@item.BrandId" id="@item.BrandId">
+                                    <input class="form-check-input" type="checkbox" value="@itemSub.SubcategoryId" id="@itemSub.SubcategoryId">
                                     <label class="form-check-label">
-                                        @item.BrandName
+                                        @itemSub.SubcateName
                                     </label>
                                 </div>
-                        }    
-                    }
-                
-                <hr>
-                <div class="d-flex align-items-center">
-                    <i class="fa-solid fa-bars"></i><span class="ms-2">價格範圍</span>
-                </div>
-                <div class="d-flex">
-                    <input type="text" class="form-control" placeholder="$最小值" aria-label="Username"
-                           aria-describedby="basic-addon1" id="pricelow">
-                    <span class="pt-3">―――</span>
-                    <input type="text" class="form-control" placeholder="$最大值" aria-label="Username"
-                           aria-describedby="basic-addon1" id="pricehigh">
-                </div>
-                <hr>
-                <div class="d-flex align-items-center">
-                    <i class="fa-solid fa-bars"></i><span class="ms-2">評價</span>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
-                                                                                   style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
-                                                                                                                                                                                                                                  style="color: #ffe180;"></i>
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
-                                                                                   style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
-                                                                                                                                                                                                                                  style="color: #ffe180;"></i>或以上
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
-                                                                                   style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
-                                                                                                                                                                                                                                    style="color: #ffe180;"></i>或以上
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
-                                                                                   style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
-                                                                                                                                                                                                                                      style="color: #ffe180;"></i>或以上
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label">
-                        <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
-                                                                                   style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
-                                                                                                                                                                                                                                      style="color: #ffe180;"></i>或以上
-                    </label>
-                </div>
-                <hr>
-                <div class="btn btn-secondary mt-2">清除全部</div>
-
-
-
-
-
-            </div>
-
-            <!-- 右邊內容 -->
-            <div class="col-9">
-                <div class="bg-warning p-3">
-                    <span class="me-3">篩選</span>
-                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
-                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
-                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
-                    <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
-                </div>
-                <!-- 商品開始 -->
-                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
-                    @{
-                        foreach ( var item in Model)
-                        {
-                            string productName = item.ProductName;
-                            if (productName.Length > 25)
-                            {
-                                productName = productName.Substring(0, 25);
                             }
-                        <div class="col">
-                            <div class="card w-100">
-                                <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
-                                <div class="card-body">
-                                    <p class="card-title">@productName</p>
-                                    <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>                           
-                                    @Html.ActionLink("了解更多...", "UserSingleProduct", "UserProduct", new { productid = item.ProductId }, new { Class = "text-decoration-none btn btn-secondary mb-2" })
-                                </div>
-                            </div>
-                        </div>
                         }
-                       }
-                    
+                    }
+                    <hr>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-bars"></i><span class="ms-2">品牌</span>
+                    </div>
+                    @{
+                        foreach (var item in ViewBag.Brands)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="@item.BrandId" id="@item.BrandId">
+                                <label class="form-check-label">
+                                    @item.BrandName
+                                </label>
+                            </div>
+                        }
+                    }
+
+                    <hr>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-bars"></i><span class="ms-2">價格範圍</span>
+                    </div>
+                    <div class="d-flex">
+                        <input type="text" class="form-control" placeholder="$最小值" aria-label="Username"
+                               aria-describedby="basic-addon1" id="pricelow">
+                        <span class="pt-3">―――</span>
+                        <input type="text" class="form-control" placeholder="$最大值" aria-label="Username"
+                               aria-describedby="basic-addon1" id="pricehigh">
+                    </div>
+                    <hr>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-bars"></i><span class="ms-2">評價</span>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label">
+                            <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                       style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                                                                                                                                                                      style="color: #ffe180;"></i>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label">
+                            <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                       style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                      style="color: #ffe180;"></i>或以上
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label">
+                            <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                       style="color: #ffe180;"></i><i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                        style="color: #ffe180;"></i>或以上
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label">
+                            <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-solid fa-star"
+                                                                                       style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                          style="color: #ffe180;"></i>或以上
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label">
+                            <i class="fa-solid fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                       style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star" style="color: #ffe180;"></i><i class="fa-regular fa-star"
+                                                                                                                                                                                                                                          style="color: #ffe180;"></i>或以上
+                        </label>
+                    </div>
+                    <hr>
+                    <div class="btn btn-secondary mt-2">清除全部</div>
+
+
+
+
+
                 </div>
-                <!-- 商品結束 -->
-                <!-- 分頁標籤 -->
-                <nav aria-label="Page navigation example ">
-                    <ul class="pagination justify-content-center mt-3">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+
+                <!-- 右邊內容 -->
+                <div class="col-9">
+                    <div class="bg-warning p-3">
+                        <span class="me-3">篩選</span>
+                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
+                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
+                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
+                        <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
+                    </div>
+                    <!-- 商品開始 -->
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
+                        @{
+                            foreach (var item in Model)
+                            {
+                                string productName = item.ProductName;
+                                if (productName.Length > 25)
+                                {
+                                    productName = productName.Substring(0, 25);
+                                }
+                                <div class="col">
+                                    <div class="card w-100">
+                                        <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-title">@productName</p>
+                                            <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>
+                                            @Html.ActionLink("了解更多...", "UserSingleProduct", "UserProduct", new { productid = item.ProductId }, new { Class = "text-decoration-none btn btn-secondary mb-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <!-- 商品結束 -->
+                    <!-- 分頁標籤 -->
+                    <nav aria-label="Page navigation example ">
+                        <ul class="pagination justify-content-center mt-3">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
 </div>
 @section Scripts
     { 

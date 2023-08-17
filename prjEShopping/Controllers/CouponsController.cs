@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -46,9 +47,10 @@ namespace prjEShopping.Controllers
         }
       
 
-        public ActionResult CouponListForSeller(int? SellerId)
+        public ActionResult CouponListForSeller(int? SellerId=null)
         { //等接商家頁面
-            SellerId = 1;
+            var img=db.Sellers.Where(x=>x.SellerId==SellerId).Select(x=>x.SellerImagePath).FirstOrDefault().ToString();
+            ViewBag.Img = img;
             if (SellerId != 0)
             {
                 var model = db.Coupons.Where(x => x.SellerId == SellerId).Coupon2VM();
