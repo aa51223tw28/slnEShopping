@@ -104,7 +104,7 @@
                         </div>
                         <div class="row">
                             <input type="hidden" value="@Model.FirstOrDefault().UserName" id="userName" placeholder="User Name" />
-                            <input type="text" id="message" placeholder="Message" class="form-control"/>
+                            <input type="text" id="message" placeholder="Message" class="form-control" />
                             <button onclick="save(),sendMessage()" class="btn btn-info mt-3">傳送訊息</button>
                         </div>
                     </div>
@@ -114,6 +114,22 @@
     </div>
 </div>
 
+@**@
+<div class="modal" id="chatModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                請先選擇聊天對象!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="confirmButton">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
@@ -146,12 +162,19 @@
     }
 
     function sendMessage() {
-        var userName = $('#userName').val();
-        var message = $('#message').val();
+        if (roomId === "" || null)
+        {
+            //alert("請先選擇聊天對象");
+            $("#chatModal").modal("show");
+        }
+        else
+        {
+            var userName = $('#userName').val();
+            var message = $('#message').val();
 
-        chat.server.sendMessageToRoom(roomId, userName, message);
-        $('#message').val('');
-
+            chat.server.sendMessageToRoom(roomId, userName, message);
+            $('#message').val('');
+        }
     }
 
     function save() {
@@ -164,7 +187,7 @@
 
 
 @section Scripts{
-<script>
+    <script>
 const selmessages = document.querySelector('#chatMessages');
 
 $(document).ready(function () {
@@ -196,6 +219,6 @@ const datas = JSON.parse(xhr.responseText);
     $('#chatMessages').scrollTop($('#chatMessages')[0].scrollHeight);
 })
 };
-</script>
+    </script>
 }
 
