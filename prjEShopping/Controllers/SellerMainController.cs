@@ -154,7 +154,11 @@ namespace prjEShopping.Controllers
         {
             if (string.IsNullOrEmpty(roomId) || string.IsNullOrEmpty(text))
             {
-                return Content("請輸入訊息");
+                return RedirectToAction("Index", "Main");
+            }
+            if(string.IsNullOrEmpty(User.Identity.Name) && !((int?)Session["SellerId"]).HasValue)
+            {
+                return RedirectToAction("Index", "Main");
             }
             else 
             {
