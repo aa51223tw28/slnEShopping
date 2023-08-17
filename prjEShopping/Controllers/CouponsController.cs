@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using prjEShopping.Models.EFModels;
 using prjEShopping.Models.ViewModels;
@@ -33,9 +34,17 @@ namespace prjEShopping.Controllers
             string decodedName = HttpUtility.UrlDecode(authCookie.Values["userName"]);
             ViewBag.AdminName = decodedName;
 
+            var imgList = db.Sellers.Select(x => new ImgDto
+            {
+                SellerImagePath = x.SellerImagePath,
+                SellerId = x.SellerId
+            }).ToList();
+            ViewBag.Img = imgList;
+
             var model = db.Coupons.Coupon2VM();
             return View(model);
         }
+      
 
         public ActionResult CouponListForSeller(int? SellerId)
         { //等接商家頁面
@@ -55,6 +64,12 @@ namespace prjEShopping.Controllers
           //隨機排序
             var random = new Random();
             var randomItems = model.OrderBy(x => random.Next()).Take(4).ToList();
+            var imgList = db.Sellers.Select(x => new ImgDto
+            {
+                SellerImagePath = x.SellerImagePath,
+                SellerId = x.SellerId
+            }).ToList();
+            ViewBag.Img = imgList;
             return View(randomItems);
         }
 

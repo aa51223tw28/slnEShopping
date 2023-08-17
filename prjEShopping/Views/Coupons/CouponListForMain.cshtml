@@ -3,7 +3,19 @@
 @foreach (var item in Model)
 {
     <div class="d-flex me-2 coupon-item mb-2">
-        <img src="~/img/coupon.png" alt="">
+        @if (item.SellerId == 0)
+        {
+
+            <img src="~/img/couponall.png" />
+        }
+        else
+        {
+            var imgList = (List<prjEShopping.Models.ViewModels.ImgDto>)ViewBag.Img;
+
+            var imgLink = imgList.Where(x => x.SellerId == item.SellerId).Select(x => x.SellerImagePath).FirstOrDefault();
+
+            <img src="~/img/@imgLink" class="border border-1 border-info" />
+        }
         <div class="d-flex flex-column p-2 bg-info">
             <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
             <span>
