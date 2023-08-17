@@ -15,6 +15,8 @@ using prjEShopping.Models.Infra;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using GoogleAuthentication.Services;
+using System.Windows;
+
 namespace prjEShopping.Controllers
 {
     public class SellerLoginController : Controller
@@ -64,29 +66,6 @@ namespace prjEShopping.Controllers
 
         }
         
-        public ActionResult SellerPasswordForgot()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult SellerPasswordForgot(string SellerAccount)
-        {
-            var seller = db.Sellers.FirstOrDefault(s => s.SellerAccount == SellerAccount);
-
-            if (seller == null)
-            {
-                ModelState.AddModelError("", "帳號不存在或無效。");
-                return View();
-            }
-
-            var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
-            EmailVerifyUrl.SendEmailUrl(SellerAccount, urlHelper, "EmailVerify", "Sellers");
-
-            ViewBag.Message = "郵件已發送，請檢查您的信箱！";
-
-            return View();
-        }
 
         public ActionResult SellerRegisterEmail(string token)
         {
@@ -140,7 +119,7 @@ namespace prjEShopping.Controllers
             }
 
             //發送驗證郵件
-            SendVerificationEmail(customerAccount);
+            SendVerificationEmailForgot(customerAccount);
             TempData["SuccessMessage"] = "驗證郵件已發送，請查收並完成驗證，5秒後自動登出頁面";
             return View(vm);
             //return RedirectToAction("UserLogin");
@@ -217,7 +196,29 @@ namespace prjEShopping.Controllers
             return hasUpperCase && hasLowerCase && hasDigit && hasSymbol;
         }
 
-        private void SendVerificationEmail(string sellerAccount)//發送驗證郵件
+
+        public ActionResult SellerPasswordForgot()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SellerPasswordForgot(string SellerAccount)
+        {
+            var seller = db.Sellers.FirstOrDefault(s => s.SellerAccount == SellerAccount);
+
+            if (seller == null)
+            {
+                ModelState.AddModelError("", "帳號不存在或無效。");
+                return View();
+            }
+            SendVerificationEmailForgot(seller.SellerAccount);
+
+            ViewBag.Message = "郵件已發送，請檢查您的信箱！";
+
+            return View();
+        }
+        private void SendVerificationEmailForgot(string sellerAccount)//發送驗證郵件
         {
             //生成驗證連結
             var db = new AppDbContext();
@@ -228,14 +229,13 @@ namespace prjEShopping.Controllers
                 selleraccount.EmailCheck = verificationToken;
                 db.SaveChanges();
 
-                //string verificationLink = "https://localhost:44388/UserMembers/UserVerifyEmail?token=" + verificationToken;
-                string relativeUrl = Url.Action("SellerVerifyEmail", "SellerLogin", new { token = verificationToken });
+                string relativeUrl = Url.Action("NewPassword", "SellerLogin", new { token = verificationToken });
                 string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
 
 
                 var fromAddress = new MailAddress("Eshopping17go@gmail.com", "E起購");
                 var toAddress = new MailAddress(sellerAccount);
-                string subject = "E起購修改密碼驗證信";
+                string subject = "E起購忘記密碼驗證信";
                 string body = $"<html><body><h3>請點擊以下連結驗證您的電子郵件:<a href=\"{absoluteUrl}\">驗證</a></h3></body></html>";
 
                 SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587)
@@ -272,6 +272,29 @@ namespace prjEShopping.Controllers
             {
                 TempData["ErrorMessage"] = "驗證已失敗";
             }
+            return View();
+        }
+
+        public ActionResult NewPassword(string account)
+        {
+            ViewBag.Account = account;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewPassword(string Account, string newPassword)
+        {
+            var seller = db.Sellers.FirstOrDefault(a => a.SellerAccount == Account);
+            if (seller != null)
+            {
+                seller.SellerPassword = newPassword;
+                db.SaveChanges();
+
+                ViewBag.SuccessMessage = "儲存成功！即將在三秒後跳轉到登入頁面...";
+                return View();
+            }
+
+            ViewBag.ErrorMessage = "存取失敗，請重新操作。";
             return View();
         }
         public ActionResult Logout()
