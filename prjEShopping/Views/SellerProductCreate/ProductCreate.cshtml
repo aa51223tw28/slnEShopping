@@ -53,7 +53,7 @@
                         <span class="fw-bold text-primary">商品名稱：</span>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="ProductName">
+                        <input type="text" name="ProductName" id="ProductName">
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -62,7 +62,7 @@
                         <span class="fw-bold text-primary">商品描述：</span>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="ProductDescription">
+                        <input type="text" name="ProductDescription" id="ProductDescription">
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -71,7 +71,7 @@
                         <span class="fw-bold text-primary">單價：</span>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="Price">
+                        <input type="text" name="Price" id="Price">
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -80,7 +80,7 @@
                         <span class="fw-bold text-primary">數量：</span>
                     </div>
                     <div class="col-4">
-                        <input type="text" name="Quantity">
+                        <input type="text" name="Quantity" id="Quantity">
                     </div>
                     <div class="col-4"></div>
                 </div>
@@ -105,6 +105,7 @@
         </div>
         <div class="container">
             <input type="submit" class="btn btn-secondary mt-2 align-items-center" value="儲存" id="btnsubmit"/>
+            <btn class="btn btn-secondary mx-2 mt-2" id="Demo">Demo</btn>
         </div>
     </form>
 </div>
@@ -276,6 +277,12 @@
             }
         });
 
+        $('#Demo').click(function () {
+            $('#ProductName').val("小米 Buds 3 藍牙耳機 黑色")
+            $('#ProductDescription').val("主動降噪耳塞式耳機，HiFi音質，長效電池續航力")
+            $('#Price').val("1895")
+            $('#Quantity').val("3")
+        })
 
     </script>
 }
