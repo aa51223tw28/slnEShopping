@@ -13,6 +13,11 @@
         <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
             <h5 class="border border-1">信件標題:@Html.DisplayFor(model => model.Support.SupportTitle)</h5>
             <h5 class="border border-1">發信時間:@Html.DisplayFor(model => model.Support.ReceivedTime)</h5>
+            @if (@Model.Support.ProductId != null)
+            {
+                <a href="@Url.Action("Index", "AdminProducts")" class="btn btn-secondary my-2" id="btn-addon1">選擇商品</a>
+            }
+            <h5 class="border border-1">發信時間:@Html.DisplayFor(model => model.Support.ReceivedTime)</h5>
         </div>
         <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
             <div>

@@ -57,7 +57,7 @@
                             @Html.DisplayFor(modelItem => item.ADEndDate)
                         </td>
                         <td>
-                            @if (item.ADStartDate <= DateTime.Now)
+                            @if (item.ADEndDate <= DateTime.Now)
                             {
                                 <span>已結束</span>
                             }

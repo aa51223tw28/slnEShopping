@@ -70,10 +70,12 @@
                         <div class="d-flex">
                             <a href="#">
                                 <h5 class="text-danger fw-bold" id="averageStarRating"></h5>
-                            </a><span class="ms-1 me-2">顆星</span>
+                            </a>
+                            <span class="ms-1 me-2">顆星</span>
                             <a href="#">
                                 <h5 class="text-danger fw-bold" id="totalRatings"></h5>
-                            </a><span class="ms-2 me-2">評價</span>
+                            </a>
+                            <span class="ms-2 me-2">評價</span>
                         </div>
                     </div>
                 </div>
@@ -82,8 +84,8 @@
                         <span>價格：</span>
                     </div>
                     @*<div class="col-9">
-                        <span class="fs-1 fw-bold text-danger">@Math.Round(Model.Price).ToString("C0")</span>
-                    </div>*@
+                            <span class="fs-1 fw-bold text-danger">@Math.Round(Model.Price).ToString("C0")</span>
+                        </div>*@
 
                     @if (Model.DiscountPrice != Model.Price)//要寫判斷式 有折扣
                     {
@@ -400,7 +402,10 @@
                     </div>
                     <div class="form-group">
                         <label for="content">內容：</label>
-                        <textarea class="form-control" id="SupportText" name="SupportText" rows="5" maxlength="500"></textarea>
+                        <textarea class="form-control" id="SupportText" name="SupportText" rows="5" maxlength="500">
+投訴商品:@Model.ProductName
+投訴原因:
+                         </textarea>
                         <input class="form-control" type="file" id="ImageFile" name="ImageFile">
                         <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
                         <input type="datetime" class="form-control" id="ReceivedTime" name="ReceivedTime" readonly value="@DateTime.Now" hidden>
