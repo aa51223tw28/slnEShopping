@@ -77,7 +77,7 @@
                     </td>
                     <td>
                         @Html.ActionLink("修改", "Edit", new { id = item.SellerId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("寄信", "CSSSendMail", "Support2", new { UserId = item.SellerId, Name = item.SellerName }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("寄信", "CSSSendMail", "Support2", new { SellerId = item.SellerId, Name = item.SellerName }, new { @class = "btn btn-primary" })
                     </td>
                 </tr>
             }
