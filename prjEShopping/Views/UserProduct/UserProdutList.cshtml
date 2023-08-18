@@ -338,7 +338,7 @@
                             <div class="card w-100">
                                 <img src="~/img/@Html.DisplayFor(modelItem => item.ProductImagePathOne)" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
-                                    <p class="card-title text-truncate">@Html.DisplayFor(modelItem => item.ProductName)</p>
+                                    <p class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</p>
 
                                     <span class="card-text text-danger fw-bold mb-1">@Math.Round(item.Price).ToString("C0")</span>
                                     <p style="font-size: 8px;" class="card-text mb-1">已售出：@(item.QuantitySold)</p>
@@ -500,7 +500,7 @@
                                 <div class="card w-100">
                                     <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                     <div class="card-body">
-                                        <p class="card-title text-truncate">${item.ProductName}</p>
+                                        <p class="card-title">${item.ProductName}</p>
                                         <span class="card-text text-danger fw-bold">NT$${Math.round(item.Price).toLocaleString()}</span>
                                         <p style="font-size: 8px;" class="card-text mb-1">已售出：${item.QuantitySold}</p>
                                         <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
@@ -582,7 +582,7 @@
                     <div class="card w-100">
                         <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                         <div class="card-body">
-                            <p class="card-title text-truncate">${item.ProductName}</p>
+                            <p class="card-title">${item.ProductName}</p>
                             <span class="card-text text-danger fw-bold">NT$${Math.round(item.Price).toLocaleString()}</span>
                             <p style="font-size: 8px;" class="card-text mb-1">已售出：${item.QuantitySold}</p>
                             <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>

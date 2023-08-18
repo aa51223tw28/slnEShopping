@@ -116,7 +116,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                請先選擇聊天對象!
+                請先選擇聊天對象或輸入訊息!
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="confirmButton">確定</button>
@@ -159,6 +159,9 @@
     function sendMessage() {
         if (roomId === "" || null) {
             //alert("請先選擇聊天對象");
+            $("#chatModal").modal("show");
+        }
+        if (!$('#message').val()) {
             $("#chatModal").modal("show");
         }
         else {
