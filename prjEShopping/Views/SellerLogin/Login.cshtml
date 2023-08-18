@@ -3,12 +3,11 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
 }
-<div class="bg-light">
+<div class="bg-light" style=" height:600px">
     <div class="container pt-2 col-6">
         <!-- Header -->
         <div class="modal-header">
             <h3>會員登入</h3>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <!-- Body -->
         <div class="modal-body">
@@ -34,15 +33,19 @@
             }
         </div>
         <!-- Footer -->
-        <div class="modal-footer">
+        <br />
+
+        <div class="modal-footer" style="height:100px">
+
             <div class="signup">
                 <span>尚未成為會員?</span>
-                <a href="@Url.Content("~/SellerRegister/Create")" type="button" class="link-blue text-decoration-none fw-bold"> 立即加入 </a>
+                <a href="@Url.Content("~/SellerRegister/Create")" type="button" class="link-blue text-decoration-none fw-bold" style="font-size:22px; color:red"> 立即加入!! </a>
             </div>
         </div>
+        <div class="btn btn-light border border-3" id="btndemoLogin" style="float:left">SellerDemo</div>
     </div>
 </div>
-<div class="btn btn-light border border-3" id="btndemoLogin">SellerDemo</div>
+
 <!-- 模态框 -->
 <div class="modal" id="errorModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered">
