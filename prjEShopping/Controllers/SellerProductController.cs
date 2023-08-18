@@ -20,7 +20,9 @@ namespace prjEShopping.Controllers
         // GET: SellerProduct
         public ActionResult SellerProductList(SellerKeyWordVM vm)
         {
-            int sellerid = (int)Session["SellerId"];
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             var db = new AppDbContext();
             if (string.IsNullOrEmpty(vm.KeyWord))
             {
@@ -77,6 +79,8 @@ namespace prjEShopping.Controllers
         }
         public ActionResult ProductEdit(int? id)
         {
+            if (id == null) 
+            { return RedirectToAction("Index", "SellerMain"); }
             var db = new AppDbContext();
             getAllOptionIds(id);
             int OptionIdOne = optionIds[0];
@@ -127,7 +131,9 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult ProductEdit(SellerProductCreateVM vm, HttpPostedFileBase photo1)
         {
-            int sellerid = (int)Session["SellerId"];
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             var db = new AppDbContext();
             var product = db.Products.FirstOrDefault(x => x.ProductId == vm.ProductID);
 
@@ -207,6 +213,8 @@ namespace prjEShopping.Controllers
         }
         public ActionResult ChangeStatus(int? id)
         {
+            if (id == null)
+            { return RedirectToAction("Index", "SellerMain"); }
             var db = new AppDbContext();
             var product = db.Products.Find(id);
             if (product.ProductStatusId == 2)
@@ -248,11 +256,12 @@ namespace prjEShopping.Controllers
             optionIds = optionIdsString
                 .Select(x => int.Parse(x))
                 .ToList();
-
         }
 
         public ActionResult setPromote(int? id)
         {
+            if (id == null)
+            { return RedirectToAction("Index", "SellerMain"); }
             var db = new AppDbContext();
             var countInPromote = db.Products.Where(x => x.Promote < 6).Count();
             if (countInPromote < 5)
@@ -281,23 +290,28 @@ namespace prjEShopping.Controllers
 
         public ActionResult clearPromote(int? id)
         {
+            if (id == null)
+            { return RedirectToAction("Index", "SellerMain"); }
             setToclearPromote(id);
             return RedirectToAction("SellerProductList");
         }
 
         public void setToclearPromote(int? id)
         {
-            var db = new AppDbContext();
-            var clearPrmote = db.Products.FirstOrDefault(x => x.ProductId == id);
-            var movePrmotes = db.Products.Where(x => x.Promote > clearPrmote.Promote);
+            if (id.HasValue) 
+            { 
+               var db = new AppDbContext();
+               var clearPrmote = db.Products.FirstOrDefault(x => x.ProductId == id);
+               var movePrmotes = db.Products.Where(x => x.Promote > clearPrmote.Promote);
 
-            clearPrmote.Promote = null;
+                clearPrmote.Promote = null;
 
-            foreach (var item in movePrmotes)
-            {
-                item.Promote = item.Promote - 1;
+                foreach (var item in movePrmotes)
+                {
+                 item.Promote = item.Promote - 1;
+                }
+                    db.SaveChanges();
             }
-            db.SaveChanges();
         }
     }
 }

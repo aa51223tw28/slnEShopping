@@ -77,5 +77,6 @@ namespace prjEShopping.Controllers
             }
             return View("~/Views/SellerMain/Index.cshtml");
         }
+       
     }
 }

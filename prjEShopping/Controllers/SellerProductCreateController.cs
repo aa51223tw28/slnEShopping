@@ -26,7 +26,9 @@ namespace prjEShopping.Controllers
         [HttpPost]
         public ActionResult ProductCreate(SellerProductCreateVM vm , HttpPostedFileBase photo1)
         {
-            int sellerid = (int)Session["SellerId"];
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             var db = new AppDbContext();
             var product = new Product();
 

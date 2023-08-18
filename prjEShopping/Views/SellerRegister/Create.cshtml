@@ -158,7 +158,8 @@
                         <a href="@Url.Action("Login","SellerLogin")" class="btn btn-outline-primary">返回首頁</a>
                     </div>
                 </div>
-                <div class="btn btn-light border border-3" id="btndemocreate">demo</div>
+                <div class="btn btn-light border border-3" id="btndemocreatewrong">密碼不對</div>
+                <div class="btn btn-light border border-3" id="btndemocreateright">密碼正確</div>
             </div>
         </div>
     }
@@ -235,14 +236,29 @@
         const ShippingMethodId = document.querySelector('#ShippingMethodId')
 
 
-        const btndemocreate = document.querySelector('#btndemocreate')
+        const btndemocreatewrong = document.querySelector('#btndemocreatewrong')
 
-        btndemocreate.addEventListener('click', () => {
+        btndemocreatewrong.addEventListener('click', () => {
             GUINumber.value = "29428318"
             SellerName.value = "Allen"
             StoreName.value = "Ispan"
             SellerAccount.value = "abamamatw@gmail.com"
             SellerPassword.value = "1234"
+            Address.value = "New Taipei"
+            Phone.value = "0954213245"
+            BankAccount.value = "954023532123456"
+            StoreIntro.value = "EASY SHOPPING !!最有熱忱的賣場!!"
+            PaymentMethodId.value = "1"
+            ShippingMethodId.value = "2"
+        })
+        const btndemocreateright = document.querySelector('#btndemocreateright')
+
+        btndemocreateright.addEventListener('click', () => {
+            GUINumber.value = "29428318"
+            SellerName.value = "Allen"
+            StoreName.value = "Ispan"
+            SellerAccount.value = "abamamatw@gmail.com"
+            SellerPassword.value = "Aa12345$"
             Address.value = "New Taipei"
             Phone.value = "0954213245"
             BankAccount.value = "954023532123456"

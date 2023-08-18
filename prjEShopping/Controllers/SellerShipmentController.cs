@@ -22,7 +22,9 @@ namespace prjEShopping.Controllers
 
         public ActionResult ShipmentList(SellerKeyWordVM vm)
         {
-            int sellerid = (int)Session["SellerId"];
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             List<SellerShipmentVM> datashow;
             AppDbContext db = new AppDbContext();
 
@@ -68,7 +70,9 @@ namespace prjEShopping.Controllers
 
         public ActionResult ShipmentDetail(string ShipNum, string Shiptatus)
         {
-            int sellerid = (int)Session["SellerId"];
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             //寄件明細
             var db = new AppDbContext();
             var data = db.ShipmentDetails.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
@@ -144,7 +148,9 @@ namespace prjEShopping.Controllers
 
         public ActionResult Cancle(string ShipNum)
         {
-            int sellerid = (int)Session["SellerId"];
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             var db = new AppDbContext();
 
             var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
@@ -189,7 +195,9 @@ namespace prjEShopping.Controllers
 
         public ActionResult ToShip(string ShipNum)
         {
-            int sellerid = (int)Session["SellerId"];
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             var db = new AppDbContext();
 
             var userorderid = db.Shipments.Where(x => x.ShipmentNumber == ShipNum).SingleOrDefault();
