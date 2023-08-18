@@ -77,5 +77,20 @@ namespace prjEShopping.Controllers
             }
             return View("~/Views/SellerMain/Index.cshtml");
         }
+        public ActionResult SellerPhotoName()//傳送api使用者圖片跟名字到layout
+        {
+            var customerAccount = User.Identity.Name;
+
+            var db = new AppDbContext();
+            var sellerid = db.Sellers.Where(x => x.SellerAccount == customerAccount).Select(x => x.SellerId).FirstOrDefault();
+
+            var sellerdata = db.Sellers.Where(x => x. SellerId== sellerid).Select(x => new SellerUpdateVM
+            {
+                SellerName = x.SellerName,
+                SellerImagePath = x.SellerImagePath,
+            }).FirstOrDefault();
+
+            return Json(sellerdata, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -32,14 +32,14 @@
         <div class="row col-md-6 bg-warning rounded justify-content:end">
 
             <div class="col-sm-9">
-                <div class="row mb-2">
+                @*<div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
                         <span>商家姓名：</span>
                     </div>
                     <div class="col-7">
-                        @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" }  })
                     </div>
-                </div>
+                </div>*@
                 <div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
                         <span>負責人姓名：</span>
@@ -48,14 +48,14 @@
                         @Html.EditorFor(model => model.SellerName, new { htmlAttributes = new { @class = "form-control", name = "SellerName" } })
                     </div>
                 </div>
-                <div class="row mb-2">
+                @*<div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
                         <span>統編：</span>
                     </div>
                     <div class="col-7">
                         @Html.DisplayFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                </div>
+                </div>*@
                 <div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
                         <span>使用者帳號<br />(電子郵件)：</span>
@@ -133,7 +133,7 @@
                 {
                     <div class="alert alert-danger">@TempData["Fail"]</div>
                 }
-                <input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()" />
+                @*<input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()" />*@
                 <br />
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -192,9 +192,9 @@
             }
         })
 
-        function redirectToResetPassword() {
+        @*function redirectToResetPassword() {
         window.location.href = '@Url.Content("~/SellerLogin/ResetPassword")';
-    }
+    }*@
    $(document).ready(function () {
     // 检查是否有成功消息，并在有消息时显示它
     var successMessage = $("#successMessage").text().trim();
