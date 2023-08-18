@@ -85,6 +85,9 @@
                                         <li class="nav-item">
                                             @Html.ActionLink("評價回覆", "SellerReply", "SellerReply", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
+                                        <li class="nav-item">
+                                            @Html.ActionLink("聯絡平台", "CSBList", "Support2", new { area = "" }, new { @class = "text-decoration-none" })
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -106,10 +109,10 @@
                                         </li>*@
                                         <li class="nav-item">
                                         <li class="nav-item">
-                                            @Html.ActionLink("新增商品(上架)", "ProductCreate", "SellerProductCreate", new { area = "" }, new { @class = "text-decoration-none" })
+                                            @Html.ActionLink("新增商品", "ProductCreate", "SellerProductCreate", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                         <li class="nav-item">                            
-                                            @Html.ActionLink("查詢商品(再上架)", "SellerProductList", "SellerProduct", new { area = "" }, new { @class = "text-decoration-none" })
+                                            @Html.ActionLink("商品一覽", "SellerProductList", "SellerProduct", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                     </ul>
                                 </div>
@@ -128,14 +131,14 @@
                                 <div class="accordion-body bg-primary">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                            @Html.ActionLink("訂單查詢(出貨)", "ShipmentList", "SellerShipment", new { area = "" }, new { @class = "text-decoration-none" })
+                                            @Html.ActionLink("訂單一覽", "ShipmentList", "SellerShipment", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
                                         @*<li class="nav-item">
                                             <a href="#" class="text-decoration-none">訂單修改(刪除)</a>
                                         </li>*@
-                                        <li class="nav-item">
+                                        @*<li class="nav-item">
                                             <a href="#" class="text-decoration-none">退貨</a>
-                                        </li>
+                                        </li>*@
                                     </ul>
                                 </div>
                             </div>
@@ -165,7 +168,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
+                        @*<div class="accordion-item">
                             <h2 class="accordion-header" id="panelsStayOpen-headingSix">
                                 <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
@@ -186,7 +189,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <div class="pre my-2 rounded fw-bold ">
