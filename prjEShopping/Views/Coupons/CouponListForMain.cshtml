@@ -6,7 +6,7 @@
         @if (item.SellerId == 0)
         {
 
-            <img src="~/img/couponall.png" />
+            <img src="~/img/couponall.png" / style="height:130px">
         }
         else
         {
@@ -14,7 +14,7 @@
 
             var imgLink = imgList.Where(x => x.SellerId == item.SellerId).Select(x => x.SellerImagePath).FirstOrDefault();
 
-            <img src="~/img/@imgLink" class="border border-1 border-info" />
+            <img src="~/img/@imgLink" class="border border-1 border-info" style="height:130px" />
         }
         <div class="d-flex flex-column p-2 bg-info">
             <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
