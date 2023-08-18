@@ -15,8 +15,10 @@ namespace prjEShopping.Controllers
     {
         // GET: SellerStore
         
-        public ActionResult StoreMain(int sellerid)
+        public ActionResult StoreMain(int? sellerid)
         {
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Index", "Main"); }
             var db = new AppDbContext();
 
             var userid = db.Users.Where(x => x.UserAccount == User.Identity.Name).Select(x => x.UserId).FirstOrDefault();

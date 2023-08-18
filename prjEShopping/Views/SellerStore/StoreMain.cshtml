@@ -62,7 +62,7 @@
                         <span class="fs-4 fw-bold">聊聊表現 :</span>
                     </div>
                     <div class="col-8">
-                        <span class="fs-4 fw-bold text-danger">50%</span>
+                        <span class="fs-4 fw-bold text-danger">68%</span>
                     </div>
                 </div>
                 <div class="row">
@@ -266,61 +266,61 @@
 
                 </div>
 
-                <!-- 右邊內容 -->
-                <div class="col-9">
-                    <div class="bg-warning p-3">
-                        <span class="me-3">篩選</span>
-                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
-                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
-                        <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
-                        <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
-                    </div>
-                    <!-- 商品開始 -->
-                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
-                        @{
-                            foreach (var item in Model)
-                            {
-                                string productName = item.ProductName;
-                                if (productName.Length > 25)
-                                {
-                                    productName = productName.Substring(0, 25);
-                                }
-                                <div class="col">
-                                    <div class="card w-100">
-                                        <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
-                                        <div class="card-body">
-                                            <p class="card-title">@productName</p>
-                                            <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>
-                                            @Html.ActionLink("了解更多...", "UserSingleProduct", "UserProduct", new { productid = item.ProductId }, new { Class = "text-decoration-none btn btn-secondary mb-2" })
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
-
-                    </div>
-                    <!-- 商品結束 -->
-                    <!-- 分頁標籤 -->
-                    <nav aria-label="Page navigation example ">
-                        <ul class="pagination justify-content-center mt-3">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+            <!-- 右邊內容 -->
+            <div class="col-9">
+                <div class="bg-warning p-3">
+                    <span class="me-3">篩選</span>
+                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnAll">全部</button>
+                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnHot">最熱銷</button>
+                    <button type="button" class="btn btn-outline-blue me-3 mb-1" id="btnPriceHight">價格：高到低</button>
+                    <button type="button" class="btn btn-outline-blue mb-1" id="btnPriceLow">價格：低到高</button>
                 </div>
+                <!-- 商品開始 -->
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3 mt-2" id="productContainer">
+                    @{
+                        foreach ( var item in Model)
+                        {
+                            string productName = item.ProductName;
+                            if (productName.Length > 25)
+                            {
+                                productName = productName.Substring(0, 25);
+                            }
+                        <div class="col">
+                            <div class="card w-100">
+                                <img src="~/img/@item.ProductImagePathOne" class="card-img-top px-4 pt-4" alt="...">
+                                <div class="card-body">
+                                    <p class="card-title text-truncate">@productName</p>
+                                    <p class="card-text text-danger fw-bold">@string.Format("{0:C0}", item.Price)</p>                           
+                                    @Html.ActionLink("了解更多...", "UserSingleProduct", "UserProduct", new { productid = item.ProductId }, new { Class = "text-decoration-none btn btn-secondary mb-2" })
+                                </div>
+                            </div>
+                        </div>
+                        }
+                       }
+                    
+                </div>
+                <!-- 商品結束 -->
+                <!-- 分頁標籤 -->
+                <nav aria-label="Page navigation example ">
+                    <ul class="pagination justify-content-center mt-3">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
+    </div>
 </div>
 @section Scripts
     { 
@@ -348,7 +348,7 @@
                              <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                  <div class="card-body">
                                      <input type="hidden" value="${product.ProductId}">
-                                     <p class="card-title">${product.ProductName.substring(0, 25)}</p>
+                                     <p class="card-title text-truncate">${product.ProductName.substring(0, 25)}</p>
                                      <p class="card-text text-danger fw-bold">NT$${Math.floor(product.Price).toLocaleString() }</p>
                                      <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${product.ProductId}"" class="btn btn-secondary">了解更多...</a><span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
                                  </div>
@@ -374,7 +374,7 @@
                              <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                  <div class="card-body">
                                      <input type="hidden" value="${product.ProductId}">
-                                     <p class="card-title">${product.ProductName.substring(0, 25)}</p>
+                                     <p class="card-title text-truncate">${product.ProductName.substring(0, 25)}</p>
                                      <p class="card-text text-danger fw-bold">NT$${Math.floor(product.Price).toLocaleString() }</p>
                                      <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${product.ProductId}"" class="btn btn-secondary">了解更多...</a><span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
                                  </div>
@@ -451,7 +451,7 @@
                             <div class="card w-100">
                                 <img src="/img/${item.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                 <div class="card-body">
-                                    <p class="card-title">${item.ProductName.substring(0, 25)}</p>
+                                    <p class="card-title text-truncate">${item.ProductName.substring(0, 25)}</p>
                                     <p class="card-text text-danger fw-bold">NT$${Math.floor(item.Price).toLocaleString()}</p>
                                     <a href="@Url.Action("UserSingleProduct", "UserProduct")?productid=${item.ProductId}" class="btn btn-secondary">了解更多...</a>
                                 </div>

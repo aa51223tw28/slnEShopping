@@ -50,7 +50,7 @@
                     <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                             data-bs-target="#panelsStayOpen-collapseNight" aria-expanded="false"
                             aria-controls="panelsStayOpen-collapseNight">
-                        特價活動中
+                        廣告進行中
                     </button>
                 </h2>
                 <div id="panelsStayOpen-collapseNight" class="accordion-collapse collapse show bg-info"
@@ -63,49 +63,8 @@
                                 </a>
                                 <div class="card-body">
                                     <h5 class="card-title">商品名稱</h5>
-                                    <p>
-                                        <span></span>
-                                    </p>
-                                    <P>
-                                        <span>
-                                            剩餘:
-                                        </span>
-                                        <span class="text-danger fw-bold ">
-                                            3小時22分16秒
-                                        </span>
-                                    </P>
-                                </div>
-                            </div>
-                            <div class="card me-3" style="width: 18rem;">
-                                <a href="#">
-                                    <img src="~/img/三星輪播圖.jpg" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">活動2</h5>
-                                    <P>
-                                        <span>
-                                            剩餘:
-                                        </span>
-                                        <span class="text-danger fw-bold ">
-                                            3小時22分16秒
-                                        </span>
-                                    </P>
-                                </div>
-                            </div>
-                            <div class="card me-3" style="width: 18rem;">
-                                <a href="#">
-                                    <img src="~/img/小米輪播圖.jpg" class="card-img-top" alt="...">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">活動3</h5>
-                                    <P>
-                                        <span>
-                                            剩餘:
-                                        </span>
-                                        <span class="text-danger fw-bold ">
-                                            3小時22分16秒
-                                        </span>
-                                    </P>
+                                    <p><span></span></p>
+                                    <P><span>剩餘:</span><span class="text-danger fw-bold ">3小時22分16秒</span></P>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +116,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                請先選擇聊天對象!
+                請先選擇聊天對象或輸入訊息!
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="confirmButton">確定</button>
@@ -202,6 +161,9 @@
             //alert("請先選擇聊天對象");
             $("#chatModal").modal("show");
         }
+        if (!$('#message').val()) {
+            $("#chatModal").modal("show");
+        }
         else {
             var userName = $('#userName').val();
             var message = $('#message').val();
@@ -240,9 +202,9 @@
                              <img src="/img/${product.ProductImagePathOne}" class="card-img-top px-4 pt-4" alt="...">
                                  <div class="card-body">
                                      <input type="hidden" value="${product.ProductId}">
-                                     <p class="card-title">${product.ProductName.substring(0, 25)}</p>
+                                     <p class="card-title text-truncate">${product.ProductName.substring(0, 25)}</p>
                                      <p class="card-text text-danger fw-bold">NT$${Math.floor(product.Price).toLocaleString() }</p>
-                                     <span class="text-danger fw-bold mx-2">已售出:${product.QuantitySold}</span>
+                                     <span class="text-dark small">已售出:${product.QuantitySold}</span>
                                  </div>
                          </div>
                      </div>`)
