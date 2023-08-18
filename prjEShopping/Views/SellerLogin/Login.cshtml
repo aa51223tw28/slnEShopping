@@ -43,6 +43,7 @@
             </div>
         </div>
         <div class="btn btn-light border border-3" id="btndemoLogin" style="float:left">SellerDemo</div>
+        <div class="btn btn-light border border-3" id="btndemoRegister" style="float:left">新註冊Demo</div>
     </div>
 </div>
 
@@ -80,6 +81,12 @@
         btndemoLogin.addEventListener('click', () => {
             SellerAccount.value = "Apple@gmail.com";
             SellerPassword.value = "Aa12345$";
+        });
+        const btndemoRegister = document.querySelector('#btndemoRegister');
+
+        btndemoLogin.addEventListener('click', () => {
+            SellerAccount.value = "abamamatw@gmail.com";
+            SellerPassword.value = "Aa19970421$";
         });
     </script>
 
