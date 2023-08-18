@@ -55,6 +55,14 @@ namespace prjEShopping.Controllers
                     EventStatus = c.EventStatus
                 })
                 .ToList();
+            //照片
+            var imgList = db.Sellers.Select(x => new ImgDto
+            {
+                SellerImagePath = x.SellerImagePath,
+                SellerId = x.SellerId
+            }).ToList();
+            ViewBag.Img = imgList;
+
             return View(model);
         }
 
@@ -87,6 +95,14 @@ namespace prjEShopping.Controllers
                 //todo 重連會出現Id
                 return RedirectToAction("UserCouponList");
             }
+
+            //照片
+            var imgList = db.Sellers.Select(x => new ImgDto
+            {
+                SellerImagePath = x.SellerImagePath,
+                SellerId = x.SellerId
+            }).ToList();
+            ViewBag.Img = imgList;
 
             return View(usersCoupon);
         }
@@ -122,6 +138,14 @@ namespace prjEShopping.Controllers
                           })
                           .ToList();
 
+            //照片
+            var imgList = db.Sellers.Select(x => new ImgDto
+            {
+                SellerImagePath = x.SellerImagePath,
+                SellerId = x.SellerId
+            }).ToList();
+            ViewBag.Img = imgList;
+
             return View(model);
         }
 
@@ -155,6 +179,13 @@ namespace prjEShopping.Controllers
                               EventStatus = c.EventStatus
                           })
                           .ToList();
+            //照片
+            var imgList = db.Sellers.Select(x => new ImgDto
+            {
+                SellerImagePath = x.SellerImagePath,
+                SellerId = x.SellerId
+            }).ToList();
+            ViewBag.Img = imgList;
 
             return View(model);
         }
@@ -189,6 +220,13 @@ namespace prjEShopping.Controllers
                               EventStatus = c.EventStatus
                           })
                           .ToList();
+            //照片
+            var imgList = db.Sellers.Select(x => new ImgDto
+            {
+                SellerImagePath = x.SellerImagePath,
+                SellerId = x.SellerId
+            }).ToList();
+            ViewBag.Img = imgList;
 
             return View(model);
         }

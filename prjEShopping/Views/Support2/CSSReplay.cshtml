@@ -13,6 +13,10 @@
         <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
             <h5 class="border border-1">信件標題:@Html.DisplayFor(model => model.Support.SupportTitle)</h5>
             <h5 class="border border-1">發信時間:@Html.DisplayFor(model => model.Support.ReceivedTime)</h5>
+            @if (@Model.Support.ProductId != null)
+            {
+                <a href="@Url.Action("Index", "AdminProducts")" class="btn btn-secondary my-2" id="btn-addon1">選擇商品</a>
+            }
         </div>
         <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
             <div>
@@ -63,7 +67,24 @@
                 <input type="text" id="SupportId" name="SupportId" class="form-control" value="@Model.Support.SupportId" hidden />
                 <input type="text" id="AdminId" name="AdminId" class="form-control" value="@ViewBag.AdminId" hidden />
                 <input type="text" id="ReplayTime" name="ReplayTime" class="form-control" value="@DateTime.Now" hidden />
-                <textarea id="ReplayText" name="ReplayText" class="form-control" style="height:300px"></textarea>
+                <textarea id="ReplayText" name="ReplayText" class="form-control" style="height:300px">
+親愛的客戶您好:
+
+關於您的來信，我們會積極處理。
+
+目前已通知相關單位進行了解，
+
+並做下列相關處理：
+[主要訊息內容。]
+
+如果您有任何問題或疑慮，請隨時回覆此郵件或聯繫我們的客服。
+
+再次感謝您的信任和支持。
+
+敬上，
+客服 @ViewBag.AdminName
+易起購股份有限公司 EShopping.com
+</textarea>
                 <input class="form-control" type="file" id="ImageFile" name="ImageFile">
                 <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
 

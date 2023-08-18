@@ -67,6 +67,12 @@ namespace prjEShopping.Models.ViewModels
         public string EventStatus { get; set; }
     }
 
+    public class ImgDto
+    {
+       public int SellerId {get; set;}
+       public string  SellerImagePath{get; set;}
+    }
+
     public static class CouponChange
     {
         public static CouponVM Coupon2VM(Coupon c)

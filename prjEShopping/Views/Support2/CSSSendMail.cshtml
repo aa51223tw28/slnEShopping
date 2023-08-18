@@ -78,7 +78,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SupportTitle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" required />
+                <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" value="客服通知："required />
                 @Html.ValidationMessageFor(model => model.SupportTitle, "", new { @class = "text-danger" })
             </div>
         </div>

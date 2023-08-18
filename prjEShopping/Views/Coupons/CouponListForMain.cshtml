@@ -3,7 +3,19 @@
 @foreach (var item in Model)
 {
     <div class="d-flex me-2 coupon-item mb-2">
-        <img src="~/img/coupon.png" alt="">
+        @if (item.SellerId == 0)
+        {
+
+            <img src="~/img/couponall.png" / style="height:130px">
+        }
+        else
+        {
+            var imgList = (List<prjEShopping.Models.ViewModels.ImgDto>)ViewBag.Img;
+
+            var imgLink = imgList.Where(x => x.SellerId == item.SellerId).Select(x => x.SellerImagePath).FirstOrDefault();
+
+            <img src="~/img/@imgLink" class="border border-1 border-info" style="height:130px" />
+        }
         <div class="d-flex flex-column p-2 bg-info">
             <span>@Html.DisplayFor(modelItem => item.CouponName) @Html.DisplayFor(modelItem => item.CouponType) </span>
             <span>
@@ -41,9 +53,16 @@
             @*<span>使用期限 @Html.DisplayFor(modelItem => item.StartTime)</span>*@
             <span>期限:  @Html.DisplayFor(modelItem => item.EndTime)</span>
             <div class="d-flex">
-                <a href="#">查看賣場<i class="fa-solid fa-caret-right"></i></a>
+                @if (item.SellerId != 0)
+                {
+                    <a href="@Url.Action("StoreMain", "SellerStore", new { sellerId = item.SellerId })">查看賣場</a>
+                }
+                else
+                {
+                    <a href="#">查看賣場</a>
+                }
                 <a href="@Url.Action("UserCouponList", "UserCoupon")">
-                    <input type="button" class="btn btn-secondary ms-3" value="領取"/>
+                    <input type="button" class="btn btn-secondary ms-3" value="領取" />
                 </a>
             </div>
         </div>
