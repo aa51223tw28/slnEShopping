@@ -17,19 +17,19 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="~/img/APPLE輪播圖.jpg" class="d-block w-100" alt="...">
+                    <img src="~/img/輪播圖1.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
                     <img src="~/img/dyson輪播圖.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="~/img/LG輪播圖.jpg" class="d-block w-100" alt="...">
+                    <img src="~/img/輪播圖2.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="~/img/三星輪播圖.jpg" class="d-block w-100" alt="...">
+                    <img src="~/img/輪播圖3.jpg" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="~/img/小米輪播圖.jpg" class="d-block w-100" alt="...">
+                    <img src="~/img/輪播圖4.jpg" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -129,66 +129,66 @@
                 <div class="row row-cols-auto row-cols-md-auto row-cols-lg-auto">
                     @{
                         var storeList = ViewBag.StoreList as List<prjEShopping.Models.EFModels.Seller>;
-                   
-                         foreach (var item in storeList)
-                            {
+
+                        foreach (var item in storeList)
+                        {
                             <a href="~/SellerStore/StoreMain?sellerid=@item.SellerId" class="mb-3 col">
                                 <div class="card">
 
                                     <img src="~/img/@item.SellerImagePath" class="card-img-top p-2" alt="...">
                                     <h5 class="card-title text-blue text-center fw-bold ">@item.StoreName</h5>
                                 </div>
-                                </a>
-                            } }
+                            </a>
+                        } }
                     @*<a href="#" class="mb-3 col">
-                        <div class="card">
-                            <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
-                            <h5 class="card-title text-blue text-center fw-bold">小米</h5>
-                        </div>
-                    </a>
-                    <a href="#" class="mb-3 col">
-                        <div class="card">
-                            <img src="~/img/tk3c.png" class="card-img-top p-2" alt="...">
-                            <h5 class="card-title text-blue text-center fw-bold">燦坤</h5>
-                        </div>
-                    </a>
-                    <a href="#" class="mb-3 col">
-                        <div class="card">
-                            <img src="~/img/sony128px.png" class="card-img-top p-2" alt="...">
-                            <h5 class="card-title text-blue text-center fw-bold">SONY</h5>
-                        </div>
-                    </a>
-                    <a href="#" class="mb-3 col">
-                        <div class="card">
-                            <img src="~/img/Panasonic128px.png" class="card-img-top p-2" alt="...">
-                            <h5 class="card-title text-blue text-center fw-bold">Panasonic</h5>
-                        </div>
-                    </a>
-                    <a href="#" class="mb-3 col">
-                        <div class="card">
-                            <img src="~/img/apple-logo128px.png" class="card-img-top p-2" alt="...">
-                            <h5 class="card-title text-blue text-center fw-bold">Apple</h5>
-                        </div>
-                    </a>
-                    <a href="#" class="mb-3 col">
-                        <div class="card">
-                            <img src="~/img/samsung128px.png" class="card-img-top p-2" alt="...">
-                            <h5 class="card-title text-blue text-center fw-bold">Samsung</h5>
-                        </div>
-                    </a>
-                    <a href="#" class="mb-3 col">
-                        <div class="card">
-                            <img src="~/img/sampo128px.png" class="card-img-top p-2" alt="...">
-                            <h5 class="card-title text-blue text-center fw-bold">SAMPO</h5>
-                        </div>
-                    </a>*@
+                            <div class="card">
+                                <img src="~/img/xiaomi128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">小米</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="mb-3 col">
+                            <div class="card">
+                                <img src="~/img/tk3c.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">燦坤</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="mb-3 col">
+                            <div class="card">
+                                <img src="~/img/sony128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">SONY</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="mb-3 col">
+                            <div class="card">
+                                <img src="~/img/Panasonic128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">Panasonic</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="mb-3 col">
+                            <div class="card">
+                                <img src="~/img/apple-logo128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">Apple</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="mb-3 col">
+                            <div class="card">
+                                <img src="~/img/samsung128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">Samsung</h5>
+                            </div>
+                        </a>
+                        <a href="#" class="mb-3 col">
+                            <div class="card">
+                                <img src="~/img/sampo128px.png" class="card-img-top p-2" alt="...">
+                                <h5 class="card-title text-blue text-center fw-bold">SAMPO</h5>
+                            </div>
+                        </a>*@
                 </div>
             </div>
         </div>
     </div>
-                    
-</div>
-    
+
+
+
 
 
 
@@ -267,7 +267,7 @@
         </div>
     </div>
 
-
+</div>
 
 @section Scripts
     {
