@@ -44,6 +44,7 @@
         </div>
         <div class="btn btn-light border border-3" id="btndemoLogin" style="float:left">SellerDemo</div>
         <div class="btn btn-light border border-3" id="btndemoRegister" style="float:left">新註冊Demo</div>
+        <div class="btn btn-light border border-3" id="btndemoNew" style="float:left">新密碼Demo</div>
     </div>
 </div>
 
@@ -85,6 +86,13 @@
         const btndemoRegister = document.querySelector('#btndemoRegister');
 
         btndemoRegister.addEventListener('click', () => {
+            SellerAccount.value = "abamamatw@gmail.com";
+            SellerPassword.value = "Aa12345$";
+        });
+
+        const btndemoNew = document.querySelector('#btndemoNew');
+
+        btndemoNew.addEventListener('click', () => {
             SellerAccount.value = "abamamatw@gmail.com";
             SellerPassword.value = "Aa19970421$";
         });
