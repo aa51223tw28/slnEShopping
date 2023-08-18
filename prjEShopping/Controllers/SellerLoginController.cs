@@ -229,7 +229,7 @@ namespace prjEShopping.Controllers
                 selleraccount.EmailCheck = verificationToken;
                 db.SaveChanges();
 
-                string relativeUrl = Url.Action("NewPassword", "SellerLogin", new { token = verificationToken });
+                string relativeUrl = Url.Action("NewPassword", "SellerLogin", new { token = verificationToken , account = sellerAccount });
                 string absoluteUrl = Request.Url.Scheme + "://" + Request.Url.Authority + relativeUrl;
 
 
@@ -272,29 +272,6 @@ namespace prjEShopping.Controllers
             {
                 TempData["ErrorMessage"] = "驗證已失敗";
             }
-            return View();
-        }
-
-        public ActionResult NewPassword(string account)
-        {
-            ViewBag.Account = account;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult NewPassword(string Account, string newPassword)
-        {
-            var seller = db.Sellers.FirstOrDefault(a => a.SellerAccount == Account);
-            if (seller != null)
-            {
-                seller.SellerPassword = newPassword;
-                db.SaveChanges();
-
-                ViewBag.SuccessMessage = "儲存成功！即將在三秒後跳轉到登入頁面...";
-                return View();
-            }
-
-            ViewBag.ErrorMessage = "存取失敗，請重新操作。";
             return View();
         }
         public ActionResult Logout()
