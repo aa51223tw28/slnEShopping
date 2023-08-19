@@ -30,7 +30,7 @@
         </div>
         <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
             <div>
-                <textarea class="border border-1" style="width:100%;height:300px"> @Html.DisplayFor(model => model.Support.SupportText)</textarea>
+                <textarea class="border border-1" style="width:100%;height:300px" readonly> @Html.DisplayFor(model => model.Support.SupportText)</textarea>
             </div>
             <div class="my-2">
                 @if (@Model.Support.ImageLink != null)
@@ -85,7 +85,7 @@
 目前已通知相關單位進行了解，
 
 並做下列相關處理：
-[主要訊息內容。]
+[商品已下架審核!]
 
 如果您有任何問題或疑慮，請隨時回覆此郵件或聯繫我們的客服。
 

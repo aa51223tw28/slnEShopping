@@ -16,7 +16,7 @@
             </div>
             <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
                 <div>
-                    <textarea class="border border-1" style="width:100%;height:300px"> @Html.DisplayFor(model => model.Support.SupportText)</textarea>
+                    <textarea class="border border-1" style="width:100%;height:300px" readonly> @Html.DisplayFor(model => model.Support.SupportText)</textarea>
                 </div>
                 <div class="my-2">
                     @if (@Model.Support.ImageLink != null)
@@ -63,7 +63,10 @@
                     <input type="text" id="SupportId" name="SupportId" class="form-control" value="@Model.Support.SupportId" hidden />
                     <input type="text" id="SellerId" name="SellerId" class="form-control" value="@ViewBag.SellerId" hidden />
                     <input type="text" id="ReplayTime" name="ReplayTime" class="form-control" value="@DateTime.Now" hidden />
-                    <textarea id="ReplayText" name="ReplayText" class="form-control" style="height:300px"></textarea>
+                    <textarea id="ReplayText" name="ReplayText" class="form-control" style="height:300px">
+已通知相關單位處理，造成不便還請見諒!
+Apple
+</textarea>
                     <input class="form-control" type="file" id="ImageFile" name="ImageFile">
                     <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
 
