@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "營運儀表板";
+    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
+}
+
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+    <h2>營運儀表板</h2>
+
+    @if (ViewBag.SellerId == 1)
+    {
+        <div>
+            <iframe title="Report Section" width="1000" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiNzYwZmUzOTEtZmQxYi00NzcwLTliMWItNDJkMDk3MmI2MTFkIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+
+        <a href="https://app.powerbi.com/view?r=eyJrIjoiNzYwZmUzOTEtZmQxYi00NzcwLTliMWItNDJkMDk3MmI2MTFkIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D">網頁版</a>
+    }
+    else if (ViewBag.SellerId == 2)
+    {
+<div>
+    <iframe title="Report Section" width="1000" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiZmE2MzNhZWYtZWZiMS00NWJhLTg5ODgtNmZmODNjOTc1MTRkIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+</div>
+
+        <a href="https://app.powerbi.com/view?r=eyJrIjoiZmE2MzNhZWYtZWZiMS00NWJhLTg5ODgtNmZmODNjOTc1MTRkIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D">網頁版</a>
+    }
+    else if (ViewBag.SellerId == 3)
+    {
+<div>
+    <iframe title="Report Section" width="1000" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiYWY1OGMyOTQtZjUxOC00ZmJlLThiNTYtOGUyNzA1ODZiZDcwIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+</div>
+
+        <a href="https://app.powerbi.com/view?r=eyJrIjoiYWY1OGMyOTQtZjUxOC00ZmJlLThiNTYtOGUyNzA1ODZiZDcwIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D">網頁版</a>
+    }
+    else if (ViewBag.SellerId == 4)
+    {
+<div>
+    <iframe title="Report Section" width="1000" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiYTQ0ODRhNWUtYmI2NC00NjZmLWE2YzEtNDQwMWJkODJlNDVhIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+</div>
+
+        <a href="https://app.powerbi.com/view?r=eyJrIjoiYTQ0ODRhNWUtYmI2NC00NjZmLWE2YzEtNDQwMWJkODJlNDVhIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D">網頁版</a>
+    }
+    else if (ViewBag.SellerId == 5)
+    {
+<div>
+    <iframe title="Report Section" width="1000" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiY2RhOWJlZjctMGY4YS00OTRiLTkwY2QtMzA0ODdhOWJiMGE2IiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+</div>
+
+        <a href="https://app.powerbi.com/view?r=eyJrIjoiY2RhOWJlZjctMGY4YS00OTRiLTkwY2QtMzA0ODdhOWJiMGE2IiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D">網頁版</a>
+    }
+    else if (ViewBag.SellerId == 6)
+    {
+<div>
+    <iframe title="Report Section" width="1000" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiM2Y1YjBhMzUtZTkwZS00MTVmLThiZjQtYTZmMTE0NjY1ZWIwIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+</div>
+
+        <a href="https://app.powerbi.com/view?r=eyJrIjoiM2Y1YjBhMzUtZTkwZS00MTVmLThiZjQtYTZmMTE0NjY1ZWIwIiwidCI6ImE0M2Y2Y2QzLTU0MTItNGIxZi1hMTM0LTJjMjc3MzY0Y2FmNiIsImMiOjEwfQ%3D%3D">網頁版</a>
+    }
+
+    else
+    {
+        <h2 class="text-primary">數據尚未更新，還請耐心等候</h2>
+    }
+</div>

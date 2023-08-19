@@ -168,7 +168,7 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="accordion-item">
+                        <div class="accordion-item">
                             <h2 class="accordion-header" id="panelsStayOpen-headingSix">
                                 <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
@@ -181,15 +181,15 @@
                                 <div class="accordion-body bg-primary">
                                     <ul class="navbar-nav me-auto">
                                         <li class="nav-item">
-                                            <a href="#" class="text-decoration-none">營運表現</a>
+                                            @Html.ActionLink("營運數據", "SellerIndex", "PowerBI", new { area = "" }, new { @class = "text-decoration-none" })
                                         </li>
-                                        <li class="nav-item">
+                                        @*<li class="nav-item">
                                             <a href="#" class="text-decoration-none">賣家數據</a>
-                                        </li>
+                                        </li>*@
                                     </ul>
                                 </div>
                             </div>
-                        </div>*@
+                        </div>
                     </div>
                 </div>
                 <div class="pre my-2 rounded fw-bold ">
