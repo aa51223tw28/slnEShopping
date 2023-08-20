@@ -10,13 +10,13 @@
     @RenderSection("Scriptshead", required: false)
     <script src="~/Scripts/sweetalert2.js"></script>
     @*右邊的按鈕*@
-    <style>
+    <!--<style>
         .centered-btn {
             top: 50%;
             left: 90%;
             transform: translate(-50%, -50%); /* Adjusts the position to make sure the center of the button group is the exact center of the screen */
         }
-    </style>
+    </style>-->
 </head>
 <body>
 
@@ -28,10 +28,10 @@
     }
 
     @*右邊的按鈕*@
-    <div class="btn-group-vertical position-fixed centered-btn">
+    <!--<div class="btn-group-vertical position-fixed centered-btn">
         <button id="scrollTop" class="btn btn-info">Top</button>
         <button id="scrollBottom" class="btn btn-danger text-white">限時特賣</button>
-    </div>
+    </div>-->
 
     <header class="bg-primary sticky-top">
         <div class="container">
@@ -293,18 +293,18 @@
         window.open('@Url.Content("~/Robot/Index")', '線上客服', options);
         }
 
-        //右邊的浮動按鈕
-        $(document).ready(function () {
-            // Scroll to top
-            $("#scrollTop").click(function () {
-                $("html, body").animate({ scrollTop: 0 }, "slow");
-            });
+        ////右邊的浮動按鈕
+        //$(document).ready(function () {
+        //    // Scroll to top
+        //    $("#scrollTop").click(function () {
+        //        $("html, body").animate({ scrollTop: 0 }, "slow");
+        //    });
 
-            // Scroll to bottom
-            $("#scrollBottom").click(function () {
-                $("html, body").animate({ scrollTop: $(document).height() - $(window).height() }, "slow");
-            });
-        });
+        //    // Scroll to bottom
+        //    $("#scrollBottom").click(function () {
+        //        $("html, body").animate({ scrollTop: $(document).height() - $(window).height() }, "slow");
+        //    });
+        //});
     </script>
 
     @RenderSection("Scripts", required: false)@*引用js或jquery*@
