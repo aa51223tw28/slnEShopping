@@ -33,13 +33,13 @@
 
             <div class="col-sm-9">
                 @*<div class="row mb-2">
-            <div class="col-5 d-flex align-items-center">
-                <span>商家姓名：</span>
-            </div>
-            <div class="col-7">
-                @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" }  })
-            </div>
-        </div>*@
+                        <div class="col-5 d-flex align-items-center">
+                            <span>商家姓名：</span>
+                        </div>
+                        <div class="col-7">
+                            @Html.DisplayFor(model => model.StoreName, new { htmlAttributes = new { @class = "form-control" }  })
+                        </div>
+                    </div>*@
                 <div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
                         <span>負責人姓名：</span>
@@ -49,13 +49,13 @@
                     </div>
                 </div>
                 @*<div class="row mb-2">
-            <div class="col-5 d-flex align-items-center">
-                <span>統編：</span>
-            </div>
-            <div class="col-7">
-                @Html.DisplayFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>*@
+                        <div class="col-5 d-flex align-items-center">
+                            <span>統編：</span>
+                        </div>
+                        <div class="col-7">
+                            @Html.DisplayFor(model => model.GUINumber, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>*@
                 <div class="row mb-2">
                     <div class="col-5 d-flex align-items-center">
                         <span>使用者帳號<br />(電子郵件)：</span>
@@ -126,7 +126,7 @@
                 <div class="form-group">
                     請輸入密碼:
                     <div class="col-md-12">
-                        @Html.PasswordFor(model => model.SellerPassword, new { @class = "form-control" })
+                        @Html.EditorFor(model => model.SellerPassword, new { htmlAttributes = new { @class = "form-control mt-3", id = "SellerPassword" } })
                     </div>
                 </div>
                 @if (TempData["Fail"] != null)
@@ -146,7 +146,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="btn btn-light border border-3" id="btnupdate" style="float:left">修改Demo</div>
             </div>
         </div>
     }
@@ -203,26 +202,7 @@
         setTimeout(function () {
             $("#successMessage").fadeOut("slow");
         }, 5000); // 5秒后隐藏成功消息
-    }
-});
-        const SellerName = document.querySelector('#SellerName')
-        const SellerAccount = document.querySelector('#SellerAccount')
-        const Address = document.querySelector('#Address')
-        const Phone = document.querySelector('#Phone')
-        const BankAccount = document.querySelector('#BankAccount')
-        const StoreIntro = document.querySelector('#StoreIntro')
-        const PaymentMethodId = document.querySelector('#PaymentMethodId')
-        const ShippingMethodId = document.querySelector('#ShippingMethodId')
-
-        const btnupdate = document.querySelector('#btnupdate')
-
-        btnupdate.addEventListener('click', () => {
-            SellerName.value = "Allen"
-            Address.value = "台北市大安區"
-            Phone.value = "0956452157"
-            BankAccount.value = "565473257527"
-            PaymentMethodId.value = "2"
-            ShippingMethodId.value = "3"
-        })
+   
+   });
     </script>
 }

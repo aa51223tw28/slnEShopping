@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_LayoutAdminelse.cshtml";
 }
 
-<div class="col-10 bg-secondary overflow-auto pt-4">
     <h2>商家列表</h2>
     <hr />
     <table class="table table-primary table-bordered" id="myTable">
@@ -13,6 +12,9 @@
             <tr>
                 <th>
                     商標
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SellerId)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.StoreName)
@@ -38,6 +40,9 @@
                 <tr>
                     <td>
                         <img src="~/img/@Html.DisplayFor(modelItem => item.SellerImagePath)" alt="Description" style="height:40px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellerId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.StoreName)
@@ -76,15 +81,14 @@
                         <button data-seller-id="@item.SellerId" data-status="3" class="btn btn-danger change-status-btn">停權中</button>
                     </td>
                     <td>
-                        @Html.ActionLink("修改", "Edit", new { id = item.SellerId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("寄信", "CSSSendMail", "Support2", new { SellerId = item.SellerId, Name = item.SellerName }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("修改", "Edit", new { id = item.SellerId }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("寄信", "CSSSendMail", "Support2", new { SellerId = item.SellerId, Name = item.SellerName }, new { @class = "btn btn-info" })
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 
-</div>
 @section Scripts{
 
     <!-- DataTables BS5版本-->

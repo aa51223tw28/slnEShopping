@@ -16,6 +16,9 @@
                     用戶頭像
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.UserName)
                 </th>
                 <th>
@@ -43,6 +46,9 @@
                 <tr>
                     <td>
                         <img src="~/img/@Html.DisplayFor(modelItem => item.UserImagePath)" alt="Description" style="height:40px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.UserName)
@@ -92,8 +98,8 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("編輯", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("寄信", "CSSSendMail", "Support2", new { UserId = item.UserId, Name = item.UserName }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("編輯", "Edit", new { id = item.UserId }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("寄信", "CSSSendMail", "Support2", new { UserId = item.UserId, Name = item.UserName }, new { @class = "btn btn-info" })
                     </td>
                 </tr>
             }

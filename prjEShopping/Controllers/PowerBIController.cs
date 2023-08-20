@@ -21,5 +21,16 @@ namespace prjEShopping.Controllers
 
             return View();
         }
+
+        public ActionResult SellerIndex()
+        {
+            int? sellerId = Session["SellerId"] as int?;
+            if (sellerId == null)
+            { return RedirectToAction("Login", "SellerLogin"); }
+            else
+            { sellerId = (int)Session["SellerId"]; }
+            ViewBag.SellerId = sellerId;
+            return View();
+        }
     }
 }

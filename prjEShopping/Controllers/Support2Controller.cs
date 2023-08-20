@@ -241,8 +241,13 @@ namespace prjEShopping.Controllers
         //商家端列表
         public ActionResult CSBList(int? sellerId = null)
         {
-            sellerId = 1;
+            sellerId = Session["SellerId"] as int?;
+            if (sellerId == null)
+            { return RedirectToAction("Login", "SellerLogin"); }
+            else
+            { sellerId = (int)Session["SellerId"]; }
             ViewBag.SellerId = sellerId;
+
             var s = db.Supports.Where(x => x.SellerId == sellerId).ToList();
             var model = SupportChange.Support2VM(s);
             return View(model);
@@ -252,8 +257,13 @@ namespace prjEShopping.Controllers
         //商家端寄信
         public ActionResult CSBSendMail(int? sellerId = null)
         {  //商家頁面寄信
-            sellerId = 1;
+            sellerId = Session["SellerId"] as int?;
+            if (sellerId == null)
+            { return RedirectToAction("Login", "SellerLogin"); }
+            else
+            { sellerId = (int)Session["SellerId"]; }
             ViewBag.SellerId = sellerId;
+
             var model = new SupportVM();
             //編號生成
             ViewBag.SupportNum = GenerateSupportNumberS();
@@ -279,8 +289,12 @@ namespace prjEShopping.Controllers
         public ActionResult CSBReplay(int? id)
         {
             //帳號登入代入
-            var SellerId = 1;
-            ViewBag.SellerId = SellerId;
+            var sellerId = Session["SellerId"] as int?;
+            if (sellerId == null)
+            { return RedirectToAction("Login", "SellerLogin"); }
+            else
+            { sellerId = (int)Session["SellerId"]; }
+            ViewBag.SellerId = sellerId;
             if (!id.HasValue)
             {
                 // 返回錯誤或重定向，因為沒有指定ID

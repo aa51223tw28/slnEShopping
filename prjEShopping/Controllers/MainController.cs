@@ -14,7 +14,7 @@ namespace prjEShopping.Controllers
         public ActionResult Index()
         {
             var db = new AppDbContext();
-            var storeList = db.Sellers.ToList();
+            var storeList = db.Sellers.Take(7).ToList();
             ViewBag.StoreList = storeList;
 
             //--Admin coolie 登入紀錄---

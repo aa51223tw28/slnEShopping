@@ -2,98 +2,102 @@
 
 @{
     ViewBag.Title = "CSBReplay";
-    Layout = "~/Views/Shared/_LayoutAdminlogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
 
-<h2>信件資訊</h2>
-
-<div class="container">
-    <div class="border border-2 border-primary rounded rounded-2 px-2 py-2 bg-primary">
-        <h5 class="border border-1 text-white">信件編號:@Html.DisplayFor(model => model.Support.SupportNumber)</h5>
-        <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
-            <h5 class="border border-1">信件標題:@Html.DisplayFor(model => model.Support.SupportTitle)</h5>
-            <h5 class="border border-1">發信時間:@Html.DisplayFor(model => model.Support.ReceivedTime)</h5>
-        </div>
-        <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
-            <div>
-                <textarea class="border border-1" style="width:100%;height:300px"> @Html.DisplayFor(model => model.Support.SupportText)</textarea>
+<div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
+    <h2>信件資訊</h2>
+    <div class="container">
+        <div class="border border-2 border-primary rounded rounded-2 px-2 py-2 bg-primary">
+            <h5 class="border border-1 text-white">信件編號:@Html.DisplayFor(model => model.Support.SupportNumber)</h5>
+            <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
+                <h5 class="border border-1">信件標題:@Html.DisplayFor(model => model.Support.SupportTitle)</h5>
+                <h5 class="border border-1">發信時間:@Html.DisplayFor(model => model.Support.ReceivedTime)</h5>
             </div>
-            <div class="my-2">
-                @if (@Model.Support.ImageLink != null)
-                {
-                    <img src="~/img/@Model.Support.ImageLink" style="width:200px" />
-                }
-            </div>
-        </div>
-    </div>
-    @if (@Model.SupportReplies.Count > 0)
-    {
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-11">
-                <div class="border border-2 border-info rounded rounded-2 px-2 py-2 my-2 bg-info">
-                    <h5>回覆內容：</h5>
-                    @foreach (var item in Model.SupportReplies)
+            <div class="border border-2 border-primary rounded rounded-2 my-2 px-2 py-2 bg-white">
+                <div>
+                    <textarea class="border border-1" style="width:100%;height:300px" readonly> @Html.DisplayFor(model => model.Support.SupportText)</textarea>
+                </div>
+                <div class="my-2">
+                    @if (@Model.Support.ImageLink != null)
                     {
-                        <div class="border border-2 border-info rounded rounded-2 my-2 px-2 py-2 bg-white">
-                            @if (ViewBag.SellerId == @item.SellerId)
-                            {
-                                <h5 class="border border-1 bg-primary text-white">我的回覆</h5>
-                            }
-                            else
-                            {
-                                <h5 class="border border-1 bg-info text-white">客服端的回覆</h5>
-                            }
-                            <h5 class="border border-1">回覆時間:@Html.DisplayFor(modelItem => item.ReplayTime)</h5>
-                            <textarea class="border border-1" style="width:100%;height:200px">@Html.DisplayFor(modelItem => item.ReplayText)</textarea>
-
-                            @if (@item.ImageLink != null)
-                            {
-                                <img src="~/img/@item.ImageLink" style="width:200px" />
-                            }
-                        </div>
+                        <img src="~/img/@Model.Support.ImageLink" style="width:200px" />
                     }
                 </div>
             </div>
         </div>
-    }
-    <div class="border border-2 border-secondary rounded rounded-2 px-2 py-2 bg-secondary">
-        <form method="post" enctype="multipart/form-data">
-            <div class="border border-2 border-primary rounded rounded-2 px-2 py-2">
-                <input type="text" id="SupportId" name="SupportId" class="form-control" value="@Model.Support.SupportId" hidden />
-                <input type="text" id="SellerId" name="SellerId" class="form-control" value="@ViewBag.SellerId" hidden />
-                <input type="text" id="ReplayTime" name="ReplayTime" class="form-control" value="@DateTime.Now" hidden />
-                <textarea id="ReplayText" name="ReplayText" class="form-control" style="height:300px"></textarea>
-                <input class="form-control" type="file" id="ImageFile" name="ImageFile">
-                <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
+        @if (@Model.SupportReplies.Count > 0)
+        {
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-11">
+                    <div class="border border-2 border-info rounded rounded-2 px-2 py-2 my-2 bg-info">
+                        <h5>回覆內容：</h5>
+                        @foreach (var item in Model.SupportReplies)
+                        {
+                            <div class="border border-2 border-info rounded rounded-2 my-2 px-2 py-2 bg-white">
+                                @if (ViewBag.SellerId == @item.SellerId)
+                                {
+                                    <h5 class="border border-1 bg-primary text-white">我的回覆</h5>
+                                }
+                                else
+                                {
+                                    <h5 class="border border-1 bg-info text-white">客服端的回覆</h5>
+                                }
+                                <h5 class="border border-1">回覆時間:@Html.DisplayFor(modelItem => item.ReplayTime)</h5>
+                                <textarea class="border border-1" style="width:100%;height:200px">@Html.DisplayFor(modelItem => item.ReplayText)</textarea>
 
+                                @if (@item.ImageLink != null)
+                                {
+                                    <img src="~/img/@item.ImageLink" style="width:200px" />
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
-            <input type="submit" value="回覆" class="btn btn-primary my-2" />
-            @Html.ActionLink("取消", "CSBList", null, new { @class = "btn btn-info my-2" })
-        </form>
+        }
+        <div class="border border-2 border-secondary rounded rounded-2 px-2 py-2 bg-secondary">
+            <form method="post" enctype="multipart/form-data">
+                <div class="border border-2 border-primary rounded rounded-2 px-2 py-2">
+                    <input type="text" id="SupportId" name="SupportId" class="form-control" value="@Model.Support.SupportId" hidden />
+                    <input type="text" id="SellerId" name="SellerId" class="form-control" value="@ViewBag.SellerId" hidden />
+                    <input type="text" id="ReplayTime" name="ReplayTime" class="form-control" value="@DateTime.Now" hidden />
+                    <textarea id="ReplayText" name="ReplayText" class="form-control" style="height:300px">
+已通知相關單位處理，造成不便還請見諒!
+Apple
+</textarea>
+                    <input class="form-control" type="file" id="ImageFile" name="ImageFile">
+                    <img id="imagePreview" src="" alt="" style="width:200px;" class="my-3" hidden />
+
+                </div>
+                <input type="submit" value="回覆" class="btn btn-primary my-2" />
+                @Html.ActionLink("取消", "CSBList", null, new { @class = "btn btn-info my-2" })
+            </form>
+        </div>
     </div>
 </div>
-@section Scripts{
-    <script>
-                //看圖片用
-                $(document).ready(function () {
-                    $('#ImageFile').change(function (e) {
-                        var reader = new FileReader();
+    @section Scripts{
+        <script>
+            //看圖片用
+            $(document).ready(function () {
+                $('#ImageFile').change(function (e) {
+                    var reader = new FileReader();
 
-                        reader.onload = function (e) {
-                            // 顯示圖片預覽
-                            $('#imagePreview').attr('src', e.target.result);
-                            $('#imagePreview').removeAttr('hidden');
-                        }
+                    reader.onload = function (e) {
+                        // 顯示圖片預覽
+                        $('#imagePreview').attr('src', e.target.result);
+                        $('#imagePreview').removeAttr('hidden');
+                    }
 
-                        reader.readAsDataURL(this.files[0]);
-                    });
+                    reader.readAsDataURL(this.files[0]);
                 });
-    </script>
-}
+            });
+        </script>
+    }
 
-@section Styles{
-    <style>
-    </style>
-}
+    @section Styles{
+        <style>
+        </style>
+    }
 
