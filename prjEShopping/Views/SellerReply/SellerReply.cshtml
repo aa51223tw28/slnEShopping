@@ -7,8 +7,8 @@
 
     <table class="table">
         <tr>
-            <th>評論ID</th>
-            <th>用戶ID</th>
+            @*<th>評論ID</th>
+            <th>用戶ID</th>*@
             <th>星級評分</th>
             <th>評論內容</th>
             <th>評論時間</th>
@@ -17,8 +17,8 @@
         @foreach (var rating in Model)
         {
             <tr>
-                <td>@rating.RatingId</td>
-                <td>@rating.UserId</td>
+                @*<td>@rating.RatingId</td>
+                <td>@rating.UserId</td>*@
                 <td>@rating.StarRating</td>
                 <td>@rating.RatingText</td>
                 <td>@rating.PostTime</td>
