@@ -78,7 +78,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SupportTitle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" value="客服通知："required />
+                <input type="text" class="form-control" id="SupportTitle" name="SupportTitle" value="客服通知：您的商品審核中"required />
                 @Html.ValidationMessageFor(model => model.SupportTitle, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -91,7 +91,7 @@
 
 我們很感謝您使用易起購的服務。
 
-[主要訊息內容。]
+[您的商品因，圖文不符，目前正在審核中，請確認後回覆信件!]
 
 如果您有任何問題或疑慮，請隨時回覆此郵件或聯繫我們的客服。
 
