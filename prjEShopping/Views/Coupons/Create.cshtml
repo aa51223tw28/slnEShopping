@@ -34,7 +34,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.CouponDetails, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-6">
                     <input type="text" id="CouponDetails" name="CouponDetails" class="form-control" required>
                     @Html.ValidationMessageFor(model => model.CouponDetails, "", new { @class = "text-danger" })
                 </div>
@@ -91,7 +91,7 @@
                     <label>全館:</label>
                     <input type="checkbox" id="StorewideAll" name="Storewide" value="全館" checked />
                     <label>商家:</label>
-                    <select type="text" id="StorewideSeller" name="Storewide">
+                    <select type="text" id="StorewideSeller" name="Storewide" class="form-select">
                         <option value="" disabled selected>請選擇</option>
                         @foreach (var storename in ViewBag.StoreName)
                         {
