@@ -88,19 +88,21 @@
 
         </div>
         <div class="row d-flex col-sm-9 col-xl-9 ">
-            <div>
-                <div class="d-flex flex-column align-items-start  ms-2 ">
-                    <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img1">
-                </div>
-                <div class="d-flex flex-column align-items-start  ms-2 ">
-                    <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img2">
-                </div>
-                <div class="d-flex flex-column align-items-start  ms-2 ">
-                    <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img3">
+            <div class="d-flex flex-row align-items-start  ms-2 ">
+                <div class="d-flex flex-row">
+                    <div class="totalimage mx-2">
+                        <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img1">
+                    </div>
+                    <div class="totalimage mx-2">
+                        <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img2">
+                    </div>
+                    <div class="totalimage mx-2">
+                        <img src="" alt="" class="img-fluid align-items-start row" width="170" id="img3">
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <input type="file" name="photo1" class="btn btn-secondary mt-2" multiple id="imges">
+                <input type="file" name="photo1" class="btn btn-secondary mt-2 col-sm-9 col-xl-9 mx-2" multiple id="imges">
             </div>
         </div>
         <div class="container">
@@ -269,7 +271,7 @@
                             let image = $("<img>").attr("src", e.target.result);
                             image.addClass("img-fluid align-items-start row"); // 添加類別
                             image.attr("width", 170);
-                            $(".d-flex.flex-column.align-items-start.ms-2").eq(i).empty().append(image); // 將圖片附加到對應的容器
+                            $(".totalimage").eq(i).empty().append(image); // 將圖片附加到對應的容器
                         };
                         reader.readAsDataURL(input.files[i]);
                     }
