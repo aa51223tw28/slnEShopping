@@ -46,14 +46,17 @@ namespace prjEShopping.Controllers
                 var sellerDetail = db.Sellers.Where(x=>x.SellerAccount == vm.SellerAccount && x.SellerPassword == vm.SellerPassword).FirstOrDefault();
                 if(sellerDetail == null)
                 {
-                    vm.LoginErrorMessage = "帳號或密碼有誤!!";
-                ViewBag.ShowErrorModal = true;
+
+                TempData["LoginErrorMessage"] = "帳號或密碼有誤！";
+                //vm.LoginErrorMessage = "帳號或密碼有誤!!";
+                //ViewBag.ShowErrorModal = true;
                 return View("Login", vm);
                 }
             else if (sellerDetail.AccessRightId != 1)
             {
-                vm.LoginErrorMessage = "權限不對，無法登入!!";
-                ViewBag.ShowErrorModal = true;
+                TempData["RightErrorMessage"] = "權限不對，無法登入!!";
+               // vm.LoginErrorMessage = "權限不對，無法登入!!";
+                //ViewBag.ShowErrorModal = true;
                 return View("Login", vm);
             }
             else
