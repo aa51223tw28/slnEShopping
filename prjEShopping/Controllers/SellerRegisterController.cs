@@ -42,14 +42,14 @@ namespace prjEShopping.Controllers
             var db = new AppDbContext();
             //檢查是否有相同的UserAccount
             var newAccount = db.Sellers.FirstOrDefault(x => x.SellerAccount == vm.SellerAccount);
-            if (newAccount != null)
-            {
-                TempData["Fail"] = "此帳號已經被註冊！";
-                return View(vm);
-            }
             if (!IsStrongPassword(vm.SellerPassword))
             {
                 TempData["Fail"] = "密碼需至少包含一個英文大寫、一個英文小寫、一個數字、一個符號，且至少8個字元！";
+                return View(vm);
+            }
+            if (newAccount != null)
+            {
+                TempData["Fail"] = "此帳號已經被註冊！";
                 return View(vm);
             }
             if (String.IsNullOrEmpty(vm.GUINumber))
