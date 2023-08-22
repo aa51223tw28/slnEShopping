@@ -35,12 +35,12 @@
         </div>
     </div>
     @*<a href="#" class="link-blue text-decoration-none fw-bold">忘記密碼</a>*@
-    <div class="d-flex justify-content-end gap-2 mb-2">
-        @*<div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>*@
+    @*<div class="d-flex justify-content-end gap-2 mb-2">
+        <div class="btn btn-light border border-3" id="btncorrect">demo正確帳密</div>
         <div class="btn btn-light border border-3" id="btnerror">demo錯誤帳密</div>
         <div class="btn btn-light border border-3" id="btnerrorright">demo權限問題</div>
 
-    </div>
+    </div>*@
     <div class="d-flex justify-content-end gap-2 mb-2">
         <div class="btn btn-light border border-3" id="btnUser1">User1</div>
         @*<div class="btn btn-light border border-3" id="btnUser1new">User1新密碼</div>*@
@@ -92,15 +92,15 @@
         //    UserPassword.value = "1234"
         //})
 
-        btnerror.addEventListener('click', () => {
-            UserAccount.value = "Amyerror@gmail.com"
-            UserPassword.value = "1234error"
-        })
+        //btnerror.addEventListener('click', () => {
+        //    UserAccount.value = "Amyerror@gmail.com"
+        //    UserPassword.value = "1234error"
+        //})
 
-        btnerrorright.addEventListener('click', () => {
-            UserAccount.value = "Tom@hotmail.com"
-            UserPassword.value = "Aa12345$"
-        })
+        //btnerrorright.addEventListener('click', () => {
+        //    UserAccount.value = "Tom@hotmail.com"
+        //    UserPassword.value = "Aa12345$"
+        //})
 
         /*demo測試腳色區*/
         const btnUser1 = document.querySelector('#btnUser1')
