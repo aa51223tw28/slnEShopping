@@ -55,7 +55,7 @@
                                 @{
                                     if (item.ProductStatusName != "審核中")
                                     {
-                                        @Html.ActionLink("修改", "ProductEdit", "SellerProduct", new { id = item.ProductID }, new { Class = "btn btn-secondary " })@:|
+                                        @Html.ActionLink("修改", "ProductEdit", "SellerProduct", new { id = item.ProductID }, new { Class = "btn btn-secondary " })
                                     }
                                 }
                                 @{
@@ -64,22 +64,22 @@
                                         if (item.Promote < 6)
                                         {
                                             @Html.ActionLink("取消推薦", "clearPromote", "SellerProduct", new { id = item.ProductID },
-                                            new { onclick = "return confirm('確定要取消推薦?')", Class = "btn btn-secondary " })@:|
+                                            new { onclick = "return confirm('確定要取消推薦?')", Class = "btn btn-secondary mx-1" })
                                             @Html.ActionLink("下架", "ChangeStatus", "SellerProduct", new { id = item.ProductID },
-                                            new { onclick = "return confirm('確定要下架嗎?')", Class = "btn btn-secondary " })
+                                            new { onclick = "return confirm('確定要下架嗎?')", Class = "btn btn-secondary mx-1" })
                                         }
                                         else
                                         {
                                             @Html.ActionLink("推薦", "setPromote", "SellerProduct", new { id = item.ProductID },
-                                            new { onclick = "return confirm('確定要加入推薦嗎?')", Class = "btn btn-secondary " })@:|
+                                            new { onclick = "return confirm('確定要加入推薦嗎?')", Class = "btn btn-secondary mx-1" })
                                             @Html.ActionLink("下架", "ChangeStatus", "SellerProduct", new { id = item.ProductID },
-                                            new { onclick = "return confirm('確定要下架嗎?')", Class = "btn btn-secondary " })
+                                            new { onclick = "return confirm('確定要下架嗎?')", Class = "btn btn-secondary mx-1" })
                                         }
                                     }
                                     else if (item.ProductStatusName == "下架中")
                                     {
                                         @Html.ActionLink("上架", "ChangeStatus", "SellerProduct", new { id = item.ProductID },
-                                        new { onclick = "return confirm('確定要上架嗎?')", Class = "btn btn-secondary " })
+                                        new { onclick = "return confirm('確定要上架嗎?')", Class = "btn btn-secondary mx-1" })
                                     }
                                     else
                                     {
