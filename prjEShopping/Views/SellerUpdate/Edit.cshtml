@@ -3,6 +3,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutSellerMain.cshtml";
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 <div class="col-8 col-md-9 col-lg-9 col-xl-10 container bg-warning rounded-2 border border-info border-1 ">
 
     <p class="fs-4 mt-3 fw-bold">基本資料修改</p>
@@ -131,7 +133,12 @@
                 </div>
                 @if (TempData["Fail"] != null)
                 {
-                    <div class="alert alert-danger">@TempData["Fail"]</div>
+                    <script>
+        Swal.fire(
+        'Oops...',
+        '@TempData["Fail"]',
+        'error'
+    )</script>
                 }
                 @*<input type="button" class="btn btn-danger" value="重設密碼" onclick="redirectToResetPassword()" />*@
                 <br />
@@ -202,7 +209,7 @@
         setTimeout(function () {
             $("#successMessage").fadeOut("slow");
         }, 5000); // 5秒后隐藏成功消息
-   
+
    });
     </script>
 }
