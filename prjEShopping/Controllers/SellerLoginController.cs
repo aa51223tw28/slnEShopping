@@ -212,12 +212,14 @@ namespace prjEShopping.Controllers
 
             if (seller == null)
             {
-                ModelState.AddModelError("", "帳號不存在或無效。");
+
+                TempData["AccountErrorMessage"] = "帳號不存在或無效！";
+                //ModelState.AddModelError("", "帳號不存在或無效。");
                 return View();
             }
             SendVerificationEmailForgot(seller.SellerAccount);
-
-            ViewBag.Message = "郵件已發送，請檢查您的信箱！";
+            TempData["AccountOkMessage"] = "郵件已發送，請檢查您的信箱！";
+            //ViewBag.Message = "郵件已發送，請檢查您的信箱！";
 
             return View();
         }
