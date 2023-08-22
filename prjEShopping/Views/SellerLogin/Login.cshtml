@@ -3,27 +3,6 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
 }
-@if (TempData["WrongPasswordMessage"] != null)
-{
-    <script>
-        Swal.fire(
-            'Oops...',
-            '@TempData["WrongPasswordMessage"]',
-            'error'
-        );
-    </script>
-}
-
-@if (TempData["WrongRightMessage"] != null)
-{
-    <script>
-        Swal.fire(
-            'Oops...',
-            '@TempData["WrongRightMessage"]',
-            'error'
-        );
-    </script>
-}
 <div class="bg-light" style=" height:600px">
     <div class="container pt-2 col-6">
         <!-- Header -->
@@ -32,7 +11,8 @@
         </div>
         <!-- Body -->
         <div class="modal-body">
-            <form id="loginForm" action="@Url.Action("Login", "SellerLogin")" method="post">
+            @using (Html.BeginForm("Login", "SellerLogin", FormMethod.Post))
+            {
                 <div class="form-group">
                     @Html.EditorFor(model => model.SellerAccount, new { htmlAttributes = new { @class = "form-control mt-3", placeholder = "請輸入帳號", id = "SellerAccount" } })
                 </div>
@@ -43,15 +23,14 @@
                     <input type="checkbox" class="remember">記住我的密碼
                 </div>
                 <br />
-                @*<label class="error">@Html.DisplayFor(model => model.LoginErrorMessage)</label>*@
+                <label class="error">@Html.DisplayFor(model => model.LoginErrorMessage)</label>
                 <div class="d-grid gap-2 mb-3">
                     <input type="submit" value="登入" class="btn btn-secondary mt-3" id="loginButton" />
                     <input type="reset" value="取消" class="btn btn-secondary mt-3" />
                 </div>
                 @*<a target="_blank" href="@ViewBag.response" class="btn btn-danger">Google 登入</a>*@
-            </form>
-            <a href="@Url.Content("~/SellerLogin/SellerPasswordForgot")" class="link-blue text-decoration-none fw-bold" style="float:right">忘記密碼</a>
-
+                <a href="@Url.Content("~/SellerLogin/SellerPasswordForgot")" class="link-blue text-decoration-none fw-bold" style="float:right">忘記密碼</a>
+            }
         </div>
         <!-- Footer -->
         <br />
@@ -117,38 +96,6 @@
             SellerAccount.value = "abamamatw@gmail.com";
             SellerPassword.value = "Aa19970421$";
         });
-
-        //$(document).ready(function () {
-        //    $('#loginForm').submit(function (e) {
-        //        e.preventDefault(); // Prevent form submission
-
-        //        $.ajax({
-        //            url: $(this).attr('action'),
-        //            type: 'POST',
-        //            data: $(this).serialize(),
-        //            success: function (data) {
-        //                if (data.success) {
-        //                    Swal.fire({
-        //                        title: 'Good job!',
-        //                        text: data.message,
-        //                        icon: 'success'
-        //                    }).then(function () {
-        //                        window.location.href = data.redirectUrl;
-        //                    });
-        //                } else {
-        //                    Swal.fire({
-        //                        title: 'Oops...',
-        //                        text: data.message,
-        //                        icon: 'error'
-        //                    });
-        //                }
-        //            },
-        //            error: function () {
-        //                // Handle error if needed
-        //            }
-        //        });
-        //    });
-        //});
     </script>
 
 }
