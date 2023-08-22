@@ -27,6 +27,7 @@ namespace prjEShopping.Controllers
                 // 取得 Rating 資料列表，並只選擇與目前賣家的ProductIds相關的留言
                 var ratings = db.Ratings
                     .Where(rating => productIds.Contains((int)rating.ProductId.Value))
+                    .OrderBy(rating => rating.PostTime)
                     .ToList();
                 // 将 Rating 数据转换为 UserFeedbackVM 类型的列表
                 var feedbacks = ratings.Select(rating => new prjEShopping.Models.ViewModels.UserFeedbackVM

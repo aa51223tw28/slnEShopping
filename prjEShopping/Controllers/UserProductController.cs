@@ -316,7 +316,8 @@ namespace prjEShopping.Controllers
                                        ReplayText = g.ReplayText,
                                        ReplayTime = g.ReplayTime.ToString(),
                                        UserImagePath = u.UserImagePath // Assuming there's a UserImagePath field in Users table
-                                   }).ToList();
+                                   })
+                                   .ToList();
                 return Json(ratingsList, JsonRequestBehavior.AllowGet);
             }
         }
