@@ -46,7 +46,7 @@
                 <input type="text" id="ADImagePath" name="ADImagePath" hidden />
                 <div class="form-control">
                     <lable>商品名稱:</lable>
-                    <select id="ProductId" name="ProductId" required>
+                    <select id="ProductId" name="ProductId" class="form-control" required>
                         <option selected disabled>請選擇</option>
                         @foreach (var product in ViewBag.Products)
                         {
@@ -55,7 +55,7 @@
                     </select><br />
 
                     <lable>@Html.DisplayNameFor(model => model.Discount):</lable>
-                    <select id="Discount" name="Discount" required>
+                    <select id="Discount" name="Discount" class="form-control" required>
                         <option selected disabled>請選擇</option>
                         <option value="30">3折</option>
                         <option value="50">5折</option>
