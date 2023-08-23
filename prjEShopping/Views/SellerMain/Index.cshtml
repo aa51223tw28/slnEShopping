@@ -215,7 +215,7 @@
 
         function LoadTop10Shipments() {
             const xhr = new XMLHttpRequest();
-            xhr.open('GET', '@Url.Content("~/SellerShipment/getTop10Shipments")');
+            xhr.open('GET', '@Url.Content("~/SellerMain/getTop10Shipments")');
             xhr.send();
 
             xhr.addEventListener('load', () => {
