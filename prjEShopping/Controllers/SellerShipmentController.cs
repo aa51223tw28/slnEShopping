@@ -284,8 +284,11 @@ namespace prjEShopping.Controllers
 
         public ActionResult getTop10Shipments() 
         {
+            int? sellerid = (int?)Session["SellerId"];
+            if (!sellerid.HasValue)
+            { return RedirectToAction("Login", "SellerLogin"); }
             var db = new AppDbContext();
-            var top10Shipments = db.Shipments.Where(x => x.SellerId == 1 && x.ShipmentStatusId == 1)
+            var top10Shipments = db.Shipments.Where(x => x.SellerId == sellerid && x.ShipmentStatusId == 1)
                             .Join(db.ShipmentStatusDetails,x => x.ShipmentStatusId,y => y.ShipmentStatusId,(x,y) => new 
                             { 
                                 shipmentdate = x.ShipmentDate,
