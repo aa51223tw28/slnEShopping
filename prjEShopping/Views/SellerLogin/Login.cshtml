@@ -3,6 +3,28 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutUserLogin.cshtml";
 }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+@if (TempData["LoginErrorMessage"] != null)
+{
+    <script>
+        Swal.fire(
+ 'Oops...',
+ '@TempData["LoginErrorMessage"]',
+ 'error'
+        );
+    </script>
+}
+@if (TempData["RightErrorMessage"] != null)
+{
+    <script>
+        Swal.fire(
+ 'Oops...',
+ '@TempData["RightErrorMessage"]',
+ 'error'
+        );
+    </script>
+}
 <div class="bg-light" style=" height:600px">
     <div class="container pt-2 col-6">
         <!-- Header -->

@@ -46,14 +46,17 @@ namespace prjEShopping.Controllers
                 var sellerDetail = db.Sellers.Where(x=>x.SellerAccount == vm.SellerAccount && x.SellerPassword == vm.SellerPassword).FirstOrDefault();
                 if(sellerDetail == null)
                 {
-                    vm.LoginErrorMessage = "帳號或密碼有誤!!";
-                ViewBag.ShowErrorModal = true;
+
+                TempData["LoginErrorMessage"] = "帳號或密碼有誤！";
+                //vm.LoginErrorMessage = "帳號或密碼有誤!!";
+                //ViewBag.ShowErrorModal = true;
                 return View("Login", vm);
                 }
             else if (sellerDetail.AccessRightId != 1)
             {
-                vm.LoginErrorMessage = "權限不對，無法登入!!";
-                ViewBag.ShowErrorModal = true;
+                TempData["RightErrorMessage"] = "權限不對，無法登入!!";
+               // vm.LoginErrorMessage = "權限不對，無法登入!!";
+                //ViewBag.ShowErrorModal = true;
                 return View("Login", vm);
             }
             else
@@ -209,12 +212,14 @@ namespace prjEShopping.Controllers
 
             if (seller == null)
             {
-                ModelState.AddModelError("", "帳號不存在或無效。");
+
+                TempData["AccountErrorMessage"] = "帳號不存在或無效！";
+                //ModelState.AddModelError("", "帳號不存在或無效。");
                 return View();
             }
             SendVerificationEmailForgot(seller.SellerAccount);
-
-            ViewBag.Message = "郵件已發送，請檢查您的信箱！";
+            TempData["AccountOkMessage"] = "郵件已發送，請檢查您的信箱！";
+            //ViewBag.Message = "郵件已發送，請檢查您的信箱！";
 
             return View();
         }
